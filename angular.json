@@ -3,7 +3,7 @@
     "version": 1,
     "newProjectRoot": "projects",
     "projects": {
-        "fuse": {
+        "ses": {
             "root": "",
             "sourceRoot": "src",
             "projectType": "application",
@@ -74,25 +74,25 @@
                 "serve": {
                     "builder": "@angular-devkit/build-angular:dev-server",
                     "options": {
-                        "browserTarget": "fuse:build"
+                        "browserTarget": "ses:build"
                     },
                     "configurations": {
                         "production": {
-                            "browserTarget": "fuse:build:production"
+                            "browserTarget": "ses:build:production"
                         },
                         "hmr": {
                             "hmr": true,
-                            "browserTarget": "fuse:build:hmr"
+                            "browserTarget": "ses:build:hmr"
                         },
                         "ec": {
-                            "browserTarget": "fuse:build:ec"
+                            "browserTarget": "ses:build:ec"
                         }
                     }
                 },
                 "extract-i18n": {
                     "builder": "@angular-devkit/build-angular:extract-i18n",
                     "options": {
-                        "browserTarget": "fuse:build"
+                        "browserTarget": "ses:build"
                     }
                 },
                 "test": {
@@ -126,7 +126,7 @@
                 }
             }
         },
-        "fuse-e2e": {
+        "ses-e2e": {
             "root": "e2e/",
             "projectType": "application",
             "prefix": "",
@@ -135,11 +135,11 @@
                     "builder": "@angular-devkit/build-angular:protractor",
                     "options": {
                         "protractorConfig": "e2e/protractor.conf.js",
-                        "devServerTarget": "fuse:serve"
+                        "devServerTarget": "ses:serve"
                     },
                     "configurations": {
                         "production": {
-                            "devServerTarget": "fuse:serve:production"
+                            "devServerTarget": "ses:serve:production"
                         }
                     }
                 },
@@ -155,5 +155,5 @@
             }
         }
     },
-    "defaultProject": "fuse"
+    "defaultProject": "ses"
 }
