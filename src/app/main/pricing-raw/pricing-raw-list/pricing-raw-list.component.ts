@@ -11,9 +11,9 @@ import { locale as turkish } from '../i18n/tr';
 export class PricingRawListComponent implements OnInit {
 
   constructor(
-    private _fuseTranslationLoaderService: FuseTranslationLoaderService
+    // private _fuseTranslationLoaderService: FuseTranslationLoaderService
   ) { 
-    this._fuseTranslationLoaderService.loadTranslations(english, turkish);
+    // this._fuseTranslationLoaderService.loadTranslations(english, turkish);
   }
 
   ngOnInit() {
