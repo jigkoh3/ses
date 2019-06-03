@@ -4,6 +4,7 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { FuseSharedModule } from '@fuse/shared.module';
 
+import { MatTableModule, MatPaginatorModule, MatSortModule } from '@angular/material'  
 import { PricingRawComponent } from './pricing-raw.component';
 
 const routes = [
@@ -22,7 +23,11 @@ const routes = [
 
         TranslateModule,
 
-        FuseSharedModule
+        FuseSharedModule,
+
+        MatTableModule,
+        MatPaginatorModule,
+        MatSortModule
   ],
   exports: [
     PricingRawComponent
