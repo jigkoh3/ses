@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PricingRawComponent } from './pricing-raw.component';
+import { PricingRawDetailComponent } from './pricing-raw-detail.component';
 
-describe('PricingRawComponent', () => {
-  let component: PricingRawComponent;
-  let fixture: ComponentFixture<PricingRawComponent>;
+describe('PricingRawDetailComponent', () => {
+  let component: PricingRawDetailComponent;
+  let fixture: ComponentFixture<PricingRawDetailComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PricingRawComponent ]
+      declarations: [ PricingRawDetailComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PricingRawComponent);
+    fixture = TestBed.createComponent(PricingRawDetailComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -5,18 +5,20 @@ import { TranslateModule } from '@ngx-translate/core';
 import { FuseSharedModule } from '@fuse/shared.module';
 
 import { MatTableModule, MatPaginatorModule, MatSortModule } from '@angular/material'  
-import { PricingRawComponent } from './pricing-raw.component';
+import { PricingRawListComponent } from './pricing-raw-list/pricing-raw-list.component';
+import { PricingRawDetailComponent } from './pricing-raw-detail/pricing-raw-detail.component';
 
 const routes = [
   {
       path     : 'pricing-raw',
-      component: PricingRawComponent
+      component: PricingRawListComponent
   }
 ];
 
 @NgModule({
   declarations: [
-    PricingRawComponent
+    PricingRawListComponent,
+    PricingRawDetailComponent
   ],
   imports: [
     RouterModule.forChild(routes),
@@ -30,7 +32,8 @@ const routes = [
         MatSortModule
   ],
   exports: [
-    PricingRawComponent
+    PricingRawListComponent,
+    PricingRawDetailComponent
   ]
 })
 export class PricingRawModule { }
