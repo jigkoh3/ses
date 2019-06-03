@@ -20,6 +20,20 @@ export const navigation: FuseNavigation[] = [
                     bg       : '#F44336',
                     fg       : '#FFFFFF'
                 }
+            },
+            {
+                id       : 'pricing-raw',
+                title    : 'Pricing Raw',
+                translate: 'NAV.PRCR.TITLE',
+                type     : 'item',
+                icon     : 'email',
+                url      : '/pricing-raw',
+                badge    : {
+                    title    : '25',
+                    translate: 'NAV.PRCR.BADGE',
+                    bg       : '#F44336',
+                    fg       : '#FFFFFF'
+                }
             }
         ]
     }

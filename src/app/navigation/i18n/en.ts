@@ -6,6 +6,10 @@ export const locale = {
             'SAMPLE'        : {
                 'TITLE': 'Sample',
                 'BADGE': '25'
+            },
+            'PRCR' :{
+                'TITLE': 'Pricing Raw',
+                'BADGE': '13'
             }
         }
     }
