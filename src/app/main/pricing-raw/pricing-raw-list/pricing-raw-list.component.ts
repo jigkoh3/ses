@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FuseTranslationLoaderService } from '@fuse/services/translation-loader.service';
 
@@ -11,12 +12,15 @@ import { locale as turkish } from '../i18n/tr';
 export class PricingRawListComponent implements OnInit {
 
   constructor(
+    public route: Router
     // private _fuseTranslationLoaderService: FuseTranslationLoaderService
-  ) { 
+  ) {
     // this._fuseTranslationLoaderService.loadTranslations(english, turkish);
   }
 
   ngOnInit() {
   }
-
+  go() {
+    this.route.navigate(['/pricing-Detail'])
+  }
 }

@@ -4,14 +4,18 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { FuseSharedModule } from '@fuse/shared.module';
 
-import { MatTableModule, MatPaginatorModule, MatSortModule } from '@angular/material'  
+import { MatTableModule, MatPaginatorModule, MatSortModule } from '@angular/material'
 import { PricingRawListComponent } from './pricing-raw-list/pricing-raw-list.component';
 import { PricingRawDetailComponent } from './pricing-raw-detail/pricing-raw-detail.component';
 
 const routes = [
   {
-      path     : 'pricing-raw',
-      component: PricingRawListComponent
+    path: 'pricing-raw',
+    component: PricingRawListComponent
+  },
+  {
+    path: 'pricing-Detail',
+    component: PricingRawDetailComponent
   }
 ];
 
@@ -23,13 +27,13 @@ const routes = [
   imports: [
     RouterModule.forChild(routes),
 
-        TranslateModule,
+    TranslateModule,
 
-        FuseSharedModule,
+    FuseSharedModule,
 
-        MatTableModule,
-        MatPaginatorModule,
-        MatSortModule
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule
   ],
   exports: [
     PricingRawListComponent,
