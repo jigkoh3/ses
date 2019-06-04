@@ -3,7 +3,7 @@ import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { FuseSharedModule } from '@fuse/shared.module';
-
+import {MatGridListModule} from '@angular/material/grid-list';
 import { MatTableModule, MatPaginatorModule, MatSortModule } from '@angular/material'
 import { PricingRawListComponent } from './pricing-raw-list/pricing-raw-list.component';
 import { PricingRawDetailComponent } from './pricing-raw-detail/pricing-raw-detail.component';
@@ -30,7 +30,7 @@ const routes = [
     TranslateModule,
 
     FuseSharedModule,
-
+    MatGridListModule,
     MatTableModule,
     MatPaginatorModule,
     MatSortModule
