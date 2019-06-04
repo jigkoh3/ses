@@ -1,5 +1,25 @@
 <div class="page-layout carded fullwidth" fusePerfectScrollbar>
-
-    <button mat-button color="primary" (click)="onDetail()">Accent</button>
-
+    <button mat-raised-button color="primary" (click)="onDetail()">Accent</button>
+    <mat-grid-list [cols]="6" rowHeight="4rem">
+        <mat-grid-tile>
+            <mat-card>
+                <div class="example-container">
+                    <mat-form-field>
+                        <input matInput placeholder="Input">
+                    </mat-form-field>
+                    <mat-form-field>
+                        <textarea matInput placeholder="Textarea"></textarea>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-select placeholder="Select">
+                            <mat-option value="option">Option</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </mat-card>
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <h2>1</h2>
+        </mat-grid-tile>
+    </mat-grid-list>
 </div>
