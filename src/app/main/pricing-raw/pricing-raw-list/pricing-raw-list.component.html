@@ -1,5 +1,295 @@
 <div class="page-layout carded fullwidth" fusePerfectScrollbar>
+    <!-- <button mat-raised-button color="primary" (click)="onDetail()">Accent</button> -->
+    <mat-grid-list [cols]="6" rowHeight="5:1">
+        <mat-grid-tile [colspan]="6">
+            <div class="left">
+                <h2 class="m-0">Pricing White</h2>
+            </div>
+        </mat-grid-tile>
+    </mat-grid-list>
 
-    <button mat-button color="primary" (click)="onDetail()">Accent</button>
+    <mat-grid-list [cols]="6" rowHeight="5:1">
+        <mat-grid-tile [colspan]="1">
+            <h3 class="m-0">Buyer</h3>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="1">
+            <mat-form-field style="width: 100%;">
+                <mat-label>Favorite food</mat-label>
+                <mat-select>
+                    <mat-option *ngFor="let food of foods" [value]="food.value">
+                        {{food.viewValue}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="1">
+            <h3 class="m-0">Group Factory</h3>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="1">
+            <mat-form-field style="width: 100%;">
+                <mat-label>Favorite food</mat-label>
+                <mat-select>
+                    <mat-option *ngFor="let food of foods" [value]="food.value">
+                        {{food.viewValue}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </mat-grid-tile>
+    </mat-grid-list>
 
+    <mat-grid-list [cols]="6" rowHeight="5:1">
+        <mat-grid-tile [colspan]="1">
+            <h3 class="m-0">Buyer Contrace No.</h3>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="1">
+            <mat-form-field style="width: 100%;">
+                <mat-label>Favorite food</mat-label>
+                <mat-select>
+                    <mat-option *ngFor="let food of foods" [value]="food.value">
+                        {{food.viewValue}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="1">
+            <h3 class="m-0">Contract No.</h3>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="1">
+            <mat-form-field style="width: 100%;">
+                <mat-label>Favorite food</mat-label>
+                <mat-select>
+                    <mat-option *ngFor="let food of foods" [value]="food.value">
+                        {{food.viewValue}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="1">
+            <button mat-flat-button class="accent">Search</button>
+        </mat-grid-tile>
+    </mat-grid-list>
+
+    <mat-grid-list [cols]="6" rowHeight="5:1">
+        <mat-grid-tile [colspan]="1">
+            <button mat-flat-button class="accent">Add</button>
+        </mat-grid-tile>
+    </mat-grid-list>
+
+    <!-- <mat-grid-list [cols]="6" rowHeight="350px">
+        <mat-grid-tile [colspan]="6">
+            <div class="example-container mat-elevation-z8">
+                <table mat-table [dataSource]="transactions" style="width: 100%">
+
+                    <ng-container matColumnDef="Buyer">
+                        <th mat-header-cell *matHeaderCellDef> Buyer </th>
+                        <td mat-cell *matCellDef="let transaction"> {{transaction.item}} </td>
+                        <td mat-footer-cell *matFooterCellDef> Total </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Group-Factory">
+                        <th mat-header-cell *matHeaderCellDef> Group Factory </th>
+                        <td mat-cell *matCellDef="let transaction"> 1 </td>
+                        <td mat-footer-cell *matFooterCellDef> $ </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Contract-No">
+                        <th mat-header-cell *matHeaderCellDef> *Contract No. </th>
+                        <td mat-cell *matCellDef="let transaction"> 1 </td>
+                        <td mat-footer-cell *matFooterCellDef> $ </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Buyer-Contract-No">
+                        <th mat-header-cell *matHeaderCellDef> Buyer Contract No. </th>
+                        <td mat-cell *matCellDef="let transaction"> 1 </td>
+                        <td mat-footer-cell *matFooterCellDef> $ </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Contract-Date">
+                        <th mat-header-cell *matHeaderCellDef> Contract Date </th>
+                        <td mat-cell *matCellDef="let transaction"> 1 </td>
+                        <td mat-footer-cell *matFooterCellDef> $ </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Contract-Date2">
+                            <th mat-header-cell *matHeaderCellDef> Contract Date(USA/UK Date) </th>
+                            <td mat-cell *matCellDef="let transaction"> 1 </td>
+                            <td mat-footer-cell *matFooterCellDef> $ </td>
+                        </ng-container>
+
+                    <ng-container matColumnDef="Quantity">
+                        <th mat-header-cell *matHeaderCellDef> Quantity </th>
+                        <td mat-cell *matCellDef="let transaction"> 1 </td>
+                        <td mat-footer-cell *matFooterCellDef> $ </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Shipment-Period">
+                        <th mat-header-cell *matHeaderCellDef> Shipment Period </th>
+                        <td mat-cell *matCellDef="let transaction"> 1 </td>
+                        <td mat-footer-cell *matFooterCellDef> $ </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Total-Price">
+                        <th mat-header-cell *matHeaderCellDef> Total Price </th>
+                        <td mat-cell *matCellDef="let transaction"> 1 </td>
+                        <td mat-footer-cell *matFooterCellDef> $ </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Priced">
+                        <th mat-header-cell *matHeaderCellDef> Priced </th>
+                        <td mat-cell *matCellDef="let transaction"> 1 </td>
+                        <td mat-footer-cell *matFooterCellDef> $ </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Unpriced">
+                        <th mat-header-cell *matHeaderCellDef> Unpriced </th>
+                        <td mat-cell *matCellDef="let transaction"> 1 </td>
+                        <td mat-footer-cell *matFooterCellDef> $ </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Final-Price">
+                        <th mat-header-cell *matHeaderCellDef> Final Price(USD/MT) </th>
+                        <td mat-cell *matCellDef="let transaction"> 1 </td>
+                        <td mat-footer-cell *matFooterCellDef> $ </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Final-Price2">
+                            <th mat-header-cell *matHeaderCellDef> Final Price(C/LB) </th>
+                            <td mat-cell *matCellDef="let transaction"> 1 </td>
+                            <td mat-footer-cell *matFooterCellDef> $ </td>
+                        </ng-container>
+
+                    <ng-container matColumnDef="Last-Pricing-Date">
+                        <th mat-header-cell *matHeaderCellDef> Last Pricing Date </th>
+                        <td mat-cell *matCellDef="let transaction"> 1 </td>
+                        <td mat-footer-cell *matFooterCellDef> $ </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Against">
+                        <th mat-header-cell *matHeaderCellDef> Against </th>
+                        <td mat-cell *matCellDef="let transaction"> 1 </td>
+                        <td mat-footer-cell *matFooterCellDef> $ </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Manage">
+                        <th mat-header-cell *matHeaderCellDef> Manage </th>
+                        <td mat-cell *matCellDef="let transaction"> 1 </td>
+                        <td mat-footer-cell *matFooterCellDef> $ </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky: true"></tr>
+                    <tr mat-row *matRowDef=" let row; columns: displayedColumns;"></tr>
+                    <tr mat-footer-row *matFooterRowDef="displayedColumns; sticky: true"></tr>
+                </table>
+            </div>
+        </mat-grid-tile>
+    </mat-grid-list> -->
+
+    <mat-grid-list [cols]="6" rowHeight="350px">
+        <mat-grid-tile [colspan]="6">
+            <div class="example-container mat-elevation-z8" style="padding-top: 24px">
+                <table mat-table [dataSource]="transactions">
+
+                    <ng-container matColumnDef="Buyer">
+                        <th mat-header-cell *matHeaderCellDef> Buyer </th>
+                        <td mat-cell *matCellDef="let transaction"> {{transaction.item}} </td>
+                        <td mat-footer-cell *matFooterCellDef> Total </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Group-Factory">
+                        <th mat-header-cell *matHeaderCellDef> Group Factory </th>
+                        <td mat-cell *matCellDef="let transaction"> 1 </td>
+                        <td mat-footer-cell *matFooterCellDef> $ </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Contract-No">
+                        <th mat-header-cell *matHeaderCellDef> *Contract No. </th>
+                        <td mat-cell *matCellDef="let transaction"> 1 </td>
+                        <td mat-footer-cell *matFooterCellDef> $ </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Buyer-Contract-No">
+                        <th mat-header-cell *matHeaderCellDef> Buyer Contract No. </th>
+                        <td mat-cell *matCellDef="let transaction"> 1 </td>
+                        <td mat-footer-cell *matFooterCellDef> $ </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Contract-Date">
+                        <th mat-header-cell *matHeaderCellDef> Contract Date </th>
+                        <td mat-cell *matCellDef="let transaction"> 1 </td>
+                        <td mat-footer-cell *matFooterCellDef> $ </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Contract-Date2">
+                        <th mat-header-cell *matHeaderCellDef> Contract Date(USA/UK Date) </th>
+                        <td mat-cell *matCellDef="let transaction"> 1 </td>
+                        <td mat-footer-cell *matFooterCellDef> $ </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Quantity">
+                        <th mat-header-cell *matHeaderCellDef> Quantity </th>
+                        <td mat-cell *matCellDef="let transaction"> 1 </td>
+                        <td mat-footer-cell *matFooterCellDef> $ </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Shipment-Period">
+                        <th mat-header-cell *matHeaderCellDef> Shipment Period </th>
+                        <td mat-cell *matCellDef="let transaction"> 1 </td>
+                        <td mat-footer-cell *matFooterCellDef> $ </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Total-Price">
+                        <th mat-header-cell *matHeaderCellDef> Total Price </th>
+                        <td mat-cell *matCellDef="let transaction"> 1 </td>
+                        <td mat-footer-cell *matFooterCellDef> $ </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Priced">
+                        <th mat-header-cell *matHeaderCellDef> Priced </th>
+                        <td mat-cell *matCellDef="let transaction"> 1 </td>
+                        <td mat-footer-cell *matFooterCellDef> $ </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Unpriced">
+                        <th mat-header-cell *matHeaderCellDef> Unpriced </th>
+                        <td mat-cell *matCellDef="let transaction"> 1 </td>
+                        <td mat-footer-cell *matFooterCellDef> $ </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Final-Price">
+                        <th mat-header-cell *matHeaderCellDef> Final Price(USD/MT) </th>
+                        <td mat-cell *matCellDef="let transaction"> 1 </td>
+                        <td mat-footer-cell *matFooterCellDef> $ </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Final-Price2">
+                        <th mat-header-cell *matHeaderCellDef> Final Price(C/LB) </th>
+                        <td mat-cell *matCellDef="let transaction"> 1 </td>
+                        <td mat-footer-cell *matFooterCellDef> $ </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Last-Pricing-Date">
+                        <th mat-header-cell *matHeaderCellDef> Last Pricing Date </th>
+                        <td mat-cell *matCellDef="let transaction"> 1 </td>
+                        <td mat-footer-cell *matFooterCellDef> $ </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Against">
+                        <th mat-header-cell *matHeaderCellDef> Against </th>
+                        <td mat-cell *matCellDef="let transaction"> 1 </td>
+                        <td mat-footer-cell *matFooterCellDef> $ </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Manage">
+                        <th mat-header-cell *matHeaderCellDef> Manage </th>
+                        <td mat-cell *matCellDef="let transaction"> 1 </td>
+                        <td mat-footer-cell *matFooterCellDef> $ </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky: true"></tr>
+                    <tr mat-row *matRowDef=" let row; columns: displayedColumns;"></tr>
+                    <tr mat-footer-row *matFooterRowDef="displayedColumns; sticky: true"></tr>
+                </table>
+            </div>
+        </mat-grid-tile>
+    </mat-grid-list>
 </div>

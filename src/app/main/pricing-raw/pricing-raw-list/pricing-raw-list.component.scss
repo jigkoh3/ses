@@ -1,0 +1,228 @@
+.left{
+    position: absolute;
+    left: 5px;
+}
+
+.example-container {
+    height: 400px;
+    width: 550px;
+    overflow: auto;
+  }
+
+  table {
+    width: 100%;
+  }
+ 
+  td{
+    min-width: 150px !important;
+  }
+
+//   .mat-column-Group-Factory {
+//     word-wrap: break-word !important;
+//     white-space: unset !important;
+//     flex: 0 0 28% !important;
+//     width: 28% !important;
+//     overflow-wrap: break-word;
+//     word-wrap: break-word;
+//     word-break: break-word;
+//     -ms-hyphens: auto;
+//     -moz-hyphens: auto;
+//     -webkit-hyphens: auto;
+//     hyphens: auto;
+//   }
+
+//   .mat-column-Contract-No {
+//     word-wrap: break-word !important;
+//     white-space: unset !important;
+//     flex: 0 0 28% !important;
+//     width: 28% !important;
+//     overflow-wrap: break-word;
+//     word-wrap: break-word;
+//     word-break: break-word;
+//     -ms-hyphens: auto;
+//     -moz-hyphens: auto;
+//     -webkit-hyphens: auto;
+//     hyphens: auto;
+//   }
+
+//   .mat-column-Buyer-Contract-No {
+//     word-wrap: break-word !important;
+//     white-space: unset !important;
+//     flex: 0 0 28% !important;
+//     width: 28% !important;
+//     overflow-wrap: break-word;
+//     word-wrap: break-word;
+//     word-break: break-word;
+//     -ms-hyphens: auto;
+//     -moz-hyphens: auto;
+//     -webkit-hyphens: auto;
+//     hyphens: auto;
+//   }
+
+//   .mat-column-Contract-Date {
+//     word-wrap: break-word !important;
+//     white-space: unset !important;
+//     flex: 0 0 28% !important;
+//     width: 28% !important;
+//     overflow-wrap: break-word;
+//     word-wrap: break-word;
+//     word-break: break-word;
+//     -ms-hyphens: auto;
+//     -moz-hyphens: auto;
+//     -webkit-hyphens: auto;
+//     hyphens: auto;
+//   }
+
+//   .mat-column-Contract-Date2 {
+//     word-wrap: break-word !important;
+//     white-space: unset !important;
+//     flex: 0 0 28% !important;
+//     width: 28% !important;
+//     overflow-wrap: break-word;
+//     word-wrap: break-word;
+//     word-break: break-word;
+//     -ms-hyphens: auto;
+//     -moz-hyphens: auto;
+//     -webkit-hyphens: auto;
+//     hyphens: auto;
+//   }
+
+//   .mat-column-Quantity {
+//     word-wrap: break-word !important;
+//     white-space: unset !important;
+//     flex: 0 0 28% !important;
+//     width: 28% !important;
+//     overflow-wrap: break-word;
+//     word-wrap: break-word;
+//     word-break: break-word;
+//     -ms-hyphens: auto;
+//     -moz-hyphens: auto;
+//     -webkit-hyphens: auto;
+//     hyphens: auto;
+//   }
+
+//   .mat-column-Shipment-Period {
+//     word-wrap: break-word !important;
+//     white-space: unset !important;
+//     flex: 0 0 28% !important;
+//     width: 28% !important;
+//     overflow-wrap: break-word;
+//     word-wrap: break-word;
+//     word-break: break-word;
+//     -ms-hyphens: auto;
+//     -moz-hyphens: auto;
+//     -webkit-hyphens: auto;
+//     hyphens: auto;
+//   }
+
+//   .mat-column-Total-Price {
+//     word-wrap: break-word !important;
+//     white-space: unset !important;
+//     flex: 0 0 28% !important;
+//     width: 28% !important;
+//     overflow-wrap: break-word;
+//     word-wrap: break-word;
+//     word-break: break-word;
+//     -ms-hyphens: auto;
+//     -moz-hyphens: auto;
+//     -webkit-hyphens: auto;
+//     hyphens: auto;
+//   }
+
+//   .mat-column-Priced {
+//     word-wrap: break-word !important;
+//     white-space: unset !important;
+//     flex: 0 0 28% !important;
+//     width: 28% !important;
+//     overflow-wrap: break-word;
+//     word-wrap: break-word;
+//     word-break: break-word;
+//     -ms-hyphens: auto;
+//     -moz-hyphens: auto;
+//     -webkit-hyphens: auto;
+//     hyphens: auto;
+//   }
+
+//   .mat-column-Unpriced {
+//     word-wrap: break-word !important;
+//     white-space: unset !important;
+//     flex: 0 0 28% !important;
+//     width: 28% !important;
+//     overflow-wrap: break-word;
+//     word-wrap: break-word;
+//     word-break: break-word;
+//     -ms-hyphens: auto;
+//     -moz-hyphens: auto;
+//     -webkit-hyphens: auto;
+//     hyphens: auto;
+//   }
+
+//   .mat-column-Final-Price {
+//     word-wrap: break-word !important;
+//     white-space: unset !important;
+//     flex: 0 0 28% !important;
+//     width: 28% !important;
+//     overflow-wrap: break-word;
+//     word-wrap: break-word;
+//     word-break: break-word;
+//     -ms-hyphens: auto;
+//     -moz-hyphens: auto;
+//     -webkit-hyphens: auto;
+//     hyphens: auto;
+//   }
+
+//   .mat-column-Final-Price2 {
+//     word-wrap: break-word !important;
+//     white-space: unset !important;
+//     flex: 0 0 28% !important;
+//     width: 28% !important;
+//     overflow-wrap: break-word;
+//     word-wrap: break-word;
+//     word-break: break-word;
+//     -ms-hyphens: auto;
+//     -moz-hyphens: auto;
+//     -webkit-hyphens: auto;
+//     hyphens: auto;
+//   }
+
+//   .mat-column-Last-Pricing-Date {
+//     word-wrap: break-word !important;
+//     white-space: unset !important;
+//     flex: 0 0 28% !important;
+//     width: 28% !important;
+//     overflow-wrap: break-word;
+//     word-wrap: break-word;
+//     word-break: break-word;
+//     -ms-hyphens: auto;
+//     -moz-hyphens: auto;
+//     -webkit-hyphens: auto;
+//     hyphens: auto;
+//   }
+
+//   .mat-column-Against {
+//     word-wrap: break-word !important;
+//     white-space: unset !important;
+//     flex: 0 0 28% !important;
+//     width: 28% !important;
+//     overflow-wrap: break-word;
+//     word-wrap: break-word;
+//     word-break: break-word;
+//     -ms-hyphens: auto;
+//     -moz-hyphens: auto;
+//     -webkit-hyphens: auto;
+//     hyphens: auto;
+//   }
+
+//   .mat-column-Manage {
+//     word-wrap: break-word !important;
+//     white-space: unset !important;
+//     flex: 0 0 28% !important;
+//     width: 28% !important;
+//     overflow-wrap: break-word;
+//     word-wrap: break-word;
+//     word-break: break-word;
+//     -ms-hyphens: auto;
+//     -moz-hyphens: auto;
+//     -webkit-hyphens: auto;
+//     hyphens: auto;
+//   }
