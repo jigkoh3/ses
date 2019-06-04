@@ -18,6 +18,7 @@ import { AppComponent } from 'app/app.component';
 import { LayoutModule } from 'app/layout/layout.module';
 import { SampleModule } from 'app/main/sample/sample.module';
 import { PricingRawModule } from 'app/main/pricing-raw/pricing-raw.module';
+import { DetailComponent } from './pages/detail/detail.component';
 
 const appRoutes: Routes = [
     {
@@ -28,7 +29,8 @@ const appRoutes: Routes = [
 
 @NgModule({
     declarations: [
-        AppComponent
+        AppComponent,
+        DetailComponent
     ],
     imports     : [
         BrowserModule,
