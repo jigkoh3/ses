@@ -10,6 +10,8 @@ import { PricingRawDetailComponent } from './pricing-raw-detail/pricing-raw-deta
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material';
+import {MatButtonModule} from '@angular/material/button';
+
 const routes = [
   {
     path: 'pricing-raw',
@@ -31,13 +33,15 @@ const routes = [
     MatFormFieldModule,
     TranslateModule,
     MatSelectModule,
+    TranslateModule,
     FuseSharedModule,
     MatGridListModule,
     MatInputModule,
     MatTableModule,
     FormsModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    MatButtonModule
   ],
   exports: [
     PricingRawListComponent,
