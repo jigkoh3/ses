@@ -1,12 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-
 import { FuseSharedModule } from '@fuse/shared.module';
-
 import { MatTableModule, MatPaginatorModule, MatSortModule } from '@angular/material'
 import { PricingRawListComponent } from './pricing-raw-list/pricing-raw-list.component';
 import { PricingRawDetailComponent } from './pricing-raw-detail/pricing-raw-detail.component';
+import {MatButtonModule} from '@angular/material/button';
 
 const routes = [
   {
@@ -26,14 +25,12 @@ const routes = [
   ],
   imports: [
     RouterModule.forChild(routes),
-
     TranslateModule,
-
     FuseSharedModule,
-
     MatTableModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    MatButtonModule
   ],
   exports: [
     PricingRawListComponent,

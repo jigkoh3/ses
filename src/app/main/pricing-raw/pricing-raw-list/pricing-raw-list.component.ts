@@ -20,7 +20,8 @@ export class PricingRawListComponent implements OnInit {
 
   ngOnInit() {
   }
-  go() {
+
+  onDetail() {
     this.route.navigate(['/pricing-Detail'])
   }
 }
