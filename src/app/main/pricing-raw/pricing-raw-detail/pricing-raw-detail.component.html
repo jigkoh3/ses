@@ -1,121 +1,134 @@
 <div class="page-layout carded fullwidth" fusePerfectScrollbar>
-  <mat-grid-list cols="4" rowHeight="7:1">
+  <mat-grid-list cols="4" rowHeight="5:1">
     <mat-grid-tile>Type of Sugar</mat-grid-tile>
     <mat-grid-tile>
-      <mat-form-field>
-        <mat-label>Cars</mat-label>
-        <select matNativeControl required>
-          <option value="volvo">Volvo</option>
-          <option value="saab">Saab</option>
-          <option value="mercedes">Mercedes</option>
-          <option value="audi">Audi</option>
-        </select>
+      <mat-form-field style="width: 100%">
+        <mat-label>Favorite food</mat-label>
+        <mat-select>
+          <mat-option *ngFor="let food of foods" [value]="food.value">
+            {{food.viewValue}}
+          </mat-option>
+        </mat-select>
       </mat-form-field>
     </mat-grid-tile>
     <mat-grid-tile></mat-grid-tile>
     <mat-grid-tile></mat-grid-tile>
     <mat-grid-tile>Buyer</mat-grid-tile>
     <mat-grid-tile>
-      <mat-form-field>
-        <mat-label>Cars</mat-label>
-        <select matNativeControl required>
-          <option value="volvo">Volvo</option>
-          <option value="saab">Saab</option>
-          <option value="mercedes">Mercedes</option>
-          <option value="audi">Audi</option>
-        </select>
+      <mat-form-field style="width: 100%">
+        <mat-label>Favorite food</mat-label>
+        <mat-select>
+          <mat-option *ngFor="let food of foods" [value]="food.value">
+            {{food.viewValue}}
+          </mat-option>
+        </mat-select>
       </mat-form-field>
     </mat-grid-tile>
     <mat-grid-tile>Qty(MT)</mat-grid-tile>
     <mat-grid-tile>
-      <mat-form-field class="example-full-width">
-        <input matInput placeholder="Favorite food" value="Sushi">
+      <mat-form-field style="width: 100%">
+        <input matInput placeholder="Favorite food">
       </mat-form-field>
 
     </mat-grid-tile>
     <mat-grid-tile>Group Factory</mat-grid-tile>
     <mat-grid-tile>
-      <mat-form-field>
-        <mat-label>Cars</mat-label>
-        <select matNativeControl required>
-          <option value="volvo">Volvo</option>
-          <option value="saab">Saab</option>
-          <option value="mercedes">Mercedes</option>
-          <option value="audi">Audi</option>
-        </select>
+      <mat-form-field style="width: 100%">
+        <mat-label>Favorite food</mat-label>
+        <mat-select>
+          <mat-option *ngFor="let food of foods" [value]="food.value">
+            {{food.viewValue}}
+          </mat-option>
+        </mat-select>
       </mat-form-field>
     </mat-grid-tile>
     <mat-grid-tile>Shipment</mat-grid-tile>
-    <mat-grid-tile>
+    <mat-grid-tile colspan="1">
 
-      <mat-form-field class="example-full-width">
-        <input matInput placeholder="Favorite food" value="Sushi">
+      <mat-form-field style="width: 100%">
+        <input matInput placeholder="Favorite food">
       </mat-form-field>
-
+      <p>to</p>
+      <mat-form-field style="width: 100%">
+        <input matInput placeholder="Favorite food">
+      </mat-form-field>
 
     </mat-grid-tile>
     <mat-grid-tile>Buyer Contract No.</mat-grid-tile>
     <mat-grid-tile>
 
-      <mat-form-field class="example-full-width">
-        <input matInput placeholder="Favorite food" value="Sushi">
+      <mat-form-field style="width: 100%">
+        <input matInput placeholder="Favorite food">
       </mat-form-field>
 
 
     </mat-grid-tile>
     <mat-grid-tile>Contract No.</mat-grid-tile>
     <mat-grid-tile>
-      <mat-form-field>
-        <mat-label>Cars</mat-label>
-        <select matNativeControl required>
-          <option value="volvo">Volvo</option>
-          <option value="saab">Saab</option>
-          <option value="mercedes">Mercedes</option>
-          <option value="audi">Audi</option>
-        </select>
+      <mat-form-field style="width: 100%">
+        <mat-label>Favorite food</mat-label>
+        <mat-select>
+          <mat-option *ngFor="let food of foods" [value]="food.value">
+            {{food.viewValue}}
+          </mat-option>
+        </mat-select>
       </mat-form-field>
     </mat-grid-tile>
     <mat-grid-tile>Contract Date</mat-grid-tile>
     <mat-grid-tile>
-      <mat-form-field>
-        <mat-form-field class="example-full-width">
-          <input matInput placeholder="Favorite food" value="Sushi">
-        </mat-form-field>
-
+      <mat-form-field style="width: 100%">
+        <input matInput placeholder="Favorite food">
       </mat-form-field>
     </mat-grid-tile>
     <mat-grid-tile>Premium (USD/MT)</mat-grid-tile>
     <mat-grid-tile>
-      <mat-form-field class="example-full-width">
-        <input matInput placeholder="Favorite food" value="Sushi">
+      <mat-form-field style="width: 100%">
+        <input matInput floatLabel="Favorite food">
       </mat-form-field>
 
     </mat-grid-tile>
     <mat-grid-tile>Contract Month</mat-grid-tile>
     <mat-grid-tile>
-      <mat-form-field>
-        <mat-label>Cars</mat-label>
-        <select matNativeControl required>
-          <option value="volvo">Volvo</option>
-          <option value="saab">Saab</option>
-          <option value="mercedes">Mercedes</option>
-          <option value="audi">Audi</option>
-        </select>
+      <mat-form-field style="width: 100%">
+        <mat-label>Favorite food</mat-label>
+        <mat-select>
+          <mat-option *ngFor="let food of foods" [value]="food.value">
+            {{food.viewValue}}
+          </mat-option>
+        </mat-select>
       </mat-form-field>
     </mat-grid-tile>
     <mat-grid-tile>Contract Year</mat-grid-tile>
     <mat-grid-tile>
-      <mat-form-field>
-        <mat-label>Cars</mat-label>
-        <select matNativeControl required>
-          <option value="volvo">Volvo</option>
-          <option value="saab">Saab</option>
-          <option value="mercedes">Mercedes</option>
-          <option value="audi">Audi</option>
-        </select>
+      <mat-form-field style="width: 100%">
+        <mat-label>Favorite food</mat-label>
+        <mat-select>
+          <mat-option *ngFor="let food of foods" [value]="food.value">
+            {{food.viewValue}}
+          </mat-option>
+        </mat-select>
       </mat-form-field>
     </mat-grid-tile>
 
   </mat-grid-list>
+  <div class="display-div fullwidth" style="border: 1px solid black;margin: 5px;">
+    <div class="bg-head">
+      White Premium
+    </div>
+    <mat-grid-list cols="6" rowHeight="2:1">
+      <mat-grid-tile>Total Pricing - Request (MT)</mat-grid-tile>
+      <mat-grid-tile>2</mat-grid-tile>
+      <mat-grid-tile>3</mat-grid-tile>
+      <mat-grid-tile>White Premium</mat-grid-tile>
+      <mat-grid-tile>2</mat-grid-tile>
+      <mat-grid-tile>3</mat-grid-tile>
+      <mat-grid-tile>Total Pricing (lots)</mat-grid-tile>
+      <mat-grid-tile>2</mat-grid-tile>
+      <mat-grid-tile>3</mat-grid-tile>
+      <mat-grid-tile>Total Pricing (lots)</mat-grid-tile>
+      <mat-grid-tile>2</mat-grid-tile>
+      <mat-grid-tile>3</mat-grid-tile>
 
+    </mat-grid-list>
+  </div>
 </div>
