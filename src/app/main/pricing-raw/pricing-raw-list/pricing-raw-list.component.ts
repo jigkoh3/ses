@@ -10,6 +10,11 @@ import { locale as turkish } from '../i18n/tr';
   styleUrls: ['./pricing-raw-list.component.scss']
 })
 export class PricingRawListComponent implements OnInit {
+  foods: any = [
+    { value: 'steak-0', viewValue: 'Steak' },
+    { value: 'pizza-1', viewValue: 'Pizza' },
+    { value: 'tacos-2', viewValue: 'Tacos' }
+  ];
 
   constructor(
     public route: Router

@@ -1,25 +1,25 @@
-<div class="page-layout carded fullwidth" fusePerfectScrollbar>
-    <button mat-raised-button color="primary" (click)="onDetail()">Accent</button>
-    <mat-grid-list [cols]="6" rowHeight="4rem">
-        <mat-grid-tile>
-            <mat-card>
-                <div class="example-container">
-                    <mat-form-field>
-                        <input matInput placeholder="Input">
-                    </mat-form-field>
-                    <mat-form-field>
-                        <textarea matInput placeholder="Textarea"></textarea>
-                    </mat-form-field>
-                    <mat-form-field>
-                        <mat-select placeholder="Select">
-                            <mat-option value="option">Option</mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-            </mat-card>
+<div class="page-layout carded fullwidth p-24" fusePerfectScrollbar>
+    <!-- <button mat-raised-button color="primary" (click)="onDetail()">Accent</button> -->
+    <mat-grid-list [cols]="6" rowHeight="7:1">
+        <mat-grid-tile [colspan]="6">
+            <div class="left">
+                <h2 class="m-0">Pricing White</h2>
+            </div>
         </mat-grid-tile>
-        <mat-grid-tile>
-            <h2>1</h2>
+        <mat-grid-tile [colspan]="1">
+            <h3 class="m-0">Buyer</h3>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="1">
+            <div style="width: 100%;">
+                <mat-form-field style="width: 100%;">
+                    <mat-label>Favorite food</mat-label>
+                    <mat-select>
+                        <mat-option *ngFor="let food of foods" [value]="food.value">
+                            {{food.viewValue}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
         </mat-grid-tile>
     </mat-grid-list>
 </div>
