@@ -204,8 +204,10 @@
             <input matInput placeholder="Favorite food">
           </mat-form-field>
         </mat-grid-tile>
-        <mat-grid-tile [colspan]='breakpoint2'>
-          <button mat-stroked-button color="accent">add</button>
+        <mat-grid-tile [colspan]='breakpoint2' *ngIf="hideCol > 400">
+          <div style="width: 100%;">
+            <button mat-stroked-button color="accent">add</button>
+          </div>
         </mat-grid-tile>
         <mat-grid-tile [colspan]='breakpoint2'>Total Pricing (lots)</mat-grid-tile>
         <mat-grid-tile [colspan]='breakpoint2'>
@@ -213,25 +215,37 @@
             <input matInput placeholder="Favorite food">
           </mat-form-field>
         </mat-grid-tile>
-        <mat-grid-tile>
-          <button mat-stroked-button color="accent">add</button>
+        <mat-grid-tile [colspan]='breakpoint2' *ngIf="hideCol > 400">
+          <div style="width: 100%">
+            <button mat-stroked-button color="accent">add</button>
+
+          </div>
         </mat-grid-tile>
 
         <!-- ตารางที่1 -->
-        <mat-grid-tile colspan="3">
+        <mat-grid-tile colspan="3" *ngIf="hideCol > 400">
           <div class="head-tb">
             <p>Sell London No.5</p>
           </div>
         </mat-grid-tile>
-        <mat-grid-tile colspan="3">
+        <mat-grid-tile colspan="3" *ngIf="hideCol > 400">
           <div class="head-tb">
             <p>Buy New York No.11</p>
           </div>
         </mat-grid-tile>
-        <mat-grid-tile colspan="3" rowspan="8" style="height: 244px;margin: 5px;">
-
+        <mat-grid-tile [colspan]='breakpoint3' *ngIf="hideCol < 400">
+          <div style="width: 100%" class="text-right">
+            <button mat-stroked-button color="accent">add</button>
+          </div>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]='breakpoint3' *ngIf="hideCol < 400">
+          <div class="head-tb">
+            <p>Sell London No.5</p>
+          </div>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]='breakpoint3' rowspan="8" style="height: 244px;margin: 5px;">
           <div class="example-container mat-elevation-z8" style="width: 97%">
-            <table mat-table [dataSource]="transactions">
+            <table mat-table [dataSource]="transactions" style="min-width: 400px;">
 
               <ng-container matColumnDef="date">
                 <th mat-header-cell *matHeaderCellDef> date </th>
@@ -273,12 +287,19 @@
         </mat-grid-tile>
 
         <!-- ตารางที่2 -->
-
-        <mat-grid-tile colspan="3" rowspan="8" style="height: 244px;margin: 5px;">
-
+        <mat-grid-tile [colspan]='breakpoint3' *ngIf="hideCol < 400">
+          <div class="text-right" style="width: 100%">
+            <button mat-stroked-button color="accent">add</button>
+          </div>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]='breakpoint3' *ngIf="hideCol < 400">
+          <div class="head-tb">
+            <p>Buy New York No.11</p>
+          </div>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]='breakpoint3' rowspan="8" style="height: 244px;margin: 5px;">
           <div class="example-container mat-elevation-z8" style="width: 97%">
-            <table mat-table [dataSource]="buyNewYorkNo11">
-
+            <table mat-table [dataSource]="buyNewYorkNo11" style="min-width: 400px;">
               <ng-container matColumnDef="date">
                 <th mat-header-cell *matHeaderCellDef> date </th>
                 <td style="width: 35%" mat-cell *matCellDef="let transaction">
@@ -288,16 +309,12 @@
                   <p>Total Priced</p>
                   <p>Unpriced (lots)</p>
                 </td>
-
               </ng-container>
-
-
               <ng-container matColumnDef="lots">
                 <th mat-header-cell *matHeaderCellDef> lots </th>
                 <td mat-cell style="width: 15%" *matCellDef="let transaction"> {{transaction.lots}} </td>
                 <td mat-footer-cell *matFooterCellDef>
                   <p style="margin-top: -20px"> 118</p>
-
                 </td>
               </ng-container>
               <ng-container matColumnDef="Price (USD/MT)">
@@ -319,28 +336,40 @@
             </table>
           </div>
         </mat-grid-tile>
+        <mat-grid-tile [colspan]='breakpoint'>
+          <div style="width: 100%;margin-top: 20px" *ngIf="hideCol > 400">
+            <p class="ellipsis-text">Total White Premium</p>
 
+          </div>
+          <div style="width: 100%;margin-top: 20px" *ngIf="hideCol < 400">
+            <p class="ellipsis-text text-center">Total White Premium</p>
 
-        <mat-grid-tile>
-          <p>Total White Premium</p>
+          </div>
         </mat-grid-tile>
-        <mat-grid-tile>
-          <div style="width: 100%">
+        <mat-grid-tile [colspan]='breakpoint'>
+          <div style="width: 100%;margin-top: 20px" *ngIf="hideCol > 400">
             <p style="margin-left: 70%">
               66.34
             </p>
           </div>
+          <div *ngIf="hideCol < 400" style="width: 100%;margin-top: 20px">
+            <p class="text-center">
+              66.34
+            </p>
+          </div>
         </mat-grid-tile>
-        <mat-grid-tile colspan="4">
-          <div style="width: 100%">
+        <mat-grid-tile [colspan]='breakpoint'>
+          <div style="width: 100%;margin-top: 20px" *ngIf="hideCol > 400">
             <p>USD/MT</p>
+          </div>
+          <div style="width: 100%;margin-top: 20px" *ngIf="hideCol < 400">
+            <p class="text-center">USD/MT</p>
 
           </div>
         </mat-grid-tile>
         <mat-grid-tile colspan="6">
-          <div style="width: 100%">
-            <button class="mg-right" mat-stroked-button color="accent">add</button>
-
+          <div style="width: 100%" class="text-right">
+            <button mat-stroked-button color="accent">add</button>
           </div>
         </mat-grid-tile>
         <!-- ตารางที่3 -->
@@ -350,9 +379,8 @@
           </div>
         </mat-grid-tile>
         <mat-grid-tile colspan="6" rowspan="8" style="margin: 5px;">
-
           <div class="example-container mat-elevation-z8" style="width: 100%">
-            <table mat-table [dataSource]="newYorkNo11Table">
+            <table mat-table [dataSource]="newYorkNo11Table" style="min-width: 822px;">
 
               <ng-container matColumnDef="orderdate">
                 <th mat-header-cell *matHeaderCellDef> Order Date </th>
@@ -446,16 +474,14 @@
               <tr mat-footer-row *matFooterRowDef="columnsNewYork; sticky: true"></tr>
             </table>
           </div>
-
         </mat-grid-tile>
-
       </mat-grid-list>
 
 
     </div>
   </mat-card>
   <mat-card class="example-card" style="margin: 8px;">
-    <mat-grid-list cols="6" rowHeight="4:1">
+    <mat-grid-list cols="6" rowHeight="31px">
       <mat-grid-tile colspan="6">
         <div style="width: 100%">
           <button class="mg-right" mat-stroked-button color="accent">add</button>
@@ -467,9 +493,9 @@
           <p>London No.5</p>
         </div>
       </mat-grid-tile>
-      <mat-grid-tile colspan="6" rowspan="8" style="height: 244px;margin: 5px;">
-        <div class="example-container mat-elevation-z8" style="width: 100%">
-          <table mat-table [dataSource]="londonTable">
+      <mat-grid-tile colspan="6" rowspan="9" style="height: 244px;margin: 5px;">
+        <div class="example-container mat-elevation-z8" style="width: 100%; ">
+          <table mat-table [dataSource]="londonTable" style="min-width: 822px;">
 
             <ng-container matColumnDef="orderdate">
               <th mat-header-cell *matHeaderCellDef> Order Date </th>
@@ -570,9 +596,9 @@
         </div>
       </mat-grid-tile>
       <!-- ตารางที่5 -->
-      <mat-grid-tile colspan="4" rowspan="8" style="margin: 5px;">
+      <mat-grid-tile *ngIf="hideCol > 400" colspan="4" rowspan="8" style="height: 244px;margin: 5px;">
         <div class="example-container mat-elevation-z8" style="width: 99%;height: 70%;">
-          <table mat-table [dataSource]="othersTable">
+          <table mat-table [dataSource]="othersTable" style="min-width: 537px;">
             <ng-container matColumnDef="others">
               <th mat-header-cell *matHeaderCellDef> Others </th>
               <td mat-cell *matCellDef="let item"> {{item.others}} </td>
@@ -600,138 +626,163 @@
           </table>
         </div>
       </mat-grid-tile>
-      <mat-grid-tile>
 
+      <!-- จอเล็ก -->
+
+      <mat-grid-tile *ngIf="hideCol < 400" colspan="6" rowspan="8" style="height: 244px;margin: 5px;">
+        <div class="example-container mat-elevation-z8" style="width: 99%;height: 70%;">
+          <table mat-table [dataSource]="othersTable" style="min-width: 537px;">
+            <ng-container matColumnDef="others">
+              <th mat-header-cell *matHeaderCellDef> Others </th>
+              <td mat-cell *matCellDef="let item"> {{item.others}} </td>
+              <td mat-footer-cell *matFooterCellDef> Total </td>
+            </ng-container>
+
+            <ng-container matColumnDef="amont">
+              <th mat-header-cell *matHeaderCellDef> Amont </th>
+              <td mat-cell *matCellDef="let item"> {{item.amont}} </td>
+              <td mat-footer-cell *matFooterCellDef> </td>
+            </ng-container>
+            <ng-container matColumnDef="unit">
+              <th mat-header-cell *matHeaderCellDef> Unit </th>
+              <td mat-cell *matCellDef="let item"> {{item.unit}} </td>
+              <td mat-footer-cell *matFooterCellDef></td>
+            </ng-container>
+            <ng-container matColumnDef="manage">
+              <th mat-header-cell *matHeaderCellDef> Manage </th>
+              <td mat-cell *matCellDef="let item"> delete </td>
+              <td mat-footer-cell *matFooterCellDef> </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="columnOthers; sticky: true"></tr>
+            <tr mat-row *matRowDef="let row; columns: columnOthers;"></tr>
+            <tr mat-footer-row *matFooterRowDef="columnOthers; sticky: true"></tr>
+          </table>
+        </div>
       </mat-grid-tile>
-      <mat-grid-tile>
-
-      </mat-grid-tile>
-
-
     </mat-grid-list>
   </mat-card>
   <mat-card class="example-card" style="margin: 8px;">
-    <mat-grid-list cols="6" rowHeight="4:1">
-      <mat-grid-tile colspan="1">
+    <mat-grid-list cols="6" rowHeight="31px" (window:resize)="onResize2($event)">
+      <mat-grid-tile [colspan]='breakpoint'>
         <div style="width: 100%">
-          <p style="margin-left: 10px">Average Price</p>
+          <p>Average Price</p>
         </div>
       </mat-grid-tile>
-      <mat-grid-tile colspan="1">
+      <mat-grid-tile [colspan]='breakpoint'>
         <mat-form-field style="width: 100%">
           <input matInput placeholder="Favorite food">
         </mat-form-field>
       </mat-grid-tile>
-      <mat-grid-tile colspan="4">
+      <mat-grid-tile [colspan]='breakpoint4'>
         <div style="width: 100%">
           <p>
             USD/MT
           </p>
         </div>
       </mat-grid-tile>
-      <mat-grid-tile colspan="1">
+      <mat-grid-tile [colspan]='breakpoint'>
         <div style="width: 100%">
-          <p style="margin-left: 10px">Other</p>
+          <p>Other</p>
         </div>
       </mat-grid-tile>
-      <mat-grid-tile colspan="1">
+      <mat-grid-tile [colspan]='breakpoint'>
         <mat-form-field style="width: 100%">
           <input matInput placeholder="Favorite food">
         </mat-form-field>
       </mat-grid-tile>
-      <mat-grid-tile colspan="4">
+      <mat-grid-tile [colspan]='breakpoint4'>
         <div style="width: 100%">
           <p>
             USD/MT
           </p>
         </div>
       </mat-grid-tile>
-      <mat-grid-tile colspan="1">
+      <mat-grid-tile [colspan]='breakpoint'>
         <div style="width: 100%">
-          <p style="margin-left: 10px">Premium</p>
+          <p>Premium</p>
         </div>
       </mat-grid-tile>
-      <mat-grid-tile colspan="1">
+      <mat-grid-tile [colspan]='breakpoint'>
         <mat-form-field style="width: 100%">
           <input matInput placeholder="Favorite food">
         </mat-form-field>
       </mat-grid-tile>
-      <mat-grid-tile colspan="4">
+      <mat-grid-tile [colspan]='breakpoint4'>
         <div style="width: 100%">
           <p>
             USD/MT
           </p>
         </div>
       </mat-grid-tile>
-      <mat-grid-tile colspan="1">
+      <mat-grid-tile [colspan]='breakpoint'>
         <div style="width: 100%">
-          <p style="margin-left: 10px">Final Price</p>
+          <p>Final Price</p>
         </div>
       </mat-grid-tile>
-      <mat-grid-tile colspan="1">
+      <mat-grid-tile [colspan]='breakpoint'>
         <mat-form-field style="width: 100%">
           <input matInput placeholder="Favorite food">
         </mat-form-field>
       </mat-grid-tile>
-      <mat-grid-tile colspan="1">
+      <mat-grid-tile [colspan]='breakpoint'>
         <div style="width: 100%">
           <p>
             USD/MT
           </p>
         </div>
       </mat-grid-tile>
-      <mat-grid-tile colspan="3">
+      <mat-grid-tile [colspan]='breakpoint4'>
         <div style="width: 100%">
           <p>
             Sonfirmed Sell
           </p>
         </div>
       </mat-grid-tile>
-      <mat-grid-tile colspan="1">
+      <mat-grid-tile [colspan]='breakpoint'>
         <div style="width: 100%">
-          <p style="margin-left: 10px">Total Pricing</p>
+          <p>Total Pricing</p>
         </div>
       </mat-grid-tile>
-      <mat-grid-tile colspan="1">
+      <mat-grid-tile [colspan]='breakpoint'>
         <mat-form-field style="width: 100%">
           <input matInput placeholder="Favorite food">
         </mat-form-field>
       </mat-grid-tile>
-      <mat-grid-tile colspan="4">
+      <mat-grid-tile [colspan]='breakpoint4'>
         <div style="width: 100%">
           <p>
             lots
           </p>
         </div>
       </mat-grid-tile>
-      <mat-grid-tile colspan="1">
+      <mat-grid-tile [colspan]='breakpoint'>
         <div style="width: 100%">
-          <p style="margin-left: 10px">Priced</p>
+          <p>Priced</p>
         </div>
       </mat-grid-tile>
-      <mat-grid-tile colspan="1">
+      <mat-grid-tile [colspan]='breakpoint'>
         <mat-form-field style="width: 100%">
           <input matInput placeholder="Favorite food">
         </mat-form-field>
       </mat-grid-tile>
-      <mat-grid-tile colspan="4">
+      <mat-grid-tile [colspan]='breakpoint4'>
         <div style="width: 100%">
           <p>
             lots
           </p>
         </div>
       </mat-grid-tile>
-      <mat-grid-tile colspan="1">
+      <mat-grid-tile [colspan]='breakpoint'>
         <div style="width: 100%">
-          <p style="margin-left: 10px">Unpriced</p>
+          <p>Unpriced</p>
         </div>
       </mat-grid-tile>
-      <mat-grid-tile colspan="1">
+      <mat-grid-tile [colspan]='breakpoint'>
         <mat-form-field style="width: 100%">
           <input matInput placeholder="Favorite food">
         </mat-form-field>
       </mat-grid-tile>
-      <mat-grid-tile colspan="4">
+      <mat-grid-tile [colspan]='breakpoint4'>
         <div style="width: 100%">
           <p>
             lots
@@ -739,8 +790,9 @@
         </div>
       </mat-grid-tile>
       <mat-grid-tile colspan="6">
-        <div style="width: 100%">
-          <button style="margin-left: 80%" mat-stroked-button color="accent">Save</button>
+        <div style="width: 100%" class="text-right">
+   
+          <button  mat-stroked-button color="accent">Save</button>
           <button mat-stroked-button color="warn">Cancel</button>
         </div>
       </mat-grid-tile>

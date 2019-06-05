@@ -14,6 +14,9 @@ export class PricingRawDetailComponent implements OnInit {
   hideCol: any;
   breakpoint: any;
   breakpoint2: any;
+  breakpoint3: any;
+  breakpoint4: any;
+  breakpoint5: any;
   foods: Food[] = [
     { value: 'steak-0', viewValue: 'Steak' },
     { value: 'pizza-1', viewValue: 'Pizza' },
@@ -56,6 +59,11 @@ export class PricingRawDetailComponent implements OnInit {
   ngOnInit() {
     this.breakpoint = (window.innerWidth <= 400) ? 2 : 1;
     this.breakpoint2 = (window.innerWidth <= 400) ? 3 : 1;
+    this.breakpoint3 = (window.innerWidth <= 400) ? 6 : 3;
+    this.breakpoint4 = (window.innerWidth <= 400) ? 2 : 4;
+    this.breakpoint5 = (window.innerWidth <= 400) ? 2 : 3;
+
+
     this.hideCol = window.innerWidth;
   }
   onResize(event) {
@@ -63,6 +71,13 @@ export class PricingRawDetailComponent implements OnInit {
     this.hideCol = event.target.innerWidth;
   }
   onResize2(event) {
+    this.breakpoint = (event.target.innerWidth <= 400) ? 2 : 1;
     this.breakpoint2 = (event.target.innerWidth <= 400) ? 3 : 1;
+    this.breakpoint3 = (event.target.innerWidth <= 400) ? 6 : 3;
+    this.breakpoint4 = (event.target.innerWidth <= 400) ? 2 : 4;
+    this.breakpoint5 = (event.target.innerWidth <= 400) ? 2 : 3;
+
+
+
   }
 }
