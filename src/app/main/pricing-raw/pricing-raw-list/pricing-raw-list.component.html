@@ -194,7 +194,7 @@
         </mat-grid-tile>
     </mat-grid-list> -->
 
-    <mat-grid-list [cols]="6" rowHeight="270px">
+    <mat-grid-list [cols]="6" rowHeight="240px">
         <mat-grid-tile [colspan]="6">
             <div class="example-container mat-elevation-z8">
                 <table mat-table [dataSource]="transactions">
@@ -333,7 +333,7 @@
                 <form>
                     <mat-form-field>
                         <span matPrefix>Total &nbsp;</span>
-                        <input matInput disabled>
+                        <input matInput class="text-center" name="total" [(ngModel)]="total" disabled >
                     </mat-form-field>
                 </form>
             </div>
@@ -343,7 +343,7 @@
                 <form>
                     <mat-form-field>
                         <span matPrefix>Lots &nbsp;</span>
-                        <input matInput disabled>
+                        <input matInput class="text-center" name="lots" [(ngModel)]="lots" disabled>
                     </mat-form-field>
                 </form>
             </div>

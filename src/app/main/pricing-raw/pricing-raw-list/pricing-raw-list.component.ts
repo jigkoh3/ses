@@ -9,6 +9,8 @@ import { locale as turkish } from '../i18n/tr';
   styleUrls: ['./pricing-raw-list.component.scss']
 })
 export class PricingRawListComponent implements OnInit {
+  total: any;
+  lots: any;
   screenwidth: any;
   buyer: any = [
     { value: 'ED & F Man', viewValue: 'ED & F Man' },
@@ -56,7 +58,7 @@ export class PricingRawListComponent implements OnInit {
       buyercontacno: 'P29598',
       contactdata: '20/02/2017',
       typeofsugar: 'WHITE SUGAR',
-      quanitity: '12000',
+      quanitity: 12000,
       shipmentperiod: '20/02/2018 - 20/05/2018',
       // totalprice:'',
       priced: '',
@@ -74,7 +76,7 @@ export class PricingRawListComponent implements OnInit {
       buyercontacno: 'HKP2403',
       contactdata: '20/02/2017',
       typeofsugar: 'REFINED SUGAR',
-      quanitity: '12000',
+      quanitity: 12000,
       shipmentperiod: '01/03/2018 - 31/05/2018',
       // totalprice:'',
       priced: '',
@@ -92,7 +94,58 @@ export class PricingRawListComponent implements OnInit {
       buyercontacno: 'P6000',
       contactdata: '01/09/2017',
       typeofsugar: 'REFINED SUGAR',
-      quanitity: '9000',
+      quanitity: 9000,
+      shipmentperiod: '',
+      // totalprice:'',
+      priced: '',
+      unpriced: '',
+      finalpriceusdmt: '',
+      finalpriceclb: '',
+      lastpriceingdata: '26/01/2018',
+      againstmonth: '',
+      manage: '',
+    }, {
+      buyer: 'Bunge',
+      groupfactory: 'TR-กลุ่มไทยรุ่งเรือง',
+      contactno: '07218/TR',
+      buyercontacno: 'P6000',
+      contactdata: '01/09/2017',
+      typeofsugar: 'REFINED SUGAR',
+      quanitity: 0,
+      shipmentperiod: '',
+      // totalprice:'',
+      priced: '',
+      unpriced: '',
+      finalpriceusdmt: '',
+      finalpriceclb: '',
+      lastpriceingdata: '26/01/2018',
+      againstmonth: '',
+      manage: '',
+    }, {
+      buyer: 'Bunge',
+      groupfactory: 'TR-กลุ่มไทยรุ่งเรือง',
+      contactno: '07218/TR',
+      buyercontacno: 'P6000',
+      contactdata: '01/09/2017',
+      typeofsugar: 'REFINED SUGAR',
+      quanitity: 0,
+      shipmentperiod: '',
+      // totalprice:'',
+      priced: '',
+      unpriced: '',
+      finalpriceusdmt: '',
+      finalpriceclb: '',
+      lastpriceingdata: '26/01/2018',
+      againstmonth: '',
+      manage: '',
+    }, {
+      buyer: 'Bunge',
+      groupfactory: 'TR-กลุ่มไทยรุ่งเรือง',
+      contactno: '07218/TR',
+      buyercontacno: 'P6000',
+      contactdata: '01/09/2017',
+      typeofsugar: 'REFINED SUGAR',
+      quanitity: 0,
       shipmentperiod: '',
       // totalprice:'',
       priced: '',
@@ -113,24 +166,54 @@ export class PricingRawListComponent implements OnInit {
   }
 
   ngOnInit() {
-    // console.log(window.innerWidth);
     this.colSpTopic = (window.innerWidth <= 400) ? 3 : 1;
     this.colSpSelect = (window.innerWidth <= 400) ? 3 : 1;
     this.colSpBtn = (window.innerWidth <= 400) ? 6 : 1;
     this.screenwidth = window.innerWidth
-    // console.log(this.screenwidth);
+    this.calTotal();
   }
 
   onResize(event) {
-    // console.log(event.target.innerWidth);
     this.colSpTopic = (event.target.innerWidth <= 400) ? 3 : 1;
     this.colSpSelect = (event.target.innerWidth <= 400) ? 3 : 1;
     this.colSpBtn = (event.target.innerWidth <= 400) ? 6 : 1;
     this.screenwidth = event.target.innerWidth
-    // console.log(this.screenwidth);
   }
 
   onDetail() {
     this.route.navigate(['/pricing-Detail'])
   }
+
+  calTotal() {
+    this.total = 0;
+    this.lots = 0;
+    this.transactions.forEach(tran => {
+      this.total = this.total + tran.quanitity
+      this.lots = this.lots + tran.quanitity / 50
+    });
+    console.log(this.total);
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
