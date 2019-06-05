@@ -328,26 +328,30 @@
         </mat-grid-tile>
     </mat-grid-list>
 
-    <mat-grid-list [cols]="6" rowHeight="90px">
-        <mat-grid-tile [colspan]="3">
-            <div class="right">
-                <form>
-                    <mat-form-field>
-                        <span matPrefix>Total &nbsp;</span>
-                        <input matInput class="text-center" name="total" [(ngModel)]="total" disabled>
-                    </mat-form-field>
-                </form>
-            </div>
-        </mat-grid-tile>
-        <mat-grid-tile [colspan]="3">
-            <div class="left">
-                <form>
-                    <mat-form-field>
-                        <span matPrefix>Lots &nbsp;</span>
-                        <input matInput class="text-center" name="lots" [(ngModel)]="lots" disabled>
-                    </mat-form-field>
-                </form>
-            </div>
-        </mat-grid-tile>
-    </mat-grid-list>
+    <mat-card style="padding-top: 0px;padding-bottom: 0px">
+        <mat-grid-list [cols]="6" rowHeight="90px">
+            <mat-grid-tile [colspan]="3">
+                <div class="right">
+                    <form>
+                        <mat-form-field>
+                            <span matPrefix>Total &nbsp;</span>
+                            <input matInput class="text-center" name="total" [(ngModel)]="total" disabled>
+                        </mat-form-field>
+                    </form>
+                </div>
+            </mat-grid-tile>
+            <mat-grid-tile [colspan]="3">
+                <div class="left">
+                    <form>
+                        <mat-form-field>
+                            <span matPrefix>Lots &nbsp;</span>
+                            <input matInput class="text-center" name="lots" [(ngModel)]="lots" disabled>
+                        </mat-form-field>
+                    </form>
+                </div>
+            </mat-grid-tile>
+        </mat-grid-list>
+    </mat-card>
+
+
 </div>
