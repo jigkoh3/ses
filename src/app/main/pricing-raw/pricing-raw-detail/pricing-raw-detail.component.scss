@@ -53,5 +53,11 @@ tr.mat-footer-row {
 }
 
 .mg-right {
- margin-left: 92%;
+    margin-left: 92%;
+}
+
+.ellipsis-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
