@@ -49,6 +49,20 @@ export const navigation: FuseNavigation[] = [
                     bg       : '#F44336',
                     fg       : '#FFFFFF'
                 }
+            },
+            {
+                id       : 'Addendum',
+                title    : 'Addendum',
+                translate: 'Addendum',
+                type     : 'item',
+                icon     : 'email',
+                url      : '/Addendum',
+                badge    : {
+                    title    : '25',
+                    translate: '12',
+                    bg       : '#F44336',
+                    fg       : '#FFFFFF'
+                }
             }
         ]
     }
