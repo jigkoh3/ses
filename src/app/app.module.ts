@@ -18,11 +18,12 @@ import { AppComponent } from 'app/app.component';
 import { LayoutModule } from 'app/layout/layout.module';
 import { SampleModule } from 'app/main/sample/sample.module';
 import { PricingRawModule } from 'app/main/pricing-raw/pricing-raw.module';
+import { ContractModule } from 'app/main/contract/contract.module';
 
 const appRoutes: Routes = [
     {
         path      : '**',
-        redirectTo: 'sample'
+        redirectTo: 'pricing-raw'
     }
 ];
 
@@ -55,7 +56,8 @@ const appRoutes: Routes = [
         // App modules
         LayoutModule,
         SampleModule,
-        PricingRawModule
+        PricingRawModule,
+        ContractModule
     ],
     bootstrap   : [
         AppComponent

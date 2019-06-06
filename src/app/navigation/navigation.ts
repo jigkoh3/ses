@@ -7,20 +7,7 @@ export const navigation: FuseNavigation[] = [
         translate: 'NAV.APPLICATIONS',
         type     : 'group',
         children : [
-            {
-                id       : 'sample',
-                title    : 'Sample',
-                translate: 'NAV.SAMPLE.TITLE',
-                type     : 'item',
-                icon     : 'email',
-                url      : '/sample',
-                badge    : {
-                    title    : '25',
-                    translate: 'NAV.SAMPLE.BADGE',
-                    bg       : '#F44336',
-                    fg       : '#FFFFFF'
-                }
-            },
+            
             {
                 id       : 'pricing-raw',
                 title    : 'Pricing Raw',
@@ -31,6 +18,20 @@ export const navigation: FuseNavigation[] = [
                 badge    : {
                     title    : '25',
                     translate: 'NAV.PRCR.BADGE',
+                    bg       : '#F44336',
+                    fg       : '#FFFFFF'
+                }
+            },
+            {
+                id       : 'contract',
+                title    : 'Contract',
+                translate: 'Contract',
+                type     : 'item',
+                icon     : 'email',
+                url      : '/contracts',
+                badge    : {
+                    title    : '25',
+                    translate: '12',
                     bg       : '#F44336',
                     fg       : '#FFFFFF'
                 }
