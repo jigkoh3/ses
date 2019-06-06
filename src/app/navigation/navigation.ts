@@ -24,8 +24,8 @@ export const navigation: FuseNavigation[] = [
             },
             {
                 id       : 'pricing-white',
-                title    : 'pricing White',
-                translate: 'pricing White',
+                title    : 'Pricing White',
+                translate: 'Pricing White',
                 type     : 'item',
                 icon     : 'email',
                 url      : '/pricing-white',

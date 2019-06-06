@@ -1,3 +1,811 @@
-<p>
-  pricing-white-detail works!
-</p>
+<div class="page-layout carded fullwidth" fusePerfectScrollbar>
+  <mat-card class="example-card" style="margin: 8px;">
+    <mat-grid-list cols="4" rowHeight="31px" (window:resize)="onResize($event)">
+      <mat-grid-tile [colspan]='breakpoint'>
+        <div style="width: 100%;">
+          Type of Sugar
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile [colspan]='breakpoint'>
+        <mat-form-field style="width: 100%">
+          <mat-label>Type of Sugar</mat-label>
+          <mat-select [(ngModel)]="dataPricing.typeofsugar">
+            <mat-option *ngFor="let item of typeofsugar" [value]="item.value">
+              {{item.viewValue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile [colspan]='1' *ngIf="hideCol > 400"></mat-grid-tile>
+      <mat-grid-tile [colspan]='1' *ngIf="hideCol > 400"></mat-grid-tile>
+      <mat-grid-tile [colspan]='breakpoint'>
+        <div style="width: 100%;">
+          Buyer
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile [colspan]='breakpoint'>
+        <mat-form-field style="width: 100%">
+          <mat-label>Buyer</mat-label>
+          <mat-select [(ngModel)]="dataPricing.buyer">
+            <mat-option *ngFor="let item of buyer" [value]="item.value">
+              {{item.viewValue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile [colspan]='breakpoint'>
+        <div style="width: 100%;">
+          Qty(MT)
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile [colspan]='breakpoint'>
+        <mat-form-field style="width: 100%">
+          <input matInput placeholder=" Qty(MT)" [(ngModel)]="dataPricing.qty">
+        </mat-form-field>
+
+      </mat-grid-tile>
+      <mat-grid-tile [colspan]='breakpoint'>
+        <div style="width: 100%;">
+          Group Factory
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile [colspan]='breakpoint'>
+        <mat-form-field style="width: 100%">
+          <mat-label> Group Factory</mat-label>
+          <mat-select [(ngModel)]="dataPricing.groupfactory">
+            <mat-option *ngFor="let item of groupFactory" [value]="item.value">
+              {{item.viewValue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile [colspan]='breakpoint'>
+        <div style="width: 100% ;">
+          Shipment
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile [colspan]='breakpoint'>
+        <div style="width: 100%">
+          <mat-form-field style="width: 40%">
+            <input matInput placeholder="date" [(ngModel)]="dataPricing.shipment.startdate">
+          </mat-form-field>
+          to
+          <mat-form-field style="width: 40%">
+            <input matInput placeholder="date" [(ngModel)]="dataPricing.shipment.enddate">
+          </mat-form-field>
+
+        </div>
+
+      </mat-grid-tile>
+      <mat-grid-tile [colspan]='breakpoint'>
+        <div style="width: 100%;">
+          Buyer Contract No.
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile [colspan]='breakpoint'>
+
+        <mat-form-field style="width: 100%">
+          <input matInput placeholder="Buyer Contract No." [(ngModel)]="dataPricing.buyercontractno">
+        </mat-form-field>
+
+
+      </mat-grid-tile>
+      <mat-grid-tile [colspan]='breakpoint'>
+        <div style="width: 100%;">
+          Contract No.
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile [colspan]='breakpoint'>
+        <mat-form-field style="width: 100%">
+          <mat-label>Contract No.</mat-label>
+          <mat-select [(ngModel)]="dataPricing.contractno">
+            <mat-option *ngFor="let item of contactNo" [value]="item.value">
+              {{item.viewValue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile [colspan]='breakpoint'>
+        <div style="width: 100%;">
+          Contract Date
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile [colspan]='breakpoint'>
+        <mat-form-field style="width: 100%">
+          <input matInput placeholder="Contract Date" [(ngModel)]="dataPricing.contractdate">
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile [colspan]='breakpoint'>
+        <div style="width: 100%;">
+          Premium (USD/MT)
+        </div>
+      </mat-grid-tile>
+
+      <mat-grid-tile [colspan]='breakpoint'>
+        <mat-form-field style="width: 100%">
+          <input matInput placeholder=" Premium (USD/MT)" [(ngModel)]="dataPricing.premium">
+        </mat-form-field>
+
+      </mat-grid-tile>
+      <mat-grid-tile [colspan]='breakpoint'>
+        <div style="width: 100%;">
+          Contract Month
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile [colspan]='breakpoint'>
+        <mat-form-field style="width: 100%">
+          <mat-label>Contract Month</mat-label>
+          <mat-select [(ngModel)]="dataPricing.contractmonth">
+            <mat-option *ngFor="let item of months" [value]="item.value">
+              {{item.viewValue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile [colspan]='breakpoint'>
+        <div style="width: 100%;">
+          Contract Year
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile [colspan]='breakpoint'>
+        <mat-form-field style="width: 100%">
+          <mat-label>Contract Year</mat-label>
+          <mat-select [(ngModel)]="dataPricing.contractyear">
+            <mat-option *ngFor="let item of year" [value]="item.value">
+              {{item.viewValue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </mat-grid-tile>
+
+    </mat-grid-list>
+  </mat-card>
+  <div class="display-div fullwidth" style="margin: 5px; ">
+    <mat-accordion>
+      <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            White Premium
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <mat-grid-list cols="6" rowHeight="31px" (window:resize)="onResize2($event)">
+          <mat-grid-tile [colspan]='breakpoint2'>
+            <div style="width: 100%">
+              <span class="ellipsis-text">
+                Total Pricing - Request (MT)
+              </span>
+            </div>
+          </mat-grid-tile>
+
+          <mat-grid-tile class="mt-5" [colspan]='breakpoint2'>
+            <mat-form-field style="width: 100%">
+              <input matInput placeholder="Total Pricing - Request"
+                [(ngModel)]="dataPricing.whitepremium.totalpricingRequest">
+            </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile *ngIf="hideCol > 400">
+            <p style="color: red">** ห้ามเกิน 12000</p>
+          </mat-grid-tile>
+          <mat-grid-tile [colspan]='breakpoint2'>White Premium</mat-grid-tile>
+          <mat-grid-tile [colspan]='breakpoint6'>
+            <div style="width: 100%">
+              <mat-form-field style="width: 40%;margin-right: 10px;">
+                <mat-label>month</mat-label>
+                <mat-select [(ngModel)]="dataPricing.whitepremium.month">
+                  <mat-option *ngFor="let item of months" [value]="item.value">
+                    {{item.viewValue}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field style="width: 40%">
+                <input matInput placeholder="year" [(ngModel)]="dataPricing.whitepremium.year">
+              </mat-form-field>
+            </div>
+
+          </mat-grid-tile>
+          <mat-grid-tile [colspan]='breakpoint2'>Total Pricing (lots)</mat-grid-tile>
+          <mat-grid-tile [colspan]='breakpoint2'>
+            <mat-form-field style="width: 100%">
+              <input matInput placeholder="Total Pricing" [(ngModel)]="dataPricing.whitepremium.totalpricing">
+            </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile [colspan]='breakpoint2' *ngIf="hideCol > 400">
+            <div style="width: 100%;">
+              <button mat-stroked-button color="accent">add</button>
+            </div>
+          </mat-grid-tile>
+          <mat-grid-tile [colspan]='breakpoint2'>Total Pricing (lots)</mat-grid-tile>
+          <mat-grid-tile [colspan]='breakpoint2'>
+            <mat-form-field style="width: 100%">
+              <input matInput placeholder="Total Pricing" [(ngModel)]="dataPricing.whitepremium.totalpricing2">
+            </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile [colspan]='breakpoint2' *ngIf="hideCol > 400">
+            <div style="width: 100%">
+              <button mat-stroked-button color="accent">add</button>
+
+            </div>
+          </mat-grid-tile>
+
+          <!-- ตารางที่1 -->
+          <mat-grid-tile colspan="3" *ngIf="hideCol > 400">
+            <div class="head-tb">
+              <p>Sell London No.5</p>
+            </div>
+          </mat-grid-tile>
+          <mat-grid-tile colspan="3" *ngIf="hideCol > 400">
+            <div class="head-tb">
+              <p>Buy New York No.11</p>
+            </div>
+          </mat-grid-tile>
+          <mat-grid-tile [colspan]='breakpoint3' *ngIf="hideCol < 400">
+            <div style="width: 100%" class="text-right">
+              <button mat-stroked-button color="accent">add</button>
+            </div>
+          </mat-grid-tile>
+          <mat-grid-tile [colspan]='breakpoint3' *ngIf="hideCol < 400">
+            <div class="head-tb">
+              <p>Sell London No.5</p>
+            </div>
+          </mat-grid-tile>
+          <mat-grid-tile [colspan]='breakpoint3' rowspan="9" style="height: 244px;margin: 5px;">
+            <div class="example-container mat-elevation-z8" style="width: 97%">
+              <table mat-table [dataSource]="transactions" style="min-width: 400px;">
+
+                <ng-container matColumnDef="date">
+                  <th mat-header-cell *matHeaderCellDef> date </th>
+                  <td style="width: 35%" mat-cell *matCellDef="let transaction">
+                    {{transaction.date}}
+                  </td>
+                  <td mat-footer-cell *matFooterCellDef>
+                    <p>Total Priced</p>
+                    <p>Unpriced (lots)</p>
+                  </td>
+
+                </ng-container>
+                <ng-container matColumnDef="lots">
+                  <th mat-header-cell *matHeaderCellDef> lots </th>
+                  <td mat-cell style="width: 15%" *matCellDef="let transaction"> {{transaction.lots}} </td>
+                  <td mat-footer-cell *matFooterCellDef>
+                    <p style="margin-top: -20px"> 120</p>
+
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="Price (USD/MT)">
+                  <th mat-header-cell *matHeaderCellDef> Price (USD/MT)</th>
+                  <td mat-cell *matCellDef="let transaction"> {{transaction.Price }} </td>
+                  <td mat-footer-cell *matFooterCellDef>
+                    <p>341.75</p>
+                    <p>-20</p>
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="Manage">
+                  <th mat-header-cell *matHeaderCellDef> Manage</th>
+                  <td mat-cell *matCellDef="let transaction" class="cucer-poiter" (click)="onDelete()">delete</td>
+                  <td mat-footer-cell *matFooterCellDef> </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                <tr mat-footer-row *matFooterRowDef="displayedColumns; sticky: true"></tr>
+              </table>
+            </div>
+          </mat-grid-tile>
+
+          <!-- ตารางที่2 -->
+          <mat-grid-tile [colspan]='breakpoint3' rowspan="2" *ngIf="hideCol < 400">
+            <div class="text-right" style="width: 100%">
+              <button mat-stroked-button color="accent">add</button>
+            </div>
+          </mat-grid-tile>
+          <mat-grid-tile [colspan]='breakpoint3' *ngIf="hideCol < 400">
+            <div class="head-tb">
+              <p>Buy New York No.11</p>
+            </div>
+          </mat-grid-tile>
+          <mat-grid-tile [colspan]='breakpoint3' rowspan="9" style="height: 244px;margin: 5px;">
+            <div class="example-container mat-elevation-z8" style="width: 97%">
+              <table mat-table [dataSource]="buyNewYorkNo11" style="min-width: 400px;">
+                <ng-container matColumnDef="date">
+                  <th mat-header-cell *matHeaderCellDef> date </th>
+                  <td style="width: 35%" mat-cell *matCellDef="let transaction">
+                    {{transaction.date}}
+                  </td>
+                  <td mat-footer-cell *matFooterCellDef>
+                    <p>Total Priced</p>
+                    <p>Unpriced (lots)</p>
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="lots">
+                  <th mat-header-cell *matHeaderCellDef> lots </th>
+                  <td mat-cell style="width: 15%" *matCellDef="let transaction"> {{transaction.lots}} </td>
+                  <td mat-footer-cell *matFooterCellDef>
+                    <p style="margin-top: -20px"> 118</p>
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="Price (USD/MT)">
+                  <th mat-header-cell *matHeaderCellDef> Price (USD/MT)</th>
+                  <td mat-cell *matCellDef="let transaction"> {{transaction.Price }} </td>
+                  <td mat-footer-cell *matFooterCellDef>
+                    <p>12.488</p>
+                    <p>-20</p>
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="Manage">
+                  <th mat-header-cell *matHeaderCellDef> Manage</th>
+                  <td mat-cell *matCellDef="let transaction" class="cucer-poiter" (click)="onDelete()">delete</td>
+                  <td mat-footer-cell *matFooterCellDef> </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                <tr mat-footer-row *matFooterRowDef="displayedColumns; sticky: true"></tr>
+              </table>
+            </div>
+          </mat-grid-tile>
+          <mat-grid-tile [colspan]='breakpoint' rowspan="2">
+            <div style="width: 100%;margin-top: 20px" *ngIf="hideCol > 400">
+              <p class="ellipsis-text">Total White Premium</p>
+
+            </div>
+            <div style="width: 100%;margin-top: 20px" *ngIf="hideCol < 400">
+              <p class="ellipsis-text text-center">Total White Premium</p>
+
+            </div>
+          </mat-grid-tile>
+          <mat-grid-tile [colspan]='breakpoint' rowspan="2">
+            <div style="width: 100%;margin-top: 20px" *ngIf="hideCol > 400">
+              <p style="margin-left: 70%">
+                66.34
+              </p>
+            </div>
+            <div *ngIf="hideCol < 400" style="width: 100%;margin-top: 20px">
+              <p class="text-center">
+                66.34
+              </p>
+            </div>
+          </mat-grid-tile>
+          <mat-grid-tile [colspan]='breakpoint' rowspan="2">
+            <div style="width: 100%;margin-top: 20px" *ngIf="hideCol > 400">
+              <p>USD/MT</p>
+            </div>
+            <div style="width: 100%;margin-top: 20px" *ngIf="hideCol < 400">
+              <p class="text-center">USD/MT</p>
+
+            </div>
+          </mat-grid-tile>
+          <mat-grid-tile colspan="6" rowspan="2">
+            <div style="width: 100%" class="text-right">
+              <button mat-stroked-button color="accent">add</button>
+            </div>
+          </mat-grid-tile>
+          <!-- ตารางที่3 -->
+          <mat-grid-tile colspan="6">
+            <div class="head-tb">
+              <p>New York No.11</p>
+            </div>
+          </mat-grid-tile>
+          <mat-grid-tile colspan="6" rowspan="8" style="margin: 5px;">
+            <div class="example-container mat-elevation-z8" style="width: 100%">
+              <table mat-table [dataSource]="newYorkNo11Table" style="min-width: 822px;">
+
+                <ng-container matColumnDef="orderdate">
+                  <th mat-header-cell *matHeaderCellDef> Order Date </th>
+                  <td mat-cell *matCellDef="let use">
+                    {{use.orderdate}}
+                  </td>
+                  <td mat-footer-cell *matFooterCellDef>
+                    <p>Total Priced</p>
+                    <p>net</p>
+                  </td>
+
+                </ng-container>
+                <ng-container matColumnDef="sell">
+                  <th mat-header-cell *matHeaderCellDef> Sell (lots) </th>
+                  <td mat-cell *matCellDef="let use">
+                    {{use.sell}}
+                  </td>
+                  <td mat-footer-cell *matFooterCellDef>
+                    <p>118</p>
+                    <p>118</p>
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="buy">
+                  <th mat-header-cell *matHeaderCellDef> Buy (lots) </th>
+                  <td mat-cell *matCellDef="let use">
+                    {{use.buy}}
+                  </td>
+                  <td mat-footer-cell *matFooterCellDef>
+                    <p>0</p>
+                    <p></p>
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="against">
+                  <th mat-header-cell *matHeaderCellDef>Against </th>
+                  <td mat-cell *matCellDef="let use">
+                    {{use.against}}
+                  </td>
+                  <td mat-footer-cell *matFooterCellDef>
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="mon">
+                  <th mat-header-cell *matHeaderCellDef> </th>
+                  <td mat-cell *matCellDef="let use">
+                    {{use.mon}}
+                  </td>
+                  <td mat-footer-cell *matFooterCellDef>
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="year">
+                  <th mat-header-cell *matHeaderCellDef> </th>
+                  <td mat-cell *matCellDef="let use">
+                    {{use.year}}
+                  </td>
+                  <td mat-footer-cell *matFooterCellDef>
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="price">
+                  <th mat-header-cell *matHeaderCellDef> Price</th>
+                  <td mat-cell *matCellDef="let use">
+                    {{use.price}}
+                  </td>
+                  <td mat-footer-cell *matFooterCellDef>
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="unit">
+                  <th mat-header-cell *matHeaderCellDef>Unit</th>
+                  <td mat-cell *matCellDef="let use">
+                    {{use.unit}}
+                  </td>
+                  <td mat-footer-cell *matFooterCellDef>
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="executed">
+                  <th mat-header-cell *matHeaderCellDef>Executed on</th>
+                  <td mat-cell *matCellDef="let use">
+                    {{use.executed}}
+                  </td>
+                  <td mat-footer-cell *matFooterCellDef>
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="Manage">
+                  <th mat-header-cell *matHeaderCellDef>Manage</th>
+                  <td mat-cell *matCellDef="let use" class="cucer-poiter" (click)="onDelete()">
+                    delete
+                  </td>
+                  <td mat-footer-cell *matFooterCellDef>
+                  </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="columnsNewYork; sticky: true"></tr>
+                <tr mat-row *matRowDef="let row; columns: columnsNewYork;"></tr>
+                <tr mat-footer-row *matFooterRowDef="columnsNewYork; sticky: true"></tr>
+              </table>
+            </div>
+          </mat-grid-tile>
+        </mat-grid-list>
+      </mat-expansion-panel>
+    </mat-accordion>
+
+
+
+  </div>
+  <mat-card class="example-card" style="margin: 8px;">
+    <mat-grid-list cols="6" rowHeight="31px">
+      <mat-grid-tile colspan="6" rowspan="2">
+        <div style="width: 100%" class="text-right">
+          <button mat-stroked-button color="accent">add</button>
+        </div>
+      </mat-grid-tile>
+      <!-- ตารางที่4 -->
+      <mat-grid-tile colspan="6">
+        <div class="head-tb">
+          <p>London No.5</p>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile colspan="6" rowspan="9" style="height: 244px;margin: 5px;">
+        <div class="example-container mat-elevation-z8" style="width: 100%; ">
+          <table mat-table [dataSource]="londonTable" style="min-width: 822px;">
+
+            <ng-container matColumnDef="orderdate">
+              <th mat-header-cell *matHeaderCellDef> Order Date </th>
+              <td mat-cell *matCellDef="let use">
+                {{use.orderdate}}
+              </td>
+              <td mat-footer-cell *matFooterCellDef>
+                <p>Total Priced</p>
+                <p>net</p>
+              </td>
+
+            </ng-container>
+            <ng-container matColumnDef="sell">
+              <th mat-header-cell *matHeaderCellDef> Sell (lots) </th>
+              <td mat-cell *matCellDef="let use">
+                {{use.sell}}
+              </td>
+              <td mat-footer-cell *matFooterCellDef>
+                <p>120</p>
+                <p>120</p>
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="buy">
+              <th mat-header-cell *matHeaderCellDef> Buy (lots) </th>
+              <td mat-cell *matCellDef="let use">
+                {{use.buy}}
+              </td>
+              <td mat-footer-cell *matFooterCellDef>
+                <p>0</p>
+                <p></p>
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="against">
+              <th mat-header-cell *matHeaderCellDef>Against </th>
+              <td mat-cell *matCellDef="let use">
+                {{use.against}}
+              </td>
+              <td mat-footer-cell *matFooterCellDef>
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="mon">
+              <th mat-header-cell *matHeaderCellDef> </th>
+              <td mat-cell *matCellDef="let use">
+                {{use.mon}}
+              </td>
+              <td mat-footer-cell *matFooterCellDef>
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="year">
+              <th mat-header-cell *matHeaderCellDef> </th>
+              <td mat-cell *matCellDef="let use">
+                {{use.year}}
+              </td>
+              <td mat-footer-cell *matFooterCellDef>
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="price">
+              <th mat-header-cell *matHeaderCellDef> Price</th>
+              <td mat-cell *matCellDef="let use">
+                {{use.price}}
+              </td>
+              <td mat-footer-cell *matFooterCellDef>
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="unit">
+              <th mat-header-cell *matHeaderCellDef>Unit</th>
+              <td mat-cell *matCellDef="let use">
+                {{use.unit}}
+              </td>
+              <td mat-footer-cell *matFooterCellDef>
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="executed">
+              <th mat-header-cell *matHeaderCellDef>Executed on</th>
+              <td mat-cell *matCellDef="let use">
+                {{use.executed}}
+              </td>
+              <td mat-footer-cell *matFooterCellDef>
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="Manage">
+              <th mat-header-cell *matHeaderCellDef>Manage</th>
+              <td mat-cell *matCellDef="let use" class="cucer-poiter" (click)="onDelete()">
+                delete
+              </td>
+              <td mat-footer-cell *matFooterCellDef>
+              </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="columnLondon; sticky: true"></tr>
+            <tr mat-row *matRowDef="let row; columns: columnLondon;"></tr>
+            <tr mat-footer-row *matFooterRowDef="columnLondon; sticky: true"></tr>
+          </table>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile colspan="6" rowspan="2">
+        <div style="width: 100%">
+          <button style="margin-left: 5px" mat-stroked-button color="accent">add</button>
+        </div>
+      </mat-grid-tile>
+      <!-- ตารางที่5 -->
+      <mat-grid-tile *ngIf="hideCol > 400" colspan="4" rowspan="8" style="height: 244px;margin: 5px;">
+        <div class="example-container mat-elevation-z8" style="width: 99%;height: 70%;margin-top: -30px;">
+          <table mat-table [dataSource]="othersTable" style="min-width: 537px; ">
+            <ng-container matColumnDef="others">
+              <th mat-header-cell *matHeaderCellDef> Others </th>
+              <td mat-cell *matCellDef="let item"> {{item.others}} </td>
+              <td mat-footer-cell *matFooterCellDef> Total </td>
+            </ng-container>
+
+            <ng-container matColumnDef="amont">
+              <th mat-header-cell *matHeaderCellDef> Amont </th>
+              <td mat-cell *matCellDef="let item"> {{item.amont}} </td>
+              <td mat-footer-cell *matFooterCellDef> </td>
+            </ng-container>
+            <ng-container matColumnDef="unit">
+              <th mat-header-cell *matHeaderCellDef> Unit </th>
+              <td mat-cell *matCellDef="let item"> {{item.unit}} </td>
+              <td mat-footer-cell *matFooterCellDef></td>
+            </ng-container>
+            <ng-container matColumnDef="manage">
+              <th mat-header-cell *matHeaderCellDef> Manage </th>
+              <td mat-cell *matCellDef="let item" class="cucer-poiter" (click)="onDelete()"> delete </td>
+              <td mat-footer-cell *matFooterCellDef> </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="columnOthers; sticky: true"></tr>
+            <tr mat-row *matRowDef="let row; columns: columnOthers;"></tr>
+            <tr mat-footer-row *matFooterRowDef="columnOthers; sticky: true"></tr>
+          </table>
+        </div>
+      </mat-grid-tile>
+
+      <!-- จอเล็ก -->
+
+      <mat-grid-tile *ngIf="hideCol < 400" colspan="6" rowspan="8" style="height: 244px;margin: 5px;">
+        <div class="example-container mat-elevation-z8" style="width: 99%;height: 70%;">
+          <table mat-table [dataSource]="othersTable" style="min-width: 537px;">
+            <ng-container matColumnDef="others">
+              <th mat-header-cell *matHeaderCellDef> Others </th>
+              <td mat-cell *matCellDef="let item"> {{item.others}} </td>
+              <td mat-footer-cell *matFooterCellDef> Total </td>
+            </ng-container>
+
+            <ng-container matColumnDef="amont">
+              <th mat-header-cell *matHeaderCellDef> Amont </th>
+              <td mat-cell *matCellDef="let item"> {{item.amont}} </td>
+              <td mat-footer-cell *matFooterCellDef> </td>
+            </ng-container>
+            <ng-container matColumnDef="unit">
+              <th mat-header-cell *matHeaderCellDef> Unit </th>
+              <td mat-cell *matCellDef="let item"> {{item.unit}} </td>
+              <td mat-footer-cell *matFooterCellDef></td>
+            </ng-container>
+            <ng-container matColumnDef="manage">
+              <th mat-header-cell *matHeaderCellDef> Manage </th>
+              <td mat-cell *matCellDef="let item" class="cucer-poiter" (click)="onDelete()"> delete </td>
+              <td mat-footer-cell *matFooterCellDef> </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="columnOthers; sticky: true"></tr>
+            <tr mat-row *matRowDef="let row; columns: columnOthers;"></tr>
+            <tr mat-footer-row *matFooterRowDef="columnOthers; sticky: true"></tr>
+          </table>
+        </div>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </mat-card>
+  <mat-card class="example-card" style="margin: 8px;">
+    <mat-grid-list cols="6" rowHeight="31px" (window:resize)="onResize2($event)">
+      <mat-grid-tile [colspan]='breakpoint'>
+        <div style="width: 100%">
+          <p>Average Price</p>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile [colspan]='breakpoint'>
+        <mat-form-field style="width: 100%">
+          <input matInput placeholder="Average Price" [(ngModel)]="dataPricing.totalAll.averageprice">
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile [colspan]='breakpoint4'>
+        <div style="width: 100%">
+          <p>
+            USD/MT
+          </p>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile [colspan]='breakpoint'>
+        <div style="width: 100%">
+          <p>Other</p>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile [colspan]='breakpoint'>
+        <mat-form-field style="width: 100%">
+          <input matInput placeholder="Other" [(ngModel)]="dataPricing.totalAll.other">
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile [colspan]='breakpoint4'>
+        <div style="width: 100%">
+          <p>
+            USD/MT
+          </p>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile [colspan]='breakpoint'>
+        <div style="width: 100%">
+          <p>Premium</p>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile [colspan]='breakpoint'>
+        <mat-form-field style="width: 100%">
+          <input matInput placeholder="Premium" [(ngModel)]="dataPricing.totalAll.premium">
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile [colspan]='breakpoint4'>
+        <div style="width: 100%">
+          <p>
+            USD/MT
+          </p>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile [colspan]='breakpoint'>
+        <div style="width: 100%">
+          <p>Final Price</p>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile [colspan]='breakpoint'>
+        <mat-form-field style="width: 100%">
+          <input matInput placeholder="Final Price" [(ngModel)]="dataPricing.totalAll.finalprice">
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile [colspan]='breakpoint4'>
+        <div style="width: 100%">
+          <p>
+            USD/MT
+          </p>
+        </div>
+      </mat-grid-tile>
+      <!-- <mat-grid-tile [colspan]='breakpoint4'>
+        <div style="width: 100%">
+          <p>
+            Sonfirmed Sell
+          </p>
+        </div>
+      </mat-grid-tile> -->
+      <mat-grid-tile [colspan]='breakpoint'>
+        <div style="width: 100%">
+          <p>Total Pricing</p>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile [colspan]='breakpoint'>
+        <mat-form-field style="width: 100%">
+          <input matInput placeholder="Total Pricing" [(ngModel)]="dataPricing.totalAll.totalpricing">
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile [colspan]='breakpoint4'>
+        <div style="width: 100%">
+          <p>
+            lots
+          </p>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile [colspan]='breakpoint'>
+        <div style="width: 100%">
+          <p>Priced</p>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile [colspan]='breakpoint'>
+        <mat-form-field style="width: 100%">
+          <input matInput placeholder="Priced" [(ngModel)]="dataPricing.totalAll.priced">
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile [colspan]='breakpoint4'>
+        <div style="width: 100%">
+          <p>
+            lots
+          </p>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile [colspan]='breakpoint'>
+        <div style="width: 100%">
+          <p>Unpriced</p>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile [colspan]='breakpoint'>
+        <mat-form-field style="width: 100%">
+          <input matInput placeholder="Unpriced" [(ngModel)]="dataPricing.totalAll.unpriced">
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile [colspan]='breakpoint4'>
+        <div style="width: 100%">
+          <p>
+            lots
+          </p>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile colspan="6" rowspan="2">
+        <div style="width: 100%" class="text-right">
+
+          <button mat-stroked-button color="accent">Save</button>
+          <button mat-stroked-button color="warn">Cancel</button>
+        </div>
+      </mat-grid-tile>
+
+    </mat-grid-list>
+  </mat-card>
+
+</div>
