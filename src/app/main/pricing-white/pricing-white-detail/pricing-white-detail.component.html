@@ -1,8 +1,8 @@
 <div class="page-layout carded fullwidth" fusePerfectScrollbar>
-  <mat-card class="example-card" style="margin: 8px;">
-    <mat-grid-list cols="4" rowHeight="31px" (window:resize)="onResize($event)">
+  <mat-card style="margin: 8px;">
+    <mat-grid-list cols="4" rowHeight="60px" (window:resize)="onResize($event)">
       <mat-grid-tile [colspan]='breakpoint'>
-        <div style="width: 100%;">
+        <div style="width: 100%;" [ngClass]="hideCol > 400 ? 'text-center' : 'text-left'">
           Type of Sugar
         </div>
       </mat-grid-tile>
@@ -16,10 +16,11 @@
           </mat-select>
         </mat-form-field>
       </mat-grid-tile>
-      <mat-grid-tile [colspan]='1' *ngIf="hideCol > 400"></mat-grid-tile>
-      <mat-grid-tile [colspan]='1' *ngIf="hideCol > 400"></mat-grid-tile>
+      <mat-grid-tile *ngIf="hideCol > 400"></mat-grid-tile>
+      <mat-grid-tile *ngIf="hideCol > 400"></mat-grid-tile>
+
       <mat-grid-tile [colspan]='breakpoint'>
-        <div style="width: 100%;">
+        <div style="width: 100%;" [ngClass]="hideCol > 400 ? 'text-center' : 'text-left'">
           Buyer
         </div>
       </mat-grid-tile>
@@ -34,7 +35,7 @@
         </mat-form-field>
       </mat-grid-tile>
       <mat-grid-tile [colspan]='breakpoint'>
-        <div style="width: 100%;">
+        <div style="width: 100%;" [ngClass]="hideCol > 400 ? 'text-center' : 'text-left'">
           Qty(MT)
         </div>
       </mat-grid-tile>
@@ -45,7 +46,7 @@
 
       </mat-grid-tile>
       <mat-grid-tile [colspan]='breakpoint'>
-        <div style="width: 100%;">
+        <div style="width: 100%;" [ngClass]="hideCol > 400 ? 'text-center' : 'text-left'">
           Group Factory
         </div>
       </mat-grid-tile>
@@ -60,7 +61,7 @@
         </mat-form-field>
       </mat-grid-tile>
       <mat-grid-tile [colspan]='breakpoint'>
-        <div style="width: 100% ;">
+        <div style="width: 100% ;" [ngClass]="hideCol > 400 ? 'text-center' : 'text-left'">
           Shipment
         </div>
       </mat-grid-tile>
@@ -78,7 +79,7 @@
 
       </mat-grid-tile>
       <mat-grid-tile [colspan]='breakpoint'>
-        <div style="width: 100%;">
+        <div style="width: 100%;" [ngClass]="hideCol > 400 ? 'text-center' : 'text-left'">
           Buyer Contract No.
         </div>
       </mat-grid-tile>
@@ -91,7 +92,7 @@
 
       </mat-grid-tile>
       <mat-grid-tile [colspan]='breakpoint'>
-        <div style="width: 100%;">
+        <div style="width: 100%;" [ngClass]="hideCol > 400 ? 'text-center' : 'text-left'">
           Contract No.
         </div>
       </mat-grid-tile>
@@ -106,7 +107,7 @@
         </mat-form-field>
       </mat-grid-tile>
       <mat-grid-tile [colspan]='breakpoint'>
-        <div style="width: 100%;">
+        <div style="width: 100%;" [ngClass]="hideCol > 400 ? 'text-center' : 'text-left'">
           Contract Date
         </div>
       </mat-grid-tile>
@@ -116,7 +117,7 @@
         </mat-form-field>
       </mat-grid-tile>
       <mat-grid-tile [colspan]='breakpoint'>
-        <div style="width: 100%;">
+        <div style="width: 100%;" [ngClass]="hideCol > 400 ? 'text-center' : 'text-left'">
           Premium (USD/MT)
         </div>
       </mat-grid-tile>
@@ -128,7 +129,7 @@
 
       </mat-grid-tile>
       <mat-grid-tile [colspan]='breakpoint'>
-        <div style="width: 100%;">
+        <div style="width: 100%;" [ngClass]="hideCol > 400 ? 'text-center' : 'text-left'">
           Contract Month
         </div>
       </mat-grid-tile>
@@ -143,7 +144,7 @@
         </mat-form-field>
       </mat-grid-tile>
       <mat-grid-tile [colspan]='breakpoint'>
-        <div style="width: 100%;">
+        <div style="width: 100%;" [ngClass]="hideCol > 400 ? 'text-center' : 'text-left'">
           Contract Year
         </div>
       </mat-grid-tile>
@@ -169,7 +170,7 @@
           </mat-panel-title>
         </mat-expansion-panel-header>
 
-        <mat-grid-list cols="6" rowHeight="31px" (window:resize)="onResize2($event)">
+        <mat-grid-list cols="6" rowHeight="60px" (window:resize)="onResize2($event)">
           <mat-grid-tile [colspan]='breakpoint2'>
             <div style="width: 100%">
               <span class="ellipsis-text">
@@ -181,7 +182,7 @@
           <mat-grid-tile class="mt-5" [colspan]='breakpoint2'>
             <mat-form-field style="width: 100%">
               <input matInput placeholder="Total Pricing - Request"
-                [(ngModel)]="dataPricing.whitepremium.totalpricingRequest">
+                [(ngModel)]="dataPricing.whitepremium.totalpricingrequest">
             </mat-form-field>
           </mat-grid-tile>
           <mat-grid-tile *ngIf="hideCol > 400">
@@ -249,7 +250,7 @@
               <p>Sell London No.5</p>
             </div>
           </mat-grid-tile>
-          <mat-grid-tile [colspan]='breakpoint3' rowspan="9" style="height: 244px;margin: 5px;">
+          <mat-grid-tile [colspan]='breakpoint3' rowspan="5" style="height: 244px;margin: 5px;">
             <div class="example-container mat-elevation-z8" style="width: 97%">
               <table mat-table [dataSource]="transactions" style="min-width: 400px;">
 
@@ -303,7 +304,7 @@
               <p>Buy New York No.11</p>
             </div>
           </mat-grid-tile>
-          <mat-grid-tile [colspan]='breakpoint3' rowspan="9" style="height: 244px;margin: 5px;">
+          <mat-grid-tile [colspan]='breakpoint3' rowspan="5" style="height: 244px;margin: 5px;">
             <div class="example-container mat-elevation-z8" style="width: 97%">
               <table mat-table [dataSource]="buyNewYorkNo11" style="min-width: 400px;">
                 <ng-container matColumnDef="date">
@@ -342,8 +343,8 @@
               </table>
             </div>
           </mat-grid-tile>
-          <mat-grid-tile [colspan]='breakpoint' rowspan="2">
-            <div style="width: 100%;margin-top: 20px" *ngIf="hideCol > 400">
+          <mat-grid-tile [colspan]='breakpoint' rowspan="1">
+            <div style="width: 100%;" *ngIf="hideCol > 400">
               <p class="ellipsis-text">Total White Premium</p>
 
             </div>
@@ -352,28 +353,28 @@
 
             </div>
           </mat-grid-tile>
-          <mat-grid-tile [colspan]='breakpoint' rowspan="2">
-            <div style="width: 100%;margin-top: 20px" *ngIf="hideCol > 400">
+          <mat-grid-tile [colspan]='breakpoint' rowspan="1">
+            <div style="width: 100%;" *ngIf="hideCol > 400">
               <p style="margin-left: 70%">
                 66.34
               </p>
             </div>
-            <div *ngIf="hideCol < 400" style="width: 100%;margin-top: 20px">
+            <div *ngIf="hideCol < 400" style="width: 100%;">
               <p class="text-center">
                 66.34
               </p>
             </div>
           </mat-grid-tile>
-          <mat-grid-tile [colspan]='breakpoint' rowspan="2">
-            <div style="width: 100%;margin-top: 20px" *ngIf="hideCol > 400">
+          <mat-grid-tile [colspan]='breakpoint' rowspan="1">
+            <div style="width: 100%;" *ngIf="hideCol > 400">
               <p>USD/MT</p>
             </div>
-            <div style="width: 100%;margin-top: 20px" *ngIf="hideCol < 400">
+            <div style="width: 100%;" *ngIf="hideCol < 400">
               <p class="text-center">USD/MT</p>
 
             </div>
           </mat-grid-tile>
-          <mat-grid-tile colspan="6" rowspan="2">
+          <mat-grid-tile colspan="6" rowspan="1">
             <div style="width: 100%" class="text-right">
               <button mat-stroked-button color="accent">add</button>
             </div>
@@ -384,7 +385,7 @@
               <p>New York No.11</p>
             </div>
           </mat-grid-tile>
-          <mat-grid-tile colspan="6" rowspan="8" style="margin: 5px;">
+          <mat-grid-tile colspan="6" rowspan="5" style="margin: 5px;">
             <div class="example-container mat-elevation-z8" style="width: 100%">
               <table mat-table [dataSource]="newYorkNo11Table" style="min-width: 822px;">
 
@@ -670,7 +671,7 @@
     </mat-grid-list>
   </mat-card>
   <mat-card class="example-card" style="margin: 8px;">
-    <mat-grid-list cols="6" rowHeight="31px" (window:resize)="onResize2($event)">
+    <mat-grid-list cols="6" rowHeight="60px" (window:resize)="onResize2($event)">
       <mat-grid-tile [colspan]='breakpoint'>
         <div style="width: 100%">
           <p>Average Price</p>
