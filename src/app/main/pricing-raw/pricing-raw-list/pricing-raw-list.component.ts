@@ -59,7 +59,7 @@ export class PricingRawListComponent implements OnInit {
       buyercontacno: 'P29598',
       contactdata: '20/02/2017',
       typeofsugar: 'WHITE SUGAR',
-      quanitity: 12000,
+      quanitity: 24000,
       shipmentperiod: '20/02/2018 - 20/05/2018',
       // totalprice:'',
       priced: '',
@@ -77,7 +77,7 @@ export class PricingRawListComponent implements OnInit {
       buyercontacno: 'HKP2403',
       contactdata: '20/02/2017',
       typeofsugar: 'REFINED SUGAR',
-      quanitity: 12000,
+      quanitity: 24000,
       shipmentperiod: '01/03/2018 - 31/05/2018',
       // totalprice:'',
       priced: '',
@@ -95,7 +95,7 @@ export class PricingRawListComponent implements OnInit {
       buyercontacno: 'P6000',
       contactdata: '01/09/2017',
       typeofsugar: 'REFINED SUGAR',
-      quanitity: 9000,
+      quanitity: 24000,
       shipmentperiod: '',
       // totalprice:'',
       priced: '',
@@ -193,10 +193,12 @@ export class PricingRawListComponent implements OnInit {
   calTotal() {
     this.total = 0;
     this.lots = 0;
+    let res = 0;
     this.transactions.forEach(tran => {
       this.total = this.total + tran.quanitity
-      this.lots = this.lots + tran.quanitity / 50
+      res = res + tran.quanitity / 50.8
     });
+    this.lots =  Math.round(res)
     console.log(this.total);
   }
 
