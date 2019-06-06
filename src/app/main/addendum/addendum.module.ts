@@ -7,6 +7,8 @@ import { FormsModule } from '@angular/forms';
 import { FuseSharedModule } from '@fuse/shared.module';
 import { TranslateModule } from '@ngx-translate/core';
 import { AddendumDetailComponent } from './addendum-detail/addendum-detail.component';
+import { NgxDataTableModule } from 'ngx-nested-data-table';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 const routes = [
   {
@@ -37,7 +39,9 @@ const routes = [
     MatCardModule,
     MatIconModule,
     MatExpansionModule,
-    MatMenuModule
+    MatMenuModule,
+    NgxDataTableModule,
+    BrowserAnimationsModule,
   ],
   exports:[
     AddendumListComponent

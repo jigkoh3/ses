@@ -11,7 +11,103 @@ export class AddendumListComponent implements OnInit {
   total: any;
   lots: any;
   screenwidth: any;
-
+  data: any[] = [
+    {
+      contract: '00116/TRR',
+      contractDate:'20/02/2017',
+      buyerContract: 'HKP2403',
+      buyer: 'ED & F Man',
+      sugarType: 'REFINED SUGAR',
+      madeon: 'ตปท.',
+      cropYear: '2017',
+      groupFactory: 'TR-กลุ่มไทยรุ่งเรือง',
+      shipmentTerm: 'FOB',
+      shipmentPeriod:'20/02/2018 - 20/05/2018',
+      quantity: '12000',
+      shipment: '',
+      paymentTerm: 'T/T',
+      currency:'THB',
+      contractStatus: 'Draft',
+      details: [
+        {
+          addendum: '1',
+          addendumDate: '20/02/2017',
+          addendumType: 'Final Price',
+          addendumStatus: 'Draft',
+          sugarType: 'REFINED SUGAR',
+          buyerContract: 'HKP2403',
+          buyer: 'ED & F Man',
+          quantity: 12000
+       
+        },{
+          addendum: '1',
+          addendumDate: '20/02/2017',
+          addendumType: 'Final Price',
+          addendumStatus: 'Draft',
+          sugarType: 'REFINED SUGAR',
+          buyerContract: 'HKP2403',
+          buyer: 'ED & F Man',
+          quantity: 12000
+        },{
+          addendum: '1',
+          addendumDate: '20/02/2017',
+          addendumType: 'Final Price',
+          addendumStatus: 'Draft',
+          sugarType: 'REFINED SUGAR',
+          buyerContract: 'HKP2403',
+          buyer: 'ED & F Man',
+          quantity: 12000
+        },
+      ]
+    },{
+      contract: '00116/TRR',
+      contractDate:'20/02/2017',
+      buyerContract: 'HKP2403',
+      buyer: 'ED & F Man',
+      sugarType: 'REFINED SUGAR',
+      madeon: 'ตปท.',
+      cropYear: '2017',
+      groupFactory: 'TR-กลุ่มไทยรุ่งเรือง',
+      shipmentTerm: 'FOB',
+      shipmentPeriod:'20/02/2018 - 20/05/2018',
+      quantity: '12000',
+      shipment: '',
+      paymentTerm: 'T/T',
+      currency:'THB',
+      contractStatus: 'Draft',
+      details: [
+        {
+          addendum: '1',
+          addendumDate: '20/02/2017',
+          addendumType: 'Final Price',
+          addendumStatus: 'Draft',
+          sugarType: 'REFINED SUGAR',
+          buyerContract: 'HKP2403',
+          buyer: 'ED & F Man',
+          quantity: 12000
+       
+        },{
+          addendum: '1',
+          addendumDate: '20/02/2017',
+          addendumType: 'Final Price',
+          addendumStatus: 'Draft',
+          sugarType: 'REFINED SUGAR',
+          buyerContract: 'HKP2403',
+          buyer: 'ED & F Man',
+          quantity: 12000
+        },{
+          addendum: '1',
+          addendumDate: '20/02/2017',
+          addendumType: 'Final Price',
+          addendumStatus: 'Draft',
+          sugarType: 'REFINED SUGAR',
+          buyerContract: 'HKP2403',
+          buyer: 'ED & F Man',
+          quantity: 12000
+        },
+      ]
+    }
+  ];
   displayedColumns = [
     'Contract-No',
     'ContractDate',
