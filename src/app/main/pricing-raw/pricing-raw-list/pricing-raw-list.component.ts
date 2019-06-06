@@ -19,6 +19,7 @@ export class PricingRawListComponent implements OnInit {
   ];
   groupfactory: any = [
     { value: 'TR-กลุ่มไทยรุ่งเรือง', viewValue: 'TR-กลุ่มไทยรุ่งเรือง' },
+    { value: 'TR-กลุ่มไทยรุ่งเรือง', viewValue: 'TR-กลุ่มไทยรุ่งเรือง' },
     // { value: 'pizza-1', viewValue: 'Pizza' },
     // { value: 'tacos-2', viewValue: 'Tacos' }
   ];
