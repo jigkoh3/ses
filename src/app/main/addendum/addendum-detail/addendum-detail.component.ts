@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./addendum-detail.component.scss']
 })
 export class AddendumDetailComponent implements OnInit {
-
+ 
   constructor() { }
 
   ngOnInit() {
