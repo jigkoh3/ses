@@ -1,0 +1,66 @@
+.mat-grid-tile .mat-figure {
+    top: 0;
+    left: 40px;
+    /* right: 55px; */
+    bottom: 0;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+.display-div {
+    display: flex;
+    flex-direction: column;
+    flex: 1 0 auto;
+}
+
+.bg-head {
+    background-color: #BDD6EA;
+}
+
+.example-container {
+    height: 270px;
+    overflow: auto;
+}
+
+table {
+    width: 100%;
+    height: 100%;
+}
+
+tr.mat-footer-row {
+    font-weight: bold;
+}
+
+.mat-table-sticky {
+    border-top: 1px solid #e0e0e0;
+}
+
+.mg-top {
+    margin-top: 20px;
+    padding: 5px;
+}
+
+.head-tb {
+    width: 100%;
+    margin-left: 6px;
+    margin-right: 8px;
+    background-color: #b2eadacf;
+}
+
+.mg-right {
+    margin-left: 92%;
+}
+
+.ellipsis-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.cucer-poiter{
+    cursor: pointer;
+}
