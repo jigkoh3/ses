@@ -6,16 +6,20 @@ import { MatMenuModule, MatExpansionModule, MatIconModule, MatCardModule, MatBut
 import { FormsModule } from '@angular/forms';
 import { FuseSharedModule } from '@fuse/shared.module';
 import { TranslateModule } from '@ngx-translate/core';
+import { AddendumDetailComponent } from './addendum-detail/addendum-detail.component';
 
 const routes = [
   {
     path: 'Addendum',
     component: AddendumListComponent
+  },{
+    path: 'Addendum-detail',
+    component: AddendumDetailComponent
   }
 ];
 
 @NgModule({
-  declarations: [AddendumListComponent],
+  declarations: [AddendumListComponent, AddendumDetailComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
