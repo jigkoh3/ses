@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Route, Router } from '@angular/router';
+import { months } from 'moment';
 export interface Food {
   value: string;
   viewValue: string;
@@ -11,6 +12,42 @@ export interface Food {
   styleUrls: ['./pricing-raw-detail.component.scss']
 })
 export class PricingRawDetailComponent implements OnInit {
+  dataPricing = {
+    status: 200,
+    typeofsugar: 'WHITE SUGAR',
+    buyer: 'ED & F Man',
+    groupfactory: 'tr-group',
+    buyercontractno: 'P29599',
+    contractdate: '20/02/2017',
+    contractmonth: 'March',
+    qty: 12000,
+    shipment: {
+      startdate: '20/02/2018',
+      enddate: '20/05/2018'
+    },
+    contractno: '06818/TR',
+    premium: '16',
+    contractyear: '2019',
+    whitepremium: {
+      totalpricingrequest: 5000,
+      month: 'March',
+      totalpricing: 100,
+      totalpricing2: 98,
+      year: '2018'
+    },
+    totalAll: {
+      averageprice: 342.47,
+      other: -0.50,
+      premium: 16,
+      finalprice: 357.97,
+      totalpricing: 240,
+      priced: 238,
+      unpriced: 2
+    }
+  }
+
+
+
   panelOpenState = false;
   hideCol: any;
   breakpoint: any;
@@ -19,6 +56,42 @@ export class PricingRawDetailComponent implements OnInit {
   breakpoint4: any;
   breakpoint5: any;
   breakpoint6: any;
+  typeofsugar: Array<any> = [
+    { value: 'WHITE SUGAR', viewValue: 'WHITE SUGAR' },
+    { value: 'REFINED SUGAR', viewValue: 'REFINED SUGAR' },
+  ];
+  buyer: Array<any> = [
+    { value: 'ED & F Man', viewValue: 'ED & F Man' },
+    { value: 'Alvean', viewValue: 'Alvean' },
+    { value: 'Bunge', viewValue: 'Bunge' }
+  ]
+  groupFactory: Array<any> = [
+    { value: 'tr-group', viewValue: 'TR-กลุ่มไทยรุ่งเรือง' },
+  ]
+  contactNo: Array<any> = [
+    { value: '06818/TR', viewValue: '06818/TR' },
+    { value: '07118/TR', viewValue: '07118/TR' },
+    { value: '07218/TR', viewValue: '07218/TR' }
+  ]
+  months: Array<any> = [
+    { value: 'January', viewValue: 'January' },
+    { value: 'February', viewValue: 'February' },
+    { value: 'March', viewValue: 'March' },
+    { value: 'April', viewValue: 'April' },
+    { value: 'May', viewValue: 'May' },
+    { value: 'June', viewValue: 'June' },
+    { value: 'July', viewValue: 'July' },
+    { value: 'August', viewValue: 'August' },
+    { value: 'September', viewValue: 'September' },
+    { value: 'October', viewValue: 'October' },
+    { value: 'November', viewValue: 'Novembe' },
+    { value: 'December', viewValue: 'December' }
+  ]
+  year: Array<any> = [
+    { value: '2018', viewValue: '2018' },
+    { value: '2019', viewValue: '2019' },
+
+  ]
   foods: Food[] = [
     { value: 'steak-0', viewValue: 'Steak' },
     { value: 'pizza-1', viewValue: 'Pizza' },
@@ -81,8 +154,8 @@ export class PricingRawDetailComponent implements OnInit {
     this.breakpoint6 = (event.target.innerWidth <= 400) ? 3 : 2;
 
     this.hideCol = event.target.innerWidth;
-
-
-
+  }
+  onDelete() {
+    confirm('คุณต้องการลบหรือไม่')
   }
 }
