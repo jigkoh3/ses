@@ -39,20 +39,19 @@
             <div class="nav material2">
 
               <div class="nav-item" aria-label="inbox">
-                <a class="nav-link" matRipple (click)="changeFilter('all')"
-                  [ngClass]="{'active accent':filterBy ==='all'}">
+                <a class="nav-link" matRipple>
                   <span class="title">All Contacts</span>
                 </a>
               </div>
 
-              <div class="nav-item" aria-label="frequently contacted" (click)="changeFilter('frequent')">
-                <a class="nav-link" matRipple [ngClass]="{'active accent':filterBy ==='frequent'}">
+              <div class="nav-item" aria-label="frequently contacted" >
+                <a class="nav-link" matRipple >
                   <div class="title">Freequently contacted</div>
                 </a>
               </div>
 
-              <div class="nav-item" aria-label="starred" (click)="changeFilter('starred')">
-                <a class="nav-link" matRipple [ngClass]="{'active accent':filterBy ==='starred'}">
+              <div class="nav-item" aria-label="starred" >
+                <a class="nav-link" matRipple >
                   <div class="title">Starred Contacts</div>
                 </a>
               </div>
@@ -104,9 +103,3 @@
 
 </div>
 
-<!-- ADD CONTACT BUTTON -->
-<button mat-fab class="accent" id="add-contact-button" (click)="newContact()" aria-label="add contact"
-  [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}">
-  <mat-icon>person_add</mat-icon>
-</button>
-<!-- / ADD CONTACT BUTTON -->

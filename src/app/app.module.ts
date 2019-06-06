@@ -23,7 +23,7 @@ import { ContractModule } from 'app/main/contract/contract.module';
 const appRoutes: Routes = [
     {
         path      : '**',
-        redirectTo: 'sample'
+        redirectTo: 'pricing-raw'
     }
 ];
 
