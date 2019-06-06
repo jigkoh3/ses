@@ -11,6 +11,7 @@ export interface Food {
   styleUrls: ['./pricing-raw-detail.component.scss']
 })
 export class PricingRawDetailComponent implements OnInit {
+  panelOpenState = false;
   hideCol: any;
   breakpoint: any;
   breakpoint2: any;

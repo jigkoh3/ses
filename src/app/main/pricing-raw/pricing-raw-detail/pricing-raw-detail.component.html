@@ -598,8 +598,8 @@
       </mat-grid-tile>
       <!-- ตารางที่5 -->
       <mat-grid-tile *ngIf="hideCol > 400" colspan="4" rowspan="8" style="height: 244px;margin: 5px;">
-        <div class="example-container mat-elevation-z8" style="width: 99%;height: 70%;">
-          <table mat-table [dataSource]="othersTable" style="min-width: 537px;">
+        <div class="example-container mat-elevation-z8" style="width: 99%;height: 70%;margin-top: -30px;">
+          <table mat-table [dataSource]="othersTable" style="min-width: 537px; ">
             <ng-container matColumnDef="others">
               <th mat-header-cell *matHeaderCellDef> Others </th>
               <td mat-cell *matCellDef="let item"> {{item.others}} </td>
@@ -800,4 +800,17 @@
 
     </mat-grid-list>
   </mat-card>
+  <!-- <mat-accordion>
+         <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Self aware panel
+          </mat-panel-title>
+          <mat-panel-description>
+            Currently I am {{panelOpenState ? 'open' : 'closed'}}
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <p>I'm visible because I am open</p>
+      </mat-expansion-panel>
+  </mat-accordion> -->
 </div>
