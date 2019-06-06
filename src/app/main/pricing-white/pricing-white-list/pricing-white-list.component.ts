@@ -13,23 +13,29 @@ export class PricingWhiteListComponent implements OnInit {
   buyer: any = [
     { value: 'ED & F Man', viewValue: 'ED & F Man' },
     { value: 'Alvean', viewValue: 'Alvean' },
-    { value: 'Bunge', viewValue: 'Bunge' }
+    { value: 'Bunge', viewValue: 'Bunge' },
+    { value: 'Itochu', viewValue: 'Itochu' }
   ];
   groupfactory: any = [
     { value: 'TR-กลุ่มไทยรุ่งเรือง', viewValue: 'TR-กลุ่มไทยรุ่งเรือง' },
-    { value: 'TR-กลุ่มไทยรุ่งเรือง', viewValue: 'TR-กลุ่มไทยรุ่งเรือง' },
+    // { value: 'TR-กลุ่มไทยรุ่งเรือง', viewValue: 'TR-กลุ่มไทยรุ่งเรือง' },
     // { value: 'pizza-1', viewValue: 'Pizza' },
     // { value: 'tacos-2', viewValue: 'Tacos' }
   ];
   buyercontacno: any = [
     { value: 'P29598', viewValue: 'P29598' },
     { value: 'HKP2403', viewValue: 'HKP2403' },
-    { value: 'P6000', viewValue: 'P6000' }
+    { value: 'P6000', viewValue: 'P6000' },
+    { value: 'P29599', viewValue: 'P29599' },
+    { value: 'P58550', viewValue: 'P58550' },
+    { value: 'TRT81A', viewValue: 'TRT81A' }
   ];
   contactno: any = [
     { value: '06818/TR', viewValue: '06818/TR' },
     { value: '07118/TR', viewValue: '07118/TR' },
-    { value: '07218/TR', viewValue: '07218/TR' }
+    { value: '07218/TR', viewValue: '07218/TR' },
+    { value: '06918/TR', viewValue: '06918/TR' },
+    { value: '07018/TR', viewValue: '07018/TR' }
   ];
   displayedColumns = [
     'Buyer',
@@ -190,10 +196,12 @@ export class PricingWhiteListComponent implements OnInit {
   calTotal() {
     this.total = 0;
     this.lots = 0;
+    let res = 0;
     this.transactions.forEach(tran => {
       this.total = this.total + tran.quanitity
-      this.lots = this.lots + tran.quanitity / 50
+      res = res + tran.quanitity / 50
     });
+    this.lots = Math.round(res)
     console.log(this.total);
   }
 
