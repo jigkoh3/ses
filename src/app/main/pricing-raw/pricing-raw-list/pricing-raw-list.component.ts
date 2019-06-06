@@ -185,6 +185,11 @@ export class PricingRawListComponent implements OnInit {
     this.route.navigate(['/pricing-Detail'])
   }
 
+  onDelete() {
+    confirm("คุณต้องการลบหรือไม่");
+  }
+
+
   calTotal() {
     this.total = 0;
     this.lots = 0;

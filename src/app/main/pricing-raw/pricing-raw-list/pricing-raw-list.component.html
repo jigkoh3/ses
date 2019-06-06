@@ -312,9 +312,9 @@
                                 <mat-icon>more_horiz</mat-icon>
                             </button>
                             <mat-menu #menu="matMenu">
-                                <button mat-menu-item>View</button>
-                                <button mat-menu-item>Edit</button>
-                                <button mat-menu-item>Delete</button>
+                                <button mat-menu-item (click)="onDetail()">View</button>
+                                <button mat-menu-item (click)="onDetail()">Edit</button>
+                                <button mat-menu-item (click)="onDelete()">Delete</button>
                             </mat-menu>
                         </td>
                     </ng-container>
