@@ -1,14 +1,12 @@
-import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { FuseTranslationLoaderService } from '@fuse/services/translation-loader.service';
-import { locale as english } from '../i18n/en';
-import { locale as turkish } from '../i18n/tr';
+import { Router } from '@angular/router';
+
 @Component({
-  selector: 'app-pricing-raw-list',
-  templateUrl: './pricing-raw-list.component.html',
-  styleUrls: ['./pricing-raw-list.component.scss']
+  selector: 'app-pricing-white-list',
+  templateUrl: './pricing-white-list.component.html',
+  styleUrls: ['./pricing-white-list.component.scss']
 })
-export class PricingRawListComponent implements OnInit {
+export class PricingWhiteListComponent implements OnInit {
   total: any;
   lots: any;
   screenwidth: any;
@@ -59,7 +57,7 @@ export class PricingRawListComponent implements OnInit {
       buyercontacno: 'P29598',
       contactdata: '20/02/2017',
       typeofsugar: 'WHITE SUGAR',
-      quanitity: 24000,
+      quanitity: 12000,
       shipmentperiod: '20/02/2018 - 20/05/2018',
       // totalprice:'',
       priced: '',
@@ -77,7 +75,7 @@ export class PricingRawListComponent implements OnInit {
       buyercontacno: 'HKP2403',
       contactdata: '20/02/2017',
       typeofsugar: 'REFINED SUGAR',
-      quanitity: 24000,
+      quanitity: 12000,
       shipmentperiod: '01/03/2018 - 31/05/2018',
       // totalprice:'',
       priced: '',
@@ -95,7 +93,7 @@ export class PricingRawListComponent implements OnInit {
       buyercontacno: 'P6000',
       contactdata: '01/09/2017',
       typeofsugar: 'REFINED SUGAR',
-      quanitity: 24000,
+      quanitity: 9000,
       shipmentperiod: '',
       // totalprice:'',
       priced: '',
@@ -182,46 +180,21 @@ export class PricingRawListComponent implements OnInit {
   }
 
   onDetail() {
-    this.route.navigate(['/pricing-Detail'])
+    this.route.navigate(['/pricing-white-detail'])
   }
 
   onDelete() {
     confirm("คุณต้องการลบหรือไม่");
   }
 
-
   calTotal() {
     this.total = 0;
     this.lots = 0;
-    let res = 0;
     this.transactions.forEach(tran => {
       this.total = this.total + tran.quanitity
-      res = res + tran.quanitity / 50.8
+      this.lots = this.lots + tran.quanitity / 50
     });
-    this.lots =  Math.round(res)
     console.log(this.total);
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 }

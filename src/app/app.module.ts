@@ -19,6 +19,8 @@ import { LayoutModule } from 'app/layout/layout.module';
 import { SampleModule } from 'app/main/sample/sample.module';
 import { PricingRawModule } from 'app/main/pricing-raw/pricing-raw.module';
 import { ContractModule } from 'app/main/contract/contract.module';
+import { PricingWhiteModule } from 'app/main/pricing-white/pricing-white.module'
+import { AddendumModule } from './main/addendum/addendum.module';
 
 const appRoutes: Routes = [
     {
@@ -57,7 +59,9 @@ const appRoutes: Routes = [
         LayoutModule,
         SampleModule,
         PricingRawModule,
-        ContractModule
+        ContractModule,
+        PricingWhiteModule,
+        AddendumModule
     ],
     bootstrap   : [
         AppComponent

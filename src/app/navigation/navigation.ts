@@ -23,12 +23,40 @@ export const navigation: FuseNavigation[] = [
                 }
             },
             {
+                id       : 'pricing-white',
+                title    : 'Pricing White',
+                translate: 'Pricing White',
+                type     : 'item',
+                icon     : 'email',
+                url      : '/pricing-white',
+                badge    : {
+                    title    : '25',
+                    translate: '12',
+                    bg       : '#F44336',
+                    fg       : '#FFFFFF'
+                }
+            },
+            {
                 id       : 'contract',
                 title    : 'Contract',
                 translate: 'Contract',
                 type     : 'item',
                 icon     : 'email',
                 url      : '/contracts',
+                badge    : {
+                    title    : '25',
+                    translate: '12',
+                    bg       : '#F44336',
+                    fg       : '#FFFFFF'
+                }
+            },
+            {
+                id       : 'Addendum',
+                title    : 'Addendum',
+                translate: 'Addendum',
+                type     : 'item',
+                icon     : 'email',
+                url      : '/Addendum',
                 badge    : {
                     title    : '25',
                     translate: '12',
