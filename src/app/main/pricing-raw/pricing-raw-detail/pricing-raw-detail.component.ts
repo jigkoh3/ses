@@ -17,6 +17,7 @@ export class PricingRawDetailComponent implements OnInit {
   breakpoint3: any;
   breakpoint4: any;
   breakpoint5: any;
+  breakpoint6: any;
   foods: Food[] = [
     { value: 'steak-0', viewValue: 'Steak' },
     { value: 'pizza-1', viewValue: 'Pizza' },
@@ -62,7 +63,7 @@ export class PricingRawDetailComponent implements OnInit {
     this.breakpoint3 = (window.innerWidth <= 400) ? 6 : 3;
     this.breakpoint4 = (window.innerWidth <= 400) ? 2 : 4;
     this.breakpoint5 = (window.innerWidth <= 400) ? 2 : 3;
-
+    this.breakpoint6 = (window.innerWidth <= 400) ? 3 : 2;
 
     this.hideCol = window.innerWidth;
   }
@@ -76,6 +77,9 @@ export class PricingRawDetailComponent implements OnInit {
     this.breakpoint3 = (event.target.innerWidth <= 400) ? 6 : 3;
     this.breakpoint4 = (event.target.innerWidth <= 400) ? 2 : 4;
     this.breakpoint5 = (event.target.innerWidth <= 400) ? 2 : 3;
+    this.breakpoint6 = (event.target.innerWidth <= 400) ? 3 : 2;
+
+    this.hideCol = event.target.innerWidth;
 
 
 
