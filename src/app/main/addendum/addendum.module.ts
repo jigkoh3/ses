@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AddendumListComponent } from './addendum-list/addendum-list.component';
 import { RouterModule } from '@angular/router';
-import { MatMenuModule, MatExpansionModule, MatIconModule, MatCardModule, MatButtonModule, MatSortModule, MatPaginatorModule, MatTableModule, MatInputModule, MatGridListModule, MatSelectModule, MatFormFieldModule } from '@angular/material';
+import { MatMenuModule, MatExpansionModule,MatDatepickerModule,MatCheckboxModule, MatIconModule, MatCardModule, MatButtonModule, MatSortModule, MatPaginatorModule, MatTableModule, MatInputModule, MatGridListModule, MatSelectModule, MatFormFieldModule, MatRadioModule } from '@angular/material';
 import { FormsModule } from '@angular/forms';
 import { FuseSharedModule } from '@fuse/shared.module';
 import { TranslateModule } from '@ngx-translate/core';
@@ -46,6 +46,9 @@ const routes = [
     MatMenuModule,
     NgxDataTableModule,
     BrowserAnimationsModule,
+    MatCheckboxModule,
+    MatDatepickerModule,
+    MatRadioModule
   ],
   exports:[
     AddendumListComponent
