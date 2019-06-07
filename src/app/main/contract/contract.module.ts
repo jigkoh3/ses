@@ -7,7 +7,7 @@ import { ContractDetailComponent } from './contract-detail/contract-detail.compo
 import { RouterModule } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { FuseSidebarModule } from '@fuse/components';
-import { MatFormFieldModule, MatSelectModule, MatGridListModule, MatInputModule, MatTableModule, MatPaginatorModule, MatSortModule, MatButtonModule, MatCardModule, MatExpansionModule, MatMenuModule } from '@angular/material';
+import { MatFormFieldModule, MatSelectModule, MatGridListModule, MatInputModule, MatTableModule, MatPaginatorModule, MatSortModule, MatButtonModule, MatCardModule, MatExpansionModule, MatMenuModule, MatCheckboxModule, MatRadioModule, MatDatepickerModule } from '@angular/material';
 import { TranslateModule } from '@ngx-translate/core';
 import { FuseSharedModule } from '@fuse/shared.module';
 import { NgxDataTableModule } from 'ngx-nested-data-table';
@@ -17,7 +17,7 @@ const routes = [
     component: ContractListComponent
   },
   {
-    path: 'contract',
+    path: 'contract-detail',
     component: ContractDetailComponent
   }
 ];
@@ -46,7 +46,10 @@ const routes = [
     MatIconModule,
     MatExpansionModule,
     MatMenuModule,
-    NgxDataTableModule
+    NgxDataTableModule,
+    MatCheckboxModule,
+    MatDatepickerModule,
+    MatRadioModule
   ],
   exports: [
     ContractListComponent,
