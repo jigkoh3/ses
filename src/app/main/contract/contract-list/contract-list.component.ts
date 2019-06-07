@@ -295,7 +295,7 @@ export class ContractListComponent implements OnInit {
   }
 
   onDetail() {
-    this.route.navigate(['/pricing-Detail'])
+    this.route.navigate(['/contract-detail'])
   }
 
   onDelete() {
