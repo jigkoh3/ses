@@ -96,47 +96,57 @@ export class PricingWhiteDetailComponent implements OnInit {
   columnsNewYork: string[] = ['orderdate', 'sell', 'buy', 'against', 'mon', 'year', 'price', 'unit', 'executed', 'Manage']
   // columnsNewYork: string[] = ['orderdate', 'sell', 'buy', 'against', 'price', 'unit', 'executed', 'Manage']
   newYorkNo11Table: Array<any> = [
-    { orderdate: '17/05/2018', sell: 45, buy: '', against: 'No.11', mon: 'Mar', year: '2018', price: '11.93', unit: 'cents/pound', executed: '17/05/2018' },
-    { orderdate: '18/05/2018', sell: 15, buy: '', against: 'No.11', mon: 'Mar', year: '2018', price: '12.00', unit: 'cents/pound', executed: '18/05/2018' },
-    { orderdate: '21/05/2018', sell: 30, buy: '', against: 'No.11', mon: 'Mar', year: '2018', price: '12.13', unit: 'cents/pound', executed: '21/05/2018' },
-    { orderdate: '23/05/2018', sell: 28, buy: '', against: 'No.11', mon: 'Mar', year: '2018', price: '12.73', unit: 'cents/pound', executed: '23/05/2018' },
+    { orderdate: '17/05/2018', sell: 45, buy: '', against: 'No.11', mon: 'March', year: '2018', price: '11.93', unit: 'cents/pound', executed: '17/05/2018' },
+    { orderdate: '18/05/2018', sell: 15, buy: '', against: 'No.11', mon: 'March', year: '2018', price: '12.00', unit: 'cents/pound', executed: '18/05/2018' },
+    { orderdate: '21/05/2018', sell: 30, buy: '', against: 'No.11', mon: 'March', year: '2018', price: '12.13', unit: 'cents/pound', executed: '21/05/2018' },
+    { orderdate: '23/05/2018', sell: 28, buy: '', against: 'No.11', mon: 'March', year: '2018', price: '12.73', unit: 'cents/pound', executed: '23/05/2018' },
   ]
   columnLondon: string[] = ['orderdate', 'sell', 'buy', 'against', 'mon', 'year', 'price', 'unit', 'executed', 'Manage']
 
   londonTable: Array<any> = [
-    { orderdate: '24/05/2018', sell: 40, buy: '', against: 'No.5', mon: 'Mar', year: '2018', price: '348.00', unit: 'USD/MT', executed: '24/05/2018' },
-    { orderdate: '25/05/2018', sell: 40, buy: '', against: 'No.5', mon: 'Mar', year: '2018', price: '350.00', unit: 'USD/MT', executed: '25/05/2018' },
-    { orderdate: '26/05/2018', sell: 40, buy: '', against: 'No.5', mon: 'Mar', year: '2018', price: '352.00', unit: 'USD/MT', executed: '26/05/2018' },
+    { orderdate: '24/05/2018', sell: 40, buy: '', against: 'No.5', mon: 'March', year: '2018', price: '348.00', unit: 'USD/MT', executed: '24/05/2018' },
+    { orderdate: '25/05/2018', sell: 40, buy: '', against: 'No.5', mon: 'March', year: '2018', price: '350.00', unit: 'USD/MT', executed: '25/05/2018' },
+    { orderdate: '26/05/2018', sell: 40, buy: '', against: 'No.5', mon: 'March', year: '2018', price: '352.00', unit: 'USD/MT', executed: '26/05/2018' },
   ]
   columnOthers: string[] = ['others', 'amont', 'unit', 'manage']
   othersTable: Array<any> = [
     { others: 'free', amont: '-0.50', unit: 'USD/MT' },
     { others: '...', amont: '', unit: '' }
-  ]
+  ];
+  breakpoint7: any;
+  breakpoint8: any;
+  breakpoint9: any;
+  breakpoint10: any;
   constructor() { }
 
   ngOnInit() {
-    this.breakpoint = (window.innerWidth <= 400) ? 2 : 1;
+    this.breakpoint = (window.innerWidth <= 400) ? 4 : 2;
     this.breakpoint2 = (window.innerWidth <= 400) ? 3 : 1;
     this.breakpoint3 = (window.innerWidth <= 400) ? 6 : 3;
     this.breakpoint4 = (window.innerWidth <= 400) ? 2 : 4;
     this.breakpoint5 = (window.innerWidth <= 400) ? 2 : 3;
     this.breakpoint6 = (window.innerWidth <= 400) ? 3 : 2;
-
+    this.breakpoint7 = (window.innerWidth <= 400) ? 2 : 2;
+    this.breakpoint8 = (window.innerWidth <= 400) ? 1 : 1;
+    this.breakpoint9 = (window.innerWidth <= 400) ? 3 : 2;
+    this.breakpoint10 = (window.innerWidth <= 400) ? 6 : 2;
     this.hideCol = window.innerWidth;
   }
   onResize(event) {
-    this.breakpoint = (event.target.innerWidth <= 400) ? 2 : 1;
+    this.breakpoint = (event.target.innerWidth <= 400) ? 4 : 2;
     this.hideCol = event.target.innerWidth;
   }
   onResize2(event) {
-    this.breakpoint = (event.target.innerWidth <= 400) ? 2 : 1;
+    this.breakpoint = (event.target.innerWidth <= 400) ? 4 : 2;
     this.breakpoint2 = (event.target.innerWidth <= 400) ? 3 : 1;
     this.breakpoint3 = (event.target.innerWidth <= 400) ? 6 : 3;
     this.breakpoint4 = (event.target.innerWidth <= 400) ? 2 : 4;
     this.breakpoint5 = (event.target.innerWidth <= 400) ? 2 : 3;
     this.breakpoint6 = (event.target.innerWidth <= 400) ? 3 : 2;
-
+    this.breakpoint7 = (window.innerWidth <= 400) ? 2 : 2;
+    this.breakpoint8 = (window.innerWidth <= 400) ? 1 : 1;
+    this.breakpoint9 = (window.innerWidth <= 400) ? 3 : 2;
+    this.breakpoint10 = (window.innerWidth <= 400) ? 6 : 2;
     this.hideCol = event.target.innerWidth;
   }
   onDelete() {

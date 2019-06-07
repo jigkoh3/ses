@@ -280,22 +280,22 @@ export class ContractListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.colSpTopic = (window.innerWidth <= 400) ? 3 : 1;
-    this.colSpSelect = (window.innerWidth <= 400) ? 3 : 1;
+    this.colSpTopic = (window.innerWidth <= 400) ? 6 : 2;
+    this.colSpSelect = (window.innerWidth <= 400) ? 6 : 2;
     this.colSpBtn = (window.innerWidth <= 400) ? 6 : 1;
     this.screenwidth = window.innerWidth
     this.calTotal();
   }
 
   onResize(event) {
-    this.colSpTopic = (event.target.innerWidth <= 400) ? 3 : 1;
-    this.colSpSelect = (event.target.innerWidth <= 400) ? 3 : 1;
+    this.colSpTopic = (event.target.innerWidth <= 400) ? 6 : 2;
+    this.colSpSelect = (event.target.innerWidth <= 400) ? 6 : 2;
     this.colSpBtn = (event.target.innerWidth <= 400) ? 6 : 1;
     this.screenwidth = event.target.innerWidth
   }
 
   onDetail() {
-    this.route.navigate(['/pricing-Detail'])
+    this.route.navigate(['/contract-detail'])
   }
 
   onDelete() {

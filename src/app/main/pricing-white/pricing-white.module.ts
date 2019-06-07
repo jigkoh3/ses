@@ -7,6 +7,7 @@ import { MatFormFieldModule, MatSelectModule, MatGridListModule, MatInputModule,
 import { TranslateModule } from '@ngx-translate/core';
 import { FuseSharedModule } from '@fuse/shared.module';
 import { FormsModule } from '@angular/forms';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 const routes = [
   {
     path: 'pricing-white',
@@ -39,7 +40,8 @@ const routes = [
     MatCardModule,
     MatIconModule,
     MatExpansionModule,
-    MatMenuModule
+    MatMenuModule,
+    MatCheckboxModule
   ],
   exports: [
     PricingWhiteListComponent,
