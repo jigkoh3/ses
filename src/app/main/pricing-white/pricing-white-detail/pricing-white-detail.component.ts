@@ -96,17 +96,17 @@ export class PricingWhiteDetailComponent implements OnInit {
   columnsNewYork: string[] = ['orderdate', 'sell', 'buy', 'against', 'mon', 'year', 'price', 'unit', 'executed', 'Manage']
   // columnsNewYork: string[] = ['orderdate', 'sell', 'buy', 'against', 'price', 'unit', 'executed', 'Manage']
   newYorkNo11Table: Array<any> = [
-    { orderdate: '17/05/2018', sell: 45, buy: '', against: 'No.11', mon: 'Mar', year: '2018', price: '11.93', unit: 'cents/pound', executed: '17/05/2018' },
-    { orderdate: '18/05/2018', sell: 15, buy: '', against: 'No.11', mon: 'Mar', year: '2018', price: '12.00', unit: 'cents/pound', executed: '18/05/2018' },
-    { orderdate: '21/05/2018', sell: 30, buy: '', against: 'No.11', mon: 'Mar', year: '2018', price: '12.13', unit: 'cents/pound', executed: '21/05/2018' },
-    { orderdate: '23/05/2018', sell: 28, buy: '', against: 'No.11', mon: 'Mar', year: '2018', price: '12.73', unit: 'cents/pound', executed: '23/05/2018' },
+    { orderdate: '17/05/2018', sell: 45, buy: '', against: 'No.11', mon: 'March', year: '2018', price: '11.93', unit: 'cents/pound', executed: '17/05/2018' },
+    { orderdate: '18/05/2018', sell: 15, buy: '', against: 'No.11', mon: 'March', year: '2018', price: '12.00', unit: 'cents/pound', executed: '18/05/2018' },
+    { orderdate: '21/05/2018', sell: 30, buy: '', against: 'No.11', mon: 'March', year: '2018', price: '12.13', unit: 'cents/pound', executed: '21/05/2018' },
+    { orderdate: '23/05/2018', sell: 28, buy: '', against: 'No.11', mon: 'March', year: '2018', price: '12.73', unit: 'cents/pound', executed: '23/05/2018' },
   ]
   columnLondon: string[] = ['orderdate', 'sell', 'buy', 'against', 'mon', 'year', 'price', 'unit', 'executed', 'Manage']
 
   londonTable: Array<any> = [
-    { orderdate: '24/05/2018', sell: 40, buy: '', against: 'No.5', mon: 'Mar', year: '2018', price: '348.00', unit: 'USD/MT', executed: '24/05/2018' },
-    { orderdate: '25/05/2018', sell: 40, buy: '', against: 'No.5', mon: 'Mar', year: '2018', price: '350.00', unit: 'USD/MT', executed: '25/05/2018' },
-    { orderdate: '26/05/2018', sell: 40, buy: '', against: 'No.5', mon: 'Mar', year: '2018', price: '352.00', unit: 'USD/MT', executed: '26/05/2018' },
+    { orderdate: '24/05/2018', sell: 40, buy: '', against: 'No.5', mon: 'March', year: '2018', price: '348.00', unit: 'USD/MT', executed: '24/05/2018' },
+    { orderdate: '25/05/2018', sell: 40, buy: '', against: 'No.5', mon: 'March', year: '2018', price: '350.00', unit: 'USD/MT', executed: '25/05/2018' },
+    { orderdate: '26/05/2018', sell: 40, buy: '', against: 'No.5', mon: 'March', year: '2018', price: '352.00', unit: 'USD/MT', executed: '26/05/2018' },
   ]
   columnOthers: string[] = ['others', 'amont', 'unit', 'manage']
   othersTable: Array<any> = [

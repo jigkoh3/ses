@@ -9,6 +9,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { AddendumDetailComponent } from './addendum-detail/addendum-detail.component';
 import { NgxDataTableModule } from 'ngx-nested-data-table';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AddendumProductComponent } from './addendum-product/addendum-product.component';
 
 const routes = [
   {
@@ -17,11 +18,14 @@ const routes = [
   },{
     path: 'Addendum-detail',
     component: AddendumDetailComponent
+  },{
+    path: 'Addendum-Jigkoh3',
+    component: AddendumProductComponent
   }
 ];
 
 @NgModule({
-  declarations: [AddendumListComponent, AddendumDetailComponent],
+  declarations: [AddendumListComponent, AddendumDetailComponent, AddendumProductComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),

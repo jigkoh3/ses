@@ -256,8 +256,10 @@
 
                 <ng-container matColumnDef="date">
                   <th mat-header-cell *matHeaderCellDef> date </th>
-                  <td style="width: 35%" mat-cell *matCellDef="let transaction">
-                    {{transaction.date}}
+                  <td mat-cell *matCellDef="let transaction">
+                    <mat-form-field style="width: 80px">
+                      <input matInput placeholder="date" [(ngModel)]="transaction.date == '' ? '' : transaction.date">
+                    </mat-form-field>
                   </td>
                   <td mat-footer-cell *matFooterCellDef>
                     <p>Total Priced</p>
@@ -267,7 +269,11 @@
                 </ng-container>
                 <ng-container matColumnDef="lots">
                   <th mat-header-cell *matHeaderCellDef> lots </th>
-                  <td mat-cell style="width: 15%" *matCellDef="let transaction"> {{transaction.lots}} </td>
+                  <td mat-cell style="width: 15%" *matCellDef="let transaction">
+                    <mat-form-field style="width: 50px">
+                      <input matInput placeholder="lots" [(ngModel)]="transaction.lots == '' ? '' : transaction.lots">
+                    </mat-form-field>
+                  </td>
                   <td mat-footer-cell *matFooterCellDef>
                     <p style="margin-top: -20px"> 120</p>
 
@@ -275,7 +281,12 @@
                 </ng-container>
                 <ng-container matColumnDef="Price (USD/MT)">
                   <th mat-header-cell *matHeaderCellDef> Price (USD/MT)</th>
-                  <td mat-cell *matCellDef="let transaction"> {{transaction.Price }} </td>
+                  <td mat-cell *matCellDef="let transaction">
+                    <mat-form-field style="width: 70px">
+                      <input matInput placeholder="Price"
+                        [(ngModel)]="transaction.Price == '' ? '' : transaction.Price">
+                    </mat-form-field>
+                  </td>
                   <td mat-footer-cell *matFooterCellDef>
                     <p>341.75</p>
                     <p>-20</p>
@@ -309,24 +320,37 @@
               <table mat-table [dataSource]="buyNewYorkNo11" style="min-width: 400px;">
                 <ng-container matColumnDef="date">
                   <th mat-header-cell *matHeaderCellDef> date </th>
-                  <td style="width: 35%" mat-cell *matCellDef="let transaction">
-                    {{transaction.date}}
+                  <td mat-cell *matCellDef="let transaction">
+                    <mat-form-field style="width: 80px">
+                      <input matInput placeholder="date" [(ngModel)]="transaction.date == '' ? '' : transaction.date">
+                    </mat-form-field>
                   </td>
                   <td mat-footer-cell *matFooterCellDef>
                     <p>Total Priced</p>
                     <p>Unpriced (lots)</p>
                   </td>
+
                 </ng-container>
                 <ng-container matColumnDef="lots">
                   <th mat-header-cell *matHeaderCellDef> lots </th>
-                  <td mat-cell style="width: 15%" *matCellDef="let transaction"> {{transaction.lots}} </td>
+                  <td mat-cell style="width: 15%" *matCellDef="let transaction">
+                    <mat-form-field style="width: 50px">
+                      <input matInput placeholder="lots" [(ngModel)]="transaction.lots == '' ? '' : transaction.lots">
+                    </mat-form-field>
+                  </td>
                   <td mat-footer-cell *matFooterCellDef>
-                    <p style="margin-top: -20px"> 118</p>
+                    <p style="margin-top: -20px"> 188</p>
+
                   </td>
                 </ng-container>
                 <ng-container matColumnDef="Price (USD/MT)">
                   <th mat-header-cell *matHeaderCellDef> Price (USD/MT)</th>
-                  <td mat-cell *matCellDef="let transaction"> {{transaction.Price }} </td>
+                  <td mat-cell *matCellDef="let transaction">
+                    <mat-form-field style="width: 70px">
+                      <input matInput placeholder="Price"
+                        [(ngModel)]="transaction.Price == '' ? '' : transaction.Price">
+                    </mat-form-field>
+                  </td>
                   <td mat-footer-cell *matFooterCellDef>
                     <p>12.488</p>
                     <p>-20</p>
@@ -392,7 +416,9 @@
                 <ng-container matColumnDef="orderdate">
                   <th mat-header-cell *matHeaderCellDef> Order Date </th>
                   <td mat-cell *matCellDef="let use">
-                    {{use.orderdate}}
+                    <mat-form-field style="width:80px ;">
+                      <input matInput placeholder="Order Date" [(ngModel)]="use.orderdate==''? '' : use.orderdate">
+                    </mat-form-field>
                   </td>
                   <td mat-footer-cell *matFooterCellDef>
                     <p>Total Priced</p>
@@ -403,7 +429,9 @@
                 <ng-container matColumnDef="sell">
                   <th mat-header-cell *matHeaderCellDef> Sell (lots) </th>
                   <td mat-cell *matCellDef="let use">
-                    {{use.sell}}
+                    <mat-form-field style="width:40px ;">
+                      <input matInput placeholder="Sell" [(ngModel)]="use.sell==''? '' : use.sell">
+                    </mat-form-field>
                   </td>
                   <td mat-footer-cell *matFooterCellDef>
                     <p>118</p>
@@ -413,17 +441,21 @@
                 <ng-container matColumnDef="buy">
                   <th mat-header-cell *matHeaderCellDef> Buy (lots) </th>
                   <td mat-cell *matCellDef="let use">
-                    {{use.buy}}
+                    <mat-form-field style="width:40px ;">
+                      <input matInput placeholder="Buy" [(ngModel)]="use.buy ==''? '' : use.buy">
+                    </mat-form-field>
                   </td>
                   <td mat-footer-cell *matFooterCellDef>
-                    <p>0</p>
+                    <p style="margin-bottom: 47px;">0</p>
                     <p></p>
                   </td>
                 </ng-container>
                 <ng-container matColumnDef="against">
                   <th mat-header-cell *matHeaderCellDef>Against </th>
                   <td mat-cell *matCellDef="let use">
-                    {{use.against}}
+                    <mat-form-field style="width:40px ;">
+                      <input matInput placeholder="Against" [(ngModel)]="use.against ==''? '' : use.against">
+                    </mat-form-field>
                   </td>
                   <td mat-footer-cell *matFooterCellDef>
                   </td>
@@ -431,7 +463,9 @@
                 <ng-container matColumnDef="mon">
                   <th mat-header-cell *matHeaderCellDef> </th>
                   <td mat-cell *matCellDef="let use">
-                    {{use.mon}}
+                    <mat-form-field style="width:40px ;">
+                      <input matInput placeholder="month" [(ngModel)]="use.mon ==''? '' : use.mon">
+                    </mat-form-field>
                   </td>
                   <td mat-footer-cell *matFooterCellDef>
                   </td>
@@ -439,7 +473,9 @@
                 <ng-container matColumnDef="year">
                   <th mat-header-cell *matHeaderCellDef> </th>
                   <td mat-cell *matCellDef="let use">
-                    {{use.year}}
+                    <mat-form-field style="width:40px ;">
+                      <input matInput placeholder="year" [(ngModel)]="use.year ==''? '' : use.year">
+                    </mat-form-field>
                   </td>
                   <td mat-footer-cell *matFooterCellDef>
                   </td>
@@ -447,15 +483,19 @@
                 <ng-container matColumnDef="price">
                   <th mat-header-cell *matHeaderCellDef> Price</th>
                   <td mat-cell *matCellDef="let use">
-                    {{use.price}}
+                    <mat-form-field style="width:40px ;">
+                      <input matInput placeholder="Price" [(ngModel)]="use.price ==''? '' : use.price">
+                    </mat-form-field>
                   </td>
                   <td mat-footer-cell *matFooterCellDef>
                   </td>
                 </ng-container>
                 <ng-container matColumnDef="unit">
-                  <th mat-header-cell *matHeaderCellDef>Unit</th>
+                  <th mat-header-cell *matHeaderCellDef style="width: 100px">Unit</th>
                   <td mat-cell *matCellDef="let use">
-                    {{use.unit}}
+                    <mat-form-field style="width:90px ;">
+                      <input matInput placeholder="Unit" [(ngModel)]="use.unit ==''? '' : use.unit">
+                    </mat-form-field>
                   </td>
                   <td mat-footer-cell *matFooterCellDef>
                   </td>
@@ -463,7 +503,9 @@
                 <ng-container matColumnDef="executed">
                   <th mat-header-cell *matHeaderCellDef>Executed on</th>
                   <td mat-cell *matCellDef="let use">
-                    {{use.executed}}
+                    <mat-form-field style="width:80px ;">
+                      <input matInput placeholder="Executed on" [(ngModel)]="use.executed ==''? '' : use.executed">
+                    </mat-form-field>
                   </td>
                   <td mat-footer-cell *matFooterCellDef>
                   </td>
@@ -509,7 +551,10 @@
             <ng-container matColumnDef="orderdate">
               <th mat-header-cell *matHeaderCellDef> Order Date </th>
               <td mat-cell *matCellDef="let use">
-                {{use.orderdate}}
+                <mat-form-field style="width: 80px">
+                  <input matInput placeholder="Order Date" [(ngModel)]="use.orderdate ==''? '' : use.orderdate ">
+                </mat-form-field>
+
               </td>
               <td mat-footer-cell *matFooterCellDef>
                 <p>Total Priced</p>
@@ -520,7 +565,9 @@
             <ng-container matColumnDef="sell">
               <th mat-header-cell *matHeaderCellDef> Sell (lots) </th>
               <td mat-cell *matCellDef="let use">
-                {{use.sell}}
+                <mat-form-field style="width: 40px">
+                  <input matInput placeholder="Sell" [(ngModel)]="use.sell ==''? '' : use.sell">
+                </mat-form-field>
               </td>
               <td mat-footer-cell *matFooterCellDef>
                 <p>120</p>
@@ -530,17 +577,21 @@
             <ng-container matColumnDef="buy">
               <th mat-header-cell *matHeaderCellDef> Buy (lots) </th>
               <td mat-cell *matCellDef="let use">
-                {{use.buy}}
+                <mat-form-field style="width: 40px">
+                  <input matInput placeholder="Buy" [(ngModel)]="use.buy ==''? '' : use.buy">
+                </mat-form-field>
               </td>
               <td mat-footer-cell *matFooterCellDef>
-                <p>0</p>
+                <p style="margin-bottom: 47px">0</p>
                 <p></p>
               </td>
             </ng-container>
             <ng-container matColumnDef="against">
               <th mat-header-cell *matHeaderCellDef>Against </th>
               <td mat-cell *matCellDef="let use">
-                {{use.against}}
+                <mat-form-field style="width: 40px">
+                  <input matInput placeholder="Against" [(ngModel)]="use.against ==''? '' : use.against">
+                </mat-form-field>
               </td>
               <td mat-footer-cell *matFooterCellDef>
               </td>
@@ -548,7 +599,14 @@
             <ng-container matColumnDef="mon">
               <th mat-header-cell *matHeaderCellDef> </th>
               <td mat-cell *matCellDef="let use">
-                {{use.mon}}
+                <mat-form-field style="width: 70px">
+                  <mat-label>months</mat-label>
+                  <mat-select [(ngModel)]="use.mon == '' ? '' : use.mon">
+                    <mat-option *ngFor="let item of months" [value]="item.value">
+                      {{item.viewValue}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
               </td>
               <td mat-footer-cell *matFooterCellDef>
               </td>
@@ -556,7 +614,14 @@
             <ng-container matColumnDef="year">
               <th mat-header-cell *matHeaderCellDef> </th>
               <td mat-cell *matCellDef="let use">
-                {{use.year}}
+                <mat-form-field style="width: 70px">
+                  <mat-label>year</mat-label>
+                  <mat-select [(ngModel)]="use.year == '' ? '' : use.year">
+                    <mat-option *ngFor="let item of year" [value]="item.value">
+                      {{item.viewValue}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
               </td>
               <td mat-footer-cell *matFooterCellDef>
               </td>
@@ -564,7 +629,9 @@
             <ng-container matColumnDef="price">
               <th mat-header-cell *matHeaderCellDef> Price</th>
               <td mat-cell *matCellDef="let use">
-                {{use.price}}
+                <mat-form-field style="width: 50px">
+                  <input matInput placeholder="Price" [(ngModel)]="use.price ==''? '' : use.price">
+                </mat-form-field>
               </td>
               <td mat-footer-cell *matFooterCellDef>
               </td>
@@ -572,7 +639,9 @@
             <ng-container matColumnDef="unit">
               <th mat-header-cell *matHeaderCellDef>Unit</th>
               <td mat-cell *matCellDef="let use">
-                {{use.unit}}
+                <mat-form-field style="width: 50px">
+                  <input matInput placeholder="Unit" [(ngModel)]="use.unit ==''? '' : use.unit">
+                </mat-form-field>
               </td>
               <td mat-footer-cell *matFooterCellDef>
               </td>
@@ -580,7 +649,9 @@
             <ng-container matColumnDef="executed">
               <th mat-header-cell *matHeaderCellDef>Executed on</th>
               <td mat-cell *matCellDef="let use">
-                {{use.executed}}
+                <mat-form-field style="width: 80px">
+                  <input matInput placeholder="Executed on" [(ngModel)]="use.executed ==''? '' : use.executed">
+                </mat-form-field>
               </td>
               <td mat-footer-cell *matFooterCellDef>
               </td>
@@ -605,68 +676,92 @@
         </div>
       </mat-grid-tile>
       <!-- ตารางที่5 -->
-      <mat-grid-tile *ngIf="hideCol > 400" colspan="4" rowspan="8" style="height: 244px;margin: 5px;">
-        <div class="example-container mat-elevation-z8" style="width: 99%;height: 70%;margin-top: -30px;">
-          <table mat-table [dataSource]="othersTable" style="min-width: 537px; ">
-            <ng-container matColumnDef="others">
-              <th mat-header-cell *matHeaderCellDef> Others </th>
-              <td mat-cell *matCellDef="let item"> {{item.others}} </td>
-              <td mat-footer-cell *matFooterCellDef> Total </td>
-            </ng-container>
-
-            <ng-container matColumnDef="amont">
-              <th mat-header-cell *matHeaderCellDef> Amont </th>
-              <td mat-cell *matCellDef="let item"> {{item.amont}} </td>
-              <td mat-footer-cell *matFooterCellDef> </td>
-            </ng-container>
-            <ng-container matColumnDef="unit">
-              <th mat-header-cell *matHeaderCellDef> Unit </th>
-              <td mat-cell *matCellDef="let item"> {{item.unit}} </td>
-              <td mat-footer-cell *matFooterCellDef></td>
-            </ng-container>
-            <ng-container matColumnDef="manage">
-              <th mat-header-cell *matHeaderCellDef> Manage </th>
-              <td mat-cell *matCellDef="let item" class="cucer-poiter" (click)="onDelete()"> delete </td>
-              <td mat-footer-cell *matFooterCellDef> </td>
-            </ng-container>
-            <tr mat-header-row *matHeaderRowDef="columnOthers; sticky: true"></tr>
-            <tr mat-row *matRowDef="let row; columns: columnOthers;"></tr>
-            <tr mat-footer-row *matFooterRowDef="columnOthers; sticky: true"></tr>
-          </table>
-        </div>
-      </mat-grid-tile>
+      <mat-grid-tile *ngIf="hideCol > 400" colspan="5" rowspan="8" style="height: 244px;margin: 5px;">
+          <div class="example-container mat-elevation-z8" style="width: 99%;height: 80%;margin-top: -30px;">
+            <table mat-table [dataSource]="othersTable" style="min-width: 537px; ">
+              <ng-container matColumnDef="others">
+                <th mat-header-cell *matHeaderCellDef style="width: 150px"> Others </th>
+                <td mat-cell *matCellDef="let item">
+                  <mat-form-field style="width:90px">
+                    <input matInput placeholder="Others" [(ngModel)]="item.others=='' ? '' : item.others">
+                  </mat-form-field>
+                </td>
+                <td mat-footer-cell *matFooterCellDef> Total </td>
+              </ng-container>
+  
+              <ng-container matColumnDef="amont">
+                <th mat-header-cell *matHeaderCellDef  style="width: 120px"> amont </th>
+                <td mat-cell *matCellDef="let item">
+                  <mat-form-field style="width:90px">
+                    <input matInput placeholder="amont" [(ngModel)]="item.amont=='' ? '' : item.amont">
+                  </mat-form-field>
+                </td>
+                <td mat-footer-cell *matFooterCellDef> </td>
+              </ng-container>
+              <ng-container matColumnDef="unit">
+                <th mat-header-cell *matHeaderCellDef style="width: 120px"> Unit </th>
+                <td mat-cell *matCellDef="let item"> 
+                  <mat-form-field style="width:90px">
+                    <input matInput placeholder="Unit" [(ngModel)]="item.unit=='' ? '' : item.unit">
+                  </mat-form-field>
+                </td>
+                <td mat-footer-cell *matFooterCellDef></td>
+              </ng-container>
+              <ng-container matColumnDef="manage">
+                <th mat-header-cell *matHeaderCellDef style="width: 120px"> Manage </th>
+                <td mat-cell *matCellDef="let item" class="cucer-poiter" (click)="onDelete()"> delete </td>
+                <td mat-footer-cell *matFooterCellDef> </td>
+              </ng-container>
+              <tr mat-header-row *matHeaderRowDef="columnOthers; sticky: true"></tr>
+              <tr mat-row *matRowDef="let row; columns: columnOthers;"></tr>
+              <tr mat-footer-row *matFooterRowDef="columnOthers; sticky: true"></tr>
+            </table>
+          </div>
+        </mat-grid-tile>
 
       <!-- จอเล็ก -->
 
       <mat-grid-tile *ngIf="hideCol < 400" colspan="6" rowspan="8" style="height: 244px;margin: 5px;">
-        <div class="example-container mat-elevation-z8" style="width: 99%;height: 70%;">
-          <table mat-table [dataSource]="othersTable" style="min-width: 537px;">
-            <ng-container matColumnDef="others">
-              <th mat-header-cell *matHeaderCellDef> Others </th>
-              <td mat-cell *matCellDef="let item"> {{item.others}} </td>
-              <td mat-footer-cell *matFooterCellDef> Total </td>
-            </ng-container>
-
-            <ng-container matColumnDef="amont">
-              <th mat-header-cell *matHeaderCellDef> Amont </th>
-              <td mat-cell *matCellDef="let item"> {{item.amont}} </td>
-              <td mat-footer-cell *matFooterCellDef> </td>
-            </ng-container>
-            <ng-container matColumnDef="unit">
-              <th mat-header-cell *matHeaderCellDef> Unit </th>
-              <td mat-cell *matCellDef="let item"> {{item.unit}} </td>
-              <td mat-footer-cell *matFooterCellDef></td>
-            </ng-container>
-            <ng-container matColumnDef="manage">
-              <th mat-header-cell *matHeaderCellDef> Manage </th>
-              <td mat-cell *matCellDef="let item" class="cucer-poiter" (click)="onDelete()"> delete </td>
-              <td mat-footer-cell *matFooterCellDef> </td>
-            </ng-container>
-            <tr mat-header-row *matHeaderRowDef="columnOthers; sticky: true"></tr>
-            <tr mat-row *matRowDef="let row; columns: columnOthers;"></tr>
-            <tr mat-footer-row *matFooterRowDef="columnOthers; sticky: true"></tr>
-          </table>
-        </div>
+          <div class="example-container mat-elevation-z8" style="width: 99%;height: 80%;margin-top: -30px;">
+              <table mat-table [dataSource]="othersTable" style="min-width: 537px; ">
+                <ng-container matColumnDef="others">
+                  <th mat-header-cell *matHeaderCellDef style="width: 150px"> Others </th>
+                  <td mat-cell *matCellDef="let item">
+                    <mat-form-field style="width:90px">
+                      <input matInput placeholder="Others" [(ngModel)]="item.others=='' ? '' : item.others">
+                    </mat-form-field>
+                  </td>
+                  <td mat-footer-cell *matFooterCellDef> Total </td>
+                </ng-container>
+    
+                <ng-container matColumnDef="amont">
+                  <th mat-header-cell *matHeaderCellDef  style="width: 120px"> amont </th>
+                  <td mat-cell *matCellDef="let item">
+                    <mat-form-field style="width:90px">
+                      <input matInput placeholder="amont" [(ngModel)]="item.amont=='' ? '' : item.amont">
+                    </mat-form-field>
+                  </td>
+                  <td mat-footer-cell *matFooterCellDef> </td>
+                </ng-container>
+                <ng-container matColumnDef="unit">
+                  <th mat-header-cell *matHeaderCellDef style="width: 120px"> Unit </th>
+                  <td mat-cell *matCellDef="let item"> 
+                    <mat-form-field style="width:90px">
+                      <input matInput placeholder="Unit" [(ngModel)]="item.unit=='' ? '' : item.unit">
+                    </mat-form-field>
+                  </td>
+                  <td mat-footer-cell *matFooterCellDef></td>
+                </ng-container>
+                <ng-container matColumnDef="manage">
+                  <th mat-header-cell *matHeaderCellDef style="width: 120px"> Manage </th>
+                  <td mat-cell *matCellDef="let item" class="cucer-poiter" (click)="onDelete()"> delete </td>
+                  <td mat-footer-cell *matFooterCellDef> </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="columnOthers; sticky: true"></tr>
+                <tr mat-row *matRowDef="let row; columns: columnOthers;"></tr>
+                <tr mat-footer-row *matFooterRowDef="columnOthers; sticky: true"></tr>
+              </table>
+            </div>
       </mat-grid-tile>
     </mat-grid-list>
   </mat-card>
