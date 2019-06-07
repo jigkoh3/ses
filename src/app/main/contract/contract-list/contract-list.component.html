@@ -1,105 +1,133 @@
-<div id="contacts" class="page-layout simple left-sidebar inner-sidebar inner-scroll">
-
-  <!-- HEADER -->
-  <div class="header accent p-16 p-sm-24" fxLayout="column" fxLayoutAlign="start" fxLayout.gt-xs="row"
-    fxLayoutAlign.gt-xs="space-between center">
-
-    <!-- APP TITLE -->
-    <div fxLayout="row" fxLayoutAlign="start center">
-
-
-      <div class="logo" fxLayout="row" fxLayoutAlign="start center">
-        <mat-icon class="logo-icon mr-16" [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">account_box
-        </mat-icon>
-        <span class="logo-text h1" [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
-          Contacts
-        </span>
-      </div>
-
-    </div>
-    <!-- / APP TITLE -->
-
-  </div>
-  <!-- / HEADER -->
-
-
-
-  <!-- CONTENT -->
-  <div class="content">
-
-    <!-- SIDEBAR -->
-    <fuse-sidebar class="sidebar" name="contacts-main-sidebar" position="left" lockedOpen="gt-sm">
-
-      <!-- SIDEBAR CONTENT -->
-      <div class="content" fusePerfectScrollbar>
-        <div class="card">
-          <!-- SIDEBAR CONTENT -->
-          <div class="content py-16" fusePerfectScrollbar>
-
-            <div class="nav material2">
-
-              <div class="nav-item" aria-label="inbox">
-                <a class="nav-link" matRipple>
-                  <span class="title">All Contacts</span>
-                </a>
-              </div>
-
-              <div class="nav-item" aria-label="frequently contacted" >
-                <a class="nav-link" matRipple >
-                  <div class="title">Freequently contacted</div>
-                </a>
-              </div>
-
-              <div class="nav-item" aria-label="starred" >
-                <a class="nav-link" matRipple >
-                  <div class="title">Starred Contacts</div>
-                </a>
-              </div>
-            </div>
-
-          </div>
-
+<div class="page-layout carded fullwidth p-24" fusePerfectScrollbar>
+  <mat-card>
+    <mat-grid-list [cols]="6" rowHeight="31px">
+      <mat-grid-tile [colspan]="6">
+        <div class="left">
+          <h2 class="m-0">Contact</h2>
         </div>
-        <!-- <contacts-main-sidebar [@animate]="{value:'*'}"></contacts-main-sidebar> -->
-      </div>
-      <!-- / SIDEBAR CONTENT -->
+      </mat-grid-tile>
+    </mat-grid-list>
 
-    </fuse-sidebar>
-    <!-- / SIDEBAR -->
-
-    <!-- CENTER -->
-    <div class="center p-24 pb-56" fusePerfectScrollbar>
-
-      <!-- CONTENT -->
-      <div class="content">
-        <!-- CONTENT CARD -->
-        <div class="content-card">
-
-          <!-- CONTENT TOOLBAR -->
-          <div class="toolbar px-24 py-8">
-            <span>Content toolbar</span>
-          </div>
-          <!-- / CONTENT TOOLBAR -->
-
-          <!-- CONTENT -->
-          <div class="content p-24">
-
-            <!-- <fuse-demo-content></fuse-demo-content> -->
-
-          </div>
-          <!-- / CONTENT -->
-
+    <mat-grid-list [cols]="6" rowHeight="60px" (window:resize)="onResize($event)">
+      <mat-grid-tile [colspan]="colSpTopic" class="text-overflow">
+        <div style="width: 100%;margin-right: 3px" [ngClass]="screenwidth > 400 ? 'text-center' : 'text-left'">
+          <h3 class="m-0">Contract No.</h3>
         </div>
-        <!-- / CONTENT CARD -->
-        <!-- <contacts-contact-list></contacts-contact-list> -->
-      </div>
-      <!-- / CONTENT -->
+      </mat-grid-tile>
+      <mat-grid-tile [colspan]="colSpSelect">
+        <mat-form-field style="width: 100%;">
+          <mat-label>Select Contract No.</mat-label>
+          <mat-select>
+            <mat-option *ngFor="let contactno of contactno" [value]="contactno.value">
+              {{contactno.viewValue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile [colspan]="colSpTopic" class="text-overflow">
+        <div style="width: 100%;margin-right: 3px" [ngClass]="screenwidth > 400 ? 'text-center' : 'text-left'">
+          <h3 class="m-0">Contract Date</h3>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile [colspan]="colSpSelect">
+        <mat-form-field style="width: 100%">
+          <input matInput placeholder="contact date">
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile [colspan]="colSpTopic" class="text-overflow">
+        <div style="width: 100%;margin-right: 3px" [ngClass]="screenwidth > 400 ? 'text-center' : 'text-left'">
+          <h3 class="m-0">Contract Status</h3>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile [colspan]="colSpSelect">
+        <mat-form-field style="width: 100%;">
+          <mat-label>Select Contract Status</mat-label>
+          <mat-select>
+            <mat-option *ngFor="let contactstatus of contactstatus" [value]="contactstatus.value">
+              {{contactstatus.viewValue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </mat-grid-tile>
+    </mat-grid-list>
 
-    </div>
-    <!-- / CENTER -->
+    <mat-grid-list [cols]="6" rowHeight="60px" (window:resize)="onResize($event)">
+      <mat-grid-tile [colspan]="colSpTopic" class="text-overflow">
+        <div style="width: 100%;margin-right: 3px" [ngClass]="screenwidth > 400 ? 'text-center' : 'text-left'">
+          <h3 class="m-0">Buyer Contrace No.</h3>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile [colspan]="colSpSelect">
+        <mat-form-field style="width: 100%;">
+          <mat-label>Select Buyer Contrace No.</mat-label>
+          <mat-select>
+            <mat-option *ngFor="let buyercontacno of buyercontacno" [value]="buyercontacno.value">
+              {{buyercontacno.viewValue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile [colspan]="colSpTopic" class="text-overflow">
+        <div style="width: 100%;margin-right: 3px;" [ngClass]="screenwidth > 400 ? 'text-center' : 'text-left'">
+          <h3 class="m-0">Buyer</h3>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile [colspan]="colSpSelect">
+        <mat-form-field style="width: 100%;">
+          <mat-label>Select Buyer</mat-label>
+          <mat-select>
+            <mat-option *ngFor="let buyer of buyer" [value]="buyer.value">
+              {{buyer.viewValue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </mat-grid-tile>
+    </mat-grid-list>
 
-  </div>
-  <!-- / CONTENT-->
+    <mat-grid-list [cols]="6" rowHeight="60px" (window:resize)="onResize($event)">
+      <mat-grid-tile [colspan]="colSpTopic" class="text-overflow">
+        <div style="width: 100%;margin-right: 3px" [ngClass]="screenwidth > 400 ? 'text-center' : 'text-left'">
+          <h3 class="m-0">Sugar Type</h3>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile [colspan]="colSpSelect">
+        <mat-form-field style="width: 100%;">
+          <mat-label>Select Sugar Type</mat-label>
+          <mat-select>
+            <mat-option *ngFor="let sugartype of sugartype" [value]="sugartype.value">
+              {{sugartype.viewValue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile [colspan]="colSpTopic" class="text-overflow">
+        <div style="width: 100%;margin-right: 3px" [ngClass]="screenwidth > 400 ? 'text-center' : 'text-left'">
+          <h3 class="m-0">Group Factory</h3>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile [colspan]="colSpSelect">
+        <mat-form-field style="width: 100%;">
+          <mat-label>Select Group Factory</mat-label>
+          <mat-select>
+            <mat-option *ngFor="let groupfactory of groupfactory" [value]="groupfactory.value">
+              {{groupfactory.viewValue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile [colspan]="colSpBtn">
+        <button mat-flat-button class="accent" style="width: 90%">Search</button>
+      </mat-grid-tile>
+    </mat-grid-list>
 
+    <mat-grid-list [cols]="6" rowHeight="31px" (window:resize)="onResize($event)" style="margin-top: 6px">
+      <mat-grid-tile [colspan]="colSpBtn">
+        <button mat-flat-button class="accent" (click)="onDetail()" style="width: 90%">Add</button>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </mat-card>
+
+  <mat-card class="mt-24 p-0" style="height: 100%">
+        <ngx-data-table [data]="data"></ngx-data-table>
+  </mat-card>
 </div>
-
