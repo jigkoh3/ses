@@ -143,7 +143,7 @@ export class PricingRawDetailComponent implements OnInit {
     this.breakpoint3 = (event.target.innerWidth <= 400) ? 6 : 3;
     this.breakpoint4 = (event.target.innerWidth <= 400) ? 2 : 4;
     this.breakpoint5 = (event.target.innerWidth <= 400) ? 2 : 3;
-    this.breakpoint6 = (event.target.innerWidth <= 400) ? 3 : 2;
+    this.breakpoint6 = (event.target.innerWidth <= 400) ? 6 : 2;
     this.breakpoint7 = (event.target.innerWidth <= 400) ? 2 : 2;
     this.breakpoint8 = (event.target.innerWidth <= 400) ? 1 : 1;
     this.breakpoint9 = (event.target.innerWidth <= 400) ? 3 : 3;
