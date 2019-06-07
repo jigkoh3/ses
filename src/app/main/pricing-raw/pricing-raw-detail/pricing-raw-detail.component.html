@@ -105,6 +105,43 @@
       </mat-grid-tile>
 
     </mat-grid-list>
+    <mat-grid-list cols="6" rowHeight="60px" (window:resize)="onResize($event)">
+      <mat-grid-tile [colspan]='breakpoint6'>
+        <mat-form-field style="width: 90%">
+          <mat-label>Crop Year</mat-label>
+          <mat-select [(ngModel)]="dataPricing.typeofsugar">
+            <mat-option *ngFor="let item of year" [value]="item.value">
+              {{item.viewValue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile [colspan]='breakpoint6'>
+        <mat-form-field style="width: 90%">
+          <mat-label>Contract made by</mat-label>
+          <mat-select [(ngModel)]="dataPricing.typeofsugar">
+            <mat-option *ngFor="let item of typeofsugar" [value]="item.value">
+              {{item.viewValue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile [colspan]='breakpoint6'>
+        <mat-form-field style="width: 90%">
+          <mat-label>Portion</mat-label>
+          <mat-select [(ngModel)]="dataPricing.typeofsugar">
+            <mat-option *ngFor="let item of typeofsugar" [value]="item.value">
+              {{item.viewValue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile [colspan]='6'>
+        <mat-form-field style="width: 96%">
+          <input matInput placeholder="Remark">
+        </mat-form-field>
+      </mat-grid-tile>
+    </mat-grid-list>
   </mat-card>
   <mat-card class="example-card" style="margin: 8px;">
     <mat-grid-list cols="6" rowHeight="31px">

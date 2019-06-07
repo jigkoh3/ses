@@ -19,7 +19,7 @@ const routes = [
     path: 'Addendum-detail',
     component: AddendumDetailComponent
   },{
-    path: 'Addendum-Jigkoh3',
+    path: 'Addendum-product',
     component: AddendumProductComponent
   }
 ];
