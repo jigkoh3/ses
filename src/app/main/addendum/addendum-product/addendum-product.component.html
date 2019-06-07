@@ -1,10 +1,297 @@
 <div class="page-layout carded fullwidth" fusePerfectScrollbar>
-  <mat-card>
-    <div style="height:90px ">
-      <div style="border: solid black 1px;width: 90px; height: 40px;">
-        <p>Quality</p>
+  <mat-card style="margin: 8px;">
+    <div style="height:40% ">
+      <div
+        style=" border-right: solid black 1px;;border-left: solid black 1px;;border-top: solid black 1px;width: 100px;">
+        <mat-checkbox style="margin-left: 4px">Quality</mat-checkbox>
+      </div>
+      <div style="border: solid black 1px;width: 100%;">
+        <mat-grid-list cols="3" rowHeight="60px" style="margin-left: 10px;margin-right: 10px">
+          <mat-grid-tile>
+            <mat-form-field style="width: 100%">
+              <mat-label>Product Name</mat-label>
+              <mat-select>
+                <mat-option *ngFor="let item of typeofsugar" [value]="item.value">
+                  {{item.viewValue}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile style="margin-left: 10px">
+            <mat-radio-group style="width: 100%" aria-label="Select an option">
+              <mat-radio-button style="font-size: 12px" value="Current">Current</mat-radio-button>
+              <mat-radio-button value="2" style="margin-left: 5px;width: 30px">
+                <mat-form-field style="width: 110px">
+                  <input matInput placeholder="Year" value=2017>
+                </mat-form-field>
+              </mat-radio-button>
+            </mat-radio-group>
+          </mat-grid-tile>
+          <mat-grid-tile>
+            <form style="width: 100%">
+              <mat-form-field style="width: 100%">
+                <input matInput placeholder="Year" name="year" [(ngModel)]="year" disabled>
+              </mat-form-field>
+            </form>
+          </mat-grid-tile>
+        </mat-grid-list>
+        <mat-grid-list cols="3" rowHeight="60px" style="margin-left: 10px;margin-right: 10px">
+          <mat-grid-tile>
+            <mat-form-field style="width: 100%">
+              <input matInput placeholder="Min Polarization" value=99.80>
+            </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile style="margin-left: 10px">
+            <mat-form-field style="width: 100%">
+              <input matInput placeholder="Max Moisture" value=99.80>
+            </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile>
+
+          </mat-grid-tile>
+        </mat-grid-list>
+        <mat-grid-list cols="3" rowHeight="60px" style="margin-left: 10px;margin-right: 10px">
+          <mat-grid-tile>
+            <mat-form-field style="width: 100%">
+              <input matInput placeholder="Min Colour">
+            </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile style="margin-left: 10px">
+            <mat-form-field style="width: 100%">
+              <input matInput placeholder="Max Colour">
+            </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile>
+
+          </mat-grid-tile>
+        </mat-grid-list>
+      </div>
+    </div>
+  </mat-card>
+  <!-- ตาราง2 -->
+  <mat-card style="margin: 8px;">
+    <div style="height:40% ">
+      <div
+        style=" border-right: solid black 1px;;border-left: solid black 1px;;border-top: solid black 1px;width: 100px;">
+        <mat-checkbox style="margin-left: 4px">Quality</mat-checkbox>
+      </div>
+      <div style="border: solid black 1px;width: 100%;">
+        <mat-grid-list cols="2" rowHeight="60px" style="margin-left: 10px;margin-right: 10px">
+          <mat-grid-tile>
+            <mat-form-field style="width: 100%">
+              <input matInput placeholder="Quantity (MT)" name="year" value="12000">
+            </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile style="margin-left: 10px">
+            <mat-form-field style="width: 100%">
+              <input matInput placeholder="Quantity (TCS,US)" value="12000">
+            </mat-form-field>
+          </mat-grid-tile>
+
+        </mat-grid-list>
+        <mat-grid-list cols="2" rowHeight="60px" style="margin-left: 10px;margin-right: 10px">
+          <mat-grid-tile>
+            <mat-form-field style="width: 100%">
+              <input matInput placeholder="Shipment Quantity (MT)" value=99.80>
+            </mat-form-field>
+          </mat-grid-tile>
+        </mat-grid-list>
+      </div>
+    </div>
+  </mat-card>
+  <!-- ตาราง3 -->
+  <mat-card style="margin: 8px;">
+    <div style="height:40% ">
+      <div
+        style=" border-right: solid black 1px;;border-left: solid black 1px;;border-top: solid black 1px;width: 100px;">
+        <mat-checkbox style="margin-left: 4px">Quality</mat-checkbox>
+      </div>
+      <div style="border: solid black 1px;width: 100%;">
+        <mat-grid-list cols="2" rowHeight="60px" style="margin-left: 10px;margin-right: 10px">
+          <mat-grid-tile>
+            <mat-form-field style="width: 100%">
+              <mat-label>Packing Unit Code</mat-label>
+              <mat-select>
+                <mat-option *ngFor="let item of typeofsugar" [value]="item.value">
+                  {{item.viewValue}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile style="margin-left: 10px">
+            <div style="width: 80%; border: 1px solid;  height: 45px;" class="text-right">
+              <mat-form-field style="width: 90%" no-line>
+                <input matInput placeholder="Packing QTY" value="240000" disabled>
+              </mat-form-field>
+            </div>
+            <div
+              style="width: 17%; border-top: 1px solid;border-right: 1px solid; border-bottom: 1px solid; height: 45px;">
+              <p>BAG</p>
+            </div>
+            <!-- <mat-form-field style="width: 40px">
+              <input matInput name="year" value="BAG" disabled>
+            </mat-form-field> -->
+          </mat-grid-tile>
+        </mat-grid-list>
+        <mat-grid-list cols="2" rowHeight="60px" style="margin-left: 10px;margin-right: 10px">
+          <mat-grid-tile>
+            <mat-form-field style="width: 100%">
+              <mat-label>Unit Sub Code</mat-label>
+              <mat-select>
+                <mat-option *ngFor="let item of typeofsugar" [value]="item.value">
+                  {{item.viewValue}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </mat-grid-tile>
+        </mat-grid-list>
+
+      </div>
+    </div>
+  </mat-card>
+  <!-- ตารางที่4 -->
+  <mat-card style="margin: 8px;">
+    <div style="height:40% ">
+      <div
+        style=" border-right: solid black 1px;;border-left: solid black 1px;;border-top: solid black 1px;width: 100px;">
+        <mat-checkbox style="margin-left: 4px">Quality</mat-checkbox>
+      </div>
+      <div style="border: solid black 1px;width: 100%;">
+        <mat-grid-list cols="2" rowHeight="60px" style="margin-left: 10px;margin-right: 10px">
+          <mat-grid-tile>
+            <mat-form-field style="width: 40%">
+              <input matInput placeholder="Shipment Period Start Date" value="20/02/2018">
+            </mat-form-field>
+            <span style="margin: 10px">to</span>
+            <mat-form-field style="width: 40%">
+              <input matInput placeholder="Shipment Period End Date" value="20/05/2018">
+            </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile style="margin-left: 10px">
+            <mat-form-field style="width: 100%">
+              <mat-label>Shipment Option</mat-label>
+              <mat-select>
+                <mat-option *ngFor="let item of typeofsugar" [value]="item.value">
+                  {{item.viewValue}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </mat-grid-tile>
+        </mat-grid-list>
+      </div>
+    </div>
+  </mat-card>
+  <!-- ตาราง5 -->
+  <mat-card style="margin: 8px;">
+    <div style="height:40% ">
+      <div
+        style=" border-right: solid black 1px;;border-left: solid black 1px;;border-top: solid black 1px;width: 100px;">
+        <mat-checkbox style="margin-left: 4px">Quality</mat-checkbox>
+      </div>
+      <div style="border: solid black 1px;width: 100%;">
+        <mat-grid-list cols="2" rowHeight="60px" style="margin-left: 10px;margin-right: 10px">
+          <mat-grid-tile>
+            <mat-form-field style="width: 100%">
+              <mat-label>Price Type</mat-label>
+              <mat-select>
+                <mat-option *ngFor="let item of typeofsugar" [value]="item.value">
+                  {{item.viewValue}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile>
+
+          </mat-grid-tile>
+          <mat-grid-tile>
+            <div style="width: 80%; border: 1px solid;  height: 45px;" class="text-right">
+              <mat-form-field style="width: 90%" no-line>
+                <input matInput placeholder="Sugar Cost" value="12,457.01">
+              </mat-form-field>
+            </div>
+            <div
+              style="width: 17%; border-top: 1px solid;border-right: 1px solid; border-bottom: 1px solid; height: 45px;">
+              <p>THB</p>
+            </div>
+          </mat-grid-tile>
+          <mat-grid-tile style="margin-left:10px">
+            <div style="width: 80%; border: 1px solid;  height: 45px;" class="text-right">
+              <mat-form-field style="width: 90%">
+                <input matInput placeholder="Packing Cost" value="318.000">
+              </mat-form-field>
+            </div>
+            <div
+              style="width: 17%; border-top: 1px solid;border-right: 1px solid; border-bottom: 1px solid; height: 45px;">
+              <p>THB</p>
+            </div>
+
+          </mat-grid-tile>
+          <mat-grid-tile>
+            <div style="width: 80%; border: 1px solid;  height: 45px;" class="text-right">
+              <mat-form-field style="width: 90%" no-line>
+                <input matInput placeholder="Unit Price" value="12,775.01">
+              </mat-form-field>
+            </div>
+            <div
+              style="width: 17%; border-top: 1px solid;border-right: 1px solid; border-bottom: 1px solid; height: 45px;">
+              <p>THB</p>
+            </div>
+          </mat-grid-tile>
+          <mat-grid-tile>
+
+          </mat-grid-tile>
+          <mat-grid-tile>
+            <div style="width: 80%; border: 1px solid;  height: 45px;" class="text-right">
+              <mat-form-field style="width: 90%" no-line>
+                <input matInput placeholder="Insurance" value="300.000">
+              </mat-form-field>
+            </div>
+            <div
+              style="width: 17%; border-top: 1px solid;border-right: 1px solid; border-bottom: 1px solid; height: 45px;">
+              <p>THB</p>
+            </div>
+
+          </mat-grid-tile>
+          <mat-grid-tile style="margin-left: 10px">
+            <div style="width: 80%; border: 1px solid;  height: 45px;" class="text-right">
+              <mat-form-field style="width: 90%" no-line>
+                <input matInput placeholder="Freight" value="200.000">
+              </mat-form-field>
+            </div>
+            <div
+              style="width: 17%; border-top: 1px solid;border-right: 1px solid; border-bottom: 1px solid; height: 45px;">
+              <p>THB</p>
+            </div>
+
+          </mat-grid-tile>
+          <mat-grid-tile>
+            <div style="width: 80%; border: 1px solid;  height: 45px;" class="text-right">
+              <mat-form-field style="width: 90%" no-line>
+                <input matInput placeholder="Net Price" value="13,275.0100">
+              </mat-form-field>
+            </div>
+            <div
+              style="width: 17%; border-top: 1px solid;border-right: 1px solid; border-bottom: 1px solid; height: 45px;">
+              <p>THB</p>
+            </div>
+
+          </mat-grid-tile>
+          <mat-grid-tile colspan='2'>
+            <mat-form-field style="width: 100%">
+              <input matInput placeholder="Price Description">
+            </mat-form-field>
+          </mat-grid-tile>
+        </mat-grid-list>
+
+
       </div>
     </div>
   </mat-card>
 
+  <mat-card style="margin: 8px;">
+    <div style="width: 100%;" class="text-right">
+      <button mat-raised-button color="accent">Apply Product</button>
+      <button mat-raised-button color="warn">cancel</button>
+    </div>
+  </mat-card>
 </div>
