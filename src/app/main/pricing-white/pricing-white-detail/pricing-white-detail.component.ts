@@ -112,7 +112,10 @@ export class PricingWhiteDetailComponent implements OnInit {
   othersTable: Array<any> = [
     { others: 'free', amont: '-0.50', unit: 'USD/MT' },
     { others: '...', amont: '', unit: '' }
-  ]
+  ];
+  breakpoint7: any;
+  breakpoint8: any;
+  breakpoint9: any;
   constructor() { }
 
   ngOnInit() {
@@ -122,20 +125,25 @@ export class PricingWhiteDetailComponent implements OnInit {
     this.breakpoint4 = (window.innerWidth <= 400) ? 2 : 4;
     this.breakpoint5 = (window.innerWidth <= 400) ? 2 : 3;
     this.breakpoint6 = (window.innerWidth <= 400) ? 3 : 2;
-
+    this.breakpoint7 = (window.innerWidth <= 400) ? 2 : 2;
+    this.breakpoint8 = (window.innerWidth <= 400) ? 1 : 1;
+    this.breakpoint9 = (window.innerWidth <= 400) ? 3 : 2;
     this.hideCol = window.innerWidth;
   }
   onResize(event) {
-    this.breakpoint = (event.target.innerWidth <= 400) ? 2 : 1;
+    this.breakpoint = (event.target.innerWidth <= 400) ? 4 : 2;
     this.hideCol = event.target.innerWidth;
   }
   onResize2(event) {
-    this.breakpoint = (event.target.innerWidth <= 400) ? 2 : 1;
+    this.breakpoint = (event.target.innerWidth <= 400) ? 4 : 2;
     this.breakpoint2 = (event.target.innerWidth <= 400) ? 3 : 1;
     this.breakpoint3 = (event.target.innerWidth <= 400) ? 6 : 3;
     this.breakpoint4 = (event.target.innerWidth <= 400) ? 2 : 4;
     this.breakpoint5 = (event.target.innerWidth <= 400) ? 2 : 3;
     this.breakpoint6 = (event.target.innerWidth <= 400) ? 3 : 2;
+    this.breakpoint7 = (window.innerWidth <= 400) ? 2 : 2;
+    this.breakpoint8 = (window.innerWidth <= 400) ? 1 : 1;
+    this.breakpoint9 = (window.innerWidth <= 400) ? 3 : 2;
 
     this.hideCol = event.target.innerWidth;
   }

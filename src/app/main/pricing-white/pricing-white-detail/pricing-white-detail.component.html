@@ -642,25 +642,23 @@
           </p>
         </div>
       </mat-grid-tile>
-      <mat-grid-tile [colspan]='breakpoint'>
+      <mat-grid-tile [colspan]='breakpoint7'>
         <mat-form-field style="width: 100%">
           <input matInput placeholder="Final Price" [(ngModel)]="dataPricing.totalAll.finalprice">
         </mat-form-field>
       </mat-grid-tile>
-      <mat-grid-tile [colspan]='breakpoint4'>
+      <mat-grid-tile [colspan]='breakpoint8'>
         <div style="width: 100%">
           <p>
             USD/MT
           </p>
         </div>
       </mat-grid-tile>
-      <!-- <mat-grid-tile [colspan]='breakpoint4'>
-        <div style="width: 100%">
-          <p>
-            Sonfirmed Sell
-          </p>
-        </div>
-      </mat-grid-tile> -->
+      <mat-grid-tile [colspan]="breakpoint9">
+          <div style="text-align: left;width: 100%">
+              <mat-checkbox>Confirm Sell</mat-checkbox>
+          </div>
+      </mat-grid-tile>
       <mat-grid-tile [colspan]='breakpoint'>
         <mat-form-field style="width: 100%">
           <input matInput placeholder="Total Pricing" [(ngModel)]="dataPricing.totalAll.totalpricing">
@@ -700,7 +698,7 @@
       <mat-grid-tile colspan="6" rowspan="2">
         <div style="width: 100%" class="text-right">
 
-          <button mat-stroked-button color="accent">Save</button>
+          <button mat-stroked-button color="accent" style="margin-right: 6px">Save</button>
           <button mat-stroked-button color="warn">Cancel</button>
         </div>
       </mat-grid-tile>
