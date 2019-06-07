@@ -116,6 +116,7 @@ export class PricingWhiteDetailComponent implements OnInit {
   breakpoint7: any;
   breakpoint8: any;
   breakpoint9: any;
+  breakpoint10: any;
   constructor() { }
 
   ngOnInit() {
@@ -128,6 +129,7 @@ export class PricingWhiteDetailComponent implements OnInit {
     this.breakpoint7 = (window.innerWidth <= 400) ? 2 : 2;
     this.breakpoint8 = (window.innerWidth <= 400) ? 1 : 1;
     this.breakpoint9 = (window.innerWidth <= 400) ? 3 : 2;
+    this.breakpoint10 = (window.innerWidth <= 400) ? 6 : 2;
     this.hideCol = window.innerWidth;
   }
   onResize(event) {
@@ -144,7 +146,7 @@ export class PricingWhiteDetailComponent implements OnInit {
     this.breakpoint7 = (window.innerWidth <= 400) ? 2 : 2;
     this.breakpoint8 = (window.innerWidth <= 400) ? 1 : 1;
     this.breakpoint9 = (window.innerWidth <= 400) ? 3 : 2;
-
+    this.breakpoint10 = (window.innerWidth <= 400) ? 6 : 2;
     this.hideCol = event.target.innerWidth;
   }
   onDelete() {
