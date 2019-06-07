@@ -9,13 +9,8 @@
         </mat-grid-list>
 
         <mat-grid-list [cols]="6" rowHeight="60px" (window:resize)="onResize($event)">
-            <mat-grid-tile [colspan]="colSpTopic" class="text-overflow">
-                <div style="width: 100%;margin-right: 3px;" [ngClass]="screenwidth > 400 ? 'text-center' : 'text-left'">
-                    <h3 class="m-0">Buyer</h3>
-                </div>
-            </mat-grid-tile>
             <mat-grid-tile [colspan]="colSpSelect">
-                <mat-form-field style="width: 100%;">
+                <mat-form-field style="width: 90%;">
                     <mat-label>Select Buyer</mat-label>
                     <mat-select>
                         <mat-option *ngFor="let buyer of buyer" [value]="buyer.value">
@@ -24,13 +19,8 @@
                     </mat-select>
                 </mat-form-field>
             </mat-grid-tile>
-            <mat-grid-tile [colspan]="colSpTopic" class="text-overflow">
-                <div style="width: 100%;margin-right: 3px" [ngClass]="screenwidth > 400 ? 'text-center' : 'text-left'">
-                    <h3 class="m-0">Group Factory</h3>
-                </div>
-            </mat-grid-tile>
             <mat-grid-tile [colspan]="colSpSelect">
-                <mat-form-field style="width: 100%;">
+                <mat-form-field style="width: 90%;">
                     <mat-label>Select Group Factory</mat-label>
                     <mat-select>
                         <mat-option *ngFor="let groupfactory of groupfactory" [value]="groupfactory.value">
@@ -42,13 +32,8 @@
         </mat-grid-list>
 
         <mat-grid-list [cols]="6" rowHeight="60px" (window:resize)="onResize($event)">
-            <mat-grid-tile [colspan]="colSpTopic" class="text-overflow">
-                <div style="width: 100%;margin-right: 3px" [ngClass]="screenwidth > 400 ? 'text-center' : 'text-left'">
-                    <h3 class="m-0">Buyer Contrace No.</h3>
-                </div>
-            </mat-grid-tile>
             <mat-grid-tile [colspan]="colSpSelect">
-                <mat-form-field style="width: 100%;">
+                <mat-form-field style="width: 90%;">
                     <mat-label>Select Buyer Contrace No.</mat-label>
                     <mat-select>
                         <mat-option *ngFor="let buyercontacno of buyercontacno" [value]="buyercontacno.value">
@@ -57,13 +42,9 @@
                     </mat-select>
                 </mat-form-field>
             </mat-grid-tile>
-            <mat-grid-tile [colspan]="colSpTopic" class="text-overflow">
-                <div style="width: 100%;margin-right: 3px" [ngClass]="screenwidth > 400 ? 'text-center' : 'text-left'">
-                    <h3 class="m-0">Contract No.</h3>
-                </div>
-            </mat-grid-tile>
+
             <mat-grid-tile [colspan]="colSpSelect">
-                <mat-form-field style="width: 100%;">
+                <mat-form-field style="width: 90%;">
                     <mat-label>Select Contract No.</mat-label>
                     <mat-select>
                         <mat-option *ngFor="let contactno of contactno" [value]="contactno.value">
@@ -83,7 +64,7 @@
             </mat-grid-tile>
         </mat-grid-list>
     </mat-card>
-    
+
     <mat-grid-list [cols]="6" rowHeight="240px">
         <mat-grid-tile [colspan]="6">
             <mat-card class="example-container" style="padding: 0px">

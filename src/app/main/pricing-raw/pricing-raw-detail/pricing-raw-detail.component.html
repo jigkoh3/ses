@@ -2,12 +2,7 @@
   <mat-card class="example-card" style="margin: 8px;">
     <mat-grid-list cols="4" rowHeight="60px" (window:resize)="onResize($event)">
       <mat-grid-tile [colspan]='breakpoint'>
-        <div style="width: 100%;" [ngClass]="hideCol > 400 ? 'text-center' : 'text-left'">
-          Type of Sugar
-        </div>
-      </mat-grid-tile>
-      <mat-grid-tile [colspan]='breakpoint'>
-        <mat-form-field style="width: 100%">
+        <mat-form-field style="width: 90%">
           <mat-label>Type of Sugar</mat-label>
           <mat-select [(ngModel)]="dataPricing.typeofsugar">
             <mat-option *ngFor="let item of typeofsugar" [value]="item.value">
@@ -17,22 +12,12 @@
         </mat-form-field>
       </mat-grid-tile>
       <mat-grid-tile [colspan]='breakpoint'>
-        <div style="width: 100%" [ngClass]="hideCol > 400 ? 'text-center' : 'text-left'">
-          Future Market
-        </div>
-      </mat-grid-tile>
-      <mat-grid-tile [colspan]='breakpoint'>
-        <mat-form-field style="width: 100%">
+        <mat-form-field style="width: 90%">
           <input matInput placeholder="Future Market" [(ngModel)]="dataPricing.futuremarket">
         </mat-form-field>
       </mat-grid-tile>
       <mat-grid-tile [colspan]='breakpoint'>
-        <div style="width: 100%;" [ngClass]="hideCol > 400 ? 'text-center' : 'text-left'">
-          Buyer
-        </div>
-      </mat-grid-tile>
-      <mat-grid-tile [colspan]='breakpoint'>
-        <mat-form-field style="width: 100%">
+        <mat-form-field style="width: 90%">
           <mat-label>Buyer</mat-label>
           <mat-select [(ngModel)]="dataPricing.buyer">
             <mat-option *ngFor="let item of buyer" [value]="item.value">
@@ -42,23 +27,13 @@
         </mat-form-field>
       </mat-grid-tile>
       <mat-grid-tile [colspan]='breakpoint'>
-        <div style="width: 100%;" [ngClass]="hideCol > 400 ? 'text-center' : 'text-left'">
-          Qty(MT)
-        </div>
-      </mat-grid-tile>
-      <mat-grid-tile [colspan]='breakpoint'>
-        <mat-form-field style="width: 100%">
+        <mat-form-field style="width: 90%">
           <input matInput placeholder=" Qty(MT)" [(ngModel)]="dataPricing.qty">
         </mat-form-field>
 
       </mat-grid-tile>
       <mat-grid-tile [colspan]='breakpoint'>
-        <div style="width: 100%;" [ngClass]="hideCol > 400 ? 'text-center' : 'text-left'">
-          Group Factory
-        </div>
-      </mat-grid-tile>
-      <mat-grid-tile [colspan]='breakpoint'>
-        <mat-form-field style="width: 100%">
+        <mat-form-field style="width: 90%">
           <mat-label> Group Factory</mat-label>
           <mat-select [(ngModel)]="dataPricing.groupfactory">
             <mat-option *ngFor="let item of groupFactory" [value]="item.value">
@@ -68,43 +43,26 @@
         </mat-form-field>
       </mat-grid-tile>
       <mat-grid-tile [colspan]='breakpoint'>
-        <div style="width: 100% ;" [ngClass]="hideCol > 400 ? 'text-center' : 'text-left'">
-          Shipment
-        </div>
-      </mat-grid-tile>
-      <mat-grid-tile [colspan]='breakpoint'>
-        <div style="width: 100%">
-          <mat-form-field style="width: 40%">
-            <input matInput placeholder="date" [(ngModel)]="dataPricing.shipment.startdate">
+        <div style="width: 90%">
+          <mat-form-field style="width: 45%">
+            <input matInput placeholder="Shipment StartDate" [(ngModel)]="dataPricing.shipment.startdate">
           </mat-form-field>
-          to
-          <mat-form-field style="width: 40%">
-            <input matInput placeholder="date" [(ngModel)]="dataPricing.shipment.enddate">
+          <span style="margin: 10px">to</span>
+          <mat-form-field style="width: 45%">
+            <input matInput placeholder="Shipment EndDate" [(ngModel)]="dataPricing.shipment.enddate">
           </mat-form-field>
 
         </div>
 
       </mat-grid-tile>
       <mat-grid-tile [colspan]='breakpoint'>
-        <div style="width: 100%;" [ngClass]="hideCol > 400 ? 'text-center' : 'text-left'">
-          Buyer Contract No.
-        </div>
-      </mat-grid-tile>
-      <mat-grid-tile [colspan]='breakpoint'>
 
-        <mat-form-field style="width: 100%">
+        <mat-form-field style="width: 90%">
           <input matInput placeholder="Buyer Contract No." [(ngModel)]="dataPricing.buyercontractno">
         </mat-form-field>
-
-
       </mat-grid-tile>
       <mat-grid-tile [colspan]='breakpoint'>
-        <div style="width: 100%;" [ngClass]="hideCol > 400 ? 'text-center' : 'text-left'">
-          Contract No.
-        </div>
-      </mat-grid-tile>
-      <mat-grid-tile [colspan]='breakpoint'>
-        <mat-form-field style="width: 100%">
+        <mat-form-field style="width: 90%">
           <mat-label>Contract No.</mat-label>
           <mat-select [(ngModel)]="dataPricing.contractno">
             <mat-option *ngFor="let item of contactNo" [value]="item.value">
@@ -114,34 +72,19 @@
         </mat-form-field>
       </mat-grid-tile>
       <mat-grid-tile [colspan]='breakpoint'>
-        <div style="width: 100%;" [ngClass]="hideCol > 400 ? 'text-center' : 'text-left'">
-          Contract Date
-        </div>
-      </mat-grid-tile>
-      <mat-grid-tile [colspan]='breakpoint'>
-        <mat-form-field style="width: 100%">
+        <mat-form-field style="width: 90%">
           <input matInput placeholder="Contract Date" [(ngModel)]="dataPricing.contractdate">
         </mat-form-field>
       </mat-grid-tile>
-      <mat-grid-tile [colspan]='breakpoint'>
-        <div style="width: 100%;" [ngClass]="hideCol > 400 ? 'text-center' : 'text-left'">
-          Premium (USD/MT)
-        </div>
-      </mat-grid-tile>
 
       <mat-grid-tile [colspan]='breakpoint'>
-        <mat-form-field style="width: 100%">
+        <mat-form-field style="width: 90%">
           <input matInput placeholder=" Premium (USD/MT)" [(ngModel)]="dataPricing.premium">
         </mat-form-field>
 
       </mat-grid-tile>
       <mat-grid-tile [colspan]='breakpoint'>
-        <div style="width: 100%;" [ngClass]="hideCol > 400 ? 'text-center' : 'text-left'">
-          Contract Month
-        </div>
-      </mat-grid-tile>
-      <mat-grid-tile [colspan]='breakpoint'>
-        <mat-form-field style="width: 100%">
+        <mat-form-field style="width: 90%">
           <mat-label>Contract Month</mat-label>
           <mat-select [(ngModel)]="dataPricing.contractmonth">
             <mat-option *ngFor="let item of months" [value]="item.value">
@@ -151,12 +94,7 @@
         </mat-form-field>
       </mat-grid-tile>
       <mat-grid-tile [colspan]='breakpoint'>
-        <div style="width: 100%;" [ngClass]="hideCol > 400 ? 'text-center' : 'text-left'">
-          Contract Year
-        </div>
-      </mat-grid-tile>
-      <mat-grid-tile [colspan]='breakpoint'>
-        <mat-form-field style="width: 100%">
+        <mat-form-field style="width: 90%">
           <mat-label>Contract Year</mat-label>
           <mat-select [(ngModel)]="dataPricing.contractyear">
             <mat-option *ngFor="let item of year" [value]="item.value">
@@ -318,7 +256,7 @@
             </ng-container>
 
             <ng-container matColumnDef="amont">
-              <th mat-header-cell *matHeaderCellDef  style="width: 120px"> amont </th>
+              <th mat-header-cell *matHeaderCellDef style="width: 120px"> amont </th>
               <td mat-cell *matCellDef="let item">
                 <mat-form-field style="width:90px">
                   <input matInput placeholder="amont" [(ngModel)]="item.amont=='' ? '' : item.amont">
@@ -328,7 +266,7 @@
             </ng-container>
             <ng-container matColumnDef="unit">
               <th mat-header-cell *matHeaderCellDef style="width: 120px"> Unit </th>
-              <td mat-cell *matCellDef="let item"> 
+              <td mat-cell *matCellDef="let item">
                 <mat-form-field style="width:90px">
                   <input matInput placeholder="Unit" [(ngModel)]="item.unit=='' ? '' : item.unit">
                 </mat-form-field>
@@ -350,54 +288,61 @@
       <!-- จอเล็ก -->
 
       <mat-grid-tile *ngIf="hideCol < 400" colspan="6" rowspan="8" style="height: 244px;margin: 5px;">
-          <div class="example-container mat-elevation-z8" style="width: 99%;height: 80%;margin-top: -30px;">
-              <table mat-table [dataSource]="othersTable" style="min-width: 537px; ">
-                <ng-container matColumnDef="others">
-                  <th mat-header-cell *matHeaderCellDef style="width: 150px"> Others </th>
-                  <td mat-cell *matCellDef="let item">
-                    <mat-form-field style="width:90px">
-                      <input matInput placeholder="Others" [(ngModel)]="item.others=='' ? '' : item.others">
-                    </mat-form-field>
-                  </td>
-                  <td mat-footer-cell *matFooterCellDef> Total </td>
-                </ng-container>
-    
-                <ng-container matColumnDef="amont">
-                  <th mat-header-cell *matHeaderCellDef  style="width: 120px"> amont </th>
-                  <td mat-cell *matCellDef="let item">
-                    <mat-form-field style="width:90px">
-                      <input matInput placeholder="amont" [(ngModel)]="item.amont=='' ? '' : item.amont">
-                    </mat-form-field>
-                  </td>
-                  <td mat-footer-cell *matFooterCellDef> </td>
-                </ng-container>
-                <ng-container matColumnDef="unit">
-                  <th mat-header-cell *matHeaderCellDef style="width: 120px"> Unit </th>
-                  <td mat-cell *matCellDef="let item"> 
-                    <mat-form-field style="width:90px">
-                      <input matInput placeholder="Unit" [(ngModel)]="item.unit=='' ? '' : item.unit">
-                    </mat-form-field>
-                  </td>
-                  <td mat-footer-cell *matFooterCellDef></td>
-                </ng-container>
-                <ng-container matColumnDef="manage">
-                  <th mat-header-cell *matHeaderCellDef style="width: 120px"> Manage </th>
-                  <td mat-cell *matCellDef="let item" class="cucer-poiter" (click)="onDelete()"> delete </td>
-                  <td mat-footer-cell *matFooterCellDef> </td>
-                </ng-container>
-                <tr mat-header-row *matHeaderRowDef="columnOthers; sticky: true"></tr>
-                <tr mat-row *matRowDef="let row; columns: columnOthers;"></tr>
-                <tr mat-footer-row *matFooterRowDef="columnOthers; sticky: true"></tr>
-              </table>
-            </div>
+        <div class="example-container mat-elevation-z8" style="width: 99%;height: 80%;margin-top: -30px;">
+          <table mat-table [dataSource]="othersTable" style="min-width: 537px; ">
+            <ng-container matColumnDef="others">
+              <th mat-header-cell *matHeaderCellDef style="width: 150px"> Others </th>
+              <td mat-cell *matCellDef="let item">
+                <mat-form-field style="width:90px">
+                  <input matInput placeholder="Others" [(ngModel)]="item.others=='' ? '' : item.others">
+                </mat-form-field>
+              </td>
+              <td mat-footer-cell *matFooterCellDef> Total </td>
+            </ng-container>
+
+            <ng-container matColumnDef="amont">
+              <th mat-header-cell *matHeaderCellDef style="width: 120px"> amont </th>
+              <td mat-cell *matCellDef="let item">
+                <mat-form-field style="width:90px">
+                  <input matInput placeholder="amont" [(ngModel)]="item.amont=='' ? '' : item.amont">
+                </mat-form-field>
+              </td>
+              <td mat-footer-cell *matFooterCellDef> </td>
+            </ng-container>
+            <ng-container matColumnDef="unit">
+              <th mat-header-cell *matHeaderCellDef style="width: 120px"> Unit </th>
+              <td mat-cell *matCellDef="let item">
+                <mat-form-field style="width:90px">
+                  <input matInput placeholder="Unit" [(ngModel)]="item.unit=='' ? '' : item.unit">
+                </mat-form-field>
+              </td>
+              <td mat-footer-cell *matFooterCellDef></td>
+            </ng-container>
+            <ng-container matColumnDef="manage">
+              <th mat-header-cell *matHeaderCellDef style="width: 120px"> Manage </th>
+              <td mat-cell *matCellDef="let item" class="cucer-poiter" (click)="onDelete()"> delete </td>
+              <td mat-footer-cell *matFooterCellDef> </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="columnOthers; sticky: true"></tr>
+            <tr mat-row *matRowDef="let row; columns: columnOthers;"></tr>
+            <tr mat-footer-row *matFooterRowDef="columnOthers; sticky: true"></tr>
+          </table>
+        </div>
       </mat-grid-tile>
     </mat-grid-list>
   </mat-card>
   <mat-card class="example-card" style="margin: 8px;">
     <mat-grid-list cols="6" rowHeight="60px" (window:resize)="onResize2($event)">
       <mat-grid-tile [colspan]='breakpoint'>
+        <mat-form-field style="width: 100%">
+          <input matInput placeholder="Provisional Price" [(ngModel)]="dataPricing.totalAll.averageprice">
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile [colspan]='breakpoint4'>
         <div style="width: 100%">
-          <p>Average Price</p>
+          <p>
+            USD/MT
+          </p>
         </div>
       </mat-grid-tile>
       <mat-grid-tile [colspan]='breakpoint'>
@@ -413,11 +358,6 @@
         </div>
       </mat-grid-tile>
       <mat-grid-tile [colspan]='breakpoint'>
-        <div style="width: 100%">
-          <p>Other</p>
-        </div>
-      </mat-grid-tile>
-      <mat-grid-tile [colspan]='breakpoint'>
         <mat-form-field style="width: 100%">
           <input matInput placeholder="Other" [(ngModel)]="dataPricing.totalAll.other">
         </mat-form-field>
@@ -427,11 +367,6 @@
           <p>
             cents/pound
           </p>
-        </div>
-      </mat-grid-tile>
-      <mat-grid-tile [colspan]='breakpoint'>
-        <div style="width: 100%">
-          <p>Premium</p>
         </div>
       </mat-grid-tile>
       <mat-grid-tile [colspan]='breakpoint'>
@@ -446,9 +381,28 @@
           </p>
         </div>
       </mat-grid-tile>
-      <mat-grid-tile [colspan]='breakpoint'>
+      <mat-grid-tile [colspan]='breakpoint7'>
+        <mat-form-field style="width: 100%">
+          <input matInput placeholder="Final Price" [(ngModel)]="dataPricing.totalAll.finalprice">
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile [colspan]='breakpoint8'>
         <div style="width: 100%">
-          <p>Final Price</p>
+          <p>
+            cents/pound
+          </p>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile [colspan]='breakpoint9' *ngIf="hideCol > 400">
+        <div style="width: 100%">
+          <mat-checkbox>Confirmed Sell</mat-checkbox>
+
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile [colspan]='breakpoint9' *ngIf="hideCol < 400">
+        <div style="width: 100%">
+          <mat-checkbox style="margin-left: 10px">Confirmed Sell</mat-checkbox>
+
         </div>
       </mat-grid-tile>
       <mat-grid-tile [colspan]='breakpoint'>
@@ -456,40 +410,12 @@
           <input matInput placeholder="Final Price" [(ngModel)]="dataPricing.totalAll.finalprice">
         </mat-form-field>
       </mat-grid-tile>
-      <mat-grid-tile [colspan]='breakpoint4'>
-        <div style="width: 100%">
-          <p>
-            cents/pound
-          </p>
-        </div>
-      </mat-grid-tile>
-      <mat-grid-tile [colspan]='breakpoint'>
-        <div style="width: 100%">
-          <p>Equivalent</p>
-        </div>
-      </mat-grid-tile>
-      <mat-grid-tile [colspan]='breakpoint'>
-        <mat-form-field style="width: 100%">
-          <input matInput placeholder="Equivalent" [(ngModel)]="dataPricing.totalAll.equivalent">
-        </mat-form-field>
-      </mat-grid-tile>
+
       <mat-grid-tile [colspan]='breakpoint4'>
         <div style="width: 100%">
           <p>
             USD/MT
           </p>
-        </div>
-      </mat-grid-tile>
-      <!-- <mat-grid-tile [colspan]='breakpoint4'>
-        <div style="width: 100%">
-          <p>
-            Sonfirmed Sell
-          </p>
-        </div>
-      </mat-grid-tile> -->
-      <mat-grid-tile [colspan]='breakpoint'>
-        <div style="width: 100%">
-          <p>Total Pricing</p>
         </div>
       </mat-grid-tile>
       <mat-grid-tile [colspan]='breakpoint'>
@@ -505,11 +431,6 @@
         </div>
       </mat-grid-tile>
       <mat-grid-tile [colspan]='breakpoint'>
-        <div style="width: 100%">
-          <p>Priced</p>
-        </div>
-      </mat-grid-tile>
-      <mat-grid-tile [colspan]='breakpoint'>
         <mat-form-field style="width: 100%">
           <input matInput placeholder="Priced" [(ngModel)]="dataPricing.totalAll.priced">
         </mat-form-field>
@@ -519,11 +440,6 @@
           <p>
             lots
           </p>
-        </div>
-      </mat-grid-tile>
-      <mat-grid-tile [colspan]='breakpoint'>
-        <div style="width: 100%">
-          <p>Unpriced</p>
         </div>
       </mat-grid-tile>
       <mat-grid-tile [colspan]='breakpoint'>
@@ -541,7 +457,7 @@
       <mat-grid-tile colspan="6" rowspan="2">
         <div style="width: 100%" class="text-right">
 
-          <button mat-stroked-button color="accent">Save</button>
+          <button mat-stroked-button color="accent" style="margin-right: 6px">Save</button>
           <button mat-stroked-button color="warn">Cancel</button>
         </div>
       </mat-grid-tile>

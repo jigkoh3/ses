@@ -15,6 +15,7 @@ import {MatCardModule} from '@angular/material/card';
 import {MatIconModule} from '@angular/material/icon';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatExpansionModule} from '@angular/material/expansion';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 const routes = [
   {
@@ -49,7 +50,9 @@ const routes = [
     MatCardModule,
     MatIconModule,
     MatExpansionModule,
-    MatMenuModule
+    MatMenuModule,
+    MatCheckboxModule
+
   ],
   exports: [
     PricingRawListComponent,
