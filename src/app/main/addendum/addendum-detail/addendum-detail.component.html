@@ -1,1 +1,263 @@
-<!-- <ngx-data-table [data]="data"></ngx-data-table> -->
+<div class="page-layout carded fullwidth p-24" fusePerfectScrollbar>
+    <h2>Add / Edit / View(read only) - Addendum</h2>
+    <mat-grid-list cols="12" rowHeight="3:2">
+        <mat-grid-tile [colspan]="2">
+            <div style="width: 100% " text-left>
+                <h3>Addendum No.</h3>
+            </div>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="2">
+            <div class="example-container">
+                <mat-form-field>
+                    <input disabled matInput placeholder="1">
+                </mat-form-field>
+            </div>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="2"></mat-grid-tile>
+        <mat-grid-tile [colspan]="2">
+            <div style="width: 100% " text-left>
+                <mat-checkbox>Addendum Type</mat-checkbox>
+            </div>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="2">
+            <mat-form-field style="width: 100%">
+                <mat-label>Final Price</mat-label>
+                <mat-select [(value)]="selected">
+                    <mat-option value="option1">Option 1</mat-option>
+                    <mat-option value="option2">Option 2</mat-option>
+                    <mat-option value="option3">Option 3</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="2"></mat-grid-tile>
+    </mat-grid-list>
+
+    <mat-grid-list cols="12" rowHeight="3:1">
+        <mat-grid-tile [colspan]="2">
+            <div style="width: 100% " text-left>
+                <h3>Contract No.</h3>
+            </div>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="2">
+            <div class="example-container">
+                <mat-form-field>
+                    <input disabled matInput placeholder="00116/TRR">
+                </mat-form-field>
+            </div>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="2"> Version 1</mat-grid-tile>
+        <mat-grid-tile [colspan]="2">
+
+            <div style="width: 100% " text-left>
+                <h3>Addendum Status</h3>
+            </div>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="2">
+            <div class="example-container">
+                <mat-form-field>
+                    <input disabled matInput placeholder="Draft">
+                </mat-form-field>
+            </div>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="2"></mat-grid-tile>
+    </mat-grid-list>
+
+    <mat-grid-list cols="12" rowHeight="3:2">
+        <mat-grid-tile [colspan]="2">
+            <div style="width: 100% " text-left>
+                <h3>Contract Made On</h3>
+            </div>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="2">
+            <div class="example-container">
+                <mat-form-field>
+                    <input disabled matInput placeholder="ปตท">
+                </mat-form-field>
+            </div>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="2"></mat-grid-tile>
+        <mat-grid-tile [colspan]="2">
+            <div style="width: 100% " text-left>
+                <h3>Contract Crop Year</h3>
+            </div>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="2">
+            <div class="example-container">
+                <mat-form-field>
+                    <input disabled matInput placeholder="ปตท">
+                </mat-form-field>
+            </div>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="2">
+            <div class="example-container">
+                <mat-form-field>
+                    <input disabled matInput placeholder="2017/2018">
+                </mat-form-field>
+            </div>
+        </mat-grid-tile>
+    </mat-grid-list>
+
+    <mat-grid-list cols="12" rowHeight="3:2">
+        <mat-grid-tile text-left [colspan]="2">
+            <div style="width: 100% " text-left>
+                <h3>Addendum Date</h3>
+            </div>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="2">
+            <div class="example-container">
+                <mat-form-field style="width: 100%">
+                    <input matInput [matDatepicker]="picker" placeholder="Choose a date">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+            </div>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="2"></mat-grid-tile>
+        <mat-grid-tile [colspan]="2">
+            <div style="width: 100% " text-left>
+                <h3>Seller</h3>
+            </div>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="2">
+            <div class="example-container">
+                <mat-form-field>
+                    <input disabled matInput placeholder="SSEC">
+                </mat-form-field>
+            </div>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="2"></mat-grid-tile>
+    </mat-grid-list>
+
+    <mat-grid-list cols="12" rowHeight="3:2">
+        <mat-grid-tile [colspan]="2">
+            <div style="width: 100% " text-left>
+                <h3>Group Factory</h3>
+            </div>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="2">
+            <div class="example-container">
+                <mat-form-field>
+                    <input disabled matInput placeholder="TR-กลุ่มไทยรุ่งเรือง">
+                </mat-form-field>
+            </div>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="2"></mat-grid-tile>
+        <mat-grid-tile [colspan]="2">
+            <div style="width: 100% " text-left>
+                <h3>Sugar Type</h3>
+            </div>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="2">
+            <div class="example-container">
+                <mat-form-field>
+                    <input disabled matInput placeholder="REFINED SUGAR">
+                </mat-form-field>
+            </div>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="2"></mat-grid-tile>
+    </mat-grid-list>
+
+    <mat-grid-list cols="12" rowHeight="3:2">
+        <mat-grid-tile [colspan]="2">
+            <div style="width: 100% " text-left>
+                <mat-checkbox>Buyer Contract No.</mat-checkbox>
+            </div>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="2">
+            <div class="example-container">
+                <mat-form-field>
+                    <input matInput placeholder="HKP2403">
+                </mat-form-field>
+            </div>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="2"></mat-grid-tile>
+        <mat-grid-tile [colspan]="2">
+            <div style="width: 100% " text-left>
+                <mat-checkbox>Buyer</mat-checkbox>
+            </div>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="2">
+            <mat-form-field style="width: 100%">
+                <mat-label>ED & F Man</mat-label>
+                <mat-select [(value)]="selected1">
+                    <mat-option value="option11">Option 1</mat-option>
+                    <mat-option value="option21">Option 2</mat-option>
+                    <mat-option value="option31">Option 3</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="2"></mat-grid-tile>
+    </mat-grid-list>
+
+    <mat-grid-list cols="12" rowHeight="3:2">
+        <mat-grid-tile [colspan]="2">
+            <div style="width: 100% " text-left>
+                <mat-checkbox>Shipment Term</mat-checkbox>
+            </div>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="2">
+            <mat-form-field style="width: 100%">
+                <mat-label>FOB</mat-label>
+                <mat-select [(value)]="selected1">
+                    <mat-option value="option11">Option 1</mat-option>
+                    <mat-option value="option21">Option 2</mat-option>
+                    <mat-option value="option31">Option 3</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="2"></mat-grid-tile>
+        <mat-grid-tile [colspan]="2">
+            <div style="width: 100% " text-left>
+                <mat-checkbox>Shipment By</mat-checkbox>
+            </div>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="2">
+            <mat-radio-group aria-label="Select an option">
+                <mat-radio-button value="1">Contract</mat-radio-button>
+                <mat-radio-button value="2">Product</mat-radio-button>
+            </mat-radio-group>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="2"></mat-grid-tile>
+    </mat-grid-list>
+
+    <mat-grid-list cols="12" rowHeight="3:2">
+        <mat-grid-tile [colspan]="2">
+            <div style="width: 100% " text-left>
+                <h3>Shipment Period</h3>
+            </div>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="4">
+            <div style="width: 100%">
+                <mat-form-field style="width: 40%">
+                    <input matInput [matDatepicker]="picker2" placeholder="Choose a date">
+                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                    <mat-datepicker #picker2></mat-datepicker>
+                </mat-form-field>
+                to
+                <mat-form-field style="width: 40%"> 
+                    <input matInput [matDatepicker]="picker3" placeholder="Choose a date">
+                    <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                    <mat-datepicker #picker3></mat-datepicker>
+                </mat-form-field>
+            </div>
+
+        </mat-grid-tile>
+ 
+        <mat-grid-tile [colspan]="2">
+            <div style="width: 100% " text-left>
+                <mat-checkbox>Shipment Option</mat-checkbox>
+            </div>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="2">
+                <mat-form-field style="width: 100%">
+                        <mat-label>AT THE BUYER'S OPTION.</mat-label>
+                        <mat-select [(value)]="selected1">
+                            <mat-option value="option11">Option 1</mat-option>
+                            <mat-option value="option21">Option 2</mat-option>
+                            <mat-option value="option31">Option 3</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="2"></mat-grid-tile>
+    </mat-grid-list>
+</div>
