@@ -14,6 +14,9 @@ export class PricingWhiteDetailComponent implements OnInit {
     buyercontractno: 'P29599',
     contractdate: '20/02/2017',
     contractmonth: 'March',
+    cropyear: '2018',
+    contractmadeby: 'ISD',
+    portion: 'Management',
     qty: 12000,
     shipment: {
       startdate: '20/02/2018',
@@ -81,6 +84,13 @@ export class PricingWhiteDetailComponent implements OnInit {
   year: Array<any> = [
     { value: '2018', viewValue: '2018' },
     { value: '2019', viewValue: '2019' },
+
+  ]
+  contractmadeby: Array<any> = [
+    { value: 'ISD', viewValue: 'ISD' },
+  ]
+  portion: Array<any> = [
+    { value: 'Management', viewValue: 'Management' }
 
   ]
   displayedColumns: string[] = ['date', 'lots', 'Price (USD/MT)', 'Manage'];

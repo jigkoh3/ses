@@ -109,7 +109,7 @@
       <mat-grid-tile [colspan]='breakpoint6'>
         <mat-form-field style="width: 90%">
           <mat-label>Crop Year</mat-label>
-          <mat-select [(ngModel)]="dataPricing.typeofsugar">
+          <mat-select [(ngModel)]="dataPricing.cropyear">
             <mat-option *ngFor="let item of year" [value]="item.value">
               {{item.viewValue}}
             </mat-option>
@@ -119,8 +119,8 @@
       <mat-grid-tile [colspan]='breakpoint6'>
         <mat-form-field style="width: 90%">
           <mat-label>Contract made by</mat-label>
-          <mat-select [(ngModel)]="dataPricing.typeofsugar">
-            <mat-option *ngFor="let item of typeofsugar" [value]="item.value">
+          <mat-select [(ngModel)]="dataPricing.contractmadeby">
+            <mat-option *ngFor="let item of contractmadeby" [value]="item.value">
               {{item.viewValue}}
             </mat-option>
           </mat-select>
@@ -129,8 +129,8 @@
       <mat-grid-tile [colspan]='breakpoint6'>
         <mat-form-field style="width: 90%">
           <mat-label>Portion</mat-label>
-          <mat-select [(ngModel)]="dataPricing.typeofsugar">
-            <mat-option *ngFor="let item of typeofsugar" [value]="item.value">
+          <mat-select [(ngModel)]="dataPricing.portion">
+            <mat-option *ngFor="let item of portion" [value]="item.value">
               {{item.viewValue}}
             </mat-option>
           </mat-select>
