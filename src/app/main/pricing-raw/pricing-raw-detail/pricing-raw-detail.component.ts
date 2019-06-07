@@ -102,11 +102,11 @@ export class PricingRawDetailComponent implements OnInit {
   columnLondon: string[] = ['orderdate', 'sell', 'buy', 'against', 'mon', 'year', 'price', 'executed', 'Manage']
 
   londonTable: Array<any> = [
-    { orderdate: '18/10/2017', sell: 25, buy: null, against: 'No.11', mon: 'Mar', year: '2018', price: '14.90', executed: '27/10/2017' },
-    { orderdate: '18/10/2017', sell: null, buy: 25, against: 'No.11', mon: 'Mar', year: '2018', price: '14.60', executed: '28/10/2017' },
-    { orderdate: '19/10/2017', sell: 20, buy: null, against: 'No.11', mon: 'Mar', year: '2018', price: '14.50', executed: '29/10/2017' },
-    { orderdate: '30/10/2017', sell: null, buy: 20, against: 'No.11', mon: 'Mar', year: '2018', price: '14.60', executed: '29/10/2017' },
-    { orderdate: '31/10/2017', sell: 30, buy: null, against: 'No.11', mon: 'Mar', year: '2018', price: '14.80', executed: '30/10/2017' },
+    { orderdate: '18/10/2017', sell: 25, buy: null, against: 'No.11', mon: 'March', year: '2018', price: '14.90', executed: '27/10/2017' },
+    { orderdate: '18/10/2017', sell: null, buy: 25, against: 'No.11', mon: 'March', year: '2018', price: '14.60', executed: '28/10/2017' },
+    { orderdate: '19/10/2017', sell: 20, buy: null, against: 'No.11', mon: 'March', year: '2018', price: '14.50', executed: '29/10/2017' },
+    { orderdate: '30/10/2017', sell: null, buy: 20, against: 'No.11', mon: 'March', year: '2018', price: '14.60', executed: '29/10/2017' },
+    { orderdate: '31/10/2017', sell: 30, buy: null, against: 'No.11', mon: 'July', year: '2018', price: '14.80', executed: '30/10/2017' },
 
   ]
   columnOthers: string[] = ['others', 'amont', 'unit', 'manage']
