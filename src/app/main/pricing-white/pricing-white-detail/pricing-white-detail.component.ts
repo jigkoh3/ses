@@ -116,7 +116,7 @@ export class PricingWhiteDetailComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.breakpoint = (window.innerWidth <= 400) ? 2 : 1;
+    this.breakpoint = (window.innerWidth <= 400) ? 4 : 2;
     this.breakpoint2 = (window.innerWidth <= 400) ? 3 : 1;
     this.breakpoint3 = (window.innerWidth <= 400) ? 6 : 3;
     this.breakpoint4 = (window.innerWidth <= 400) ? 2 : 4;
