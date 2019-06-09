@@ -3,12 +3,35 @@ import { Component, OnInit } from '@angular/core';
 import { FuseTranslationLoaderService } from '@fuse/services/translation-loader.service';
 import { locale as english } from '../i18n/en';
 import { locale as turkish } from '../i18n/tr';
+import { ODataConfiguration, ODataExecReturnType, ODataPagedResult, ODataQuery, ODataService, ODataServiceFactory } from 'angular-odata-es5'
+
+import { filter, FilterMetadata } from '../../../shared';
+import { ODataConfigurationFactory } from '../../../ODataConfigurationFactory';
+import { combineLatest } from 'rxjs';
+
 @Component({
   selector: 'app-pricing-raw-list',
   templateUrl: './pricing-raw-list.component.html',
-  styleUrls: ['./pricing-raw-list.component.scss']
+  styleUrls: ['./pricing-raw-list.component.scss'],
+  providers: [{ provide: ODataConfiguration, useFactory: ODataConfigurationFactory }, ODataServiceFactory],
 })
 export class PricingRawListComponent implements OnInit {
+  public count: number = 0;
+
+  public totalRecords: number;
+
+  public filter: filter;
+
+  public query: ODataQuery<any>;
+
+  private odata: ODataService<any>;
+  private odataLov: ODataService<any>;
+  private odataParty: ODataService<any>;
+  //private odataContact: ODataService<any>;
+  allLOVs;
+  allPartys;
+  currentUser;
+
   total: any;
   lots: any;
   screenwidth: any;
@@ -171,16 +194,158 @@ export class PricingRawListComponent implements OnInit {
   colSpSelect: any;
   colSpBtn: any;
   constructor(
-    public route: Router
+    public route: Router,
+    private odataFactory: ODataServiceFactory
   ) {
+    this.currentUser = JSON.parse(localStorage.getItem('SEScurrentUser'));
+    //this.user = this.currentUser.user;
+    this.odata = this.odataFactory.CreateService<any>('ses_pricings');
+
+    this.odataLov = this.odataFactory.CreateService<any>('ses_lov_datas');
+    this.odataParty = this.odataFactory.CreateService<any>('ses_partys');
   }
 
   ngOnInit() {
     this.colSpTopic = (window.innerWidth <= 400) ? 6 : 2;
-    this.colSpSelect = (window.innerWidth <= 400) ? 6 :2;
+    this.colSpSelect = (window.innerWidth <= 400) ? 6 : 2;
     this.colSpBtn = (window.innerWidth <= 400) ? 6 : 1;
     this.screenwidth = window.innerWidth
-    this.calTotal();
+    combineLatest(
+      this.odataLov
+        .Query()
+        //.Expand('Processes($expand=ApproveFlow($expand=AFApproveFlowDetails($expand=AFDPosition)),Role)')
+        //.Filter("WorkFlowType eq 'PR'")
+        .Exec(),
+      this.odataParty
+        .Query()
+        //.Expand('Processes($expand=ApproveFlow($expand=AFApproveFlowDetails($expand=AFDPosition)),Role)')
+        //.Filter("WorkFlowType eq 'PR'")
+        .Exec()
+    ).subscribe(T => {
+      this.allLOVs = T[0];
+      this.allPartys = T[1];
+      this.getPagedData();
+      this.calTotal();
+    }, (error) => {
+      if (error.status == 401) {
+        this.route.navigate(['/login'], { queryParams: { error: 'Session Expire!' } });
+        console.log('Session Expire!');
+      } else if (error.status != 401 && error.status != 0) {
+        let detail = "";
+        detail = error.error.message;
+        if (error.error.InnerException) {
+          detail += '\n' + error.error.InnerException.ExceptionMessage;
+        }
+        //this.msgs = { severity: 'error', summary: 'Error', detail: detail };
+      } else if (error.status == 0) {
+        //this.msgs = { severity: 'error', summary: 'Error', detail: 'Cannot connect to server. Please contact administrator.' };
+      }
+
+      console.log('ODataExecReturnType.PagedResult ERROR ' + JSON.stringify(error));
+    });
+
+  }
+
+  private getPagedData() {
+    this.query = this.odata
+      .Query()
+    //.Filter("CreatedBy/Id eq '" + this.user.Id + "'" + this.qType)
+    //.Expand('Company, Plant,BudgetType, CostCenter, IO,  Job($expand=SendFrom,SendTo), CreatedBy')
+    //.Select(['Id', 'CreatedDt', 'BudgetReqNo', 'BudgetType', 'Year', 'Quarter', 'Month', 'CostCenter', 'Company', 'Plant', 'IO', 'Job', 'Status', 'CreatedBy']);
+    if (this.filter) {
+      if (this.filter.rows) {
+        this.query = this.query.Top(this.filter.rows);
+      }
+
+      if (this.filter.first) {
+        this.query = this.query.Skip(this.filter.first);
+      }
+
+      if (this.filter.filters) {
+        const filterOData: string[] = [];
+        for (const filterProperty in this.filter.filters) {
+          if (this.filter.filters.hasOwnProperty(filterProperty)) {
+            const filter = this.filter.filters[filterProperty] as FilterMetadata;
+            if (filter.matchMode && filter.matchMode !== '') {
+              const params = filter.matchMode.toLowerCase().split(':');
+              const operator = params[0];
+
+              // Replace Boss.Name by Boss/Name
+              const odataProperty = filterProperty.replace(/\./g, '/');
+
+              // http://docs.oasis-open.org/odata/odata/v4.0/odata-v4.0-part2-url-conventions.html
+              switch (operator) {
+                case 'length':
+                case 'day':
+                case 'fractionalseconds':
+                case 'hour':
+                case 'minute':
+                case 'month':
+                case 'second':
+                case 'totaloffsetminutes':
+                case 'totalseconds':
+                case 'year':
+                  filterOData.push(`${operator}(${odataProperty}) ${params[1]} ${filter.value}`);
+                  break;
+                case 'eq':
+                case 'ne':
+                case 'gt':
+                case 'ge':
+                case 'lt':
+                case 'le':
+                  filterOData.push(`${odataProperty} ${operator} ${filter.value}`);
+                  break;
+                case 'contains':
+                case 'endswith':
+                case 'contains':
+                  filterOData.push(`${operator}(${odataProperty}, '${filter.value}')`);
+                  break;
+                default:
+                // no action
+              }
+            }
+          }
+        }
+
+        if (filterOData.length > 0) {
+          this.query = this.query.Filter(filterOData.join(' and '));
+        }
+      }
+
+      if (this.filter.sortField) {
+        const sortOrder: string = this.filter.sortOrder && this.filter.sortOrder > 0 ? 'asc' : 'desc';
+        this.query = this.query.OrderBy(this.filter.sortField + ' ' + sortOrder);
+      }
+    }
+
+
+    this.query
+      .Exec(ODataExecReturnType.PagedResult)
+      .subscribe((pagedResult: ODataPagedResult<any>) => {
+        this.transactions = pagedResult.data;
+        this.totalRecords = pagedResult.count;
+      }, (error) => {
+        this.transactions = [];
+        this.totalRecords = 0;
+
+        if (error.status == 401) {
+          this.route.navigate(['/login'], { queryParams: { error: 'Session Expire!' } });
+          console.log('Session Expire!');
+        } else if (error.status != 401 && error.status != 0) {
+          let detail = "";
+          detail = error.error.message;
+          if (error.error.InnerException) {
+            detail += '\n' + error.error.InnerException.ExceptionMessage;
+          }
+          //this.msgs = { severity: 'error', summary: 'Error', detail: detail };
+        } else if (error.status == 0) {
+          //this.msgs = { severity: 'error', summary: 'Error', detail: 'Cannot connect to server. Please contact administrator.' };
+        }
+
+        console.log('ODataExecReturnType.PagedResult ERROR ' + JSON.stringify(error));
+      });
+
+
   }
 
   onResize(event) {

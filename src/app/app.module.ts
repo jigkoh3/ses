@@ -16,24 +16,30 @@ import { fuseConfig } from 'app/fuse-config';
 
 import { AppComponent } from 'app/app.component';
 import { LayoutModule } from 'app/layout/layout.module';
-import { SampleModule } from 'app/main/sample/sample.module';
-import { PricingRawModule } from 'app/main/pricing-raw/pricing-raw.module';
-import { ContractModule } from 'app/main/contract/contract.module';
-import { PricingWhiteModule } from 'app/main/pricing-white/pricing-white.module'
-import { AddendumModule } from './main/addendum/addendum.module';
+// import { SampleModule } from 'app/main/sample/sample.module';
+// import { PricingRawModule } from 'app/main/pricing-raw/pricing-raw.module';
+// import { ContractModule } from 'app/main/contract/contract.module';
+// import { PricingWhiteModule } from 'app/main/pricing-white/pricing-white.module'
+// import { AddendumModule } from './main/addendum/addendum.module';
 
+import { AuthGuard, AuthenticationService } from './shared'
+import { ODataConfiguration, ODataServiceFactory } from "angular-odata-es5";
 const appRoutes: Routes = [
-    {
-        path      : '**',
-        redirectTo: 'pricing-raw'
-    }
+
+    { path: '', loadChildren: './main/main.module#MainModule', canActivate: [AuthGuard] },
+    { path: 'login', loadChildren: './login/login.module#LoginModule' },
+    // { path: 'session-expire', loadChildren: './session-expire/session-expire.module#SessionExpireModule' },
+    // { path: 'error', loadChildren: './server-error/server-error.module#ServerErrorModule' },
+    // { path: 'access-denied', loadChildren: './access-denied/access-denied.module#AccessDeniedModule' },
+    // { path: 'not-found', loadChildren: './not-found/not-found.module#NotFoundModule' },
+    { path: '**', redirectTo: 'not-found' }
 ];
 
 @NgModule({
     declarations: [
         AppComponent,
     ],
-    imports     : [
+    imports: [
         BrowserModule,
         BrowserAnimationsModule,
         HttpClientModule,
@@ -57,16 +63,16 @@ const appRoutes: Routes = [
 
         // App modules
         LayoutModule,
-        SampleModule,
-        PricingRawModule,
-        ContractModule,
-        PricingWhiteModule,
-        AddendumModule
+        // SampleModule,
+        // PricingRawModule,
+        // ContractModule,
+        // PricingWhiteModule,
+        // AddendumModule
     ],
-    bootstrap   : [
+    bootstrap: [
         AppComponent
-    ]
+    ],
+    providers: [AuthGuard, AuthenticationService, ODataServiceFactory, ODataConfiguration],
 })
-export class AppModule
-{
+export class AppModule {
 }

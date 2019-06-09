@@ -7,8 +7,7 @@ export const navigation: FuseNavigation[] = [
         translate: 'NAV.APPLICATIONS',
         type     : 'group',
         children : [
-            
-            {
+           {
                 id       : 'pricing-raw',
                 title    : 'Pricing Raw',
                 translate: 'NAV.PRCR.TITLE',
