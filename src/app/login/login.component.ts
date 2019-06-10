@@ -85,13 +85,42 @@ export class LoginComponent implements OnInit {
                 .subscribe(result => {
                     if (result === true) {
                         // login successful
-
-                        localStorage.setItem("SESTimeout", moment().add(4, 'hour').toDate().getTime().toString());
-                        if (this.retPath){
-                            this.router.navigate(['/' + this.retPath ], { queryParams: { retUrl: this.retUrl?this.retUrl:"" } });
-                        }else{
-                            this.router.navigate(['/pricing-raw']);
+                        this.authenticationService.getRoleMenu().subscribe(result =>{
+                            
+                            localStorage.setItem("SESTimeout", moment().add(4, 'hour').toDate().getTime().toString());
+                            if (this.retPath){
+                                this.router.navigate(['/' + this.retPath ], { queryParams: { retUrl: this.retUrl?this.retUrl:"" } });
+                            }else{
+                                this.router.navigate(['/pricing-raw']);
+                            }
+                        },
+                    error => {
+                        if (error.status == 401) {
+                            localStorage.setItem('SESisLoggedin', 'false');
+                            this.alert = "User or password is incorrect!";
+                            //
+                            // } else if (error.status == 400) {
+                            //     localStorage.setItem('SESisLoggedin', 'false');
+                            //     this.error = error.statusText;
+                        } else if (error.status == 500 || error.status == 400) {
+                            localStorage.setItem('SESisLoggedin', 'false');
+                            if (error.error.InnerException) {
+                                this.alert = error.error.InnerException.ExceptionMessage;
+                            } else {
+                                this.alert = error.statusText;
+                            }
+                        } else if (error.status == 0) {
+                            localStorage.setItem('SESisLoggedin', 'false');
+                            this.alert = "Cannot connect to server. Please contact administrater.";
+                        } else {
+                            this.alert = JSON.stringify(error);
                         }
+
+                    });
+
+
+                        
+                      
                         
 
 
