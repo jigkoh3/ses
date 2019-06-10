@@ -202,7 +202,7 @@ export class PricingRawListComponent implements OnInit {
     this.odata = this.odataFactory.CreateService<any>('ses_pricings');
 
     this.odataLov = this.odataFactory.CreateService<any>('ses_lov_datas');
-    this.odataParty = this.odataFactory.CreateService<any>('ses_parties');
+    this.odataParty = this.odataFactory.CreateService<any>('ses_party');
   }
 
   ngOnInit() {
