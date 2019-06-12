@@ -31,7 +31,7 @@ const appRoutes: Routes = [
     // { path: 'session-expire', loadChildren: './session-expire/session-expire.module#SessionExpireModule' },
     // { path: 'error', loadChildren: './server-error/server-error.module#ServerErrorModule' },
     // { path: 'access-denied', loadChildren: './access-denied/access-denied.module#AccessDeniedModule' },
-    // { path: 'not-found', loadChildren: './not-found/not-found.module#NotFoundModule' },
+    { path: 'not-found', loadChildren: './login/login.module#LoginModule' },
     { path: '**', redirectTo: 'not-found' }
 ];
 

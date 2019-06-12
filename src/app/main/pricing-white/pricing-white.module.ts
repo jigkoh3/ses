@@ -10,7 +10,7 @@ import { FormsModule } from '@angular/forms';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 const routes = [
   {
-    path: 'pricing-white',
+    path: 'pricingwhite',
     component: PricingWhiteListComponent
   },
   {

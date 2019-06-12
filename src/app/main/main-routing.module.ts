@@ -5,9 +5,9 @@ const routes: Routes = [
     {
         path: '',
         children: [
-            { path: 'pricing-raw',loadChildren: './pricing-raw/pricing-raw.module#PricingRawModule' },
+            { path: 'pricingraw',loadChildren: './pricing-raw/pricing-raw.module#PricingRawModule' },
             { path: 'pricing-detail',loadChildren: './pricing-raw/pricing-raw.module#PricingRawModule' },
-            { path: 'pricing-white',loadChildren: './pricing-white/pricing-white.module#PricingWhiteModule' },
+            { path: 'pricingwhite',loadChildren: './pricing-white/pricing-white.module#PricingWhiteModule' },
             { path: 'pricing-white-detail',loadChildren: './pricing-white/pricing-white.module#PricingWhiteModule' },
             { path: 'contract',loadChildren: './contract/contract.module#ContractModule'},
             { path: 'contract-detail',loadChildren: './contract/contract.module#ContractModule'},

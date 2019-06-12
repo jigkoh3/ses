@@ -13,7 +13,7 @@ import { FuseSharedModule } from '@fuse/shared.module';
 import { NgxDataTableModule } from 'ngx-nested-data-table';
 const routes = [
   {
-    path: 'contracts',
+    path: 'contract',
     component: ContractListComponent
   },
   {

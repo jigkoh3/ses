@@ -13,7 +13,7 @@
         <mat-form-field style="width: 90%;">
           <mat-label>Select Contract No.</mat-label>
           <mat-select>
-            <mat-option *ngFor="let contactno of contactno" [value]="contactno.value">
+            <mat-option *ngFor="let contactno of contactnos" [value]="contactno.value">
               {{contactno.viewValue}}
             </mat-option>
           </mat-select>
@@ -21,14 +21,14 @@
       </mat-grid-tile>  
       <mat-grid-tile [colspan]="colSpSelect">
         <mat-form-field style="width: 90%">
-          <input matInput placeholder="contact date">
+          <input matInput placeholder="Contact Date">
         </mat-form-field>
       </mat-grid-tile>
       <mat-grid-tile [colspan]="colSpSelect">
         <mat-form-field style="width: 90%;">
           <mat-label>Select Contract Status</mat-label>
           <mat-select>
-            <mat-option *ngFor="let contactstatus of contactstatus" [value]="contactstatus.value">
+            <mat-option *ngFor="let contactstatus of contactstatuses" [value]="contactstatus.value">
               {{contactstatus.viewValue}}
             </mat-option>
           </mat-select>
@@ -41,7 +41,7 @@
         <mat-form-field style="width: 90%;">
           <mat-label>Select Buyer Contrace No.</mat-label>
           <mat-select>
-            <mat-option *ngFor="let buyercontacno of buyercontacno" [value]="buyercontacno.value">
+            <mat-option *ngFor="let buyercontacno of buyercontacnos" [value]="buyercontacno.value">
               {{buyercontacno.viewValue}}
             </mat-option>
           </mat-select>
@@ -51,7 +51,7 @@
         <mat-form-field style="width: 90%;">
           <mat-label>Select Buyer</mat-label>
           <mat-select>
-            <mat-option *ngFor="let buyer of buyer" [value]="buyer.value">
+            <mat-option *ngFor="let buyer of buyers" [value]="buyer.value">
               {{buyer.viewValue}}
             </mat-option>
           </mat-select>
@@ -64,7 +64,7 @@
         <mat-form-field style="width: 90%;">
           <mat-label>Select Sugar Type</mat-label>
           <mat-select>
-            <mat-option *ngFor="let sugartype of sugartype" [value]="sugartype.value">
+            <mat-option *ngFor="let sugartype of sugartypes" [value]="sugartype.value">
               {{sugartype.viewValue}}
             </mat-option>
           </mat-select>
@@ -74,7 +74,7 @@
         <mat-form-field style="width: 90%;">
           <mat-label>Select Group Factory</mat-label>
           <mat-select>
-            <mat-option *ngFor="let groupfactory of groupfactory" [value]="groupfactory.value">
+            <mat-option *ngFor="let groupfactory of groupfactorys" [value]="groupfactory.value">
               {{groupfactory.viewValue}}
             </mat-option>
           </mat-select>

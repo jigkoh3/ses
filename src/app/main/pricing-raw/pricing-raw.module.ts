@@ -19,7 +19,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 
 const routes = [
   {
-    path: 'pricing-raw',
+    path: 'pricingraw',
     component: PricingRawListComponent
   },
   {
