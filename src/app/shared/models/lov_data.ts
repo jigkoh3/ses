@@ -1,5 +1,5 @@
 export class lov_data {
-    lov_id: string;
+    id: string;
     lov_group: string;
     lov_type: string;
     parent_lov_id: string;
@@ -17,9 +17,9 @@ export class lov_data {
     lov_desc: string;
     lov_order: number;
     active_flag: boolean;
-    created_by: string;
-    created_date: Date;
-    updated_by: string;
-    updated_date: Date;
+    created_by_id:string;
+    created_date:Date;
+    updated_by_id:string;
+    updated_date:Date;
 }
 
