@@ -23,8 +23,8 @@
                 <mat-form-field style="width: 90%;">
                     <mat-label>Select Group Factory</mat-label>
                     <mat-select>
-                        <mat-option *ngFor="let groupfactory of groupfactory" [value]="groupfactory.value">
-                            {{groupfactory.viewValue}}
+                        <mat-option *ngFor="let groupfactory of groupfactory" [value]="groupfactory.lov_code">
+                            {{groupfactory.lov1}}
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
