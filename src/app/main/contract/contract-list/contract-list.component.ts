@@ -498,6 +498,7 @@ export class ContractListComponent implements OnInit {
   PageData(pageEvent:PageEvent){
     this.filter.first =pageEvent.pageIndex * pageEvent.pageSize;
     this.filter.rows =pageEvent.pageSize;    
+    this.getPagedData();
   }
 
   sortData(sort: Sort) {
@@ -543,8 +544,9 @@ export class ContractListComponent implements OnInit {
         this.filter.sortField = "ses_currency.name_en";
         case 'Contract Status': 
         this.filter.sortField = "";
-        default: 
-        return 0;
+        // default: 
+        // return 0;
       }
+      this.getPagedData();
   }
 }
