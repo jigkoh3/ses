@@ -12,7 +12,7 @@
             <mat-grid-tile [colspan]="colSpSelect">
                 <mat-form-field style="width: 90%;">
                     <mat-label>Select Buyer</mat-label>
-                    <mat-select>
+                    <mat-select [(ngModel)]="searchFormData.buyer">
                         <mat-option *ngFor="let buyer of buyer" [value]="buyer.value">
                             {{buyer.viewValue}}
                         </mat-option>
@@ -22,7 +22,7 @@
             <mat-grid-tile [colspan]="colSpSelect">
                 <mat-form-field style="width: 90%;">
                     <mat-label>Select Group Factory</mat-label>
-                    <mat-select>
+                    <mat-select [(ngModel)]="searchFormData.groupfactory">
                         <mat-option *ngFor="let groupfactory of groupfactory" [value]="groupfactory.lov_code">
                             {{groupfactory.lov1}}
                         </mat-option>
@@ -64,7 +64,6 @@
             </mat-grid-tile>
         </mat-grid-list>
     </mat-card>
-
     <mat-grid-list [cols]="6" rowHeight="240px">
         <mat-grid-tile [colspan]="6">
             <mat-card class="example-container" style="padding: 0px">

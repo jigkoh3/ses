@@ -32,6 +32,11 @@ export class PricingRawListComponent implements OnInit {
   allPartys;
   currentUser;
 
+  searchFormData = {
+    buyer: "",
+    groupfactory: ""
+  };
+
   total: any;
   lots: any;
   screenwidth: any;
