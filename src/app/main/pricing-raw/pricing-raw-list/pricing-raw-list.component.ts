@@ -122,7 +122,8 @@ export class PricingRawListComponent implements OnInit {
       // this.allLOVs = T[0];
       this.groupfactory = T[0].filter(lov=>lov.lov_type === "Group Factory");
       console.log(this.groupfactory);
-      this.allPartys = T[1];
+      // this.allPartys = T[1];
+      this.buyer = T[1];
       this.getPagedData();
       this.calTotal();
     }, (error) => {

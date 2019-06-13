@@ -91,7 +91,7 @@ export class LoginComponent implements OnInit {
                             if (this.retPath){
                                 this.router.navigate(['/' + this.retPath ], { queryParams: { retUrl: this.retUrl?this.retUrl:"" } });
                             }else{
-                                this.router.navigate(['/pricingraw']);
+                                this.router.navigate(['/pricing-hi-raw']);
                             }
                         },
                     error => {
