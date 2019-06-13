@@ -7,7 +7,8 @@ import { filter, FilterMetadata, lov_data, party } from '../../../shared';
 import { ODataConfigurationFactory } from '../../../ODataConfigurationFactory';
 import { combineLatest } from 'rxjs';
 import * as _ from 'lodash';
-
+import { Sort } from '@angular/material/sort';
+import {PageEvent} from '@angular/material/paginator';
 @Component({
   selector: 'app-contract-list',
   templateUrl: './contract-list.component.html',
@@ -73,22 +74,31 @@ export class ContractListComponent implements OnInit {
     { value: 'Submit', viewValue: 'Submit' },
   ];
   displayedColumns = [
+    'Contract No',
+    'Contract Date',
+    'Buyer Contract',
     'Buyer',
-    'Group-Factory',
-    'Contract-No',
-    'Buyer-Contract-No',
-    'Contract-Date',
-    'Contract-Date2',
-    'Quantity',
-    'Shipment-Period',
-    'Total-Price',
-    'Priced',
-    'Unpriced',
-    'Final-Price',
-    'Final-Price2',
-    'Last-Pricing-Date',
-    'Against',
-    'Manage',
+    'SugarType',
+    'Made by',
+    'Corp Year',
+    'Group Factory',
+    'Shipment Term',
+    'Shipment Period',
+    'Quantity(MT)',
+    'Shipment',
+    'Payment Term',
+    'Currency',
+    'Contract Status'
+  ];
+  displayedDetailColumns = [
+    'Addendum No.',
+    'Addendum Date',
+    "Addendum Type",
+    "Addendum Status",
+    'SugarType',
+    'Buyer Contract',
+    'Buyer',
+    'Quantity(MT)'
   ];
   transactions: any = [
     // {
@@ -334,12 +344,12 @@ export class ContractListComponent implements OnInit {
 
       //[lov_code,lov1]+[SYSTEM,Sugar Type]
       this.sugartypes = _.orderBy(_.filter(this.allLOVs, function (o) {
-        return o.lov_code == 'SYSTEM' && o.lov1 == 'Sugar Type'
+        return o.lov_group == 'SYSTEM' && o.lov_type == 'Sugar Type'
       }), 'lov1');
 
       //[lov_code,lov1]+[SYSTEM,Group Factory]+[lov2 is not null]
       this.groupfactorys = _.orderBy(_.filter(this.allLOVs, function (o) {
-        return o.lov_code == 'SYSTEM' && o.lov1 == 'Group Factory' && o.lov2
+        return o.lov_group == 'SYSTEM' && o.lov_type == 'Group Factory' && o.lov2
       }), 'lov1');
 
       //p.record_status = 1 and p.party_type like ‘%buyer%’ order by 2
@@ -485,16 +495,56 @@ export class ContractListComponent implements OnInit {
   onDelete() {
     confirm("คุณต้องการลบหรือไม่");
   }
+  PageData(pageEvent:PageEvent){
+    this.filter.first =pageEvent.pageIndex * pageEvent.pageSize;
+    this.filter.rows =pageEvent.pageSize;    
+  }
 
-  // calTotal() {
-  //   this.total = 0;
-  //   this.lots = 0;
-  //   let res = 0;
-  //   this.transactions.forEach(tran => {
-  //     this.total = this.total + tran.quanitity
-  //     res = res + tran.quanitity / 50.8
-  //   });
-  //   this.lots = Math.round(res)
-  //   console.log(this.total);
-  // }
+  sortData(sort: Sort) {
+    const data = this.transactions;
+    if (!sort.active || sort.direction === '') {
+      this.transactions = data;
+      return;
+    }
+   
+    
+      const isAsc = sort.direction === 'asc';
+      this.filter.sortOrder =sort.direction == 'asc'?1:-1;
+      switch (sort.active) {
+        case 'Contract No': 
+        this.filter.sortField = "contract_no";
+        case 'Contract Date': 
+        this.filter.sortField = "contract_date";
+        case 'Buyer Contract': 
+        this.filter.sortField = "buyer_contract";
+        case 'Buyer': 
+        this.filter.sortField = "buyer/party_name";
+        case 'SugarType': 
+        this.filter.sortField = "sugar_type/lov1";
+        case 'Made by': 
+        this.filter.sortField = "made_by/lov1";
+        case 'Corp Year': 
+        this.filter.sortField = "crop_year";
+        case 'Group Factory': 
+        this.filter.sortField = "group_factory/party_name";
+        case 'Shipment Term': 
+        this.filter.sortField = "shipment_term/ship_term_name";
+        case 'Shipment Period From': 
+        this.filter.sortField = "ship_period_from";
+        case 'Shipment Period To': 
+        this.filter.sortField = "ship_period_to";
+        case 'Quantity(MT)': 
+        this.filter.sortField = "qty";
+        case 'Shipment': 
+        this.filter.sortField = "shipment_term.shipterm_name";
+        case 'Payment Term': 
+        this.filter.sortField = "ses_payment_term.pmt_abbv";
+        case 'Currency': 
+        this.filter.sortField = "ses_currency.name_en";
+        case 'Contract Status': 
+        this.filter.sortField = "";
+        default: 
+        return 0;
+      }
+  }
 }

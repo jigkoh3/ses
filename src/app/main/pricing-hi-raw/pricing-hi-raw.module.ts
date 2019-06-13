@@ -9,7 +9,7 @@ import { PricingHiRawDetailComponent } from './pricing-hi-raw-detail/pricing-hi-
 
 const routes = [
   {
-    path: 'pricing-hi-raw-list',
+    path: 'pricing-hi-raw',
     component: PricingHiRawListComponent
   },
   {

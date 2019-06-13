@@ -11,27 +11,21 @@
     <mat-grid-list [cols]="6" rowHeight="60px" (window:resize)="onResize($event)">
       <mat-grid-tile [colspan]="colSpSelect">
         <mat-form-field style="width: 90%;">
-          <mat-label>Select Contract No.</mat-label>
-          <mat-select>
-            <mat-option *ngFor="let contactno of contactnos" [value]="contactno.value">
-              {{contactno.viewValue}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </mat-grid-tile>  
-      <mat-grid-tile [colspan]="colSpSelect">
-        <mat-form-field style="width: 90%">
-          <input matInput placeholder="Contact Date">
+          <input matInput placeholder="Contrace No." value="">
         </mat-form-field>
       </mat-grid-tile>
       <mat-grid-tile [colspan]="colSpSelect">
-        <mat-form-field style="width: 90%;">
-          <mat-label>Select Contract Status</mat-label>
-          <mat-select>
-            <mat-option *ngFor="let contactstatus of contactstatuses" [value]="contactstatus.value">
-              {{contactstatus.viewValue}}
-            </mat-option>
-          </mat-select>
+        <mat-form-field style="width: 90%">
+          <input matInput [matDatepicker]="contract_date_from" placeholder="Choose a Contract Date From">
+          <mat-datepicker-toggle matSuffix [for]="contract_date_from"></mat-datepicker-toggle>
+          <mat-datepicker #contract_date_from disabled="false"></mat-datepicker>
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile [colspan]="colSpSelect">
+        <mat-form-field>
+          <input matInput [matDatepicker]="contract_date_to" placeholder="Choose a Contract Date To">
+          <mat-datepicker-toggle matSuffix [for]="contract_date_to"></mat-datepicker-toggle>
+          <mat-datepicker #contract_date_to disabled="false"></mat-datepicker>
         </mat-form-field>
       </mat-grid-tile>
     </mat-grid-list>
@@ -39,20 +33,31 @@
     <mat-grid-list [cols]="6" rowHeight="60px" (window:resize)="onResize($event)">
       <mat-grid-tile [colspan]="colSpSelect">
         <mat-form-field style="width: 90%;">
-          <mat-label>Select Buyer Contrace No.</mat-label>
+          <mat-label>Select Contract Status</mat-label>
           <mat-select>
-            <mat-option *ngFor="let buyercontacno of buyercontacnos" [value]="buyercontacno.value">
-              {{buyercontacno.viewValue}}
+            <mat-option [value]="">
+              --All--
+            </mat-option>
+            <mat-option *ngFor="let contactstatus of contactstatuses" [value]="contactstatus.value">
+              {{contactstatus.viewValue}}
             </mat-option>
           </mat-select>
         </mat-form-field>
       </mat-grid-tile>
       <mat-grid-tile [colspan]="colSpSelect">
         <mat-form-field style="width: 90%;">
+          <input matInput placeholder="Buyer Contract No." [(value)]="buyer_contract_no">
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile [colspan]="colSpSelect">
+        <mat-form-field style="width: 90%;">
           <mat-label>Select Buyer</mat-label>
-          <mat-select>
-            <mat-option *ngFor="let buyer of buyers" [value]="buyer.value">
-              {{buyer.viewValue}}
+          <mat-select [(value)]="selectedBuyer">
+            <mat-option [value]="">
+              --All--
+            </mat-option>
+            <mat-option *ngFor="let buyer of buyers" [value]="buyer.id">
+              {{buyer.party_name}}
             </mat-option>
           </mat-select>
         </mat-form-field>
@@ -63,9 +68,12 @@
       <mat-grid-tile [colspan]="colSpSelect">
         <mat-form-field style="width: 90%;">
           <mat-label>Select Sugar Type</mat-label>
-          <mat-select>
-            <mat-option *ngFor="let sugartype of sugartypes" [value]="sugartype.value">
-              {{sugartype.viewValue}}
+          <mat-select [(value)]="selectedSugarType">
+            <mat-option [value]="">
+              --All--
+            </mat-option>
+            <mat-option *ngFor="let sugartype of sugartypes" [value]="sugartype.id">
+              {{sugartype.lov1}}
             </mat-option>
           </mat-select>
         </mat-form-field>
@@ -73,26 +81,89 @@
       <mat-grid-tile [colspan]="colSpSelect">
         <mat-form-field style="width: 90%;">
           <mat-label>Select Group Factory</mat-label>
-          <mat-select>
-            <mat-option *ngFor="let groupfactory of groupfactorys" [value]="groupfactory.value">
-              {{groupfactory.viewValue}}
+          <mat-select [(value)]="selectedGroupFactory">
+            <mat-option [value]="">
+              --All--
+            </mat-option>
+            <mat-option *ngFor="let groupfactory of groupfactorys" [value]="groupfactory.id">
+              {{groupfactory.lov1}}
             </mat-option>
           </mat-select>
         </mat-form-field>
       </mat-grid-tile>
       <mat-grid-tile [colspan]="colSpBtn">
-        <button mat-flat-button class="accent" style="width: 90%">Search</button>
+        <button mat-flat-button color="accent" (click)="onSearch()">
+          <mat-icon>
+            search
+          </mat-icon>
+          SEARCH
+        </button>
       </mat-grid-tile>
     </mat-grid-list>
 
     <mat-grid-list [cols]="6" rowHeight="31px" (window:resize)="onResize($event)" style="margin-top: 6px">
       <mat-grid-tile [colspan]="colSpBtn">
-        <button mat-flat-button class="accent" (click)="onDetail()" style="width: 90%">Add</button>
+        <button mat-flat-button color="accent" (click)="onDetail()">
+          <mat-icon>
+            add
+          </mat-icon>
+          ADD
+        </button>
       </mat-grid-tile>
     </mat-grid-list>
   </mat-card>
 
   <mat-card class="mt-24 p-0" style="height: 100%">
-        <ngx-data-table [data]="data"></ngx-data-table>
+    <!-- <ngx-data-table [data]="data"></ngx-data-table> -->
+    <mat-table #table1 *ngIf="dataSource.length > 0" [dataSource]="dataSource" multiTemplateDataRows matSort aria-label="Elements">
+      <ng-container [matColumnDef]="cols" *ngFor="let cols of displayedColumns; let i = index">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          <span *ngIf="!(i === 0)">
+            {{cols}}
+          </span>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row; let element" [ngClass]="{'col-value': element.details === undefined}">
+          <!-- expand caret -->
+          <span *ngIf="i === 0 && element.details">
+            <span (click)="toggleRow(element)"
+              *ngIf="expandedElement && expandedElement[cols] === element[cols]; else plusIcon"
+              class="expand-icon">&#9660;</span>
+            <ng-template #plusIcon><span (click)="toggleRow(element)" class="expand-icon">&#9658;</span></ng-template>
+          </span>
+          <span *ngIf="!(i === 0 && element.details)">
+            <span>{{element[cols]}}</span>
+          </span>
+        </mat-cell>
+      </ng-container>
+
+      <!-- Expanded Content Column - The detail row is made up of this one column -->
+      <ng-container matColumnDef="expandedDetail">
+        <mat-cell *matCellDef="let detail">
+          <mat-table #table2 style="width: 100%" [dataSource]="detail.details" multiTemplateDataRows matSort
+            aria-label="Elements">
+            <ng-container [matColumnDef]="cols" *ngFor="let cols of displayedDetailColumns; let i = index">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>{{cols}}</mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                <span>{{element[cols]}}</span>
+              </mat-cell>
+            </ng-container>
+            <mat-header-row *matHeaderRowDef="displayedDetailColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedDetailColumns;"></mat-row>
+          </mat-table>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;" [class.expanded]="expandedElement == row"></mat-row>
+      <mat-row *matRowDef="let row; columns: ['expandedDetail']; "
+        [@detailExpand]="row == expandedElement ? 'expanded' : 'collapsed'" style="overflow: hidden"></mat-row>
+    </mat-table>
+
+    <mat-paginator #paginator *ngIf="dataSource.length > 0" [length]="totalRecords" [pageIndex]="0" [pageSize]="25"
+      [pageSizeOptions]="[25, 50, 100, 250]">
+    </mat-paginator>
+
+    <p *ngIf="dataSource.length === 0">No records found</p>
   </mat-card>
+
 </div>

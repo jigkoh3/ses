@@ -93,6 +93,19 @@ export class AuthenticationService {
         //this.token = user.token;
         //this.userProfile = user;
 
+        
+
+        auth_role.auth_role_menu.push({
+          "role_id": 28,
+          "application_id": 10,
+          "menu_id": 66,
+          "menu_name": "pricing-hi-raw",
+          "menu_url": "pricing-hi-raw",
+          "menu_sequence": 0,
+          "menu_sub": 0,
+          "menu_icon": "fa flaticon-notes"
+        });
+
         localStorage.setItem('SEScurrentUser', JSON.stringify({ user: user, token: currentUser.token, role: auth_role }));
 
         return true;
