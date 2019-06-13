@@ -100,7 +100,7 @@ export class ContractListComponent implements OnInit {
     'Buyer',
     'Quantity(MT)'
   ];
-  transactions: any = [
+  dataSource: any = [
     // {
     //   buyer: 'ED & F Man',
     //   groupfactory: 'TR-กลุ่มไทยรุ่งเรือง',
@@ -455,10 +455,10 @@ export class ContractListComponent implements OnInit {
     this.query
       .Exec(ODataExecReturnType.PagedResult)
       .subscribe((pagedResult: ODataPagedResult<any>) => {
-        this.transactions = pagedResult.data;
+        this.dataSource = pagedResult.data;
         this.totalRecords = pagedResult.count;
       }, (error) => {
-        this.transactions = [];
+        this.dataSource = [];
         this.totalRecords = 0;
 
         if (error.status == 401) {
@@ -498,12 +498,13 @@ export class ContractListComponent implements OnInit {
   PageData(pageEvent:PageEvent){
     this.filter.first =pageEvent.pageIndex * pageEvent.pageSize;
     this.filter.rows =pageEvent.pageSize;    
+    this.getPagedData();
   }
 
   sortData(sort: Sort) {
-    const data = this.transactions;
+    const data = this.dataSource;
     if (!sort.active || sort.direction === '') {
-      this.transactions = data;
+      this.dataSource = data;
       return;
     }
    
@@ -543,8 +544,9 @@ export class ContractListComponent implements OnInit {
         this.filter.sortField = "ses_currency.name_en";
         case 'Contract Status': 
         this.filter.sortField = "";
-        default: 
-        return 0;
+        // default: 
+        // return 0;
       }
+      this.getPagedData();
   }
 }
