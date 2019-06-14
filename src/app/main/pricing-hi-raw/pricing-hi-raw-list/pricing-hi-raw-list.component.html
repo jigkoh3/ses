@@ -4,7 +4,7 @@
     <div class="content p-24">
 
         <form class="mat-card p-24" fxLayout="column" name="form" [formGroup]="form" #formData='ngForm'
-            (ngSubmit)="onSearch(formData)">
+            (ngSubmit)="onSearch(formData)" [@animate]="{value:'*',params:{delay:'100ms',y:'25px'}}">
 
             <div class="h2 mb-24">Pricing Hi-Raw</div>
 
@@ -60,7 +60,7 @@
 
         </form>
 
-        <mat-card class="mt-24 mb-24">
+        <mat-card class="mt-24 mb-24" [@animate]="{value:'*',params:{delay:'100ms',y:'25px'}}">
             <!-- <ngx-data-table [data]="data"></ngx-data-table> -->
             <div class="h2 mb-24">Search Results</div>
 
