@@ -44,6 +44,7 @@ export class PricingHiRawListComponent implements OnInit {
 
     buyers: any = [];
     groupfactorys: any = [];
+    dataSource: any = [];
 
     // Private
 
@@ -95,8 +96,6 @@ export class PricingHiRawListComponent implements OnInit {
             this.allLOVs = T[0];
             this.allPartys = T[1];
 
-            
-
             //[lov_code,lov1]+[SYSTEM,Group Factory]+[lov2 is not null]
             this.groupfactorys = _.orderBy(_.filter(this.allLOVs, function (o) {
                 return o.lov_group == 'SYSTEM' && o.lov_type == 'Group Factory' && o.lov2
@@ -107,8 +106,8 @@ export class PricingHiRawListComponent implements OnInit {
                 return o.record_status == true && o.party_type.indexOf('buyer') > -1
             }), 'party_name');
 
-            // this.getPagedData();
-            //this.calTotal();
+            this.getPagedData();
+
         }, (error) => {
             if (error.status == 401) {
                 this.route.navigate(['/login'], { queryParams: { error: 'Session Expire!' } });
@@ -142,107 +141,112 @@ export class PricingHiRawListComponent implements OnInit {
 
     onSearch(formdata): void {
         console.log(formdata.value);
+        this.getPagedData();
     }
 
-    // private getPagedData() {
-    //     this.query = this.odata
-    //         .Query()
-    //     //.Filter("CreatedBy/Id eq '" + this.user.Id + "'" + this.qType)
-    //     //.Expand('Company, Plant,BudgetType, CostCenter, IO,  Job($expand=SendFrom,SendTo), CreatedBy')
-    //     //.Select(['Id', 'CreatedDt', 'BudgetReqNo', 'BudgetType', 'Year', 'Quarter', 'Month', 'CostCenter', 'Company', 'Plant', 'IO', 'Job', 'Status', 'CreatedBy']);
-    //     if (this.filter) {
-    //         if (this.filter.rows) {
-    //             this.query = this.query.Top(this.filter.rows);
-    //         }
+    newPrice(): void {
+        this.route.navigate(['/pricing-hi-raw-detail'])
+    }
 
-    //         if (this.filter.first) {
-    //             this.query = this.query.Skip(this.filter.first);
-    //         }
+    private getPagedData() {
+        this.query = this.odata
+            .Query()
+        //.Filter("CreatedBy/Id eq '" + this.user.Id + "'" + this.qType)
+        //.Expand('Company, Plant,BudgetType, CostCenter, IO,  Job($expand=SendFrom,SendTo), CreatedBy')
+        //.Select(['Id', 'CreatedDt', 'BudgetReqNo', 'BudgetType', 'Year', 'Quarter', 'Month', 'CostCenter', 'Company', 'Plant', 'IO', 'Job', 'Status', 'CreatedBy']);
+        if (this.filter) {
+            if (this.filter.rows) {
+                this.query = this.query.Top(this.filter.rows);
+            }
 
-    //         if (this.filter.filters) {
-    //             const filterOData: string[] = [];
-    //             for (const filterProperty in this.filter.filters) {
-    //                 if (this.filter.filters.hasOwnProperty(filterProperty)) {
-    //                     const filter = this.filter.filters[filterProperty] as FilterMetadata;
-    //                     if (filter.matchMode && filter.matchMode !== '') {
-    //                         const params = filter.matchMode.toLowerCase().split(':');
-    //                         const operator = params[0];
+            if (this.filter.first) {
+                this.query = this.query.Skip(this.filter.first);
+            }
 
-    //                         // Replace Boss.Name by Boss/Name
-    //                         const odataProperty = filterProperty.replace(/\./g, '/');
+            if (this.filter.filters) {
+                const filterOData: string[] = [];
+                for (const filterProperty in this.filter.filters) {
+                    if (this.filter.filters.hasOwnProperty(filterProperty)) {
+                        const filter = this.filter.filters[filterProperty] as FilterMetadata;
+                        if (filter.matchMode && filter.matchMode !== '') {
+                            const params = filter.matchMode.toLowerCase().split(':');
+                            const operator = params[0];
 
-    //                         // http://docs.oasis-open.org/odata/odata/v4.0/odata-v4.0-part2-url-conventions.html
-    //                         switch (operator) {
-    //                             case 'length':
-    //                             case 'day':
-    //                             case 'fractionalseconds':
-    //                             case 'hour':
-    //                             case 'minute':
-    //                             case 'month':
-    //                             case 'second':
-    //                             case 'totaloffsetminutes':
-    //                             case 'totalseconds':
-    //                             case 'year':
-    //                                 filterOData.push(`${operator}(${odataProperty}) ${params[1]} ${filter.value}`);
-    //                                 break;
-    //                             case 'eq':
-    //                             case 'ne':
-    //                             case 'gt':
-    //                             case 'ge':
-    //                             case 'lt':
-    //                             case 'le':
-    //                                 filterOData.push(`${odataProperty} ${operator} ${filter.value}`);
-    //                                 break;
-    //                             case 'contains':
-    //                             case 'endswith':
-    //                             case 'contains':
-    //                                 filterOData.push(`${operator}(${odataProperty}, '${filter.value}')`);
-    //                                 break;
-    //                             default:
-    //                             // no action
-    //                         }
-    //                     }
-    //                 }
-    //             }
+                            // Replace Boss.Name by Boss/Name
+                            const odataProperty = filterProperty.replace(/\./g, '/');
 
-    //             if (filterOData.length > 0) {
-    //                 this.query = this.query.Filter(filterOData.join(' and '));
-    //             }
-    //         }
+                            // http://docs.oasis-open.org/odata/odata/v4.0/odata-v4.0-part2-url-conventions.html
+                            switch (operator) {
+                                case 'length':
+                                case 'day':
+                                case 'fractionalseconds':
+                                case 'hour':
+                                case 'minute':
+                                case 'month':
+                                case 'second':
+                                case 'totaloffsetminutes':
+                                case 'totalseconds':
+                                case 'year':
+                                    filterOData.push(`${operator}(${odataProperty}) ${params[1]} ${filter.value}`);
+                                    break;
+                                case 'eq':
+                                case 'ne':
+                                case 'gt':
+                                case 'ge':
+                                case 'lt':
+                                case 'le':
+                                    filterOData.push(`${odataProperty} ${operator} ${filter.value}`);
+                                    break;
+                                case 'contains':
+                                case 'endswith':
+                                case 'contains':
+                                    filterOData.push(`${operator}(${odataProperty}, '${filter.value}')`);
+                                    break;
+                                default:
+                                // no action
+                            }
+                        }
+                    }
+                }
 
-    //         if (this.filter.sortField) {
-    //             const sortOrder: string = this.filter.sortOrder && this.filter.sortOrder > 0 ? 'asc' : 'desc';
-    //             this.query = this.query.OrderBy(this.filter.sortField + ' ' + sortOrder);
-    //         }
-    //     }
+                if (filterOData.length > 0) {
+                    this.query = this.query.Filter(filterOData.join(' and '));
+                }
+            }
 
-
-    //     this.query
-    //         .Exec(ODataExecReturnType.PagedResult)
-    //         .subscribe((pagedResult: ODataPagedResult<any>) => {
-    //             // this.dataSource = pagedResult.data;
-    //             this.totalRecords = pagedResult.count;
-    //         }, (error) => {
-    //             // this.dataSource = [];
-    //             this.totalRecords = 0;
-
-    //             if (error.status == 401) {
-    //                 this.route.navigate(['/login'], { queryParams: { error: 'Session Expire!' } });
-    //                 console.log('Session Expire!');
-    //             } else if (error.status != 401 && error.status != 0) {
-    //                 let detail = "";
-    //                 detail = error.error.message;
-    //                 if (error.error.InnerException) {
-    //                     detail += '\n' + error.error.InnerException.ExceptionMessage;
-    //                 }
-    //                 //this.msgs = { severity: 'error', summary: 'Error', detail: detail };
-    //             } else if (error.status == 0) {
-    //                 //this.msgs = { severity: 'error', summary: 'Error', detail: 'Cannot connect to server. Please contact administrator.' };
-    //             }
-
-    //             console.log('ODataExecReturnType.PagedResult ERROR ' + JSON.stringify(error));
-    //         });
+            if (this.filter.sortField) {
+                const sortOrder: string = this.filter.sortOrder && this.filter.sortOrder > 0 ? 'asc' : 'desc';
+                this.query = this.query.OrderBy(this.filter.sortField + ' ' + sortOrder);
+            }
+        }
 
 
-    // }
+        this.query
+            .Exec(ODataExecReturnType.PagedResult)
+            .subscribe((pagedResult: ODataPagedResult<any>) => {
+                this.dataSource = pagedResult.data;
+                this.totalRecords = pagedResult.count;
+            }, (error) => {
+                // this.dataSource = [];
+                this.totalRecords = 0;
+
+                if (error.status == 401) {
+                    this.route.navigate(['/login'], { queryParams: { error: 'Session Expire!' } });
+                    console.log('Session Expire!');
+                } else if (error.status != 401 && error.status != 0) {
+                    let detail = "";
+                    detail = error.error.message;
+                    if (error.error.InnerException) {
+                        detail += '\n' + error.error.InnerException.ExceptionMessage;
+                    }
+                    //this.msgs = { severity: 'error', summary: 'Error', detail: detail };
+                } else if (error.status == 0) {
+                    //this.msgs = { severity: 'error', summary: 'Error', detail: 'Cannot connect to server. Please contact administrator.' };
+                }
+
+                console.log('ODataExecReturnType.PagedResult ERROR ' + JSON.stringify(error));
+            });
+
+
+    }
 }

@@ -1,3 +1,140 @@
-<p>
-  pricing-hi-raw-detail works!
-</p>
+<div id="pricing-hi-raw-detail" class="page-layout simple fullwidth" fxLayout="column" fusePerfectScrollbar>
+
+  <!-- CONTENT -->
+  <div class="content p-24">
+
+    <form class="mat-card p-24" fxLayout="column" name="form" [formGroup]="form" #formData='ngForm'
+      (ngSubmit)="onSearch(formData)">
+
+      <div class="h2 mb-24">Add/Edit/View - Pricing Hi-Raw</div>
+      <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
+
+        <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pl-4">
+          <mat-label>Type of Sugar</mat-label>
+          <input matInput formControlName="buyer">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pl-4">
+          <mat-label>Future Market</mat-label>
+          <input matInput formControlName="buyer">
+        </mat-form-field>
+
+      </div>
+      <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
+
+        <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pl-4">
+          <mat-label>Buyer</mat-label>
+          <mat-select formControlName="buyer">
+            <mat-option [value]="">
+              --All--
+            </mat-option>
+            <mat-option *ngFor="let buyer of buyers" [value]="buyer.id">
+              {{buyer.party_name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pl-4">
+          <mat-label>Qty(MT)</mat-label>
+          <input matInput formControlName="buyercontractno">
+        </mat-form-field>
+
+      </div>
+      <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
+
+
+
+        <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pl-4">
+          <mat-label>Group Factory</mat-label>
+          <mat-select formControlName="groupfactory">
+            <mat-option [value]="">
+              --All--
+            </mat-option>
+            <mat-option *ngFor="let groupfactory of groupfactorys" [value]="groupfactory.id">
+              {{groupfactory.lov1}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="25" class="pl-4">
+          <mat-label>Qty(MT)</mat-label>
+          <input matInput [matDatepicker]="pickerStart" placeholder="Choose a date">
+          <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
+          <mat-datepicker #pickerStart></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="25" class="pl-4">
+          <mat-label>Qty(MT)</mat-label>
+          <input matInput [matDatepicker]="pickerEnd" placeholder="Choose a date">
+          <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
+          <mat-datepicker #pickerEnd></mat-datepicker>
+        </mat-form-field>
+
+      </div>
+
+      <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
+
+        <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pr-4">
+          <mat-label>Buyer Contrace No.</mat-label>
+          <input matInput formControlName="buyercontractno">
+
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pl-4">
+          <mat-label>Contract No.</mat-label>
+          <input matInput formControlName="contarctno">
+
+        </mat-form-field>
+
+      </div>
+
+      <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
+
+        <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pr-4">
+          <mat-label>Contract Date</mat-label>
+          <input matInput [matDatepicker]="pickerContract" placeholder="Choose a date">
+          <mat-datepicker-toggle matSuffix [for]="pickerContract"></mat-datepicker-toggle>
+          <mat-datepicker #pickerContract></mat-datepicker>
+
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pl-4">
+          <mat-label>Premium (cents)</mat-label>
+          <input matInput formControlName="contarctno">
+
+        </mat-form-field>
+
+      </div>
+      <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
+
+        <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pl-4">
+          <mat-label>Contract Month</mat-label>
+          <mat-select formControlName="buyer">
+            <mat-option [value]="">
+              --All--
+            </mat-option>
+            <mat-option *ngFor="let buyer of buyers" [value]="buyer.id">
+              {{buyer.party_name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pl-4">
+          <mat-label>Contract Year</mat-label>
+          <mat-select formControlName="buyer">
+            <mat-option [value]="">
+              --All--
+            </mat-option>
+            <mat-option *ngFor="let buyer of buyers" [value]="buyer.id">
+              {{buyer.party_name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+      </div>
+
+    </form>
+
+  </div>
+  <!-- / CONTENT -->
+
+</div>
