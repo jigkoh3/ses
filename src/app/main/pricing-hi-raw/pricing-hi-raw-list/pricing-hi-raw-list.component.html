@@ -1,9 +1,10 @@
-<div id="pricing-hi-raw-list" class="page-layout simple fullwidth" fxLayout="column">
+<div id="pricing-hi-raw-list" class="page-layout simple fullwidth" fxLayout="column" fusePerfectScrollbar>
 
     <!-- CONTENT -->
     <div class="content p-24">
 
-        <form class="mat-card p-24" fxLayout="column" name="form" [formGroup]="form">
+        <form class="mat-card p-24" fxLayout="column" name="form" [formGroup]="form" #formData='ngForm'
+            (ngSubmit)="onSearch(formData)" [@animate]="{value:'*',params:{delay:'100ms',y:'25px'}}">
 
             <div class="h2 mb-24">Pricing Hi-Raw</div>
 
@@ -78,7 +79,75 @@
             
 
         </form>
+
+        <mat-card class="mt-24 mb-24" [@animate]="{value:'*',params:{delay:'100ms',y:'25px'}}">
+            <!-- <ngx-data-table [data]="data"></ngx-data-table> -->
+            <div class="h2 mb-24">Search Results</div>
+
+            <mat-table #table1 *ngIf="dataSource.length > 0" [dataSource]="dataSource" multiTemplateDataRows matSort
+                aria-label="Elements">
+                <ng-container [matColumnDef]="cols" *ngFor="let cols of displayedColumns; let i = index">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>
+                        <span *ngIf="!(i === 0)">
+                            {{cols}}
+                        </span>
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row; let element"
+                        [ngClass]="{'col-value': element.details === undefined}">
+                        <!-- expand caret -->
+                        <span *ngIf="i === 0 && element.details">
+                            <span (click)="toggleRow(element)"
+                                *ngIf="expandedElement && expandedElement[cols] === element[cols]; else plusIcon"
+                                class="expand-icon">&#9660;</span>
+                            <ng-template #plusIcon><span (click)="toggleRow(element)" class="expand-icon">&#9658;</span>
+                            </ng-template>
+                        </span>
+                        <span *ngIf="!(i === 0 && element.details)">
+                            <span>{{element[cols]}}</span>
+                        </span>
+                    </mat-cell>
+                </ng-container>
+
+                <!-- Expanded Content Column - The detail row is made up of this one column -->
+                <ng-container matColumnDef="expandedDetail">
+                    <mat-cell *matCellDef="let detail">
+                        <mat-table #table2 style="width: 100%" [dataSource]="detail.details" multiTemplateDataRows
+                            matSort aria-label="Elements">
+                            <ng-container [matColumnDef]="cols"
+                                *ngFor="let cols of displayedDetailColumns; let i = index">
+                                <mat-header-cell *matHeaderCellDef mat-sort-header>{{cols}}</mat-header-cell>
+                                <mat-cell *matCellDef="let element">
+                                    <span>{{element[cols]}}</span>
+                                </mat-cell>
+                            </ng-container>
+                            <mat-header-row *matHeaderRowDef="displayedDetailColumns"></mat-header-row>
+                            <mat-row *matRowDef="let row; columns: displayedDetailColumns;"></mat-row>
+                        </mat-table>
+                    </mat-cell>
+                </ng-container>
+
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;" [class.expanded]="expandedElement == row">
+                </mat-row>
+                <mat-row *matRowDef="let row; columns: ['expandedDetail']; "
+                    [@detailExpand]="row == expandedElement ? 'expanded' : 'collapsed'" style="overflow: hidden">
+                </mat-row>
+            </mat-table>
+
+            <mat-paginator #paginator *ngIf="dataSource.length > 0" [length]="totalRecords" [pageIndex]="0"
+                [pageSize]="25" [pageSizeOptions]="[25, 50, 100, 250]">
+            </mat-paginator>
+
+            <p *ngIf="dataSource.length === 0">No records found</p>
+        </mat-card>
     </div>
     <!-- / CONTENT -->
 
 </div>
+
+<!-- ADD CONTACT BUTTON -->
+<button mat-fab color="warn" id="add-contact-button" (click)="newPrice()" aria-label="add contact"
+        [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}">
+    <mat-icon>add</mat-icon>
+</button>
+<!-- / ADD CONTACT BUTTON -->

@@ -1,6 +1,17 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { MatButtonModule, MatFormFieldModule, MatIconModule, MatInputModule, MatSelectModule, MatStepperModule } from '@angular/material';
+import { MatButtonModule, 
+  MatFormFieldModule, 
+  MatIconModule, 
+  MatInputModule, 
+  MatSelectModule, 
+  MatStepperModule,
+  MatTableModule, 
+  MatPaginatorModule, 
+  MatSortModule,
+  MatCardModule,
+  MatDatepickerModule
+ } from '@angular/material';
 
 import { FuseSharedModule } from '@fuse/shared.module';
 
@@ -27,6 +38,11 @@ const routes = [
     MatInputModule,
     MatSelectModule,
     MatStepperModule,
+    MatTableModule, 
+    MatPaginatorModule, 
+    MatSortModule,
+    MatCardModule,
+    MatDatepickerModule,
 
     FuseSharedModule,
   ]
