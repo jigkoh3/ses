@@ -131,6 +131,73 @@
         </mat-form-field>
 
       </div>
+      <div class="h2 mb-24">
+
+      </div>
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+        <!--- Note that these columns can be defined in any order.
+                The actual rendered columns are set as a property on the row definition" -->
+
+        <!-- Order Date Column -->
+        <ng-container matColumnDef="orderdate">
+          <th mat-header-cell *matHeaderCellDef> Order Date </th>
+          <td mat-cell *matCellDef="let element"> {{element.orderdate}} </td>
+        </ng-container>
+
+        <!-- Sale Price Column -->
+        <ng-container matColumnDef="sell">
+          <th mat-header-cell *matHeaderCellDef> Sell </th>
+          <td mat-cell *matCellDef="let element"> {{element.sell}} </td>
+        </ng-container>
+
+        <!-- Buy Price Column -->
+        <ng-container matColumnDef="buy">
+          <th mat-header-cell *matHeaderCellDef> Buy </th>
+          <td mat-cell *matCellDef="let element"> {{element.buy}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="against">
+          <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm> Against </th>
+          <td mat-cell *matCellDef="let element" fxHide fxShow.gt-sm> {{element.against}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="mon">
+          <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm> </th>
+          <td mat-cell *matCellDef="let element" fxHide fxShow.gt-sm> {{element.mon}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="year">
+          <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm> </th>
+          <td mat-cell *matCellDef="let element" fxHide fxShow.gt-sm> {{element.year}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="price">
+          <th mat-header-cell *matHeaderCellDef> Price </th>
+          <td mat-cell *matCellDef="let element"> {{element.price}} </td>
+        </ng-container>
+
+
+        <ng-container matColumnDef="executed">
+          <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm> Executed On </th>
+          <td mat-cell *matCellDef="let element" fxHide fxShow.gt-sm> {{element.executed}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="star" stickyEnd>
+          <th mat-header-cell *matHeaderCellDef>
+            <button mat-fab color="warn" id="add-price-button" (click)="newPrice()" aria-label="add contact"
+              [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}">
+              <mat-icon>add</mat-icon>
+            </button>
+          </th>
+          <td mat-cell *matCellDef="let element">
+            <mat-icon color="warn">delete</mat-icon>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
 
     </form>
 
