@@ -1,74 +1,92 @@
-// .left{
-//     position: absolute;
-//     left: 5px;
-// }
+.mat-table__wrapper .mat-table {
+  min-width: auto !important;
+  width: 100% !important;
+}
 
-// .right{
-//   position: absolute;
-//   right: 5px;
-// }
+.mat-header-row {
+  width: 100%;
+}
 
-.btn{
-    margin: 5px;
-    }
-    
-    .example-container {
-        max-height: 220px;
-        width: 100%;
-        overflow-x: scroll;
-        overflow-y: scroll;
-      }
-    
-      table {
-        width: 100%;
-      }
-    
-      th{
-        border-right-color: rgba(0, 0, 0, 0.12);
-        border-right-width: 1px;
-        border-right-style: solid;
-      }
-    
-    //   .fl-row-style{
-    //     padding-left: 0px !important;
-    //     padding-right: 0px !important;
-    //   }
-     
-      td{
-        min-width: 150px !important;
-        border-right-color: rgba(0, 0, 0, 0.12);
-        border-right-width: 1px;
-        border-right-style: solid;
-      }
-    
-    //   .padding-td {
-    //     padding-left: 12px;
-    //   }
-    
-    //   .text-center{
-    //     text-align: center;
-    //   }
-    
-    //   ::ng-deep .mat-form-field-infix {
-    //     display: block;
-    //     position: relative;
-    //     flex: auto;
-    //     min-width: 0;
-    //     width: 25%;
-    // }
-    
-    // .text-overflow {
-    //   white-space: nowrap!important; 
-    //   overflow: hidden!important;
-    //   text-overflow: ellipsis!important;
-    // }
-    
-    .text-center{
-      text-align: center !important;
-    }
-    
-    // .text-left{
-    //   text-align: left !important;
-    // }
-    
-    
+.mat-row {
+  width: 100%;
+}
+
+.mat-header-cell .flex-stretch {
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+  /* align-items center so that cell content is vertically centered */
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.mat-cell .flex-stretch {
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+  /* align-items center so that cell content is vertically centered */
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+// 'contract_no',        'contract_date',        'buyer_contract_no',
+// 'buyer/party_name',        'sugar_type/lov1',        'contract_made_on/lov1',
+// 'crop_year',        'group_factory/lov1',        'shipment_term/shipterm_name',
+// 'shipment_period_from',        'shipment_period_to',        'total_qty',
+// 'payment_term/pmt_abbv',        'total_shipment',        'currency/name_en',
+// 'contract_status'
+mat-header-cell {
+  word-wrap: break-word !important;
+  white-space: unset !important;
+  flex: 0 0 150px !important;
+  width: 150px !important;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+
+  word-break: break-word;
+
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+}
+
+mat-cell {
+  word-wrap: break-word !important;
+  white-space: unset !important;
+  flex: 0 0 150px !important;
+  width: 150px !important;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+
+  word-break: break-word;
+
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+}
+
+.mat-column-no {
+  word-wrap: break-word !important;
+  white-space: unset !important;
+  flex: 0 0 50px !important;
+  width: 50px !important;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+
+  word-break: break-word;
+
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+}

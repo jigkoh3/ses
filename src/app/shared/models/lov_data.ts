@@ -16,7 +16,7 @@ export class lov_data {
     lov10: string;
     lov_desc: string;
     lov_order: number;
-    active_flag: boolean;
+    record_status: boolean;
     created_by_id:string;
     created_date:Date;
     updated_by_id:string;

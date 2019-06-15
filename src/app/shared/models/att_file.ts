@@ -1,5 +1,5 @@
 export class att_file {
-id	:number;
+id	:string;
 sys_file_name	:string;
 user_file_name	:string;
 file_size	:string;

@@ -1,5 +1,5 @@
 export class country {
-    id: number;
+    id: string;
     country_name_en: string;
     country_name_th: string;
     record_status: boolean;

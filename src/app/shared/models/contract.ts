@@ -4,6 +4,8 @@ import { shipment_to } from './shipment_to';
 import { currency } from './currency';
 import { shipment_term } from './shipment_term';
 import { term_cond } from './term_cond';
+import { contract_item } from './contract_item';
+import { payment_term } from './payment_term';
 
 export class contract {
     id: string;
@@ -13,7 +15,7 @@ export class contract {
     contract_ver	:number;
     latest_flag: boolean;
     addendum_type	:string;
-    addendum_no	:number;
+    addendum_no	:string;
     addendum_date: Date;
     contract_status	:string;
     contract_made_on_id: string;
@@ -39,7 +41,8 @@ export class contract {
     shipment_to_id: string;
     shipment_to: shipment_to;
     pricing_method: number;
-    payment_term: string;
+    payment_term_id: string;
+    payment_term: payment_term;
     currency_id: string;
     currency:currency;
     exchange_rate: number;
@@ -65,4 +68,6 @@ export class contract {
     created_date:Date;
     updated_by_id:string;
     updated_date:Date;
+
+    contract_items: contract_item[];
 }

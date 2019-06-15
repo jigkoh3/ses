@@ -62,8 +62,8 @@ export class LoginComponent implements OnInit {
     ngOnInit(): void {
         this.authenticationService.logout();
         this.loginForm = this._formBuilder.group({
-            user: ['', Validators.required],
-            password: ['', Validators.required]
+            user: ['admin', Validators.required],
+            password: ['1234', Validators.required]
         });
 
         this.route.queryParams.subscribe

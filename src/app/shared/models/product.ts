@@ -1,7 +1,7 @@
 import { lov_data } from './lov_data';
 
 export class product {
-    id		:number;
+    id: string;
     name_en: string;
     name_th: string;
     name_in_contract: string;
@@ -19,8 +19,8 @@ export class product {
     shelf_life: number;
     apply_licenses_flag: boolean;
     record_status: boolean;
-    created_by_id:string;
-    created_date:Date;
-    updated_by_id:string;
-    updated_date:Date;
+    created_by_id: string;
+    created_date: Date;
+    updated_by_id: string;
+    updated_date: Date;
 }

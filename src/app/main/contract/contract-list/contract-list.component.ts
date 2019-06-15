@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
 import { fuseAnimations } from '@fuse/animations';
 import { Router } from '@angular/router';
 import { ODataConfiguration, ODataExecReturnType, ODataPagedResult, ODataQuery, ODataService, ODataServiceFactory } from 'angular-odata-es5'
@@ -8,7 +8,7 @@ import { ODataConfigurationFactory } from '../../../ODataConfigurationFactory';
 import { combineLatest } from 'rxjs';
 import * as _ from 'lodash';
 import { Sort } from '@angular/material/sort';
-import { PageEvent } from '@angular/material/paginator';
+import { MatPaginator,PageEvent } from '@angular/material/paginator';
 import {
   trigger,
   state,
@@ -35,6 +35,7 @@ import {
   providers: [{ provide: ODataConfiguration, useFactory: ODataConfigurationFactory }, ODataServiceFactory],
 })
 export class ContractListComponent implements OnInit {
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   expandedElement: Array<string>;
   isExpansionDetailRow = (i: number, row: Object) =>
     row.hasOwnProperty('detailRow');
@@ -511,6 +512,9 @@ export class ContractListComponent implements OnInit {
   //   this.colSpBtn = (event.target.innerWidth <= 400) ? 6 : 1;
   //   this.screenwidth = event.target.innerWidth
   // }
+  onAdd() {
+    this.route.navigate(['/contract-detail'])
+  }
 
   onDetail() {
     this.route.navigate(['/contract-detail'])

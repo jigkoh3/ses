@@ -1,7 +1,7 @@
 import { country } from './country';
 
 export class party {
-    id: number;
+    id: string;
     party_name: string;
     party_abbv: string;
     party_addr1: string;

@@ -11,6 +11,8 @@ import { MatFormFieldModule, MatSelectModule, MatGridListModule, MatInputModule,
 import { TranslateModule } from '@ngx-translate/core';
 import { FuseSharedModule } from '@fuse/shared.module';
 import { NgxDataTableModule } from 'ngx-nested-data-table';
+import { NgxMaskModule } from 'ngx-mask';
+
 const routes = [
   {
     path: 'contract',
@@ -49,7 +51,8 @@ const routes = [
     NgxDataTableModule,
     MatCheckboxModule,
     MatDatepickerModule,
-    MatRadioModule
+    MatRadioModule,
+    NgxMaskModule.forRoot()
   ],
   exports: [
     ContractListComponent,

@@ -1,8 +1,8 @@
 export class province {
-    id: number;
+    id: string;
     name_en: string;
     name_th: string;
-    country_id: number;
+    country_id: string;
     record_status: boolean;
     created_by_id:string;
     created_date:Date;
