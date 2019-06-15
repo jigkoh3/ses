@@ -3,8 +3,7 @@
     <!-- CONTENT -->
     <div class="content p-24">
 
-        <form class="mat-card p-24" fxLayout="column" name="form" [formGroup]="form" #formData='ngForm'
-            (ngSubmit)="onSearch(formData)">
+        <form class="mat-card p-24" fxLayout="column" name="form" [formGroup]="form">
 
             <div class="h2 mb-24">Pricing Hi-Raw</div>
 
@@ -13,25 +12,51 @@
                 <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pl-4">
                     <mat-label>Buyer</mat-label>
                     <mat-select formControlName="buyer">
-                        <mat-option [value]="">
-                            --All--
+                        <mat-option [value]="'United States of America'">
+                            United States of America
                         </mat-option>
-                        <mat-option *ngFor="let buyer of buyers" [value]="buyer.id">
-                            {{buyer.party_name}}
+                        <mat-option [value]="'United Kingdom'">
+                            United Kingdom
+                        </mat-option>
+                        <mat-option [value]="'Russia'">
+                            Russia
+                        </mat-option>
+                        <mat-option [value]="'China'">
+                            China
+                        </mat-option>
+                        <mat-option [value]="'Japan'">
+                            Japan
+                        </mat-option>
+                        <mat-option [value]="'Turkey'">
+                            Turkey
                         </mat-option>
                     </mat-select>
+                    <mat-icon matSuffix class="secondary-text">outlined_flag</mat-icon>
                 </mat-form-field>
 
                 <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pl-4">
                     <mat-label>Group Factory</mat-label>
                     <mat-select formControlName="groupfactory">
-                        <mat-option [value]="">
-                            --All--
+                        <mat-option [value]="'United States of America'">
+                            United States of America
                         </mat-option>
-                        <mat-option *ngFor="let groupfactory of groupfactorys" [value]="groupfactory.id">
-                            {{groupfactory.lov1}}
+                        <mat-option [value]="'United Kingdom'">
+                            United Kingdom
+                        </mat-option>
+                        <mat-option [value]="'Russia'">
+                            Russia
+                        </mat-option>
+                        <mat-option [value]="'China'">
+                            China
+                        </mat-option>
+                        <mat-option [value]="'Japan'">
+                            Japan
+                        </mat-option>
+                        <mat-option [value]="'Turkey'">
+                            Turkey
                         </mat-option>
                     </mat-select>
+                    <mat-icon matSuffix class="secondary-text">outlined_flag</mat-icon>
                 </mat-form-field>
 
             </div>
@@ -40,23 +65,17 @@
                 <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pr-4">
                     <mat-label>Buyer Contrace No.</mat-label>
                     <input matInput formControlName="buyercontractno">
-
+                    <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
                 </mat-form-field>
 
                 <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pl-4">
                     <mat-label>Contract No.</mat-label>
                     <input matInput formControlName="contarctno">
-
+                    <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
                 </mat-form-field>
 
             </div>
-
-            <div fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="1 0 auto">
-                <button type="submit" mat-raised-button color="accent" class="submit-button" aria-label="LOGIN">
-                    SEARCH
-                </button>
-            </div>
-
+            
 
         </form>
     </div>

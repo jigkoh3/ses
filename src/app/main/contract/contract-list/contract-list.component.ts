@@ -3,21 +3,42 @@ import { fuseAnimations } from '@fuse/animations';
 import { Router } from '@angular/router';
 import { ODataConfiguration, ODataExecReturnType, ODataPagedResult, ODataQuery, ODataService, ODataServiceFactory } from 'angular-odata-es5'
 
-import { filter, FilterMetadata, lov_data, party } from '../../../shared';
+import { filter, FilterMetadata, lov_data, party, contract } from '../../../shared';
 import { ODataConfigurationFactory } from '../../../ODataConfigurationFactory';
 import { combineLatest } from 'rxjs';
 import * as _ from 'lodash';
 import { Sort } from '@angular/material/sort';
-import {PageEvent} from '@angular/material/paginator';
+import { PageEvent } from '@angular/material/paginator';
+import {
+  trigger,
+  state,
+  style,
+  transition,
+  animate,
+
+} from '@angular/animations';
 @Component({
   selector: 'app-contract-list',
   templateUrl: './contract-list.component.html',
   styleUrls: ['./contract-list.component.scss'],
-  animations: fuseAnimations,
-  encapsulation: ViewEncapsulation.None,
+  animations: [trigger('detailExpand', [
+    state(
+      'collapsed',
+      style({ height: '0px', minHeight: '0', visibility: 'hidden' })
+    ),
+    state('expanded', style({ height: '*', visibility: 'visible' })),
+    transition(
+      'expanded <=> collapsed',
+      animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')
+    ),
+  ])],
   providers: [{ provide: ODataConfiguration, useFactory: ODataConfigurationFactory }, ODataServiceFactory],
 })
 export class ContractListComponent implements OnInit {
+  expandedElement: Array<string>;
+  isExpansionDetailRow = (i: number, row: Object) =>
+    row.hasOwnProperty('detailRow');
+    
   total: any;
   lots: any;
   screenwidth: any;
@@ -30,7 +51,7 @@ export class ContractListComponent implements OnInit {
 
   public query: ODataQuery<any>;
 
-  private odata: ODataService<any>;
+  private odata: ODataService<contract>;
   private odataLov: ODataService<lov_data>;
   private odataParty: ODataService<party>;
 
@@ -39,66 +60,47 @@ export class ContractListComponent implements OnInit {
 
   currentUser;
 
-  buyers: any = [
-    // { value: 'ED & F Man', viewValue: 'ED & F Man' },
-    // { value: 'Alvean', viewValue: 'Alvean' },
-    // { value: 'Bunge', viewValue: 'Bunge' },
-    // { value: 'Itochu', viewValue: 'Itochu' }
-  ];
-  groupfactorys: any = [
-    // { value: 'TR-กลุ่มไทยรุ่งเรือง', viewValue: 'TR-กลุ่มไทยรุ่งเรือง' },
-    // { value: 'TR-กลุ่มไทยรุ่งเรือง', viewValue: 'TR-กลุ่มไทยรุ่งเรือง' },
-    // { value: 'pizza-1', viewValue: 'Pizza' },
-    // { value: 'tacos-2', viewValue: 'Tacos' }
-  ];
-  buyercontacno: any = [
-    // { value: 'P29598', viewValue: 'P29598' },
-    // { value: 'HKP2403', viewValue: 'HKP2403' },
-    // { value: 'P6000', viewValue: 'P6000' },
-    // { value: 'P29599', viewValue: 'P29599' },
-    // { value: 'P58550', viewValue: 'P58550' },
-    // { value: 'TRT81A', viewValue: 'TRT81A' }
-  ];
-  contactno: any = [
-    // { value: '06818/TR', viewValue: '06818/TR' },
-    // { value: '07118/TR', viewValue: '07118/TR' },
-    // { value: '07218/TR', viewValue: '07218/TR' },
-    // { value: '06918/TR', viewValue: '06918/TR' },
-    // { value: '07018/TR', viewValue: '07018/TR' }
-  ];
-  sugartypes: any = [
-    // { value: 'Hi-Raw', viewValue: 'Hi-Raw' },
-  ];
+  contract_no = "";
+  buyer_contract_no = "";
+
+  contract_date_from = null;
+  contract_date_to = null;
+  buyers: any = [];
+  groupfactorys: any = [];
+  sugartypes: any = [];
   contactstatuses: any = [
     { value: 'Draft', viewValue: 'Draft' },
     { value: 'Submit', viewValue: 'Submit' },
   ];
   displayedColumns = [
-    'Contract No',
-    'Contract Date',
-    'Buyer Contract',
-    'Buyer',
-    'SugarType',
-    'Made by',
-    'Corp Year',
-    'Group Factory',
-    'Shipment Term',
-    'Shipment Period',
-    'Quantity(MT)',
-    'Shipment',
-    'Payment Term',
-    'Currency',
-    'Contract Status'
+    'id',
+    'contract_no',
+    'contract_date',
+    'buyer_contract_no',
+    'buyer.party_name',
+    'sugar_type.lov1',
+    'contract_made_on.lov1',
+    'crop_year',
+    'group_factory.lov1',
+    'shipment_term.shipterm_name',
+    'ship_period_from',
+    'ship_period_to',
+    'total_qty',
+    'payment_term.pmt_abbv',
+    'total_shipment',
+    'currency.name_en',
+    'contract_status'
   ];
+
   displayedDetailColumns = [
-    'Addendum No.',
-    'Addendum Date',
-    "Addendum Type",
-    "Addendum Status",
-    'SugarType',
-    'Buyer Contract',
-    'Buyer',
-    'Quantity(MT)'
+    'addendum_no.',
+    'addendum_date',
+    'addendum_type',
+    'contract_status',
+    'sugar_type.lov1',
+    'buyer_contract_no',
+    'buyer.party_name',
+    'total_qty'
   ];
   dataSource: any = [
     // {
@@ -210,9 +212,9 @@ export class ContractListComponent implements OnInit {
     //   manage: '',
     // }
   ];
-  colSpTopic: any;
-  colSpSelect: any;
-  colSpBtn: any;
+  // colSpTopic: any;
+  // colSpSelect: any;
+  // colSpBtn: any;
   // data: any[] = [
   //   {
   //     contract: '00116/TRR',
@@ -316,17 +318,17 @@ export class ContractListComponent implements OnInit {
   ) {
     this.currentUser = JSON.parse(localStorage.getItem('SEScurrentUser'));
     //this.user = this.currentUser.user;
-    this.odata = this.odataFactory.CreateService<any>('ses_pricings');
+    this.odata = this.odataFactory.CreateService<contract>('ses_contracts');
 
     this.odataLov = this.odataFactory.CreateService<lov_data>('ses_lov_datas');
     this.odataParty = this.odataFactory.CreateService<party>('ses_parties');
   }
 
   ngOnInit() {
-    this.colSpTopic = (window.innerWidth <= 400) ? 6 : 2;
-    this.colSpSelect = (window.innerWidth <= 400) ? 6 : 2;
-    this.colSpBtn = (window.innerWidth <= 400) ? 6 : 1;
-    this.screenwidth = window.innerWidth
+    // this.colSpTopic = (window.innerWidth <= 400) ? 6 : 2;
+    // this.colSpSelect = (window.innerWidth <= 400) ? 6 : 2;
+    // this.colSpBtn = (window.innerWidth <= 400) ? 6 : 1;
+    // this.screenwidth = window.innerWidth
     combineLatest(
       this.odataLov
         .Query()
@@ -335,7 +337,7 @@ export class ContractListComponent implements OnInit {
         .Exec(),
       this.odataParty
         .Query()
-        //.Expand('Processes($expand=ApproveFlow($expand=AFApproveFlowDetails($expand=AFDPosition)),Role)')
+        // .Expand(',Role)')
         .Filter("record_status eq true")
         .Exec()
     ).subscribe(T => {
@@ -379,12 +381,33 @@ export class ContractListComponent implements OnInit {
     // this.calTotal();
   }
 
+  onSearch() {
+    this.getPagedData();
+  }
+
   private getPagedData() {
     this.query = this.odata
       .Query()
-    //.Filter("CreatedBy/Id eq '" + this.user.Id + "'" + this.qType)
-    //.Expand('Company, Plant,BudgetType, CostCenter, IO,  Job($expand=SendFrom,SendTo), CreatedBy')
-    //.Select(['Id', 'CreatedDt', 'BudgetReqNo', 'BudgetType', 'Year', 'Quarter', 'Month', 'CostCenter', 'Company', 'Plant', 'IO', 'Job', 'Status', 'CreatedBy']);
+      //.Filter("CreatedBy/Id eq '" + this.user.Id + "'" + this.qType)
+      .Expand('buyer, sugar_type, contract_made_on, group_factory, shipment_term,  payment_term, currency')//, contract_items
+      .Select(['id',
+        'contract_no',
+        'contract_date',
+        'buyer_contract_no',
+        'buyer/party_name',
+        'sugar_type/lov1',
+        'contract_made_on/lov1',
+        'crop_year',
+        'group_factory/lov1',
+        'shipment_term/shipterm_name',
+        'shipment_period_from',
+        'shipment_period_to',
+        'total_qty',
+        'payment_term/pmt_abbv',
+        'total_shipment',
+        'currency/name_en',
+        'contract_status'
+      ]);
     if (this.filter) {
       if (this.filter.rows) {
         this.query = this.query.Top(this.filter.rows);
@@ -454,7 +477,7 @@ export class ContractListComponent implements OnInit {
 
     this.query
       .Exec(ODataExecReturnType.PagedResult)
-      .subscribe((pagedResult: ODataPagedResult<any>) => {
+      .subscribe((pagedResult: ODataPagedResult<contract>) => {
         this.dataSource = pagedResult.data;
         this.totalRecords = pagedResult.count;
       }, (error) => {
@@ -481,12 +504,13 @@ export class ContractListComponent implements OnInit {
 
   }
 
-  onResize(event) {
-    this.colSpTopic = (event.target.innerWidth <= 400) ? 6 : 2;
-    this.colSpSelect = (event.target.innerWidth <= 400) ? 6 : 2;
-    this.colSpBtn = (event.target.innerWidth <= 400) ? 6 : 1;
-    this.screenwidth = event.target.innerWidth
-  }
+
+  // onResize(event) {
+  //   this.colSpTopic = (event.target.innerWidth <= 400) ? 6 : 2;
+  //   this.colSpSelect = (event.target.innerWidth <= 400) ? 6 : 2;
+  //   this.colSpBtn = (event.target.innerWidth <= 400) ? 6 : 1;
+  //   this.screenwidth = event.target.innerWidth
+  // }
 
   onDetail() {
     this.route.navigate(['/contract-detail'])
@@ -495,9 +519,18 @@ export class ContractListComponent implements OnInit {
   onDelete() {
     confirm("คุณต้องการลบหรือไม่");
   }
-  PageData(pageEvent:PageEvent){
-    this.filter.first =pageEvent.pageIndex * pageEvent.pageSize;
-    this.filter.rows =pageEvent.pageSize;    
+
+  toggleRow(row) {
+    if (this.expandedElement === row) {
+      this.expandedElement = null;
+    } else {
+      this.expandedElement = row;
+    }
+  }
+
+  PageData(pageEvent: PageEvent) {
+    this.filter.first = pageEvent.pageIndex * pageEvent.pageSize;
+    this.filter.rows = pageEvent.pageSize;
     this.getPagedData();
   }
 
@@ -507,46 +540,46 @@ export class ContractListComponent implements OnInit {
       this.dataSource = data;
       return;
     }
-   
-    
-      const isAsc = sort.direction === 'asc';
-      this.filter.sortOrder =sort.direction == 'asc'?1:-1;
-      switch (sort.active) {
-        case 'Contract No': 
+
+
+    const isAsc = sort.direction === 'asc';
+    this.filter.sortOrder = sort.direction == 'asc' ? 1 : -1;
+    switch (sort.active) {
+      case 'Contract No':
         this.filter.sortField = "contract_no";
-        case 'Contract Date': 
+      case 'Contract Date':
         this.filter.sortField = "contract_date";
-        case 'Buyer Contract': 
+      case 'Buyer Contract':
         this.filter.sortField = "buyer_contract";
-        case 'Buyer': 
+      case 'Buyer':
         this.filter.sortField = "buyer/party_name";
-        case 'SugarType': 
+      case 'SugarType':
         this.filter.sortField = "sugar_type/lov1";
-        case 'Made by': 
+      case 'Made by':
         this.filter.sortField = "made_by/lov1";
-        case 'Corp Year': 
+      case 'Corp Year':
         this.filter.sortField = "crop_year";
-        case 'Group Factory': 
-        this.filter.sortField = "group_factory/party_name";
-        case 'Shipment Term': 
+      case 'Group Factory':
+        this.filter.sortField = "group_factory/lov1";
+      case 'Shipment Term':
         this.filter.sortField = "shipment_term/ship_term_name";
-        case 'Shipment Period From': 
+      case 'Shipment Period From':
         this.filter.sortField = "ship_period_from";
-        case 'Shipment Period To': 
+      case 'Shipment Period To':
         this.filter.sortField = "ship_period_to";
-        case 'Quantity(MT)': 
+      case 'Quantity(MT)':
         this.filter.sortField = "qty";
-        case 'Shipment': 
+      case 'Shipment':
         this.filter.sortField = "shipment_term.shipterm_name";
-        case 'Payment Term': 
+      case 'Payment Term':
         this.filter.sortField = "ses_payment_term.pmt_abbv";
-        case 'Currency': 
+      case 'Currency':
         this.filter.sortField = "ses_currency.name_en";
-        case 'Contract Status': 
-        this.filter.sortField = "";
-        // default: 
-        // return 0;
-      }
-      this.getPagedData();
+      case 'Contract Status':
+        this.filter.sortField = "contract_status";
+      // default: 
+      // return 0;
+    }
+    this.getPagedData();
   }
 }

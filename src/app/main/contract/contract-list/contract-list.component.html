@@ -1,38 +1,28 @@
-<div class="page-layout carded fullwidth p-24" fusePerfectScrollbar>
-  <mat-card>
-    <mat-grid-list [cols]="6" rowHeight="31px">
-      <mat-grid-tile [colspan]="6">
-        <div class="left">
-          <h2 class="m-0">Contract</h2>
-        </div>
-      </mat-grid-tile>
-    </mat-grid-list>
+<div id="contact-list" class="page-layout simple fullwidth" fxLayout="column">
 
-    <mat-grid-list [cols]="6" rowHeight="60px" (window:resize)="onResize($event)">
-      <mat-grid-tile [colspan]="colSpSelect">
-        <mat-form-field style="width: 90%;">
-          <input matInput placeholder="Contrace No." value="">
+  <!-- CONTENT -->
+  <div class="content p-12">
+    <div class="mat-card p-12" fxLayout="column">
+      <!--(ngSubmit)="onSearch(formData)" -->
+      <div class="h4 mb-12">Contarct List</div>
+      <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
+        <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="25" class="pr-8">
+          <mat-label>Contrace No.</mat-label>
+          <input matInput placeholder="Contrace No." [(value)]="contract_no" value="">
         </mat-form-field>
-      </mat-grid-tile>
-      <mat-grid-tile [colspan]="colSpSelect">
-        <mat-form-field style="width: 90%">
-          <input matInput [matDatepicker]="contract_date_from" placeholder="Choose a Contract Date From">
+        <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="25" class="pr-8">
+          <mat-label>Contract Date From</mat-label>
+          <input matInput [matDatepicker]="contract_date_from" placeholder="Choose Contract Date From">
           <mat-datepicker-toggle matSuffix [for]="contract_date_from"></mat-datepicker-toggle>
           <mat-datepicker #contract_date_from disabled="false"></mat-datepicker>
         </mat-form-field>
-      </mat-grid-tile>
-      <mat-grid-tile [colspan]="colSpSelect">
-        <mat-form-field>
-          <input matInput [matDatepicker]="contract_date_to" placeholder="Choose a Contract Date To">
+        <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="25" class="pr-8">
+          <mat-label>Contract Date To</mat-label>
+          <input matInput [matDatepicker]="contract_date_to" placeholder="Choose Contract Date To">
           <mat-datepicker-toggle matSuffix [for]="contract_date_to"></mat-datepicker-toggle>
           <mat-datepicker #contract_date_to disabled="false"></mat-datepicker>
         </mat-form-field>
-      </mat-grid-tile>
-    </mat-grid-list>
-
-    <mat-grid-list [cols]="6" rowHeight="60px" (window:resize)="onResize($event)">
-      <mat-grid-tile [colspan]="colSpSelect">
-        <mat-form-field style="width: 90%;">
+        <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="25" class="pr-8">
           <mat-label>Select Contract Status</mat-label>
           <mat-select>
             <mat-option [value]="">
@@ -43,14 +33,13 @@
             </mat-option>
           </mat-select>
         </mat-form-field>
-      </mat-grid-tile>
-      <mat-grid-tile [colspan]="colSpSelect">
-        <mat-form-field style="width: 90%;">
+      </div>
+      <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
+        <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="25" class="pr-8">
+          <mat-label>Buyer Contract No.</mat-label>
           <input matInput placeholder="Buyer Contract No." [(value)]="buyer_contract_no">
         </mat-form-field>
-      </mat-grid-tile>
-      <mat-grid-tile [colspan]="colSpSelect">
-        <mat-form-field style="width: 90%;">
+        <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="25" class="pr-8">
           <mat-label>Select Buyer</mat-label>
           <mat-select [(value)]="selectedBuyer">
             <mat-option [value]="">
@@ -61,12 +50,7 @@
             </mat-option>
           </mat-select>
         </mat-form-field>
-      </mat-grid-tile>
-    </mat-grid-list>
-
-    <mat-grid-list [cols]="6" rowHeight="60px" (window:resize)="onResize($event)">
-      <mat-grid-tile [colspan]="colSpSelect">
-        <mat-form-field style="width: 90%;">
+        <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="25" class="pr-8">
           <mat-label>Select Sugar Type</mat-label>
           <mat-select [(value)]="selectedSugarType">
             <mat-option [value]="">
@@ -77,9 +61,7 @@
             </mat-option>
           </mat-select>
         </mat-form-field>
-      </mat-grid-tile>
-      <mat-grid-tile [colspan]="colSpSelect">
-        <mat-form-field style="width: 90%;">
+        <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="25" class="pr-8">
           <mat-label>Select Group Factory</mat-label>
           <mat-select [(value)]="selectedGroupFactory">
             <mat-option [value]="">
@@ -90,80 +72,156 @@
             </mat-option>
           </mat-select>
         </mat-form-field>
-      </mat-grid-tile>
-      <mat-grid-tile [colspan]="colSpBtn">
-        <button mat-flat-button color="accent" (click)="onSearch()">
-          <mat-icon>
-            search
-          </mat-icon>
-          SEARCH
-        </button>
-      </mat-grid-tile>
-    </mat-grid-list>
+      </div>
+      <!-- <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
+        
+      </div> -->
 
-    <mat-grid-list [cols]="6" rowHeight="31px" (window:resize)="onResize($event)" style="margin-top: 6px">
-      <mat-grid-tile [colspan]="colSpBtn">
-        <button mat-flat-button color="accent" (click)="onDetail()">
-          <mat-icon>
-            add
-          </mat-icon>
+      <div fxLayout="row wrap" fxLayoutAlign="space-between center" fxFlex="1 0 auto">
+        <button type="button" mat-raised-button color="accent" class="submit-button" aria-label="ADD">
+          <mat-icon>add</mat-icon>
           ADD
         </button>
-      </mat-grid-tile>
-    </mat-grid-list>
-  </mat-card>
-
-  <mat-card class="mt-24 p-0" style="height: 100%">
-    <!-- <ngx-data-table [data]="data"></ngx-data-table> -->
-    <mat-table #table1 *ngIf="dataSource.length > 0" [dataSource]="dataSource" multiTemplateDataRows matSort aria-label="Elements">
-      <ng-container [matColumnDef]="cols" *ngFor="let cols of displayedColumns; let i = index">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>
-          <span *ngIf="!(i === 0)">
-            {{cols}}
-          </span>
-        </mat-header-cell>
-        <mat-cell *matCellDef="let row; let element" [ngClass]="{'col-value': element.details === undefined}">
-          <!-- expand caret -->
-          <span *ngIf="i === 0 && element.details">
-            <span (click)="toggleRow(element)"
+        <button type="button" mat-raised-button color="accent" class="submit-button" aria-label="SEARCH">
+          <mat-icon>search</mat-icon>
+          SEARCH
+        </button>
+      </div>
+    </div>
+    <!-- <div class="mat-card p-12" *ngIf="dataSource.length > 0" style="overflow: auto;" fxLayout="column"> -->
+      <mat-table #table *ngIf="dataSource.length > 0" [dataSource]="dataSource" multiTemplateDataRows matSort [@animateStagger]="{value:'50'}"
+        fusePerfectScrollbar>
+        <!-- ID Column -->
+        <ng-container matColumnDef="id">
+          <mat-header-cell *matHeaderCellDef></mat-header-cell>
+          <mat-cell *matCellDef="let element" onclick="">
+            <span style="cursor: pointer" (click)="toggleRow(element)"
               *ngIf="expandedElement && expandedElement[cols] === element[cols]; else plusIcon"
               class="expand-icon">&#9660;</span>
-            <ng-template #plusIcon><span (click)="toggleRow(element)" class="expand-icon">&#9658;</span></ng-template>
-          </span>
-          <span *ngIf="!(i === 0 && element.details)">
-            <span>{{element[cols]}}</span>
-          </span>
-        </mat-cell>
-      </ng-container>
+            <ng-template #plusIcon><span style="cursor: pointer" (click)="toggleRow(element)"
+                class="expand-icon">&#9658;</span></ng-template>
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="contract_no">
+          <mat-header-cell *matHeaderCellDef>Contract No.</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{element.contract_no}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="contract_date">
+          <mat-header-cell *matHeaderCellDef>Contract Date</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{element.contract_date | date : 'dd MMM yyyy'}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="buyer_contract_no">
+          <mat-header-cell *matHeaderCellDef>Buyer Contract</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{element.buyer_contract_no}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="buyer.party_name">
+          <mat-header-cell *matHeaderCellDef>Buyer</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{element.buyer.party_name}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="sugar_type.lov1">
+          <mat-header-cell *matHeaderCellDef>Suger Type</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{element.sugar_type.lov1}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="contract_made_on.lov1">
+          <mat-header-cell *matHeaderCellDef>Made by</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{element.contract_made_on.lov1}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="crop_year">
+          <mat-header-cell *matHeaderCellDef>Crop Year</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{element.crop_year}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="group_factory.lov1">
+          <mat-header-cell *matHeaderCellDef>Group Factory</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{element.group_factory.lov1}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="shipment_term.shipterm_name">
+          <mat-header-cell *matHeaderCellDef>Shipment Term</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{element.shipment_term.shipterm_name}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="ship_period_from">
+          <mat-header-cell *matHeaderCellDef>Shipment Period From</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{element.shipment_period_from | date: 'dd MMMM yyyy'}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="ship_period_to">
+          <mat-header-cell *matHeaderCellDef>Shipment Period From</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{element.shipment_period_to | date: 'dd MMMM yyyy'}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="total_qty">
+          <mat-header-cell *matHeaderCellDef>Quantity(MT)</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{element.total_qty | number: '0.2-2'}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="payment_term.pmt_abbv">
+          <mat-header-cell *matHeaderCellDef>Contract No.</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{element.payment_term.pmt_abbv}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="total_shipment">
+          <mat-header-cell *matHeaderCellDef>Shipment</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{element.total_shipment | number: '0.2-2'}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="currency.name_en">
+          <mat-header-cell *matHeaderCellDef>Currency</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{element.currency.name_en}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="contract_status">
+          <mat-header-cell *matHeaderCellDef>Contract Status</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{element.contract_status}}</mat-cell>
+        </ng-container>
 
-      <!-- Expanded Content Column - The detail row is made up of this one column -->
-      <ng-container matColumnDef="expandedDetail">
-        <mat-cell *matCellDef="let detail">
-          <mat-table #table2 style="width: 100%" [dataSource]="detail.details" multiTemplateDataRows matSort
-            aria-label="Elements">
-            <ng-container [matColumnDef]="cols" *ngFor="let cols of displayedDetailColumns; let i = index">
-              <mat-header-cell *matHeaderCellDef mat-sort-header>{{cols}}</mat-header-cell>
-              <mat-cell *matCellDef="let element">
-                <span>{{element[cols]}}</span>
-              </mat-cell>
-            </ng-container>
-            <mat-header-row *matHeaderRowDef="displayedDetailColumns"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: displayedDetailColumns;"></mat-row>
-          </mat-table>
-        </mat-cell>
-      </ng-container>
+        <!-- Expanded Content Column - The detail row is made up of this one column -->
+        <ng-container matColumnDef="expandedDetail">
+          <mat-cell *matCellDef="let detail">
+            <mat-table #table2 style="width: 100%" [dataSource]="detail.contract_items" multiTemplateDataRows matSort
+              aria-label="Elements">
+              <ng-container matColumnDef="addendum_no">
+                <mat-header-cell *matHeaderCellDef>Addendum No.</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.addendum_no}}</mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="addendum_date">
+                <mat-header-cell *matHeaderCellDef>Addendum Date</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.addendum_date}}</mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="addendum_type">
+                <mat-header-cell *matHeaderCellDef>Addendum Type</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.addendum_type}}</mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="sugar_type.lov1">
+                <mat-header-cell *matHeaderCellDef>Sugar Type</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.sugar_type.lov1}}</mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="buyer_contract_no">
+                <mat-header-cell *matHeaderCellDef>Buyer Contract</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.buyer_contract_no}}</mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="buyer.party_name">
+                <mat-header-cell *matHeaderCellDef>Buyer</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.buyer.party_name}}</mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="total_qty">
+                <mat-header-cell *matHeaderCellDef>Quantity(MT)</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.total_qty}}</mat-cell>
+              </ng-container>
+              <mat-header-row *matHeaderRowDef="displayedDetailColumns"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayedDetailColumns;"></mat-row>
+            </mat-table>
+          </mat-cell>
+        </ng-container>
 
-      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: displayedColumns;" [class.expanded]="expandedElement == row"></mat-row>
-      <mat-row *matRowDef="let row; columns: ['expandedDetail']; "
-        [@detailExpand]="row == expandedElement ? 'expanded' : 'collapsed'" style="overflow: hidden"></mat-row>
-    </mat-table>
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;" [class.expanded]="expandedElement == row"></mat-row>
+        <mat-row *matRowDef="let row; columns: ['expandedDetail']; "
+                [@detailExpand]="row == expandedElement ? 'expanded' : 'collapsed'" style="overflow: hidden"></mat-row>
+      </mat-table>
 
-    <mat-paginator #paginator *ngIf="dataSource.length > 0" [length]="totalRecords" [pageIndex]="0" [pageSize]="25"
-      [pageSizeOptions]="[25, 50, 100, 250]">
-    </mat-paginator>
 
-    <p *ngIf="dataSource.length === 0">No records found</p>
-  </mat-card>
 
+    <!-- </div> -->
+    <!-- <div class="mat-card p-12" fxLayout="column"> -->
+      <mat-paginator #paginator *ngIf="dataSource.length > 0" [length]="totalRecords" [pageIndex]="0" [pageSize]="25"
+        [pageSizeOptions]="[25, 50, 100, 250]">
+      </mat-paginator>
+
+      <p *ngIf="dataSource.length === 0">No records found</p>
+    <!-- </div> -->
+  </div>
+  <!-- / CONTENT -->
 </div>

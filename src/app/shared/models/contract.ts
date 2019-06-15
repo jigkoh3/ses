@@ -58,6 +58,8 @@ export class contract {
     ad_shipment_term_remark: boolean;
     ad_product_remark: boolean;
     ad_gen_term_condition: boolean;
+    total_qty:number;
+    total_shipment:number;
     record_status: boolean;
     created_by_id:string;
     created_date:Date;
