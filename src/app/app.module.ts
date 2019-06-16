@@ -22,7 +22,7 @@ import { LayoutModule } from 'app/layout/layout.module';
 // import { PricingWhiteModule } from 'app/main/pricing-white/pricing-white.module'
 // import { AddendumModule } from './main/addendum/addendum.module';
 
-import { AuthGuard, AuthenticationService } from './shared'
+import { AuthGuard, AuthenticationService, MasterService } from './shared'
 import { ODataConfiguration, ODataServiceFactory } from "angular-odata-es5";
 const appRoutes: Routes = [
 
@@ -72,7 +72,7 @@ const appRoutes: Routes = [
     bootstrap: [
         AppComponent
     ],
-    providers: [AuthGuard, AuthenticationService, ODataServiceFactory, ODataConfiguration],
+    providers: [AuthGuard, AuthenticationService, MasterService, ODataServiceFactory, ODataConfiguration],
 })
 export class AppModule {
 }

@@ -81,6 +81,7 @@ $typography: mat-typography-config(
 @import "src/app/layout/components/chat-panel/chat-panel.theme";
 @import "src/app/layout/components/toolbar/toolbar.theme";
 @import "src/app/login/login.theme";
+@import "src/app/main/contract/contract-list/contract-list.theme";
 
 // Define a mixin for easier access
 @mixin components-theme($theme) {

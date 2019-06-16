@@ -1,0 +1,330 @@
+<!-- <mat-dialog-content class="content p-12 spacer"> -->
+<!-- CONTENT -->
+<div class="fixActionRow">
+    <div id="contract" class="page-layout carded fullwidth inner-scroll">
+
+        <!-- TOP BACKGROUND -->
+        <div class="top-bg accent"></div>
+        <!-- / TOP BACKGROUND -->
+
+        <!-- CENTER -->
+        <div class="center">
+
+            <!-- HEADER -->
+            <div class="header accent" fxLayout="row" fxLayoutAlign="space-between center">
+
+                <!-- APP TITLE -->
+                <div fxLayout="row" fxLayoutAlign="start center">
+
+                    <!-- <button mat-icon-button class="mr-0 mr-sm-16" [routerLink]="'/contract-list'">
+                        <mat-icon>arrow_back</mat-icon>
+                    </button> -->
+
+                    <div fxLayout="column" fxLayoutAlign="start start"
+                        [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+                        <div class="h2" *ngIf="mode ==='Edit'">
+                            {{contract_item.product.name_en}}
+                        </div>
+                        <div class="h2" *ngIf="mode ==='Add'">
+                            New Contract Item
+                        </div>
+                        <div class="subtitle secondary-text">
+                            <span>Contract Item</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- / APP TITLE -->
+
+                <button mat-raised-button class="save-contract-button" [disabled]="form.invalid" *ngIf="mode ==='Add'"
+                    (click)="addProduct()">
+                    <mat-icon>add</mat-icon>
+                    <span>ADD CONTRACT</span>
+                </button>
+
+                <button mat-raised-button class="save-contract-button" [disabled]="form.invalid || form.pristine"
+                    *ngIf="mode ==='Edit'" (click)="saveProduct()">
+                    <mat-icon>save</mat-icon>
+                    <span>SAVE CONTRACT</span>
+                </button>
+            </div>
+            <!-- / HEADER -->
+
+            <!-- CONTENT CARD -->
+            <div class="content-card">
+
+                <!-- CONTENT -->
+                <div class="content">
+
+                    <form name="form" [formGroup]="form" #formData='ngForm' (ngSubmit)="onSubmit(formData)">
+
+                        <mat-tab-group fxLayout="column">
+                            <mat-tab label="Quality">
+                                <mat-card fxFlex="100" fxFlex.gt-sm="100" fxLayout="column">
+                                    <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="100"
+                                        fxFlex.gt-sm="100">
+                                        <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50"
+                                            class="pl-4">
+                                            <mat-label>Product Name</mat-label>
+                                            <mat-select formControlName="product_id">
+                                                <mat-option [value]="">
+                                                    --All--
+                                                </mat-option>
+                                                <mat-option *ngFor="let product of products" [value]="product.id">
+                                                    {{product.name_en}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                        <div fxFlex="100" fxFlex.gt-sm="50" fxLayoutAlign="start center" class="pl-4">
+                                            <mat-label class="pl-8">Crop Year</mat-label>
+                                            <mat-radio-group formControlName="crop_year_type"
+                                                aria-label="Select an option">
+                                                <mat-radio-button value="CURRENT" class="pl-8">CURRENT
+                                                </mat-radio-button>
+                                                <mat-radio-button value="" class="pl-8">
+                                                </mat-radio-button>
+                                            </mat-radio-group>
+                                            <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="40"
+                                                class="pl-4">
+                                                <mat-label>Crop Year</mat-label>
+                                                <mat-select formControlName="crop_year">
+                                                    <mat-option *ngFor="let crop_year of crop_years"
+                                                        [value]="crop_year.value">
+                                                        {{crop_year.text}}
+                                                    </mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="100"
+                                        fxFlex.gt-sm="100" fxFlex="1 0 auto">
+                                        <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50"
+                                            class="pl-4">
+                                            <mat-label>Min Polarization(degrees)</mat-label>
+                                            <input matInput formControlName="min_pola" mask="comma_separator.2">
+                                        </mat-form-field>
+                                        <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50"
+                                            class="pl-4">
+                                            <mat-label>Max Moisture(%)</mat-label>
+                                            <input matInput formControlName="max_moisture" mask="comma_separator.2">
+                                        </mat-form-field>
+                                    </div>
+                                    <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="100"
+                                        fxFlex.gt-sm="100" fxFlex="1 0 auto">
+                                        <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50"
+                                            class="pl-4">
+                                            <mat-label>Min Colour(icumsa)</mat-label>
+                                            <input matInput formControlName="min_colour" mask="comma_separator.0">
+                                        </mat-form-field>
+                                        <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50"
+                                            class="pl-4">
+                                            <mat-label>Max Colour(icumsa)</mat-label>
+                                            <input matInput formControlName="max_colour" mask="comma_separator.0">
+                                        </mat-form-field>
+                                    </div>
+                                </mat-card>
+                            </mat-tab>
+                            <mat-tab label="Quantity">
+                                <mat-card fxFlex="100" fxFlex.gt-sm="100" fxLayout="column">
+                                    <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="100"
+                                        fxFlex.gt-sm="100" fxFlex="1 0 auto">
+                                        <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="33"
+                                            class="pl-4">
+                                            <mat-label>Quantity (MT)</mat-label>
+                                            <input matInput formControlName="qty" mask="comma_separator.2">
+                                        </mat-form-field>
+                                        <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="33"
+                                            class="pl-4">
+                                            <mat-label>Quantity (TCSC,US)</mat-label>
+                                            <input matInput formControlName="qty_tcsc_us" mask="comma_separator.2">
+                                        </mat-form-field>
+                                        <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="34"
+                                            class="pl-4">
+                                            <mat-label>Shipment QTY</mat-label>
+                                            <input matInput formControlName="shipment_qty" mask="comma_separator.2">
+                                        </mat-form-field>
+                                    </div>
+                                </mat-card>
+                            </mat-tab>
+                            <mat-tab label="Packing">
+                                <mat-card fxFlex="100" fxFlex.gt-sm="100" fxLayout="column">
+                                    <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="100"
+                                        fxFlex.gt-sm="100">
+                                        <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50"
+                                            class="pl-4">
+                                            <mat-label>Packing Unit Code</mat-label>
+                                            <mat-select formControlName="pu_code_id">
+                                                <mat-option [value]="">
+                                                    --All--
+                                                </mat-option>
+                                                <mat-option *ngFor="let packing_unit of packing_units"
+                                                    [value]="packing_unit.id">
+                                                    {{packing_unit.name_en}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                        <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50"
+                                            class="pl-4">
+                                            <mat-label>Packing QTY</mat-label>
+                                            <input matInput formControlName="packing_qty" mask="comma_separator.2">
+                                            <span matSuffix>&nbsp;{{currencyText}}</span>
+                                        </mat-form-field>
+                                    </div>
+                                    <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="100"
+                                        fxFlex.gt-sm="100" fxFlex="1 0 auto">
+                                        <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50"
+                                            class="pl-4">
+                                            <mat-label>Unit Sub Code</mat-label>
+                                            <mat-select formControlName="pu_sub_code_id">
+                                                <mat-option [value]="">
+                                                    --All--
+                                                </mat-option>
+                                                <mat-option *ngFor="let pu_sub_code of pu_sub_codes"
+                                                    [value]="pu_sub_code.id">
+                                                    {{pu_sub_code.name_en}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                </mat-card>
+                            </mat-tab>
+                            <mat-tab label="Shipment">
+                                <mat-card fxFlex="100" fxFlex.gt-sm="100" fxLayout="column">
+                                    <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="100"
+                                        fxFlex.gt-sm="100">
+                                        <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="25"
+                                            class="pr-4">
+                                            <mat-label>Shipment Period From</mat-label>
+                                            <input matInput [matDatepicker]="dp_shipment_period_from"
+                                                placeholder="Choose a date" formControlName="shipment_period_from">
+                                            <mat-datepicker-toggle matSuffix [for]="dp_shipment_period_from">
+                                            </mat-datepicker-toggle>
+                                            <mat-datepicker #dp_shipment_period_from></mat-datepicker>
+                                        </mat-form-field>
+                                        <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="25"
+                                            class="pr-4">
+                                            <mat-label>Shipment Period To</mat-label>
+                                            <input matInput [matDatepicker]="dp_shipment_period_to"
+                                                placeholder="Choose a date" formControlName="shipment_period_to">
+                                            <mat-datepicker-toggle matSuffix [for]="dp_shipment_period_to">
+                                            </mat-datepicker-toggle>
+                                            <mat-datepicker #dp_shipment_period_to></mat-datepicker>
+                                        </mat-form-field>
+                                        <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50"
+                                            class="pl-4">
+                                            <mat-label>Shipment Option</mat-label>
+                                            <mat-select formControlName="shipment_option">
+                                                <mat-option [value]="">
+                                                    --All--
+                                                </mat-option>
+                                                <mat-option *ngFor="let shipment_option of shipment_options"
+                                                    [value]="shipment_option.value">
+                                                    {{shipment_option.text}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                </mat-card>
+                            </mat-tab>
+                            <mat-tab label="Price">
+                                <mat-card fxFlex="100" fxFlex.gt-sm="100" fxLayout="column">
+                                    <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="100"
+                                        fxFlex.gt-sm="100">
+                                        <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50"
+                                            class="pl-4">
+                                            <mat-label>Price Type</mat-label>
+                                            <mat-select formControlName="price_type_id">
+                                                <mat-option [value]="">
+                                                    --All--
+                                                </mat-option>
+                                                <mat-option *ngFor="let price_type of price_types"
+                                                    [value]="price_type.id">
+                                                    {{price_type.lov1}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                    <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="100"
+                                        fxFlex.gt-sm="100" fxFlex="1 0 auto">
+                                        <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50"
+                                            class="pl-4">
+                                            <mat-label>Sugar Cost</mat-label>
+                                            <input matInput formControlName="sugar_cost" (change)="calPrice()"
+                                                mask="comma_separator.4">
+                                            <span matSuffix>&nbsp;{{currencyText}}</span>
+                                        </mat-form-field>
+                                        <span fxFlex="100" fxFlex.gt-sm="5" fxLayoutAlign="center center"></span>
+                                        <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50"
+                                            class="pl-4">
+                                            <mat-label>Packing Cost</mat-label>
+                                            <input matInput formControlName="packing_cost" (change)="calPrice()"
+                                                mask="comma_separator.4">
+                                            <span matSuffix>&nbsp;{{currencyText}}</span>
+                                        </mat-form-field>
+                                    </div>
+                                    <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="100"
+                                        fxFlex.gt-sm="100" fxFlex="1 0 auto">
+                                        <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50"
+                                            class="pl-4">
+                                            <mat-label>Unit Price</mat-label>
+                                            <input matInput formControlName="min_pola" mask="comma_separator.4">
+                                            <span matSuffix>&nbsp;{{currencyText}}</span>
+                                        </mat-form-field>
+                                    </div>
+                                    <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="100"
+                                        fxFlex.gt-sm="100" fxFlex="1 0 auto">
+                                        <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50"
+                                            class="pl-4">
+                                            <mat-label>Insurance</mat-label>
+                                            <input matInput formControlName="packing_cost" (change)="calPrice()"
+                                                mask="comma_separator.4">
+                                            <span matSuffix>&nbsp;{{currencyText}}</span>
+                                        </mat-form-field>
+                                        <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50"
+                                            class="pl-4">
+                                            <mat-label>Freight</mat-label>
+                                            <input matInput formControlName="insurance_cost" (change)="calPrice()"
+                                                mask="comma_separator.4">
+                                            <span matSuffix>&nbsp;{{currencyText}}</span>
+                                        </mat-form-field>
+                                    </div>
+                                    <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="100"
+                                        fxFlex.gt-sm="100" fxFlex="1 0 auto">
+                                        <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50"
+                                            class="pl-4">
+                                            <mat-label>Net Price</mat-label>
+                                            <input matInput formControlName="net_price" mask="comma_separator.4">
+                                            <span matSuffix>&nbsp;{{currencyText}}</span>
+                                        </mat-form-field>
+                                    </div>
+                                    <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="100"
+                                        fxFlex.gt-sm="100" fxFlex="1 0 auto">
+                                        <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="100"
+                                            class="pl-4">
+                                            <mat-label>Price Description</mat-label>
+                                            <textarea matInput formControlName="price_desc"></textarea>
+                                        </mat-form-field>
+                                    </div>
+                                </mat-card>
+                            </mat-tab>
+                        </mat-tab-group>
+                    </form>
+
+                </div>
+                <!-- / CONTENT -->
+                <!-- <div fxLayout="row wrap" fxLayoutAlign="end center" fxFlex="1 0 auto">
+                            <button mat-button mat-dialog-close type="submit" tabindex="1">Save</button>
+                            <button mat-button mat-dialog-close tabindex="-1">Cancel</button>
+                        </div> -->
+            </div>
+            <!-- / CONTENT CARD -->
+
+        </div>
+        <!-- / CENTER -->
+
+    </div>
+</div>
+<!-- </mat-dialog-content> -->
+<!-- <div class="spacer"></div> -->
+<!-- <mat-dialog-actions>
+       
+    </mat-dialog-actions> -->

@@ -1,60 +1,230 @@
-.detail-table {
-    display: flex;
-    flex-direction: column;
-    display: block;
-    margin: 10px;
-    width: 100%;
+
+@import "src/@fuse/scss/fuse";
+
+app-contract-list {
+
+    #contracts {
+
+        .top-bg {
+
+            @include media-breakpoint('lt-md') {
+                height: 256px;
+            }
+        }
+
+        > .center {
+
+            > .header {
+
+                .search-wrapper {
+                    width: 100%;
+                    max-width: 480px;
+                    border-radius: 28px;
+                    overflow: hidden;
+                    @include mat-elevation(1);
+
+                    @include media-breakpoint('xs') {
+                        width: 100%;
+                    }
+
+                    .search {
+                        width: 100%;
+                        height: 48px;
+                        line-height: 48px;
+                        padding: 0 18px;
+
+                        input {
+                            width: 100%;
+                            height: 48px;
+                            min-height: 48px;
+                            max-height: 48px;
+                            padding: 0 16px;
+                            border: none;
+                            outline: none;
+                        }
+                    }
+                }
+
+                @include media-breakpoint('lt-md') {
+                    padding: 8px 0;
+                    height: 192px !important;
+                    min-height: 192px !important;
+                    max-height: 192px !important;
+                }
+            }
+        }
+    }
+
+    .contracts-table {
+        width:100%;
+        border-bottom: 1px solid rgba(0, 0, 0, .12);
+        overflow: auto;
+        -webkit-overflow-scrolling: touch;
+
+        .mat-header-row {
+            min-height: 64px;
+        }
+
+        .contract {
+            position: relative;
+            cursor: pointer;
+            height: 84px;
+        }
+
+        .mat-cell {
+            min-width: 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .mat-column-id {
+            flex: 0 1 50px;
+        }
+
+        .mat-column-contract_no {
+            flex: 0 1 100px;
+        }
+
+        .mat-column-contract_date {
+            flex: 0 1 100px;
+        }
+
+        .mat-column-buyer_contract_no {
+            flex: 0 1 100px;
+        }
+
+        .mat-column-buyer-party_name {
+            flex: 0 1 200px;
+        }
+
+        
+        .mat-column-sugar_type-lov1 {
+            flex: 0 1 80px;
+        }
+
+        .mat-column-contract_made_on-lov1 {
+            flex: 0 1 80px;
+        }
+
+        .mat-column-crop_year {
+            flex: 0 1 100px;
+        }
+
+        .mat-column-group_factory-lov1 {
+            flex: 0 1 200px;
+        }
+
+        .mat-column-shipment_term-shipterm_name {
+            flex: 0 1 100px;
+        }
+
+        .mat-column-ship_period_from {
+            flex: 0 1 140px;
+        }
+
+        .mat-column-ship_period_to {
+            flex: 0 1 140px;
+        }
+
+        .mat-column-total_qty {
+            flex: 0 1 100px;
+        }
+
+        .mat-column-payment_term-pmt_abbv {
+            flex: 0 1 100px;
+        }
+
+        .mat-column-total_shipment {
+            flex: 0 1 100px;
+        }
+
+        .mat-column-currency-name_en {
+            flex: 0 1 100px;
+        }
+
+        .mat-column-contract_status {
+            flex: 0 1 120px;
+        }
+
+        // .quantity-indicator {
+        //     display: inline-block;
+        //     vertical-align: middle;
+        //     width: 8px;
+        //     height: 8px;
+        //     border-radius: 4px;
+        //     margin-right: 8px;
+
+        //     & + span {
+        //         display: inline-block;
+        //         vertical-align: middle;
+        //     }
+        // }
+
+        // .active-icon {
+        //     border-radius: 50%;
+        // }
+
+    
+    }
 }
 
-.expand-icon {
-    color: rgba(0, 0, 0, .44);
-    font-size: 12px;
-    margin-right: 5px;
-    cursor: pointer;
-}
+// .detail-table {
+//     display: flex;
+//     flex-direction: column;
+//     display: block;
+//     margin: 10px;
+//     width: 100%;
+// }
 
-.col-value:first-child span {
-    margin-left: 15px;
-}
+// .expand-icon {
+//     color: rgba(0, 0, 0, .44);
+//     font-size: 12px;
+//     margin-right: 5px;
+//     cursor: pointer;
+// }
 
-.mat-table__wrapper .mat-table {
-    min-width: auto !important;
-    width: 100% !important;
-}
+// .col-value:first-child span {
+//     margin-left: 15px;
+// }
 
-.mat-header-row {
-    width: 100%;
-}
+// .mat-table__wrapper .mat-table {
+//     min-width: auto !important;
+//     width: 100% !important;
+// }
 
-.mat-row {
-    width: 100%;
-}
+// .mat-header-row {
+//     width: 100%;
+// }
 
-.mat-header-cell .flex-stretch {
-    display: -ms-flexbox;
-    display: -webkit-flex;
-    display: flex;
-    -webkit-align-self: stretch;
-    -ms-flex-item-align: stretch;
-    align-self: stretch;
-    /* align-items center so that cell content is vertically centered */
-    -webkit-align-items: center;
-    -ms-flex-align: center;
-    align-items: center;
-}
+// .mat-row {
+//     width: 100%;
+// }
 
-.mat-cell .flex-stretch {
-    display: -ms-flexbox;
-    display: -webkit-flex;
-    display: flex;
-    -webkit-align-self: stretch;
-    -ms-flex-item-align: stretch;
-    align-self: stretch;
-    /* align-items center so that cell content is vertically centered */
-    -webkit-align-items: center;
-    -ms-flex-align: center;
-    align-items: center;
-}
+// .mat-header-cell .flex-stretch {
+//     display: -ms-flexbox;
+//     display: -webkit-flex;
+//     display: flex;
+//     -webkit-align-self: stretch;
+//     -ms-flex-item-align: stretch;
+//     align-self: stretch;
+//     /* align-items center so that cell content is vertically centered */
+//     -webkit-align-items: center;
+//     -ms-flex-align: center;
+//     align-items: center;
+// }
+
+// .mat-cell .flex-stretch {
+//     display: -ms-flexbox;
+//     display: -webkit-flex;
+//     display: flex;
+//     -webkit-align-self: stretch;
+//     -ms-flex-item-align: stretch;
+//     align-self: stretch;
+//     /* align-items center so that cell content is vertically centered */
+//     -webkit-align-items: center;
+//     -ms-flex-align: center;
+//     align-items: center;
+// }
 
 // 'contract_no',        'contract_date',        'buyer_contract_no',
 // 'buyer/party_name',        'sugar_type/lov1',        'contract_made_on/lov1',
@@ -62,50 +232,50 @@
 // 'shipment_period_from',        'shipment_period_to',        'total_qty',
 // 'payment_term/pmt_abbv',        'total_shipment',        'currency/name_en',
 // 'contract_status'
-mat-header-cell {
-    word-wrap: break-word !important;
-    white-space: unset !important;
-    flex: 0 0 150px !important;
-    width: 150px !important;
-    overflow-wrap: break-word;
-    word-wrap: break-word;
+// mat-header-cell {
+//     word-wrap: break-word !important;
+//     white-space: unset !important;
+//     flex: 0 0 150px !important;
+//     width: 150px !important;
+//     overflow-wrap: break-word;
+//     word-wrap: break-word;
 
-    word-break: break-word;
+//     word-break: break-word;
 
-    -ms-hyphens: auto;
-    -moz-hyphens: auto;
-    -webkit-hyphens: auto;
-    hyphens: auto;
-}
+//     -ms-hyphens: auto;
+//     -moz-hyphens: auto;
+//     -webkit-hyphens: auto;
+//     hyphens: auto;
+// }
 
-mat-cell {
-    word-wrap: break-word !important;
-    white-space: unset !important;
-    flex: 0 0 150px !important;
-    width: 150px !important;
-    overflow-wrap: break-word;
-    word-wrap: break-word;
+// mat-cell {
+//     word-wrap: break-word !important;
+//     white-space: unset !important;
+//     flex: 0 0 150px !important;
+//     width: 150px !important;
+//     overflow-wrap: break-word;
+//     word-wrap: break-word;
 
-    word-break: break-word;
+//     word-break: break-word;
 
-    -ms-hyphens: auto;
-    -moz-hyphens: auto;
-    -webkit-hyphens: auto;
-    hyphens: auto;
-}
+//     -ms-hyphens: auto;
+//     -moz-hyphens: auto;
+//     -webkit-hyphens: auto;
+//     hyphens: auto;
+// }
 
-.mat-column-id {
-    word-wrap: break-word !important;
-    white-space: unset !important;
-    flex: 0 0 50px !important;
-    width: 20px !important;
-    overflow-wrap: break-word;
-    word-wrap: break-word;
+// .mat-column-id {
+//     word-wrap: break-word !important;
+//     white-space: unset !important;
+//     flex: 0 0 50px !important;
+//     width: 20px !important;
+//     overflow-wrap: break-word;
+//     word-wrap: break-word;
 
-    word-break: break-word;
+//     word-break: break-word;
 
-    -ms-hyphens: auto;
-    -moz-hyphens: auto;
-    -webkit-hyphens: auto;
-    hyphens: auto;
-}
+//     -ms-hyphens: auto;
+//     -moz-hyphens: auto;
+//     -webkit-hyphens: auto;
+//     hyphens: auto;
+// }

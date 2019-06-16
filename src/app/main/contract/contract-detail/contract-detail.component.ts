@@ -2,20 +2,28 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, Validators, FormGroup, FormControl } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ODataConfiguration, ODataExecReturnType, ODataPagedResult, ODataQuery, ODataService, ODataServiceFactory } from 'angular-odata-es5'
-import { contract, lov_data, party, shipment_to, payment_term, currency, term_cond, packing_unit, unit_code, pu_sub_code, product, shipment_term, contract_item } from 'app/shared';
+import { contract, lov_data, party, shipment_to, payment_term, currency, term_cond, packing_unit, unit_code, pu_sub_code, product, shipment_term, contract_item, MasterService } from 'app/shared';
 import { combineLatest } from 'rxjs';
 import * as _ from 'lodash';
 import * as moment from 'moment';
 import { ODataConfigurationFactory } from 'app/ODataConfigurationFactory';
 import { expand } from 'rxjs/operators';
-
+import { ContractItemComponent } from './contract-item.component';
+import { MatDialog, MatDialogRef, MatSnackBar } from '@angular/material';
+import 'rxjs/add/operator/filter';
+import { fuseAnimations } from '@fuse/animations';
+import { FuseUtils } from '@fuse/utils';
 @Component({
   selector: 'app-contract-detail',
   templateUrl: './contract-detail.component.html',
   styleUrls: ['./contract-detail.component.scss'],
-  providers: [{ provide: ODataConfiguration, useFactory: ODataConfigurationFactory }, ODataServiceFactory],
+  animations: fuseAnimations,
+  providers: [MasterService, { provide: ODataConfiguration, useFactory: ODataConfigurationFactory }, ODataServiceFactory],
 })
 export class ContractDetailComponent implements OnInit {
+  contractItemDialogRef: MatDialogRef<ContractItemComponent>;
+
+
   mode: string;
   user;
   currentUser;
@@ -23,6 +31,14 @@ export class ContractDetailComponent implements OnInit {
   formDetail: FormGroup;
   id: string;
   sub: any;
+
+  selectedCurrency;
+  //selectedUnit;
+  selectedShipmentBy;
+  selectedContractMadeOn;
+  selectedShipmentOption;
+  selectedShipmentPeriodFrom;
+  selectedShipmentPeriodTo;
 
   contract: contract;
   contract_items: contract_item[];
@@ -40,10 +56,10 @@ export class ContractDetailComponent implements OnInit {
   odataProduct: ODataService<product>;
 
   allLovs: lov_data[];
-  sugar_types: any[];
-  contract_made_ons: any[];
-  group_factories: any[];
-  partial_shipment_options: any[];
+  sugar_types: lov_data[];
+  contract_made_ons: lov_data[];
+  group_factories: lov_data[];
+  partial_shipment_options: lov_data[];
 
   // contract_statuses= [{ value: "DRAFT", text: "DRAFT" }, { value: "SUBMIT", text: "SUBMIT" }];
   crop_years = [];
@@ -68,7 +84,7 @@ export class ContractDetailComponent implements OnInit {
   shipment_options = [{ value: "B", text: "BUYER OPTION" }, { value: "S", text: "SELLER OPTION" }];
 
   //C=contract,P=product  (ถ้ามีค่า = contract ให้ copy shipment from ,to ไปที่ ตาราง product(P3))
-  shipment_bys = [{ value: "C", text: "Contract" }, { value: "P", text: "Product" }];
+  shipment_bys = [{ value: "C", text: "CONTRACT" }, { value: "P", text: "PRODUCT" }];
 
   transactions: any = [
     //{
@@ -106,10 +122,13 @@ export class ContractDetailComponent implements OnInit {
   constructor(private _formBuilder: FormBuilder,
     public router: Router,
     private route: ActivatedRoute,
-    private odataFactory: ODataServiceFactory) {
+    private odataFactory: ODataServiceFactory,
+    private dialog: MatDialog,
+    private _matSnackBar: MatSnackBar,
+    private masterService: MasterService) {
 
     this.currentUser = JSON.parse(localStorage.getItem('SEScurrentUser'));
-    //this.user = this.currentUser.user;
+    this.user = this.currentUser.user;
     this.odata = this.odataFactory.CreateService<contract>('ses_contracts');
 
     this.odataLov = this.odataFactory.CreateService<lov_data>('ses_lov_datas');
@@ -133,6 +152,14 @@ export class ContractDetailComponent implements OnInit {
       this.id = params['id'];
     });
 
+    this.route.queryParams
+      .subscribe(params => {
+        //console.log(params); // {order: "popular"}
+
+        this.mode = params.mode;
+        console.log(this.mode); // popular
+      });
+
     for (let i = moment().year() - 2; i <= moment().year() + 2; i++) {
       this.crop_years.push(this.genCropYear(i));
     }
@@ -140,61 +167,41 @@ export class ContractDetailComponent implements OnInit {
     //mock id
     this.id = "1";
 
+    let disabledControl: Boolean;
+    if (this.mode == "View") {
+      disabledControl = true;
+    } else {
+      disabledControl = false;
+    }
+
     this.form = this._formBuilder.group({
-      contract_no: [{ value: '', disabled: false }, Validators.required],
+      contract_no: [{ value: '', disabled: true }, Validators.required],
       contract_status: [{ value: '', disabled: true }, Validators.required],
-      contract_made_on_id: [{ value: '', disabled: false }, Validators.required],
-      crop_year: [{ value: '', disabled: false }, Validators.required],
-      contract_date: [{ value: '', disabled: false }, Validators.required],
+      contract_made_on_id: [{ value: '', disabled: disabledControl }, Validators.required],
+      crop_year: [{ value: '', disabled: disabledControl }, Validators.required],
+      contract_date: [{ value: '', disabled: disabledControl }, Validators.required],
       seller_id: [{ value: '', disabled: true }, Validators.required],
-      group_factory_id: [{ value: '', disabled: false }, Validators.required],
-      sugar_type_id: [{ value: '', disabled: false }, Validators.required],
-      buyer_contract_no: [{ value: '', disabled: false }, Validators.required],
-      buyer_id: [{ value: '', disabled: false }, Validators.required],
-      shipment_term_id: [{ value: '', disabled: false }, Validators.required],
-      shipment_by: [{ value: '', disabled: false }, Validators.required],
-      shipment_period_from: [{ value: '', disabled: false }, Validators.required],
-      shipment_period_to: [{ value: '', disabled: false }, Validators.required],
-      shipment_option: [{ value: '', disabled: false }, Validators.required],
-      partial_shipment_option_id: [{ value: '', disabled: false }, Validators.required],
-      shipment_to_id: [{ value: '', disabled: false }, Validators.required],
-      payment_term_id: [{ value: '', disabled: false }, Validators.required],
-      currency_id: [{ value: '', disabled: false }, Validators.required],
-      exchange_rate: [{ value: '', disabled: false }, Validators.required],
-      shipment_term_remark: [{ value: '', disabled: false }, Validators.required],
-      product_remark: [{ value: '', disabled: false }, Validators.required],
-      gen_term_condition_id: [{ value: '', disabled: false }, Validators.required],
-      gen_term_condition_desc: [{ value: '', disabled: false }, Validators.required],
+      group_factory_id: [{ value: '', disabled: disabledControl }, Validators.required],
+      sugar_type_id: [{ value: '', disabled: disabledControl }, Validators.required],
+      buyer_contract_no: [{ value: '', disabled: disabledControl }, Validators.required],
+      buyer_id: [{ value: '', disabled: disabledControl }, Validators.required],
+      shipment_term_id: [{ value: '', disabled: disabledControl }, Validators.required],
+      shipment_by: [{ value: '', disabled: disabledControl }, Validators.required],
+      shipment_period_from: [{ value: '', disabled: disabledControl }, Validators.required],
+      shipment_period_to: [{ value: '', disabled: disabledControl }, Validators.required],
+      shipment_option: [{ value: '', disabled: disabledControl }, Validators.required],
+      partial_shipment_option_id: [{ value: '', disabled: disabledControl }, Validators.required],
+      shipment_to_id: [{ value: '', disabled: disabledControl }, Validators.required],
+      payment_term_id: [{ value: '', disabled: disabledControl }, Validators.required],
+      currency_id: [{ value: '', disabled: disabledControl }, Validators.required],
+      exchange_rate: [{ value: '', disabled: disabledControl }, Validators.required],
+      shipment_term_remark: [{ value: '', disabled: disabledControl }, Validators.required],
+      product_remark: [{ value: '', disabled: disabledControl }, Validators.required],
+      gen_term_condition_id: [{ value: '', disabled: disabledControl }, Validators.required],
+      gen_term_condition_desc: [{ value: '', disabled: disabledControl }, Validators.required],
     });
 
-    this.formDetail = this._formBuilder.group({
-      product_id: [{ value: '', disabled: false }, Validators.required],
-      crop_year_type: [{ value: '', disabled: false }, Validators.required],
-      crop_year_input: [{ value: '', disabled: false }, Validators.required],
-      crop_year: [{ value: '', disabled: false }, Validators.required],
-      min_pola: [{ value: '', disabled: false }, Validators.required],
-      max_moisture: [{ value: '', disabled: false }, Validators.required],
-      min_colour: [{ value: '', disabled: false }, Validators.required],
-      max_colour: [{ value: '', disabled: false }, Validators.required],
-      apply_licenses_flag: [{ value: '', disabled: false }, Validators.required],
-      qty: [{ value: '', disabled: false }, Validators.required],
-      qty_tcsc_us: [{ value: '', disabled: false }, Validators.required],
-      pu_code_id: [{ value: '', disabled: false }, Validators.required],
-      packing_qty: [{ value: '', disabled: false }, Validators.required],
-      unit_name_eng_id: [{ value: '', disabled: false }, Validators.required],
-      pu_sub_code_id: [{ value: '', disabled: false }, Validators.required],
-      shipment_period_from: [{ value: '', disabled: false }, Validators.required],
-      shipment_period_to: [{ value: '', disabled: false }, Validators.required],
-      shipment_option: [{ value: '', disabled: false }, Validators.required],
-      price_type_id: [{ value: '', disabled: false }, Validators.required],
-      sugar_cost: [{ value: '', disabled: false }, Validators.required],
-      packing_cost: [{ value: '', disabled: false }, Validators.required],
-      unt_price: [{ value: '', disabled: false }, Validators.required],
-      insurance_cost: [{ value: '', disabled: false }, Validators.required],
-      freight_cost: [{ value: '', disabled: false }, Validators.required],
-      net_price: [{ value: '', disabled: false }, Validators.required],
-      price_desc: [{ value: '', disabled: false }, Validators.required],
-    });
+
 
     combineLatest(
       this.odataLov
@@ -261,7 +268,7 @@ export class ContractDetailComponent implements OnInit {
       this.contract_made_ons = _.sortBy(_.filter(this.allLovs, x => x.lov_group.toUpperCase() == 'SYSTEM' && x.lov_type.toUpperCase() == 'CONTRACT MADE ON' && x.record_status), "lov_order");
       this.group_factories = _.sortBy(_.filter(this.allLovs, x => x.lov_group.toUpperCase() == 'SYSTEM' && x.lov_type.toUpperCase() == 'GROUP FACTORY' && x.record_status), "lov_order");
       this.partial_shipment_options = _.sortBy(_.filter(this.allLovs, x => x.lov_group.toUpperCase() == 'SYSTEM' && x.lov_type.toUpperCase() == 'PARTIAL SHIPMENT OPTION' && x.record_status), "lov_order");
-      
+
       let defaultSeller = _.find(this.allLovs, x => x.lov_group.toUpperCase() == 'SYSTEM' && x.lov_type.toUpperCase() == 'CONSTANT' && x.lov_code.toUpperCase() == 'DEFAULT SELLER' && x.record_status);
       //Party
       this.buyers = _.sortBy(_.filter(this.allPartys, x => x.party_type.toUpperCase() == 'BUYER' && x.record_status), "party_abbv");
@@ -312,6 +319,14 @@ export class ContractDetailComponent implements OnInit {
               gen_term_condition_id: this.contract.gen_term_condition_id,
               gen_term_condition_desc: (gen_term_condition ? gen_term_condition.tc_in_contract : ""),
             });
+
+            this.selectedCurrency = _.find(this.currencies, x => x.id == this.contract.currency_id);
+            //this.selectedUnit = _.filter(this.currencies,x=>x.id ==this.contract.currency_id);
+            this.selectedShipmentBy = this.contract.shipment_by;
+            this.selectedContractMadeOn = _.find(this.contract_made_ons, x => x.id == this.contract.contract_made_on_id);
+            this.selectedShipmentOption = this.contract.shipment_option;
+            this.selectedShipmentPeriodFrom = this.contract.shipment_period_from;
+            this.selectedShipmentPeriodTo = this.contract.shipment_period_to;
           }, (error) => {
             if (error.status == 401) {
               this.router.navigate(['/login'], { queryParams: { error: 'Session Expire!' } });
@@ -348,8 +363,16 @@ export class ContractDetailComponent implements OnInit {
         if (error.error.InnerException) {
           detail += '\n' + error.error.InnerException.ExceptionMessage;
         }
+        this._matSnackBar.open(detail, 'ERROR', {
+          verticalPosition: 'top',
+          duration: 2000
+        });
         //this.msgs = { severity: 'error', summary: 'Error', detail: detail };
       } else if (error.status == 0) {
+        this._matSnackBar.open('Cannot connect to server. Please contact administrator.', 'ERROR', {
+          verticalPosition: 'top',
+          duration: 2000
+        });
         //this.msgs = { severity: 'error', summary: 'Error', detail: 'Cannot connect to server. Please contact administrator.' };
       }
 
@@ -363,6 +386,99 @@ export class ContractDetailComponent implements OnInit {
 
   genCropYear(year: number) {
     return { value: year.toString(), text: year - 1 + '/' + year.toString().substr(2, 2) };
+  }
+
+  openContractItemDialog(id: string) {
+    let mode;
+    if (this.mode == 'View') {
+      mode = this.mode;
+    } else {
+      mode = id ? "Edit" : "Add"
+    }
+    this.contractItemDialogRef = this.dialog.open(ContractItemComponent, {
+      height: '80%',
+      width: '60%',
+      data: {
+        id: id,
+        mode: mode,
+        shipment_by: this.selectedShipmentBy,
+        contract_made_on: this.selectedContractMadeOn,
+        shipment_option: this.selectedShipmentOption,
+        shipment_period_from: this.selectedShipmentPeriodFrom,
+        shipment_period_to: this.selectedShipmentPeriodTo,
+        //unit: this.selectedUnit,
+        currency: this.selectedCurrency
+      }
+    });
+
+    this.contractItemDialogRef.afterClosed().pipe(
+    ).subscribe(ret => {
+      console.log(ret);
+      // this.files.push({ name, content: ''});
+    })
+  }
+
+  genBReq() {
+    let group_factory = _.find(this.group_factories, x => x.id == this.form.controls['group_factory_id'].value());
+    let promise = new Promise((resolve, reject) => {
+      this.masterService.getRunning('CONTRACT', group_factory.lov_code).subscribe(val => {
+        if (val) {
+          resolve(val);
+        } else {
+          reject();
+        }
+      })
+    });
+    return promise;
+  }
+
+  addContract() {
+    const data = this.form.getRawValue();
+    data.handle = FuseUtils.handleize(data.name);
+    this.genBReq().then(running => {
+      this.odata.Post(
+        data
+      ).Exec()
+        .subscribe(
+          resolve => {
+            this._matSnackBar.open('Product added', 'OK', {
+              verticalPosition: 'top',
+              duration: 2000
+            })
+          }, (error) => {
+            if (error.status == 401) {
+              this.router.navigate(['/login'], { queryParams: { error: 'Session Expire!' } });
+              console.log('Session Expire!');
+            } else if (error.status != 401 && error.status != 0) {
+              let detail = "";
+              detail = error.error.message;
+              if (error.error.InnerException) {
+                detail += '\n' + error.error.InnerException.ExceptionMessage;
+              }
+              this._matSnackBar.open(detail, 'ERROR', {
+                verticalPosition: 'top',
+                duration: 2000
+              });
+              //this.msgs = { severity: 'error', summary: 'Error', detail: detail };
+            } else if (error.status == 0) {
+              this._matSnackBar.open('Cannot connect to server. Please contact administrator.', 'ERROR', {
+                verticalPosition: 'top',
+                duration: 2000
+              });
+              //this.msgs = { severity: 'error', summary: 'Error', detail: 'Cannot connect to server. Please contact administrator.' };
+            }
+
+            console.log('ODataExecReturnType.PagedResult ERROR ' + JSON.stringify(error));
+          });
+    }).catch(error => {
+      this._matSnackBar.open('Cannot generate contract no.', 'ERROR', {
+        verticalPosition: 'top',
+        duration: 2000
+      });
+
+      // Change the location with new one
+      this.router.navigate(['/contract-list']);
+    });
   }
 
 }

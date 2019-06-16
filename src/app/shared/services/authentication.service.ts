@@ -3,7 +3,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from "rxjs/operators";
 import 'rxjs/add/operator/catch';
-import { ODataConfiguration, ODataExecReturnType, ODataPagedResult, ODataQuery, ODataService, ODataServiceFactory } from 'angular-odata-es5'
 
 import { Router, ActivatedRoute } from '@angular/router';
 import { user, post_auth, user_data, auth_role } from '../../shared/models'

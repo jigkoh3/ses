@@ -1,228 +1,256 @@
-<div id="contact-list" class="page-layout simple fullwidth" fxLayout="column">
+<div id="contracts" class="page-layout carded fullwidth inner-scroll">
 
-  <!-- CONTENT -->
-  <div class="content p-12">
-    <div class="mat-card p-12" fxLayout="column">
-      <!--(ngSubmit)="onSearch(formData)" -->
-      <div class="h4 mb-12">Contarct List</div>
-      <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
-        <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="25" class="pr-8">
-          <mat-label>Contrace No.</mat-label>
-          <input matInput placeholder="Contrace No." [(value)]="contract_no" value="">
-        </mat-form-field>
-        <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="25" class="pr-8">
-          <mat-label>Contract Date From</mat-label>
-          <input matInput [matDatepicker]="contract_date_from" placeholder="Choose Contract Date From">
-          <mat-datepicker-toggle matSuffix [for]="contract_date_from"></mat-datepicker-toggle>
-          <mat-datepicker #contract_date_from disabled="false"></mat-datepicker>
-        </mat-form-field>
-        <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="25" class="pr-8">
-          <mat-label>Contract Date To</mat-label>
-          <input matInput [matDatepicker]="contract_date_to" placeholder="Choose Contract Date To">
-          <mat-datepicker-toggle matSuffix [for]="contract_date_to"></mat-datepicker-toggle>
-          <mat-datepicker #contract_date_to disabled="false"></mat-datepicker>
-        </mat-form-field>
-        <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="25" class="pr-8">
-          <mat-label>Select Contract Status</mat-label>
-          <mat-select>
-            <mat-option [value]="">
-              --All--
-            </mat-option>
-            <mat-option *ngFor="let contactstatus of contactstatuses" [value]="contactstatus.value">
-              {{contactstatus.viewValue}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-      <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
-        <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="25" class="pr-8">
-          <mat-label>Buyer Contract No.</mat-label>
-          <input matInput placeholder="Buyer Contract No." [(value)]="buyer_contract_no">
-        </mat-form-field>
-        <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="25" class="pr-8">
-          <mat-label>Select Buyer</mat-label>
-          <mat-select [(value)]="selectedBuyer">
-            <mat-option [value]="">
-              --All--
-            </mat-option>
-            <mat-option *ngFor="let buyer of buyers" [value]="buyer.id">
-              {{buyer.party_name}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-        <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="25" class="pr-8">
-          <mat-label>Select Sugar Type</mat-label>
-          <mat-select [(value)]="selectedSugarType">
-            <mat-option [value]="">
-              --All--
-            </mat-option>
-            <mat-option *ngFor="let sugartype of sugartypes" [value]="sugartype.id">
-              {{sugartype.lov1}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-        <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="25" class="pr-8">
-          <mat-label>Select Group Factory</mat-label>
-          <mat-select [(value)]="selectedGroupFactory">
-            <mat-option [value]="">
-              --All--
-            </mat-option>
-            <mat-option *ngFor="let groupfactory of groupfactorys" [value]="groupfactory.id">
-              {{groupfactory.lov1}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-      <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
-        
-      </div>
+  <!-- TOP BACKGROUND -->
+  <div class="top-bg accent"></div>
+  <!-- / TOP BACKGROUND -->
 
-      <div fxLayout="row wrap" fxLayoutAlign="space-between center" fxFlex="1 0 auto">
-        <button type="button" mat-raised-button (click)="onAdd()" color="accent" class="submit-button" aria-label="ADD">
-          <mat-icon>add</mat-icon>
-          ADD
-        </button>
-        <button type="button" mat-raised-button color="accent" class="submit-button" aria-label="SEARCH">
-          <mat-icon>search</mat-icon>
-          SEARCH
-        </button>
+  <!-- CENTER -->
+  <div class="center">
+
+    <!-- HEADER -->
+    <div class="header accent" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-sm="row"
+      fxLayoutAlign.gt-sm="space-between center">
+
+      <!-- APP TITLE -->
+      <div class="logo mb-24 mb-md-0" fxLayout="row" fxLayoutAlign="start center">
+        <span class="logo-text h1" [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+          Contract
+        </span>
       </div>
+      <!-- / APP TITLE -->
+
+      <!-- SEARCH -->
+      <!-- <div class="search-wrapper mx-32 mx-md-0">
+                <div class="search" fxFlex fxLayout="row" fxLayoutAlign="start center">
+                    <mat-icon>search</mat-icon>
+                    <input #filter placeholder="Search for a contract">
+                </div>
+            </div> -->
+      <!-- / SEARCH -->
+
+      <!-- ADD BUTTON -->
+      <button mat-raised-button (click)="onAdd()" class="add-contract-button fuse-white mt-24 mt-md-0">
+        <mat-icon>add</mat-icon>
+        <span>ADD NEW CONTRACT</span>
+      </button>
+      <!-- / ADD BUTTON -->
+
     </div>
-    <!-- <div class="mat-card p-12" *ngIf="dataSource.length > 0" style="overflow: auto;" fxLayout="column"> -->
-      
-    <mat-table #table *ngIf="dataSource.length > 0" [dataSource]="dataSource" multiTemplateDataRows matSort
-      [@animateStagger]="{value:'50'}" fusePerfectScrollbar>
-      <!-- ID Column -->
-      <ng-container matColumnDef="id">
-        <mat-header-cell *matHeaderCellDef></mat-header-cell>
-        <mat-cell *matCellDef="let element" onclick="">
-          <span style="cursor: pointer" (click)="toggleRow(element)"
-            *ngIf="expandedElement && expandedElement[cols] === element[cols]; else plusIcon"
-            class="expand-icon">&#9660;</span>
-          <ng-template #plusIcon><span style="cursor: pointer" (click)="toggleRow(element)"
-              class="expand-icon">&#9658;</span></ng-template>
-        </mat-cell>
-      </ng-container>
-      <ng-container matColumnDef="contract_no">
-        <mat-header-cell *matHeaderCellDef>Contract No.</mat-header-cell>
-        <mat-cell *matCellDef="let element">{{element.contract_no}}</mat-cell>
-      </ng-container>
-      <ng-container matColumnDef="contract_date">
-        <mat-header-cell *matHeaderCellDef>Contract Date</mat-header-cell>
-        <mat-cell *matCellDef="let element">{{element.contract_date | date : 'dd MMM yyyy'}}</mat-cell>
-      </ng-container>
-      <ng-container matColumnDef="buyer_contract_no">
-        <mat-header-cell *matHeaderCellDef>Buyer Contract</mat-header-cell>
-        <mat-cell *matCellDef="let element">{{element.buyer_contract_no}}</mat-cell>
-      </ng-container>
-      <ng-container matColumnDef="buyer.party_name">
-        <mat-header-cell *matHeaderCellDef>Buyer</mat-header-cell>
-        <mat-cell *matCellDef="let element">{{element.buyer.party_name}}</mat-cell>
-      </ng-container>
-      <ng-container matColumnDef="sugar_type.lov1">
-        <mat-header-cell *matHeaderCellDef>Suger Type</mat-header-cell>
-        <mat-cell *matCellDef="let element">{{element.sugar_type.lov1}}</mat-cell>
-      </ng-container>
-      <ng-container matColumnDef="contract_made_on.lov1">
-        <mat-header-cell *matHeaderCellDef>Made by</mat-header-cell>
-        <mat-cell *matCellDef="let element">{{element.contract_made_on.lov1}}</mat-cell>
-      </ng-container>
-      <ng-container matColumnDef="crop_year">
-        <mat-header-cell *matHeaderCellDef>Crop Year</mat-header-cell>
-        <mat-cell *matCellDef="let element">{{element.crop_year}}</mat-cell>
-      </ng-container>
-      <ng-container matColumnDef="group_factory.lov1">
-        <mat-header-cell *matHeaderCellDef>Group Factory</mat-header-cell>
-        <mat-cell *matCellDef="let element">{{element.group_factory.lov1}}</mat-cell>
-      </ng-container>
-      <ng-container matColumnDef="shipment_term.shipterm_name">
-        <mat-header-cell *matHeaderCellDef>Shipment Term</mat-header-cell>
-        <mat-cell *matCellDef="let element">{{element.shipment_term.shipterm_name}}</mat-cell>
-      </ng-container>
-      <ng-container matColumnDef="ship_period_from">
-        <mat-header-cell *matHeaderCellDef>Shipment Period From</mat-header-cell>
-        <mat-cell *matCellDef="let element">{{element.shipment_period_from | date: 'dd MMMM yyyy'}}</mat-cell>
-      </ng-container>
-      <ng-container matColumnDef="ship_period_to">
-        <mat-header-cell *matHeaderCellDef>Shipment Period From</mat-header-cell>
-        <mat-cell *matCellDef="let element">{{element.shipment_period_to | date: 'dd MMMM yyyy'}}</mat-cell>
-      </ng-container>
-      <ng-container matColumnDef="total_qty">
-        <mat-header-cell *matHeaderCellDef>Quantity(MT)</mat-header-cell>
-        <mat-cell *matCellDef="let element">{{element.total_qty | number: '0.2-2'}}</mat-cell>
-      </ng-container>
-      <ng-container matColumnDef="payment_term.pmt_abbv">
-        <mat-header-cell *matHeaderCellDef>Contract No.</mat-header-cell>
-        <mat-cell *matCellDef="let element">{{element.payment_term.pmt_abbv}}</mat-cell>
-      </ng-container>
-      <ng-container matColumnDef="total_shipment">
-        <mat-header-cell *matHeaderCellDef>Shipment</mat-header-cell>
-        <mat-cell *matCellDef="let element">{{element.total_shipment | number: '0.2-2'}}</mat-cell>
-      </ng-container>
-      <ng-container matColumnDef="currency.name_en">
-        <mat-header-cell *matHeaderCellDef>Currency</mat-header-cell>
-        <mat-cell *matCellDef="let element">{{element.currency.name_en}}</mat-cell>
-      </ng-container>
-      <ng-container matColumnDef="contract_status">
-        <mat-header-cell *matHeaderCellDef>Contract Status</mat-header-cell>
-        <mat-cell *matCellDef="let element">{{element.contract_status}}</mat-cell>
-      </ng-container>
+    <!-- / HEADER -->
 
-      <!-- Expanded Content Column - The detail row is made up of this one column -->
-      <!-- <ng-container matColumnDef="expandedDetail">
-        <mat-cell *matCellDef="let detail">
-          <mat-table #table2 style="width: 100%" [dataSource]="detail.contract_items" multiTemplateDataRows matSort
-            aria-label="Elements">
-            <ng-container matColumnDef="addendum_no">
-              <mat-header-cell *matHeaderCellDef>Addendum No.</mat-header-cell>
-              <mat-cell *matCellDef="let element">{{element.addendum_no}}</mat-cell>
-            </ng-container>
-            <ng-container matColumnDef="addendum_date">
-              <mat-header-cell *matHeaderCellDef>Addendum Date</mat-header-cell>
-              <mat-cell *matCellDef="let element">{{element.addendum_date}}</mat-cell>
-            </ng-container>
-            <ng-container matColumnDef="addendum_type">
-              <mat-header-cell *matHeaderCellDef>Addendum Type</mat-header-cell>
-              <mat-cell *matCellDef="let element">{{element.addendum_type}}</mat-cell>
-            </ng-container>
-            <ng-container matColumnDef="sugar_type.lov1">
-              <mat-header-cell *matHeaderCellDef>Sugar Type</mat-header-cell>
-              <mat-cell *matCellDef="let element">{{element.sugar_type.lov1}}</mat-cell>
-            </ng-container>
-            <ng-container matColumnDef="buyer_contract_no">
-              <mat-header-cell *matHeaderCellDef>Buyer Contract</mat-header-cell>
-              <mat-cell *matCellDef="let element">{{element.buyer_contract_no}}</mat-cell>
-            </ng-container>
-            <ng-container matColumnDef="buyer.party_name">
-              <mat-header-cell *matHeaderCellDef>Buyer</mat-header-cell>
-              <mat-cell *matCellDef="let element">{{element.buyer.party_name}}</mat-cell>
-            </ng-container>
-            <ng-container matColumnDef="total_qty">
-              <mat-header-cell *matHeaderCellDef>Quantity(MT)</mat-header-cell>
-              <mat-cell *matCellDef="let element">{{element.total_qty}}</mat-cell>
-            </ng-container>
-            <mat-header-row *matHeaderRowDef="displayedDetailColumns"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: displayedDetailColumns;"></mat-row>
-          </mat-table>
-        </mat-cell>
-      </ng-container> -->
+    <!-- CONTENT CARD -->
+    <div class="content-card">
+      <div class="p-12" fxLayout="column">
+        <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
+          <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="25" class="pr-8">
+            <mat-label>Contrace No.</mat-label>
+            <input matInput placeholder="Contrace No." [(value)]="contract_no" value="">
+          </mat-form-field>
+          <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="25" class="pr-8">
+            <mat-label>Contract Date From</mat-label>
+            <input matInput [matDatepicker]="contract_date_from" placeholder="Choose Contract Date From">
+            <mat-datepicker-toggle matSuffix [for]="contract_date_from"></mat-datepicker-toggle>
+            <mat-datepicker #contract_date_from disabled="false"></mat-datepicker>
+          </mat-form-field>
+          <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="25" class="pr-8">
+            <mat-label>Contract Date To</mat-label>
+            <input matInput [matDatepicker]="contract_date_to" placeholder="Choose Contract Date To">
+            <mat-datepicker-toggle matSuffix [for]="contract_date_to"></mat-datepicker-toggle>
+            <mat-datepicker #contract_date_to disabled="false"></mat-datepicker>
+          </mat-form-field>
+          <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="25" class="pr-8">
+            <mat-label>Select Contract Status</mat-label>
+            <mat-select>
+              <mat-option [value]="">
+                --All--
+              </mat-option>
+              <mat-option *ngFor="let contactstatus of contactstatuses" [value]="contactstatus.value">
+                {{contactstatus.viewValue}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
+          <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="25" class="pr-8">
+            <mat-label>Buyer Contract No.</mat-label>
+            <input matInput placeholder="Buyer Contract No." [(value)]="buyer_contract_no">
+          </mat-form-field>
+          <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="25" class="pr-8">
+            <mat-label>Select Buyer</mat-label>
+            <mat-select [(value)]="selectedBuyer">
+              <mat-option [value]="">
+                --All--
+              </mat-option>
+              <mat-option *ngFor="let buyer of buyers" [value]="buyer.id">
+                {{buyer.party_name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="25" class="pr-8">
+            <mat-label>Select Sugar Type</mat-label>
+            <mat-select [(value)]="selectedSugarType">
+              <mat-option [value]="">
+                --All--
+              </mat-option>
+              <mat-option *ngFor="let sugartype of sugartypes" [value]="sugartype.id">
+                {{sugartype.lov1}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="25" class="pr-8">
+            <mat-label>Select Group Factory</mat-label>
+            <mat-select [(value)]="selectedGroupFactory">
+              <mat-option [value]="">
+                --All--
+              </mat-option>
+              <mat-option *ngFor="let groupfactory of groupfactorys" [value]="groupfactory.id">
+                {{groupfactory.lov1}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div fxLayout="row wrap" fxLayoutAlign="end center" fxFlex="1 0 auto">
+            <button type="button" mat-raised-button color="accent" class="submit-button" aria-label="SEARCH">
+              <mat-icon>search</mat-icon>
+              <span>SEARCH CONTRACT</span>
+            </button>
+          </div>
+      </div>
+      <mat-table #table class="contracts-table" *ngIf="dataSource.length > 0" [dataSource]="dataSource"
+        multiTemplateDataRows matSort (matSortChange)="sortData($event)" [@animateStagger]="{value:'50'}" fusePerfectScrollbar>
+        <!-- ID Column -->
+        <ng-container matColumnDef="id">
+          <mat-header-cell mat-sort-header *matHeaderCellDef></mat-header-cell>
+          <mat-cell *matCellDef="let element" onclick="">
+            <span style="cursor: pointer" (click)="toggleRow(element)"
+              *ngIf="expandedElement && expandedElement[cols] === element[cols]; else plusIcon"
+              class="expand-icon">&#9660;</span>
+            <ng-template #plusIcon><span style="cursor: pointer" (click)="toggleRow(element)"
+                class="expand-icon">&#9658;</span></ng-template>
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="contract_no">
+          <mat-header-cell mat-sort-header *matHeaderCellDef>Contract No.</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{element.contract_no}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="contract_date">
+          <mat-header-cell mat-sort-header *matHeaderCellDef>Contract Date</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{element.contract_date | date : 'dd MMM yyyy'}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="buyer_contract_no">
+          <mat-header-cell mat-sort-header *matHeaderCellDef>Buyer Contract</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{element.buyer_contract_no}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="buyer.party_name">
+          <mat-header-cell mat-sort-header *matHeaderCellDef>Buyer</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{element.buyer.party_name}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="sugar_type.lov1">
+          <mat-header-cell mat-sort-header *matHeaderCellDef>Suger Type</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{element.sugar_type.lov1}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="contract_made_on.lov1">
+          <mat-header-cell mat-sort-header *matHeaderCellDef>Made by</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{element.contract_made_on.lov1}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="crop_year">
+          <mat-header-cell mat-sort-header *matHeaderCellDef>Crop Year</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{element.crop_year}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="group_factory.lov1">
+          <mat-header-cell mat-sort-header *matHeaderCellDef>Group Factory</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{element.group_factory.lov1}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="shipment_term.shipterm_name">
+          <mat-header-cell mat-sort-header *matHeaderCellDef>Shipment Term</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{element.shipment_term.shipterm_name}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="ship_period_from">
+          <mat-header-cell mat-sort-header *matHeaderCellDef>Shipment Period From</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{element.shipment_period_from | date: 'dd MMMM yyyy'}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="ship_period_to">
+          <mat-header-cell mat-sort-header *matHeaderCellDef>Shipment Period From</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{element.shipment_period_to | date: 'dd MMMM yyyy'}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="total_qty">
+          <mat-header-cell mat-sort-header *matHeaderCellDef>Quantity(MT)</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{element.total_qty | number: '0.2-2'}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="payment_term.pmt_abbv">
+          <mat-header-cell mat-sort-header *matHeaderCellDef>Payment Term</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{element.payment_term.pmt_abbv}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="total_shipment">
+          <mat-header-cell mat-sort-header *matHeaderCellDef>Shipment</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{element.total_shipment | number: '0.2-2'}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="currency.name_en">
+          <mat-header-cell mat-sort-header *matHeaderCellDef>Currency</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{element.currency.name_en}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="contract_status">
+          <mat-header-cell mat-sort-header *matHeaderCellDef>Status</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{element.contract_status}}</mat-cell>
+        </ng-container>
 
-      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: displayedColumns;" [class.expanded]="expandedElement == row"></mat-row>
-      <!-- <mat-row *matRowDef="let row; columns: ['expandedDetail']; "
-        [@detailExpand]="row == expandedElement ? 'expanded' : 'collapsed'" style="overflow: hidden"></mat-row> -->
-    </mat-table>
+        <!-- Expanded Content Column - The detail row is made up of this one column -->
+        <!-- <ng-container matColumnDef="expandedDetail">
+                <mat-cell *matCellDef="let detail">
+                  <mat-table #table2 style="width: 100%" [dataSource]="detail.contract_items" multiTemplateDataRows matSort
+                    aria-label="Elements">
+                    <ng-container matColumnDef="addendum_no">
+                      <mat-header-cell mat-sort-header *matHeaderCellDef>Addendum No.</mat-header-cell>
+                      <mat-cell *matCellDef="let element">{{element.addendum_no}}</mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="addendum_date">
+                      <mat-header-cell mat-sort-header *matHeaderCellDef>Addendum Date</mat-header-cell>
+                      <mat-cell *matCellDef="let element">{{element.addendum_date}}</mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="addendum_type">
+                      <mat-header-cell mat-sort-header *matHeaderCellDef>Addendum Type</mat-header-cell>
+                      <mat-cell *matCellDef="let element">{{element.addendum_type}}</mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="sugar_type.lov1">
+                      <mat-header-cell mat-sort-header *matHeaderCellDef>Sugar Type</mat-header-cell>
+                      <mat-cell *matCellDef="let element">{{element.sugar_type.lov1}}</mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="buyer_contract_no">
+                      <mat-header-cell mat-sort-header *matHeaderCellDef>Buyer Contract</mat-header-cell>
+                      <mat-cell *matCellDef="let element">{{element.buyer_contract_no}}</mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="buyer.party_name">
+                      <mat-header-cell mat-sort-header *matHeaderCellDef>Buyer</mat-header-cell>
+                      <mat-cell *matCellDef="let element">{{element.buyer.party_name}}</mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="total_qty">
+                      <mat-header-cell mat-sort-header *matHeaderCellDef>Quantity(MT)</mat-header-cell>
+                      <mat-cell *matCellDef="let element">{{element.total_qty}}</mat-cell>
+                    </ng-container>
+                    <mat-header-row *matHeaderRowDef="displayedDetailColumns"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: displayedDetailColumns;"></mat-row>
+                  </mat-table>
+                </mat-cell>
+              </ng-container> -->
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;" [class.expanded]="expandedElement == row"></mat-row>
+        <!-- <mat-row *matRowDef="let row; columns: ['expandedDetail']; "
+                [@detailExpand]="row == expandedElement ? 'expanded' : 'collapsed'" style="overflow: hidden"></mat-row> -->
+      </mat-table>
 
 
 
-    <!-- </div> -->
-    <!-- <div class="mat-card p-12" fxLayout="column"> -->
-    <mat-paginator *ngIf="dataSource?.length > 0" #paginator [length]="totalRecords" [pageSize]="5"
-      [pageSizeOptions]="[5, 10, 15, 20]" (page)="pageEvent = $event">
-    </mat-paginator>
+      <!-- </div> -->
+      <!-- <div class="mat-card p-12" fxLayout="column"> -->
+      <mat-paginator *ngIf="dataSource?.length > 0" #paginator [length]="totalRecords" [pageSize]="5"
+        [pageSizeOptions]="[5, 10, 15, 20]" (page)="pageEvent = PageData($event)">
+      </mat-paginator>
 
-    <p *ngIf="dataSource?.length === 0">No records found</p>
-    <!-- </div> -->
+      <p *ngIf="dataSource?.length === 0">No records found</p>
+
+    </div>
+    <!-- / CONTENT CARD -->
   </div>
-  <!-- / CONTENT -->
+  <!-- / CENTER -->
 </div>

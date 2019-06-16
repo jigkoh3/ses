@@ -4,10 +4,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { ContractListComponent } from './contract-list/contract-list.component';
 import { ContractDetailComponent } from './contract-detail/contract-detail.component';
+import { ContractItemComponent } from './contract-detail/contract-item.component';
 import { RouterModule } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { FuseSidebarModule } from '@fuse/components';
-import { MatFormFieldModule, MatSelectModule, MatGridListModule, MatInputModule, MatTableModule, MatPaginatorModule, MatSortModule, MatButtonModule, MatCardModule, MatExpansionModule, MatMenuModule, MatCheckboxModule, MatRadioModule, MatDatepickerModule } from '@angular/material';
+import { MatFormFieldModule, MatSelectModule, MatGridListModule, MatInputModule, MatTableModule, MatPaginatorModule, MatSortModule, MatButtonModule, MatCardModule, MatExpansionModule, MatMenuModule, MatCheckboxModule, MatRadioModule, MatDatepickerModule, MatDialogModule, MatTabsModule } from '@angular/material';
 import { TranslateModule } from '@ngx-translate/core';
 import { FuseSharedModule } from '@fuse/shared.module';
 import { NgxDataTableModule } from 'ngx-nested-data-table';
@@ -25,7 +26,10 @@ const routes = [
 ];
 
 @NgModule({
-  declarations: [ContractListComponent, ContractDetailComponent],
+  declarations: [
+    ContractListComponent,
+    ContractDetailComponent,
+    ContractItemComponent],
   imports: [
     RouterModule.forChild(routes),
     CommonModule,
@@ -52,11 +56,15 @@ const routes = [
     MatCheckboxModule,
     MatDatepickerModule,
     MatRadioModule,
+    MatDialogModule,
+    MatTabsModule,
     NgxMaskModule.forRoot()
   ],
   exports: [
     ContractListComponent,
-    ContractDetailComponent
-  ]
+    ContractDetailComponent,
+    ContractItemComponent
+  ],
+  entryComponents: [ContractItemComponent]
 })
 export class ContractModule { }

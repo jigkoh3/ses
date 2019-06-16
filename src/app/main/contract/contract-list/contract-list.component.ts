@@ -31,7 +31,8 @@ import {
       'expanded <=> collapsed',
       animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')
     ),
-  ])],
+  ]),fuseAnimations],
+  encapsulation: ViewEncapsulation.None,
   providers: [{ provide: ODataConfiguration, useFactory: ODataConfigurationFactory }, ODataServiceFactory],
 })
 export class ContractListComponent implements OnInit {
@@ -48,7 +49,12 @@ export class ContractListComponent implements OnInit {
 
   public totalRecords: number;
 
-  public filter: filter;
+  public filter: filter = {
+    first: 1,
+    rows: 5,
+    sortField: 'contract_no',
+    sortOrder: 1,
+  };
 
   public query: ODataQuery<any>;
 
@@ -104,215 +110,9 @@ export class ContractListComponent implements OnInit {
     'total_qty'
   ];
   dataSource: any = [
-    // {
-    //   buyer: 'ED & F Man',
-    //   groupfactory: 'TR-กลุ่มไทยรุ่งเรือง',
-    //   contactno: '06818/TR',
-    //   buyercontacno: 'P29599',
-    //   contactdata: '20/02/2017',
-    //   typeofsugar: 'Hi-Raw',
-    //   quanitity: 24000,
-    //   shipmentperiod: '20/02/2017 - 20/05/2017',
-    //   // totalprice:'',
-    //   priced: '',
-    //   unpriced: '',
-    //   finalpriceusdmt: '',
-    //   finalpriceclb: '',
-    //   lastpriceingdata: '31/10/2017',
-    //   againstmonth: '',
-    //   manage: '',
-    // },
-    // {
-    //   buyer: 'Bunge',
-    //   groupfactory: 'TR-กลุ่มไทยรุ่งเรือง',
-    //   contactno: '06918/TR',
-    //   buyercontacno: 'P58550',
-    //   contactdata: '15/03/2017',
-    //   typeofsugar: 'Hi-Raw',
-    //   quanitity: 24000,
-    //   shipmentperiod: '01/04/2018 - 30/04/2018',
-    //   // totalprice:'',
-    //   priced: '',
-    //   unpriced: '',
-    //   finalpriceusdmt: '',
-    //   finalpriceclb: '',
-    //   lastpriceingdata: '31/05/2017',
-    //   againstmonth: '',
-    //   manage: '',
-    // },
-    // {
-    //   buyer: 'Itochu',
-    //   groupfactory: 'TR-กลุ่มไทยรุ่งเรือง',
-    //   contactno: '07018/TR',
-    //   buyercontacno: 'TRT81A',
-    //   contactdata: '07/02/2017',
-    //   typeofsugar: 'Hi-Raw',
-    //   quanitity: 0,
-    //   shipmentperiod: '',
-    //   // totalprice:'',
-    //   priced: '',
-    //   unpriced: '',
-    //   finalpriceusdmt: '',
-    //   finalpriceclb: '',
-    //   lastpriceingdata: '05/02/2018',
-    //   againstmonth: '',
-    //   manage: '',
-    // },
-    // {
-    //   buyer: 'Bunge',
-    //   groupfactory: 'TR-กลุ่มไทยรุ่งเรือง',
-    //   contactno: '07218/TR',
-    //   buyercontacno: 'P6000',
-    //   contactdata: '01/09/2017',
-    //   typeofsugar: 'REFINED SUGAR',
-    //   quanitity: 0,
-    //   shipmentperiod: '',
-    //   // totalprice:'',
-    //   priced: '',
-    //   unpriced: '',
-    //   finalpriceusdmt: '',
-    //   finalpriceclb: '',
-    //   lastpriceingdata: '26/01/2018',
-    //   againstmonth: '',
-    //   manage: '',
-    // },
-    // {
-    //   buyer: 'Bunge',
-    //   groupfactory: 'TR-กลุ่มไทยรุ่งเรือง',
-    //   contactno: '07218/TR',
-    //   buyercontacno: 'P6000',
-    //   contactdata: '01/09/2017',
-    //   typeofsugar: 'REFINED SUGAR',
-    //   quanitity: 0,
-    //   shipmentperiod: '',
-    //   // totalprice:'',
-    //   priced: '',
-    //   unpriced: '',
-    //   finalpriceusdmt: '',
-    //   finalpriceclb: '',
-    //   lastpriceingdata: '26/01/2018',
-    //   againstmonth: '',
-    //   manage: '',
-    // },
-    // {
-    //   buyer: 'Bunge',
-    //   groupfactory: 'TR-กลุ่มไทยรุ่งเรือง',
-    //   contactno: '07218/TR',
-    //   buyercontacno: 'P6000',
-    //   contactdata: '01/09/2017',
-    //   typeofsugar: 'REFINED SUGAR',
-    //   quanitity: 24000,
-    //   shipmentperiod: '',
-    //   // totalprice:'',
-    //   priced: '',
-    //   unpriced: '',
-    //   finalpriceusdmt: '',
-    //   finalpriceclb: '',
-    //   lastpriceingdata: '26/01/2018',
-    //   againstmonth: '',
-    //   manage: '',
-    // }
+   
   ];
-  // colSpTopic: any;
-  // colSpSelect: any;
-  // colSpBtn: any;
-  // data: any[] = [
-  //   {
-  //     contract: '00116/TRR',
-  //     contractDate: '20/02/2017',
-  //     buyerContract: 'HKP2403',
-  //     buyer: 'ED & F Man',
-  //     sugarType: 'REFINED SUGAR',
-  //     madeon: 'ตปท.',
-  //     cropYear: '2017',
-  //     groupFactory: 'TR-กลุ่มไทยรุ่งเรือง',
-  //     shipmentTerm: 'FOB',
-  //     shipmentPeriod: '20/02/2018 - 20/05/2018',
-  //     quantity: '12000',
-  //     shipment: '',
-  //     paymentTerm: 'T/T',
-  //     currency: 'THB',
-  //     contractStatus: 'Draft',
-  //     details: [
-  //       {
-  //         addendum: '1',
-  //         addendumDate: '20/02/2017',
-  //         addendumType: 'Final Price',
-  //         addendumStatus: 'Draft',
-  //         sugarType: 'REFINED SUGAR',
-  //         buyerContract: 'HKP2403',
-  //         buyer: 'ED & F Man',
-  //         quantity: 12000
-
-  //       }, {
-  //         addendum: '1',
-  //         addendumDate: '20/02/2017',
-  //         addendumType: 'Final Price',
-  //         addendumStatus: 'Draft',
-  //         sugarType: 'REFINED SUGAR',
-  //         buyerContract: 'HKP2403',
-  //         buyer: 'ED & F Man',
-  //         quantity: 12000
-  //       }, {
-  //         addendum: '1',
-  //         addendumDate: '20/02/2017',
-  //         addendumType: 'Final Price',
-  //         addendumStatus: 'Draft',
-  //         sugarType: 'REFINED SUGAR',
-  //         buyerContract: 'HKP2403',
-  //         buyer: 'ED & F Man',
-  //         quantity: 12000
-  //       },
-  //     ]
-  //   }, {
-  //     contract: '00116/TRR',
-  //     contractDate: '20/02/2017',
-  //     buyerContract: 'HKP2403',
-  //     buyer: 'ED & F Man',
-  //     sugarType: 'REFINED SUGAR',
-  //     madeon: 'ตปท.',
-  //     cropYear: '2017',
-  //     groupFactory: 'TR-กลุ่มไทยรุ่งเรือง',
-  //     shipmentTerm: 'FOB',
-  //     shipmentPeriod: '20/02/2018 - 20/05/2018',
-  //     quantity: '12000',
-  //     shipment: '',
-  //     paymentTerm: 'T/T',
-  //     currency: 'THB',
-  //     contractStatus: 'Draft',
-  //     details: [
-  //       {
-  //         addendum: '1',
-  //         addendumDate: '20/02/2017',
-  //         addendumType: 'Final Price',
-  //         addendumStatus: 'Draft',
-  //         sugarType: 'REFINED SUGAR',
-  //         buyerContract: 'HKP2403',
-  //         buyer: 'ED & F Man',
-  //         quantity: 12000
-
-  //       }, {
-  //         addendum: '1',
-  //         addendumDate: '20/02/2017',
-  //         addendumType: 'Final Price',
-  //         addendumStatus: 'Draft',
-  //         sugarType: 'REFINED SUGAR',
-  //         buyerContract: 'HKP2403',
-  //         buyer: 'ED & F Man',
-  //         quantity: 12000
-  //       }, {
-  //         addendum: '1',
-  //         addendumDate: '20/02/2017',
-  //         addendumType: 'Final Price',
-  //         addendumStatus: 'Draft',
-  //         sugarType: 'REFINED SUGAR',
-  //         buyerContract: 'HKP2403',
-  //         buyer: 'ED & F Man',
-  //         quantity: 12000
-  //       },
-  //     ]
-  //   }
-  // ];
+  
   constructor(
     public route: Router,
     private odataFactory: ODataServiceFactory
@@ -513,15 +313,19 @@ export class ContractListComponent implements OnInit {
   //   this.screenwidth = event.target.innerWidth
   // }
   onAdd() {
-    this.route.navigate(['/contract-detail'])
+    this.route.navigate(['/contract-detail'], { queryParams: { mode: 'Add' } })
   }
 
-  onDetail() {
-    this.route.navigate(['/contract-detail'])
+  onView(id) {
+    this.route.navigate(['/contract-detail/'+ id], { queryParams: { mode: 'View' } })
+  }
+
+  onEdit(id) {
+    this.route.navigate(['/contract-detail/'+ id], { queryParams: { mode: 'Edit' } })
   }
 
   onDelete() {
-    confirm("คุณต้องการลบหรือไม่");
+    confirm("Do you want to delete?");
   }
 
   toggleRow(row) {
