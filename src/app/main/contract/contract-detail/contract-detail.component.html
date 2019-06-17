@@ -291,7 +291,7 @@
           <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
             <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="100" class="pr-4">
               <mat-label>General Term and Condition</mat-label>
-              <textarea matInput formControlName="gen_term_condition_desc">
+              <textarea matInput [value]="gen_term_condition_desc">
             </textarea>
             </mat-form-field>
           </div>

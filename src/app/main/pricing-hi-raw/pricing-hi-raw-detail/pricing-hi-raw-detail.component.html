@@ -1,279 +1,313 @@
-<div id="pricing-hi-raw-detail" class="page-layout simple fullwidth" fxLayout="column" fusePerfectScrollbar>
+<div id="contract" class="page-layout carded fullwidth inner-scroll">
+  <!-- TOP BACKGROUND -->
+  <div class="top-bg accent"></div>
+  <!-- / TOP BACKGROUND -->
 
-  <!-- CONTENT -->
-  <div class="content p-24">
+  <div class="center">
+    <!-- HEADER -->
+    <div class="header accent" fxLayout="row" fxLayoutAlign="space-between center">
 
-    <form class="mat-card p-24" fxLayout="column" name="form" [formGroup]="form" #formData='ngForm'
-      (ngSubmit)="onSearch(formData)">
+      <!-- APP TITLE -->
+      <div fxLayout="row" fxLayoutAlign="start center">
 
-      <div class="h2 mb-24">Add/Edit/View - Pricing Hi-Raw</div>
-      <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
-
-        <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pl-4">
-          <mat-label>Type of Sugar</mat-label>
-          <input matInput formControlName="buyer">
-        </mat-form-field>
-
-        <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pl-4">
-          <mat-label>Future Market</mat-label>
-          <input matInput formControlName="buyer">
-        </mat-form-field>
-
+        <button mat-icon-button class="mr-0 mr-sm-16" [routerLink]="'/contract-list'">
+          <mat-icon>arrow_back</mat-icon>
+        </button>
+        <span class="logo-text h1" [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+          PRICING RAW
+        </span>
+        
       </div>
-      <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
+      <!-- / APP TITLE -->
 
-        <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pl-4">
-          <mat-label>Buyer</mat-label>
-          <mat-select formControlName="buyer">
-            <mat-option [value]="">
-              --All--
-            </mat-option>
-            <mat-option *ngFor="let buyer of buyers" [value]="buyer.id">
-              {{buyer.party_name}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
+      <button mat-raised-button class="save-contract-button" [disabled]="form.invalid" *ngIf="mode ==='Add'"
+        (click)="addContract()">
+        <mat-icon>add</mat-icon>
+        <span>ADD PRICING RAW</span>
+      </button>
 
-        <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pl-4">
-          <mat-label>Qty(MT)</mat-label>
-          <input matInput formControlName="buyercontractno">
-        </mat-form-field>
+      <button mat-raised-button class="save-contract-button" [disabled]="form.invalid || form.pristine"
+        *ngIf="mode ==='Edit'" (click)="saveProduct()">
+        <mat-icon>save</mat-icon>
+        <span>SAVE PRICING RAW</span>
+      </button>
+    </div>
+    <!-- / HEADER -->
+    <div class="content-card">
 
-      </div>
-      <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
+      <!-- CONTENT -->
+      <div class="content">
+        <form class="mat-card p-24" fxLayout="column" name="form" [formGroup]="form" #formData='ngForm'
+          (ngSubmit)="onSearch(formData)">
+
+          <div class="h2 mb-24"></div>
+          <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
+
+            <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pl-4">
+              <mat-label>Type of Sugar</mat-label>
+              <input matInput formControlName="buyer">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pl-4">
+              <mat-label>Future Market</mat-label>
+              <input matInput formControlName="buyer">
+            </mat-form-field>
+
+          </div>
+          <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
+
+            <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pl-4">
+              <mat-label>Buyer</mat-label>
+              <mat-select formControlName="buyer">
+                <mat-option [value]="">
+                  --All--
+                </mat-option>
+                <mat-option *ngFor="let buyer of buyers" [value]="buyer.id">
+                  {{buyer.party_name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pl-4">
+              <mat-label>Qty(MT)</mat-label>
+              <input matInput formControlName="buyercontractno">
+            </mat-form-field>
+
+          </div>
+          <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
 
 
 
-        <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pl-4">
-          <mat-label>Group Factory</mat-label>
-          <mat-select formControlName="groupfactory">
-            <mat-option [value]="">
-              --All--
-            </mat-option>
-            <mat-option *ngFor="let groupfactory of groupfactorys" [value]="groupfactory.id">
-              {{groupfactory.lov1}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
+            <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pl-4">
+              <mat-label>Group Factory</mat-label>
+              <mat-select formControlName="groupfactory">
+                <mat-option [value]="">
+                  --All--
+                </mat-option>
+                <mat-option *ngFor="let groupfactory of groupfactorys" [value]="groupfactory.id">
+                  {{groupfactory.lov1}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
 
-        <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="25" class="pl-4">
-          <mat-label>Qty(MT)</mat-label>
-          <input matInput [matDatepicker]="pickerStart" placeholder="Choose a date">
-          <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
-          <mat-datepicker #pickerStart></mat-datepicker>
-        </mat-form-field>
-        <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="25" class="pl-4">
-          <mat-label>Qty(MT)</mat-label>
-          <input matInput [matDatepicker]="pickerEnd" placeholder="Choose a date">
-          <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
-          <mat-datepicker #pickerEnd></mat-datepicker>
-        </mat-form-field>
+            <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="25" class="pl-4">
+              <mat-label>Qty(MT)</mat-label>
+              <input matInput [matDatepicker]="pickerStart" placeholder="Choose a date">
+              <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
+              <mat-datepicker #pickerStart></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="25" class="pl-4">
+              <mat-label>Qty(MT)</mat-label>
+              <input matInput [matDatepicker]="pickerEnd" placeholder="Choose a date">
+              <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
+              <mat-datepicker #pickerEnd></mat-datepicker>
+            </mat-form-field>
 
-      </div>
+          </div>
 
-      <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
+          <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
 
-        <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pr-4">
-          <mat-label>Buyer Contrace No.</mat-label>
-          <input matInput formControlName="buyercontractno">
+            <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pr-4">
+              <mat-label>Buyer Contrace No.</mat-label>
+              <input matInput formControlName="buyercontractno">
 
-        </mat-form-field>
+            </mat-form-field>
 
-        <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pl-4">
-          <mat-label>Contract No.</mat-label>
-          <input matInput formControlName="contarctno">
+            <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pl-4">
+              <mat-label>Contract No.</mat-label>
+              <input matInput formControlName="contarctno">
 
-        </mat-form-field>
+            </mat-form-field>
 
-      </div>
+          </div>
 
-      <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
+          <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
 
-        <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pr-4">
-          <mat-label>Contract Date</mat-label>
-          <input matInput [matDatepicker]="pickerContract" placeholder="Choose a date">
-          <mat-datepicker-toggle matSuffix [for]="pickerContract"></mat-datepicker-toggle>
-          <mat-datepicker #pickerContract></mat-datepicker>
+            <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pr-4">
+              <mat-label>Contract Date</mat-label>
+              <input matInput [matDatepicker]="pickerContract" placeholder="Choose a date">
+              <mat-datepicker-toggle matSuffix [for]="pickerContract"></mat-datepicker-toggle>
+              <mat-datepicker #pickerContract></mat-datepicker>
 
-        </mat-form-field>
+            </mat-form-field>
 
-        <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pl-4">
-          <mat-label>Premium (cents)</mat-label>
-          <input matInput formControlName="contarctno">
+            <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pl-4">
+              <mat-label>Premium (cents)</mat-label>
+              <input matInput formControlName="contarctno">
 
-        </mat-form-field>
+            </mat-form-field>
 
-      </div>
-      <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
+          </div>
+          <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
 
-        <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pl-4">
-          <mat-label>Contract Month</mat-label>
-          <mat-select formControlName="buyer">
-            <mat-option [value]="">
-              --All--
-            </mat-option>
-            <mat-option *ngFor="let buyer of buyers" [value]="buyer.id">
-              {{buyer.party_name}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
+            <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pl-4">
+              <mat-label>Contract Month</mat-label>
+              <mat-select formControlName="buyer">
+                <mat-option [value]="">
+                  --All--
+                </mat-option>
+                <mat-option *ngFor="let buyer of buyers" [value]="buyer.id">
+                  {{buyer.party_name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
 
-        <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pl-4">
-          <mat-label>Contract Year</mat-label>
-          <mat-select formControlName="buyer">
-            <mat-option [value]="">
-              --All--
-            </mat-option>
-            <mat-option *ngFor="let buyer of buyers" [value]="buyer.id">
-              {{buyer.party_name}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
+            <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pl-4">
+              <mat-label>Contract Year</mat-label>
+              <mat-select formControlName="buyer">
+                <mat-option [value]="">
+                  --All--
+                </mat-option>
+                <mat-option *ngFor="let buyer of buyers" [value]="buyer.id">
+                  {{buyer.party_name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
 
-      </div>
-      <div class="h2 mb-24">
+          </div>
+          <div class="h2 mb-24">
 
-      </div>
+          </div>
 
-      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+          <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
-        <!--- Note that these columns can be defined in any order.
+            <!--- Note that these columns can be defined in any order.
                 The actual rendered columns are set as a property on the row definition" -->
 
-        <!-- Order Date Column -->
-        <ng-container matColumnDef="orderdate">
-          <th mat-header-cell *matHeaderCellDef> Order Date </th>
-          <td mat-cell *matCellDef="let element"> {{element.orderdate}} </td>
-        </ng-container>
+            <!-- Order Date Column -->
+            <ng-container matColumnDef="orderdate">
+              <th mat-header-cell *matHeaderCellDef> Order Date </th>
+              <td mat-cell *matCellDef="let element"> {{element.orderdate}} </td>
+            </ng-container>
 
-        <!-- Sale Price Column -->
-        <ng-container matColumnDef="sell">
-          <th mat-header-cell *matHeaderCellDef> Sell </th>
-          <td mat-cell *matCellDef="let element"> {{element.sell}} </td>
-        </ng-container>
+            <!-- Sale Price Column -->
+            <ng-container matColumnDef="sell">
+              <th mat-header-cell *matHeaderCellDef> Sell </th>
+              <td mat-cell *matCellDef="let element"> {{element.sell}} </td>
+            </ng-container>
 
-        <!-- Buy Price Column -->
-        <ng-container matColumnDef="buy">
-          <th mat-header-cell *matHeaderCellDef> Buy </th>
-          <td mat-cell *matCellDef="let element"> {{element.buy}} </td>
-        </ng-container>
+            <!-- Buy Price Column -->
+            <ng-container matColumnDef="buy">
+              <th mat-header-cell *matHeaderCellDef> Buy </th>
+              <td mat-cell *matCellDef="let element"> {{element.buy}} </td>
+            </ng-container>
 
-        <ng-container matColumnDef="against">
-          <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm> Against </th>
-          <td mat-cell *matCellDef="let element" fxHide fxShow.gt-sm> {{element.against}} </td>
-        </ng-container>
+            <ng-container matColumnDef="against">
+              <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm> Against </th>
+              <td mat-cell *matCellDef="let element" fxHide fxShow.gt-sm> {{element.against}} </td>
+            </ng-container>
 
-        <ng-container matColumnDef="mon">
-          <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm> </th>
-          <td mat-cell *matCellDef="let element" fxHide fxShow.gt-sm> {{element.mon}} </td>
-        </ng-container>
+            <ng-container matColumnDef="mon">
+              <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm> </th>
+              <td mat-cell *matCellDef="let element" fxHide fxShow.gt-sm> {{element.mon}} </td>
+            </ng-container>
 
-        <ng-container matColumnDef="year">
-          <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm> </th>
-          <td mat-cell *matCellDef="let element" fxHide fxShow.gt-sm> {{element.year}} </td>
-        </ng-container>
+            <ng-container matColumnDef="year">
+              <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm> </th>
+              <td mat-cell *matCellDef="let element" fxHide fxShow.gt-sm> {{element.year}} </td>
+            </ng-container>
 
-        <ng-container matColumnDef="price">
-          <th mat-header-cell *matHeaderCellDef> Price </th>
-          <td mat-cell *matCellDef="let element"> {{element.price}} </td>
-        </ng-container>
+            <ng-container matColumnDef="price">
+              <th mat-header-cell *matHeaderCellDef> Price </th>
+              <td mat-cell *matCellDef="let element"> {{element.price}} </td>
+            </ng-container>
 
 
-        <ng-container matColumnDef="executed">
-          <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm> Executed On </th>
-          <td mat-cell *matCellDef="let element" fxHide fxShow.gt-sm> {{element.executed}} </td>
-        </ng-container>
+            <ng-container matColumnDef="executed">
+              <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm> Executed On </th>
+              <td mat-cell *matCellDef="let element" fxHide fxShow.gt-sm> {{element.executed}} </td>
+            </ng-container>
 
-        <ng-container matColumnDef="star" stickyEnd>
-          <th mat-header-cell *matHeaderCellDef>
-            <button mat-fab color="warn" id="add-price-button" (click)="newPrice()" aria-label="add contact"
-              [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}">
-              <mat-icon>add</mat-icon>
-            </button>
-          </th>
-          <td mat-cell *matCellDef="let element">
-            <mat-icon color="warn">delete</mat-icon>
-          </td>
-        </ng-container>
+            <ng-container matColumnDef="star" stickyEnd>
+              <th mat-header-cell *matHeaderCellDef>
+                <button mat-fab color="warn" id="add-price-button" (click)="newPrice()" aria-label="add contact"
+                  [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}">
+                  <mat-icon>add</mat-icon>
+                </button>
+              </th>
+              <td mat-cell *matCellDef="let element">
+                <mat-icon color="warn">delete</mat-icon>
+              </td>
+            </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-      </table>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
 
-      <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto" class="mt-36">
+          <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto" class="mt-36">
 
-        <table mat-table fxFlex="100" fxFlex.gt-sm="50" [dataSource]="dataSource" class="mat-elevation-z8">
+            <table mat-table fxFlex="100" fxFlex.gt-sm="50" [dataSource]="dataSource" class="mat-elevation-z8">
 
-          <!--- Note that these columns can be defined in any order.
+              <!--- Note that these columns can be defined in any order.
                         The actual rendered columns are set as a property on the row definition" -->
 
-          <!-- Order Date Column -->
-          <ng-container matColumnDef="orderdate">
-            <th mat-header-cell *matHeaderCellDef> Order Date </th>
-            <td mat-cell *matCellDef="let element"> {{element.orderdate}} </td>
-          </ng-container>
+              <!-- Order Date Column -->
+              <ng-container matColumnDef="orderdate">
+                <th mat-header-cell *matHeaderCellDef> Order Date </th>
+                <td mat-cell *matCellDef="let element"> {{element.orderdate}} </td>
+              </ng-container>
 
-          <!-- Sale Price Column -->
-          <ng-container matColumnDef="sell">
-            <th mat-header-cell *matHeaderCellDef> Sell </th>
-            <td mat-cell *matCellDef="let element"> {{element.sell}} </td>
-          </ng-container>
+              <!-- Sale Price Column -->
+              <ng-container matColumnDef="sell">
+                <th mat-header-cell *matHeaderCellDef> Sell </th>
+                <td mat-cell *matCellDef="let element"> {{element.sell}} </td>
+              </ng-container>
 
-          <!-- Buy Price Column -->
-          <ng-container matColumnDef="buy">
-            <th mat-header-cell *matHeaderCellDef> Buy </th>
-            <td mat-cell *matCellDef="let element"> {{element.buy}} </td>
-          </ng-container>
+              <!-- Buy Price Column -->
+              <ng-container matColumnDef="buy">
+                <th mat-header-cell *matHeaderCellDef> Buy </th>
+                <td mat-cell *matCellDef="let element"> {{element.buy}} </td>
+              </ng-container>
 
-          <ng-container matColumnDef="against">
-            <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm> Against </th>
-            <td mat-cell *matCellDef="let element" fxHide fxShow.gt-sm> {{element.against}} </td>
-          </ng-container>
+              <ng-container matColumnDef="against">
+                <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm> Against </th>
+                <td mat-cell *matCellDef="let element" fxHide fxShow.gt-sm> {{element.against}} </td>
+              </ng-container>
 
-          <ng-container matColumnDef="mon">
-            <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm> </th>
-            <td mat-cell *matCellDef="let element" fxHide fxShow.gt-sm> {{element.mon}} </td>
-          </ng-container>
+              <ng-container matColumnDef="mon">
+                <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm> </th>
+                <td mat-cell *matCellDef="let element" fxHide fxShow.gt-sm> {{element.mon}} </td>
+              </ng-container>
 
-          <ng-container matColumnDef="year">
-            <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm> </th>
-            <td mat-cell *matCellDef="let element" fxHide fxShow.gt-sm> {{element.year}} </td>
-          </ng-container>
+              <ng-container matColumnDef="year">
+                <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm> </th>
+                <td mat-cell *matCellDef="let element" fxHide fxShow.gt-sm> {{element.year}} </td>
+              </ng-container>
 
-          <ng-container matColumnDef="price">
-            <th mat-header-cell *matHeaderCellDef> Price </th>
-            <td mat-cell *matCellDef="let element"> {{element.price}} </td>
-          </ng-container>
+              <ng-container matColumnDef="price">
+                <th mat-header-cell *matHeaderCellDef> Price </th>
+                <td mat-cell *matCellDef="let element"> {{element.price}} </td>
+              </ng-container>
 
 
-          <ng-container matColumnDef="executed">
-            <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm> Executed On </th>
-            <td mat-cell *matCellDef="let element" fxHide fxShow.gt-sm> {{element.executed}} </td>
-          </ng-container>
+              <ng-container matColumnDef="executed">
+                <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm> Executed On </th>
+                <td mat-cell *matCellDef="let element" fxHide fxShow.gt-sm> {{element.executed}} </td>
+              </ng-container>
 
-          <ng-container matColumnDef="star" stickyEnd>
-            <th mat-header-cell *matHeaderCellDef>
-              <button mat-fab color="warn" id="add-price-button" (click)="newPrice()" aria-label="add contact"
-                [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}">
-                <mat-icon>add</mat-icon>
-              </button>
-            </th>
-            <td mat-cell *matCellDef="let element">
-              <mat-icon color="warn">delete</mat-icon>
-            </td>
-          </ng-container>
+              <ng-container matColumnDef="star" stickyEnd>
+                <th mat-header-cell *matHeaderCellDef>
+                  <button mat-fab color="warn" id="add-price-button" (click)="newPrice()" aria-label="add contact"
+                    [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}">
+                    <mat-icon>add</mat-icon>
+                  </button>
+                </th>
+                <td mat-cell *matCellDef="let element">
+                  <mat-icon color="warn">delete</mat-icon>
+                </td>
+              </ng-container>
 
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-        </table>
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+
+          </div>
+
+
+
+        </form>
 
       </div>
-
-
-
-    </form>
-
+    </div>
   </div>
-  <!-- / CONTENT -->
-
 </div>

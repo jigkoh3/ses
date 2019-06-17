@@ -144,9 +144,10 @@ export class PricingHiRawListComponent implements OnInit {
         this.getPagedData();
     }
 
-    newPrice(): void {
-        this.route.navigate(['/pricing-hi-raw-detail'])
+    onAdd(): void {
+        this.route.navigate(['/pricing-hi-raw-detail'], { queryParams: { mode: 'Add' } })
     }
+
 
     private getPagedData() {
         this.query = this.odata

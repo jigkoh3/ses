@@ -4,7 +4,7 @@ import { fuseAnimations } from '@fuse/animations';
 import { ODataConfiguration, ODataExecReturnType, ODataPagedResult, ODataQuery, ODataService, ODataServiceFactory } from 'angular-odata-es5'
 
 import { ODataConfigurationFactory } from '../../../ODataConfigurationFactory';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 
 
@@ -28,6 +28,9 @@ export class PricingHiRawDetailComponent implements OnInit {
 
   displayedColumns: string[] = ['orderdate', 'sell', 'buy', 'against', 'mon', 'year', 'price',  'executed', 'star'];
   dataSource = ELEMENT_DATA;
+  sub: any;
+  id: any;
+  mode: any;
   /**
      * Constructor
      *
@@ -35,11 +38,22 @@ export class PricingHiRawDetailComponent implements OnInit {
      */
   constructor(
     private _formBuilder: FormBuilder,
-    public route: Router,
+    public router: Router,
+    private route: ActivatedRoute,
     private odataFactory: ODataServiceFactory
   ) {
     // Set the private defaults
+    this.sub = this.route.params.subscribe(params => {
+      this.id = params['id'];
+    });
 
+    this.route.queryParams
+      .subscribe(params => {
+        //console.log(params); // {order: "popular"}
+
+        this.mode = params.mode;
+        console.log(this.mode); // popular
+      });
   }
 
   ngOnInit() {

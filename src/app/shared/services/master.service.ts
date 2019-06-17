@@ -22,7 +22,7 @@ export class MasterService {
 
         let params = new HttpParams();
         params = params.append('type', type);
-        params = params.append('group_factory', type);
+        params = params.append('group_factory', group_factory);
         return this.http.get(environment.serviceUrl + '/api/running', { params: params })
             .pipe(
                 map((response: Response) => {

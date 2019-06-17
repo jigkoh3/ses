@@ -6,7 +6,7 @@ export const environment = {
     production: false,
     hmr       : false,
     serviceUrl : "https://ssecservice.azurewebsites.net",
-    // serviceUrl : "http://localhost:12922/",
+    //serviceUrl : "http://localhost:12922",
 };
 
 /*

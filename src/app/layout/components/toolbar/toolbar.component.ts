@@ -120,10 +120,8 @@ export class ToolbarComponent implements OnInit, OnDestroy {
         // Set the selected language from default languages
         this.selectedLanguage = _.find(this.languages, { 'id': this._translateService.currentLang });
 
-
-
         this.currentUser = JSON.parse(localStorage.getItem('SEScurrentUser'));
-        if (this.currentUser.user) {
+        if (this.currentUser) {
             this.user = this.currentUser.user;
             // Get your navigation array from database or file
             if (this.currentUser.role) {
@@ -135,7 +133,6 @@ export class ToolbarComponent implements OnInit, OnDestroy {
                 // Set the main navigation as our current navigation
                 this._fuseNavigationService.setCurrentNavigation('main');
             }
-
         }
     }
 
@@ -199,7 +196,7 @@ export class ToolbarComponent implements OnInit, OnDestroy {
                 // "menu_sequence": 0,
                 // "menu_sub": 62,
                 // "menu_icon": "fa flaticon-folder"
-                
+
                 for (let header of headers) {
                     let group: FuseNavigation;
                     if (header.menu_url == '#') {
@@ -234,7 +231,7 @@ export class ToolbarComponent implements OnInit, OnDestroy {
                         };
                     }
                     items.push(group);
-                }  
+                }
             }
         }
         return items;
