@@ -236,7 +236,8 @@
               </ng-container> -->
 
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: displayedColumns;" [class.expanded]="expandedElement == row"></mat-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;" [class.expanded]="expandedElement == row"
+          (contextmenu)="menu.open($event, {data: row} )"></mat-row>
         <!-- <mat-row *matRowDef="let row; columns: ['expandedDetail']; "
                 [@detailExpand]="row == expandedElement ? 'expanded' : 'collapsed'" style="overflow: hidden"></mat-row> -->
       </mat-table>
@@ -258,3 +259,14 @@
   </div>
   <!-- / CENTER -->
 </div>
+
+<app-context-menu [matMenuTriggerFor]="main" #menu>
+  <mat-menu #main="matMenu">
+    <ng-template matMenuContent let-name="data">
+      <button mat-menu-item (click)="onView(data)">View {{data.contract_type}}</button>
+      <!-- <button mat-menu-item (click)="onEdit(data)" *ngIf="data.contract_type=='CONTRACT' && data.contract_status=='DRAFT'">Edit</button>
+      <button mat-menu-item (click)="onDelete(data)" *ngIf="data.contract_type=='CONTRACT' && data.contract_status=='DRAFT'">Delete</button>
+      <button mat-menu-item (click)="onAddAddendem(data)">Add Addendem</button> -->
+    </ng-template>
+  </mat-menu>
+</app-context-menu>

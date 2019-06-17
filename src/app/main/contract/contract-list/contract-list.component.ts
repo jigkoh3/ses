@@ -17,6 +17,7 @@ import {
   animate,
 
 } from '@angular/animations';
+// import { ContextMenuComponent } from '../context-menu.component';
 @Component({
   selector: 'app-contract-list',
   templateUrl: './contract-list.component.html',
@@ -89,6 +90,7 @@ export class ContractListComponent implements OnInit {
     'id',
     'contract_no',
     'contract_date',
+    // 'contract_type',
     'buyer_contract_no',
     'buyer.party_name',
     'sugar_type.lov1',
@@ -239,6 +241,7 @@ export class ContractListComponent implements OnInit {
       .Filter(this.filterText)
       .Expand('buyer, sugar_type, contract_made_on, group_factory, shipment_term,  payment_term, currency')//, contract_items
       .Select(['id',
+        'contract_type',
         'contract_no',
         'contract_date',
         'buyer_contract_no',
