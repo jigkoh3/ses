@@ -80,8 +80,8 @@ export class PricingHiRawDetailComponent implements OnInit {
 
   ngOnInit() {
     this.form = this._formBuilder.group({
-      // type_of_sugar_id: [''],
-      // future_market_id: [''],
+      type_of_sugar_id: ['sugartype-hiraw'],
+      future_market_id: ['fmkt-no11'],
       buyer_id: [''],
       qty: [0],
       group_factory_id: [''],
