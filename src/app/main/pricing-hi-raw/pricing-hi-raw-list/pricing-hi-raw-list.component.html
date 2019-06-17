@@ -111,9 +111,9 @@
         </form>
 
         <div class="content-card  mt-12">
-            <mat-table #table class="example-container " *ngIf="dataSource.length > 0"
-                [dataSource]="dataSource" multiTemplateDataRows matSort (matSortChange)="sortData($event)"
-                [@animateStagger]="{value:'50'}" fusePerfectScrollbar>
+            <mat-table #table class="example-container " *ngIf="dataSource.length > 0" [dataSource]="dataSource"
+                multiTemplateDataRows matSort (matSortChange)="sortData($event)" [@animateStagger]="{value:'50'}"
+                fusePerfectScrollbar>
                 <!-- ID Column -->
                 <ng-container matColumnDef="id">
                     <mat-header-cell mat-sort-header *matHeaderCellDef></mat-header-cell>
@@ -121,12 +121,54 @@
                         {{element.id}}
                     </mat-cell>
                 </ng-container>
-                
-    
+                <ng-container matColumnDef="buyer.party_name">
+                    <mat-header-cell mat-sort-header *matHeaderCellDef>Buyer</mat-header-cell>
+                    <mat-cell *matCellDef="let element">{{element.buyer?.party_name}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="group_factory.lov1">
+                    <mat-header-cell mat-sort-header *matHeaderCellDef>Group Factory</mat-header-cell>
+                    <mat-cell *matCellDef="let element">{{element.group_factory?.lov1}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="type_of_sugar_id">
+                    <mat-header-cell mat-sort-header *matHeaderCellDef>Suger Type</mat-header-cell>
+                    <mat-cell *matCellDef="let element">{{element.type_of_sugar_id}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="qty">
+                    <mat-header-cell mat-sort-header *matHeaderCellDef>Quantity(MT)</mat-header-cell>
+                    <mat-cell *matCellDef="let element">{{element.qty | number: '0.2-2'}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="shipment_from">
+                    <mat-header-cell mat-sort-header *matHeaderCellDef>Shipment Period From</mat-header-cell>
+                    <mat-cell *matCellDef="let element">{{element.shipment_from | date: 'dd MMMM yyyy'}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="shipment_to">
+                    <mat-header-cell mat-sort-header *matHeaderCellDef>Shipment Period To</mat-header-cell>
+                    <mat-cell *matCellDef="let element">{{element.shipment_to | date: 'dd MMMM yyyy'}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="total_pricing">
+                    <mat-header-cell mat-sort-header *matHeaderCellDef>Total Price</mat-header-cell>
+                    <mat-cell *matCellDef="let element">{{element.total_pricing | number: '0.2-2'}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="priced">
+                    <mat-header-cell mat-sort-header *matHeaderCellDef>Priced</mat-header-cell>
+                    <mat-cell *matCellDef="let element">{{element.priced | number: '0.2-2'}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="unpriced">
+                    <mat-header-cell mat-sort-header *matHeaderCellDef>Unpriced</mat-header-cell>
+                    <mat-cell *matCellDef="let element">{{element.unpriced | number: '0.2-2'}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="confirm_price_usd">
+                    <mat-header-cell mat-sort-header *matHeaderCellDef>Final Price (USD/MT)</mat-header-cell>
+                    <mat-cell *matCellDef="let element">{{element.confirm_price_usd | number: '0.2-2'}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="confirm_price_cent">
+                    <mat-header-cell mat-sort-header *matHeaderCellDef>Final Price (C/LB)</mat-header-cell>
+                    <mat-cell *matCellDef="let element">{{element.confirm_price_usd | number: '0.2-2'}}</mat-cell>
+                </ng-container>
                 <mat-header-row *matHeaderRowDef="displayedColumns sticky: true"></mat-header-row>
                 <mat-row *matRowDef="let row; columns: displayedColumns;" [class.expanded]="expandedElement == row"
                     (contextmenu)="menu.open($event, {data: row} )"></mat-row>
-    
+
             </mat-table>
         </div>
 

@@ -46,9 +46,20 @@ export class PricingHiRawListComponent implements OnInit {
     groupfactorys: any = [];
     dataSource: any = [];
     displayedColumns = [
-        'id'
-      ];
-    
+        'id',
+        'buyer.party_name',
+        'group_factory.lov1',
+        'type_of_sugar_id',
+        'qty',
+        'shipment_from',
+        'shipment_to',
+        'total_pricing',
+        'priced',
+        'unpriced',
+        'confirm_price_usd',
+        'confirm_price_cent',
+    ];
+
     // Private
 
     /**
@@ -155,9 +166,13 @@ export class PricingHiRawListComponent implements OnInit {
     private getPagedData() {
         this.query = this.odata
             .Query()
-        //.Filter("CreatedBy/Id eq '" + this.user.Id + "'" + this.qType)
-        //.Expand('Company, Plant,BudgetType, CostCenter, IO,  Job($expand=SendFrom,SendTo), CreatedBy')
-        //.Select(['Id', 'CreatedDt', 'BudgetReqNo', 'BudgetType', 'Year', 'Quarter', 'Month', 'CostCenter', 'Company', 'Plant', 'IO', 'Job', 'Status', 'CreatedBy']);
+            //.Filter("CreatedBy/Id eq '" + this.user.Id + "'" + this.qType)
+            .Expand('buyer')
+            // .Select(['id',
+            //     'buyer/party_name',
+            //     'group_factory/lov1',
+            //     'future_market/lov1',
+            // ]);
         if (this.filter) {
             if (this.filter.rows) {
                 this.query = this.query.Top(this.filter.rows);
