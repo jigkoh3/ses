@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Location } from '@angular/common';
 import { fuseAnimations } from '@fuse/animations';
 import { ODataConfiguration, ODataExecReturnType, ODataPagedResult, ODataQuery, ODataService, ODataServiceFactory } from 'angular-odata-es5'
 
@@ -26,7 +27,7 @@ const ELEMENT_DATA: Array<any> = [
 export class PricingHiRawDetailComponent implements OnInit {
   form: FormGroup;
 
-  displayedColumns: string[] = ['orderdate', 'sell', 'buy', 'against', 'mon', 'year', 'price',  'executed', 'star'];
+  displayedColumns: string[] = ['orderdate', 'sell', 'buy', 'against', 'mon', 'year', 'price', 'executed', 'star'];
   dataSource = ELEMENT_DATA;
   sub: any;
   id: any;
@@ -40,6 +41,7 @@ export class PricingHiRawDetailComponent implements OnInit {
     private _formBuilder: FormBuilder,
     public router: Router,
     private route: ActivatedRoute,
+    private location: Location,
     private odataFactory: ODataServiceFactory
   ) {
     // Set the private defaults
@@ -63,6 +65,10 @@ export class PricingHiRawDetailComponent implements OnInit {
       buyercontractno: [''],
       contarctno: ['']
     });
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 
 }
