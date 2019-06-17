@@ -11,6 +11,7 @@ import { Sort } from '@angular/material/sort';
 import { product, lov_data, packing_unit, pu_sub_code, contract, contract_item, unit_code } from 'app/shared';
 import { Router } from '@angular/router';
 import { fuseAnimations } from '@fuse/animations';
+import { UUID } from 'angular2-uuid';
 
 @Component({
   selector: 'app-contract-item',
@@ -84,6 +85,8 @@ export class ContractItemComponent implements OnInit {
     this.shipment_period_to = this.data.shipment_period_to;
 
     this.form = this.formBuilder.group({
+      id: null,
+      item_no: null,
       product_id: [{ value: '', disabled: false }, Validators.required],
       crop_year_type: [{ value: '', disabled: false }, Validators.required],
       crop_year_input: [{ value: '', disabled: false }],
@@ -92,6 +95,7 @@ export class ContractItemComponent implements OnInit {
       max_moisture: [{ value: '', disabled: false }, Validators.required],
       min_colour: [{ value: '', disabled: false }, Validators.required],
       max_colour: [{ value: '', disabled: false }, Validators.required],
+      adm_final_price: null,
       apply_licenses_flag: [{ value: '', disabled: false }],
       qty: [{ value: '', disabled: false }, Validators.required],
       qty_tcsc_us: [{ value: '', disabled: false }, Validators.required],
@@ -111,6 +115,16 @@ export class ContractItemComponent implements OnInit {
       freight_cost: [{ value: '', disabled: false }, Validators.required],
       net_price: [{ value: '', disabled: false }, Validators.required],
       price_desc: [{ value: '', disabled: false }, Validators.required],
+      ad_quality: null,
+      ad_quantity: null,
+      ad_packing: null,
+      ad_shipment: null,
+      ad_price: null,
+      record_status: true,
+      created_by_id: null,
+      created_date: null,
+      updated_by_id: null,
+      updated_date: null,
     });
 
     if (this.shipment_by == "C") {
@@ -266,7 +280,8 @@ export class ContractItemComponent implements OnInit {
     return { value: year.toString(), text: year - 1 + '/' + year.toString().substr(2, 2) };
   }
 
-  submit(form) {
-    this.dialogRef.close(`${form.value.filename}`);
+  saveProduct(form) {
+    const data: contract_item = this.form.getRawValue();
+    this.dialogRef.close(data);
   }
 }

@@ -13,6 +13,7 @@ import { MatDialog, MatDialogRef, MatSnackBar } from '@angular/material';
 import 'rxjs/add/operator/filter';
 import { fuseAnimations } from '@fuse/animations';
 import { FuseUtils } from '@fuse/utils';
+import { UUID } from 'angular2-uuid';
 @Component({
   selector: 'app-contract-detail',
   templateUrl: './contract-detail.component.html',
@@ -41,7 +42,9 @@ export class ContractDetailComponent implements OnInit {
   selectedShipmentPeriodTo;
 
   contract: contract;
+  allContract_items: contract_item[];
   contract_items: contract_item[];
+
   odata: ODataService<contract>;
   odataLov: ODataService<lov_data>;
   odataParty: ODataService<party>;
@@ -174,12 +177,21 @@ export class ContractDetailComponent implements OnInit {
       disabledControl = false;
     }
 
+
+
     this.form = this._formBuilder.group({
+      id: null,
       contract_no: [{ value: '', disabled: true }, Validators.required],
+      contract_date: [{ value: '', disabled: disabledControl }, Validators.required],
+      contract_type: 'CONTRACT',
+      contract_ver: 0,
+      latest_flag: true,
+      addendum_type: null,
+      addendum_no: null,
+      addendum_date: null,
       contract_status: [{ value: '', disabled: true }, Validators.required],
       contract_made_on_id: [{ value: '', disabled: disabledControl }, Validators.required],
       crop_year: [{ value: '', disabled: disabledControl }, Validators.required],
-      contract_date: [{ value: '', disabled: disabledControl }, Validators.required],
       seller_id: [{ value: '', disabled: true }, Validators.required],
       group_factory_id: [{ value: '', disabled: disabledControl }, Validators.required],
       sugar_type_id: [{ value: '', disabled: disabledControl }, Validators.required],
@@ -198,7 +210,26 @@ export class ContractDetailComponent implements OnInit {
       shipment_term_remark: [{ value: '', disabled: disabledControl }, Validators.required],
       product_remark: [{ value: '', disabled: disabledControl }, Validators.required],
       gen_term_condition_id: [{ value: '', disabled: disabledControl }, Validators.required],
-      gen_term_condition_desc: [{ value: '', disabled: disabledControl }, Validators.required],
+      //gen_term_condition_desc: [{ value: '', disabled: true }, Validators.required],
+      ad_buyer_contract_no: null,
+      ad_buyer: null,
+      ad_shipment_term: null,
+      ad_shipment_option: null,
+      ad_partial_shipment_opt: null,
+      ad_shipment_to: null,
+      ad_payment_term: null,
+      ad_exchange_rate: null,
+      ad_shipment_term_remark: null,
+      ad_product_remark: null,
+      ad_gen_term_condition: null,
+      total_qty: 0,
+      total_shipment: 0,
+      record_status: true,
+      created_by_id: null,
+      created_date: null,
+      updated_by_id: null,
+      updated_date: null,
+      //contract_items: this._formBuilder.array([]),
     });
 
 
@@ -287,6 +318,7 @@ export class ContractDetailComponent implements OnInit {
             this.crop_years.push(this.genCropYear(Number(contract.crop_year)));
             this.crop_years = _.sortBy(_.uniq(this.crop_years), "value");
 
+            this.allContract_items = this.contract.contract_items
             this.contract_items = this.contract.contract_items
             let gen_term_condition: term_cond;
             if (this.contract.gen_term_condition_id) {
@@ -365,13 +397,13 @@ export class ContractDetailComponent implements OnInit {
         }
         this._matSnackBar.open(detail, 'ERROR', {
           verticalPosition: 'top',
-          duration: 2000
+          duration: 10000
         });
         //this.msgs = { severity: 'error', summary: 'Error', detail: detail };
       } else if (error.status == 0) {
         this._matSnackBar.open('Cannot connect to server. Please contact administrator.', 'ERROR', {
           verticalPosition: 'top',
-          duration: 2000
+          duration: 10000
         });
         //this.msgs = { severity: 'error', summary: 'Error', detail: 'Cannot connect to server. Please contact administrator.' };
       }
@@ -412,15 +444,30 @@ export class ContractDetailComponent implements OnInit {
     });
 
     this.contractItemDialogRef.afterClosed().pipe(
-    ).subscribe(ret => {
-      console.log(ret);
+    ).subscribe((ret: contract_item) => {
+      if (ret) {
+        if (ret.id) {
+          let contract_item = _.find(this.allContract_items, x => x.id == ret.id);
+          contract_item = ret;
+        }
+        this._matSnackBar.open('Contract item saved', 'OK', {
+          verticalPosition: 'top',
+          duration: 10000
+        });
+      } else {
+        this.allContract_items.push(ret);
+        this._matSnackBar.open('Contract item added', 'OK', {
+          verticalPosition: 'top',
+          duration: 10000
+        });
+      }
       // this.files.push({ name, content: ''});
     })
   }
 
-  genBReq() {
-    let group_factory = _.find(this.group_factories, x => x.id == this.form.controls['group_factory_id'].value());
-    let promise = new Promise((resolve, reject) => {
+  genBReq(): Promise<string> {
+    let group_factory = _.find(this.group_factories, x => x.id == this.form.controls['group_factory_id'].value);
+    let promise: Promise<string> = new Promise((resolve, reject) => {
       this.masterService.getRunning('CONTRACT', group_factory.lov_code).subscribe(val => {
         if (val) {
           resolve(val);
@@ -432,19 +479,55 @@ export class ContractDetailComponent implements OnInit {
     return promise;
   }
 
+  calQty() {
+    let qty = 0;
+    for (let item of this.contract_items) {
+      qty += Number(item.qty)
+    }
+    return qty;
+  }
+
+  calShipment() {
+    let shipment = 0;
+    for (let item of this.contract_items) {
+      shipment += Number(item.shipment_qty)
+    }
+    return shipment;
+  }
+
   addContract() {
-    const data = this.form.getRawValue();
-    data.handle = FuseUtils.handleize(data.name);
+    const data: contract = this.form.getRawValue();
+    data.id = UUID.UUID();
+    data.created_date = moment().toDate();
+    data.created_by_id = this.user.employee_username;
+    data.contract_ver = data.contract_ver + 1;
+    data.total_qty = this.calQty();
+    data.total_shipment = this.calShipment();
+    data.contract_items = _.cloneDeep(this.allContract_items);
+
+    for (let item of data.contract_items) {
+      item.id = UUID.UUID();
+      item.contract_id = data.id;
+      item.product = null;
+      item.pu_code = null;
+      item.unit_name_eng = null;
+      item.pu_sub_code = null;
+      item.price_type = null;
+    }
+    // data.handle = FuseUtils.handleize(data.name);
     this.genBReq().then(running => {
+      data.contract_no = running;
       this.odata.Post(
         data
       ).Exec()
         .subscribe(
           resolve => {
-            this._matSnackBar.open('Product added', 'OK', {
+            this._matSnackBar.open('Contract no.' + running + ' added', 'OK', {
               verticalPosition: 'top',
-              duration: 2000
-            })
+              duration: 10000
+            });
+            // Change the location with new one
+            this.router.navigate(['/contract']);
           }, (error) => {
             if (error.status == 401) {
               this.router.navigate(['/login'], { queryParams: { error: 'Session Expire!' } });
@@ -457,13 +540,13 @@ export class ContractDetailComponent implements OnInit {
               }
               this._matSnackBar.open(detail, 'ERROR', {
                 verticalPosition: 'top',
-                duration: 2000
+                duration: 10000
               });
               //this.msgs = { severity: 'error', summary: 'Error', detail: detail };
             } else if (error.status == 0) {
               this._matSnackBar.open('Cannot connect to server. Please contact administrator.', 'ERROR', {
                 verticalPosition: 'top',
-                duration: 2000
+                duration: 10000
               });
               //this.msgs = { severity: 'error', summary: 'Error', detail: 'Cannot connect to server. Please contact administrator.' };
             }
@@ -473,12 +556,84 @@ export class ContractDetailComponent implements OnInit {
     }).catch(error => {
       this._matSnackBar.open('Cannot generate contract no.', 'ERROR', {
         verticalPosition: 'top',
-        duration: 2000
+        duration: 10000
       });
 
-      // Change the location with new one
-      this.router.navigate(['/contract-list']);
+
     });
+  }
+
+  saveContract() {
+    const data: contract = this.form.getRawValue();
+    data.id = UUID.UUID();
+    data.updated_date = moment().toDate();
+    data.updated_by_id = this.user.employee_username;
+    data.contract_ver = data.contract_ver + 1;
+    data.total_qty = this.calQty();
+    data.total_shipment = this.calShipment();
+
+    data.contract_items = _.cloneDeep(this.allContract_items);
+
+    for (let item of data.contract_items) {
+      if (!item.id) {
+        item.id = UUID.UUID();
+        data.created_date = moment().toDate();
+        data.created_by_id = this.user.employee_username;
+      } else {
+        data.updated_date = moment().toDate();
+        data.updated_by_id = this.user.employee_username;
+      }
+
+      item.contract_id = data.id;
+      item.product = null;
+      item.pu_code = null;
+      item.unit_name_eng = null;
+      item.pu_sub_code = null;
+      item.price_type = null;
+
+
+    }
+    // data.handle = FuseUtils.handleize(data.name);
+
+
+    this.odata.Put(
+      data,
+      this.id
+    ).Exec()
+      .subscribe(
+        resolve => {
+          this._matSnackBar.open('Contract no.' + data.contract_no + ' saved', 'OK', {
+            verticalPosition: 'top',
+            duration: 10000
+          });
+          // Change the location with new one
+          this.router.navigate(['/contract']);
+        }, (error) => {
+          if (error.status == 401) {
+            this.router.navigate(['/login'], { queryParams: { error: 'Session Expire!' } });
+            console.log('Session Expire!');
+          } else if (error.status != 401 && error.status != 0) {
+            let detail = "";
+            detail = error.error.message;
+            if (error.error.InnerException) {
+              detail += '\n' + error.error.InnerException.ExceptionMessage;
+            }
+            this._matSnackBar.open(detail, 'ERROR', {
+              verticalPosition: 'top',
+              duration: 10000
+            });
+            //this.msgs = { severity: 'error', summary: 'Error', detail: detail };
+          } else if (error.status == 0) {
+            this._matSnackBar.open('Cannot connect to server. Please contact administrator.', 'ERROR', {
+              verticalPosition: 'top',
+              duration: 10000
+            });
+            //this.msgs = { severity: 'error', summary: 'Error', detail: 'Cannot connect to server. Please contact administrator.' };
+          }
+
+          console.log('ODataExecReturnType.PagedResult ERROR ' + JSON.stringify(error));
+        });
+
   }
 
 }

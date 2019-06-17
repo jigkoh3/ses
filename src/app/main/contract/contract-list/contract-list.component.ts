@@ -8,7 +8,7 @@ import { ODataConfigurationFactory } from '../../../ODataConfigurationFactory';
 import { combineLatest } from 'rxjs';
 import * as _ from 'lodash';
 import { Sort } from '@angular/material/sort';
-import { MatPaginator,PageEvent } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import {
   trigger,
   state,
@@ -31,7 +31,7 @@ import {
       'expanded <=> collapsed',
       animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')
     ),
-  ]),fuseAnimations],
+  ]), fuseAnimations],
   encapsulation: ViewEncapsulation.None,
   providers: [{ provide: ODataConfiguration, useFactory: ODataConfigurationFactory }, ODataServiceFactory],
 })
@@ -40,7 +40,7 @@ export class ContractListComponent implements OnInit {
   expandedElement: Array<string>;
   isExpansionDetailRow = (i: number, row: Object) =>
     row.hasOwnProperty('detailRow');
-    
+
   total: any;
   lots: any;
   screenwidth: any;
@@ -49,8 +49,10 @@ export class ContractListComponent implements OnInit {
 
   public totalRecords: number;
 
+  public filterText = "";
+
   public filter: filter = {
-    first: 1,
+    first: 0,
     rows: 5,
     sortField: 'contract_no',
     sortOrder: 1,
@@ -72,12 +74,16 @@ export class ContractListComponent implements OnInit {
 
   contract_date_from = null;
   contract_date_to = null;
+  selectedContractStatus;
+  selectedBuyer;
+  selectedSugarType;
+  selectedGroupFactory;
   buyers: any = [];
   groupfactorys: any = [];
   sugartypes: any = [];
   contactstatuses: any = [
-    { value: 'Draft', viewValue: 'Draft' },
-    { value: 'Submit', viewValue: 'Submit' },
+    { value: 'DRAFT', viewValue: 'Draft' },
+    { value: 'SUBMIT', viewValue: 'Submit' },
   ];
   displayedColumns = [
     'id',
@@ -110,9 +116,9 @@ export class ContractListComponent implements OnInit {
     'total_qty'
   ];
   dataSource: any = [
-   
+
   ];
-  
+
   constructor(
     public route: Router,
     private odataFactory: ODataServiceFactory
@@ -182,14 +188,55 @@ export class ContractListComponent implements OnInit {
     // this.calTotal();
   }
 
+  checkDate(event) {
+    console.log(event);
+  }
+
   onSearch() {
+
+    this.filterText = "";
+
+    let stringArry: string[] = [];
+    if (this.contract_no) {
+      stringArry.push("contains(contract_no, '" + this.contract_no + "')")
+    }
+
+    if (this.buyer_contract_no) {
+      stringArry.push("contains(buyer_contract_no, '" + this.buyer_contract_no + "')")
+    }
+
+    if (this.contract_date_from) {
+      stringArry.push("contract_date_from gt '" + this.contract_date_from + "'")
+    }
+
+    if (this.contract_date_to) {
+      stringArry.push("contract_date_to lt '" + this.contract_date_to + "'")
+    }
+
+    if (this.selectedContractStatus) {
+      stringArry.push("contract_status eq '" + this.selectedContractStatus + "'")
+    }
+
+    if (this.selectedBuyer) {
+      stringArry.push("buyer_id eq '" + this.selectedBuyer + "'")
+    }
+
+    if (this.selectedSugarType) {
+      stringArry.push("sugar_type_id eq '" + this.selectedSugarType + "'")
+    }
+
+    if (this.selectedContractStatus) {
+      stringArry.push("group_factory_id eq '" + this.selectedGroupFactory + "'")
+    }
+
+    this.filterText = stringArry.join(' and ');
     this.getPagedData();
   }
 
   private getPagedData() {
     this.query = this.odata
       .Query()
-      //.Filter("CreatedBy/Id eq '" + this.user.Id + "'" + this.qType)
+      .Filter(this.filterText)
       .Expand('buyer, sugar_type, contract_made_on, group_factory, shipment_term,  payment_term, currency')//, contract_items
       .Select(['id',
         'contract_no',
@@ -317,11 +364,11 @@ export class ContractListComponent implements OnInit {
   }
 
   onView(id) {
-    this.route.navigate(['/contract-detail/'+ id], { queryParams: { mode: 'View' } })
+    this.route.navigate(['/contract-detail/' + id], { queryParams: { mode: 'View' } })
   }
 
   onEdit(id) {
-    this.route.navigate(['/contract-detail/'+ id], { queryParams: { mode: 'Edit' } })
+    this.route.navigate(['/contract-detail/' + id], { queryParams: { mode: 'Edit' } })
   }
 
   onDelete() {
@@ -335,6 +382,8 @@ export class ContractListComponent implements OnInit {
       this.expandedElement = row;
     }
   }
+
+
 
   PageData(pageEvent: PageEvent) {
     this.filter.first = pageEvent.pageIndex * pageEvent.pageSize;
