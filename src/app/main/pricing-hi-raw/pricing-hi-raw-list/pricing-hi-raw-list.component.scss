@@ -6,3 +6,15 @@
     z-index: 99;
 
 }
+.search-card{
+    background: white;
+    border-radius: 8px 8px 8px 8px;
+}
+.example-container {
+    height: 270px;
+    overflow: auto;
+  }
+  
+  mat-table {
+    width: 100%;
+  }

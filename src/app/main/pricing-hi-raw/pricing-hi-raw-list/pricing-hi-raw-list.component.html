@@ -1,4 +1,4 @@
-<div id="pricing-hi-raw-list" class="page-layout carded fullwidth inner-scroll" >
+<div id="pricing-hi-raw-list" class="page-layout carded fullwidth inner-scroll">
 
     <!-- TOP BACKGROUND -->
     <div class="top-bg accent"></div>
@@ -30,152 +30,112 @@
         <!-- / HEADER -->
 
 
-        <div class="content pb-24">
-            <form class="mat-card p-12" fxLayout="column" name="form" [formGroup]="form" #formData='ngForm'
-                (ngSubmit)="onSearch(formData)" [@animate]="{value:'*',params:{delay:'100ms',y:'25px'}}">
-                <div class="h2 mb-12">Search Criteria</div>
+        <form class="search-card  p-12" fxLayout="column" name="form" [formGroup]="form" #formData='ngForm'
+            (ngSubmit)="onSearch(formData)" [@animate]="{value:'*',params:{delay:'100ms',y:'25px'}}">
+            <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
 
-                <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
+                <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pl-4">
+                    <mat-label>Buyer</mat-label>
+                    <mat-select formControlName="buyer">
+                        <mat-option [value]="'United States of America'">
+                            United States of America
+                        </mat-option>
+                        <mat-option [value]="'United Kingdom'">
+                            United Kingdom
+                        </mat-option>
+                        <mat-option [value]="'Russia'">
+                            Russia
+                        </mat-option>
+                        <mat-option [value]="'China'">
+                            China
+                        </mat-option>
+                        <mat-option [value]="'Japan'">
+                            Japan
+                        </mat-option>
+                        <mat-option [value]="'Turkey'">
+                            Turkey
+                        </mat-option>
+                    </mat-select>
+                    <!-- <mat-icon matSuffix class="secondary-text">outlined_flag</mat-icon> -->
+                </mat-form-field>
 
-                    <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pl-4">
-                        <mat-label>Buyer</mat-label>
-                        <mat-select formControlName="buyer">
-                            <mat-option [value]="'United States of America'">
-                                United States of America
-                            </mat-option>
-                            <mat-option [value]="'United Kingdom'">
-                                United Kingdom
-                            </mat-option>
-                            <mat-option [value]="'Russia'">
-                                Russia
-                            </mat-option>
-                            <mat-option [value]="'China'">
-                                China
-                            </mat-option>
-                            <mat-option [value]="'Japan'">
-                                Japan
-                            </mat-option>
-                            <mat-option [value]="'Turkey'">
-                                Turkey
-                            </mat-option>
-                        </mat-select>
-                        <!-- <mat-icon matSuffix class="secondary-text">outlined_flag</mat-icon> -->
-                    </mat-form-field>
+                <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pl-4">
+                    <mat-label>Group Factory</mat-label>
+                    <mat-select formControlName="groupfactory">
+                        <mat-option [value]="'United States of America'">
+                            United States of America
+                        </mat-option>
+                        <mat-option [value]="'United Kingdom'">
+                            United Kingdom
+                        </mat-option>
+                        <mat-option [value]="'Russia'">
+                            Russia
+                        </mat-option>
+                        <mat-option [value]="'China'">
+                            China
+                        </mat-option>
+                        <mat-option [value]="'Japan'">
+                            Japan
+                        </mat-option>
+                        <mat-option [value]="'Turkey'">
+                            Turkey
+                        </mat-option>
+                    </mat-select>
+                    <!-- <mat-icon matSuffix class="secondary-text">outlined_flag</mat-icon> -->
+                </mat-form-field>
 
-                    <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pl-4">
-                        <mat-label>Group Factory</mat-label>
-                        <mat-select formControlName="groupfactory">
-                            <mat-option [value]="'United States of America'">
-                                United States of America
-                            </mat-option>
-                            <mat-option [value]="'United Kingdom'">
-                                United Kingdom
-                            </mat-option>
-                            <mat-option [value]="'Russia'">
-                                Russia
-                            </mat-option>
-                            <mat-option [value]="'China'">
-                                China
-                            </mat-option>
-                            <mat-option [value]="'Japan'">
-                                Japan
-                            </mat-option>
-                            <mat-option [value]="'Turkey'">
-                                Turkey
-                            </mat-option>
-                        </mat-select>
-                        <!-- <mat-icon matSuffix class="secondary-text">outlined_flag</mat-icon> -->
-                    </mat-form-field>
+            </div>
 
-                </div>
+            <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
 
-                <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
+                <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pr-4">
+                    <mat-label>Buyer Contrace No.</mat-label>
+                    <input matInput formControlName="buyercontractno">
+                    <!-- <mat-icon matSuffix class="secondary-text">account_circle</mat-icon> -->
+                </mat-form-field>
 
-                    <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pr-4">
-                        <mat-label>Buyer Contrace No.</mat-label>
-                        <input matInput formControlName="buyercontractno">
-                        <!-- <mat-icon matSuffix class="secondary-text">account_circle</mat-icon> -->
-                    </mat-form-field>
+                <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pl-4">
+                    <mat-label>Contract No.</mat-label>
+                    <input matInput formControlName="contarctno">
+                    <!-- <mat-icon matSuffix class="secondary-text">account_circle</mat-icon> -->
+                </mat-form-field>
 
-                    <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pl-4">
-                        <mat-label>Contract No.</mat-label>
-                        <input matInput formControlName="contarctno">
-                        <!-- <mat-icon matSuffix class="secondary-text">account_circle</mat-icon> -->
-                    </mat-form-field>
+            </div>
 
-                </div>
+            <div fxLayout="row wrap" fxLayoutAlign="end center" fxFlex="1 0 auto">
+                <button type="submit" mat-raised-button color="accent" class="submit-button" aria-label="SEARCH">
+                    <mat-icon>search</mat-icon>
+                    <span>SEARCH PRICING RAW</span>
+                </button>
+            </div>
+        </form>
 
-                <div fxLayout="row wrap" fxLayoutAlign="end center" fxFlex="1 0 auto">
-                    <button type="submit" mat-raised-button color="accent" class="submit-button" aria-label="SEARCH">
-                        <mat-icon>search</mat-icon>
-                        <span>SEARCH PRICING RAW</span>
-                    </button>
-                </div>
-            </form>
-
-            <mat-card class="mt-12 mb-12" [@animate]="{value:'*',params:{delay:'100ms',y:'25px'}}">
-                <!-- <ngx-data-table [data]="data"></ngx-data-table> -->
-                <div class="h2 mb-12">Search Results</div>
-
-                <mat-table #table1 *ngIf="dataSource.length > 0" [dataSource]="dataSource" multiTemplateDataRows matSort
-                    aria-label="Elements">
-                    <ng-container [matColumnDef]="cols" *ngFor="let cols of displayedColumns; let i = index">
-                        <mat-header-cell *matHeaderCellDef mat-sort-header>
-                            <span *ngIf="!(i === 0)">
-                                {{cols}}
-                            </span>
-                        </mat-header-cell>
-                        <mat-cell *matCellDef="let row; let element"
-                            [ngClass]="{'col-value': element.details === undefined}">
-                            <!-- expand caret -->
-                            <span *ngIf="i === 0 && element.details">
-                                <span (click)="toggleRow(element)"
-                                    *ngIf="expandedElement && expandedElement[cols] === element[cols]; else plusIcon"
-                                    class="expand-icon">&#9660;</span>
-                                <ng-template #plusIcon><span (click)="toggleRow(element)"
-                                        class="expand-icon">&#9658;</span>
-                                </ng-template>
-                            </span>
-                            <span *ngIf="!(i === 0 && element.details)">
-                                <span>{{element[cols]}}</span>
-                            </span>
-                        </mat-cell>
-                    </ng-container>
-
-                    <!-- Expanded Content Column - The detail row is made up of this one column -->
-                    <ng-container matColumnDef="expandedDetail">
-                        <mat-cell *matCellDef="let detail">
-                            <mat-table #table2 style="width: 100%" [dataSource]="detail.details" multiTemplateDataRows
-                                matSort aria-label="Elements">
-                                <ng-container [matColumnDef]="cols"
-                                    *ngFor="let cols of displayedDetailColumns; let i = index">
-                                    <mat-header-cell *matHeaderCellDef mat-sort-header>{{cols}}</mat-header-cell>
-                                    <mat-cell *matCellDef="let element">
-                                        <span>{{element[cols]}}</span>
-                                    </mat-cell>
-                                </ng-container>
-                                <mat-header-row *matHeaderRowDef="displayedDetailColumns"></mat-header-row>
-                                <mat-row *matRowDef="let row; columns: displayedDetailColumns;"></mat-row>
-                            </mat-table>
-                        </mat-cell>
-                    </ng-container>
-
-                    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-                    <mat-row *matRowDef="let row; columns: displayedColumns;" [class.expanded]="expandedElement == row">
-                    </mat-row>
-                    <mat-row *matRowDef="let row; columns: ['expandedDetail']; "
-                        [@detailExpand]="row == expandedElement ? 'expanded' : 'collapsed'" style="overflow: hidden">
-                    </mat-row>
-                </mat-table>
-
-                <mat-paginator #paginator *ngIf="dataSource.length > 0" [length]="totalRecords" [pageIndex]="0"
-                    [pageSize]="25" [pageSizeOptions]="[25, 50, 100, 250]">
-                </mat-paginator>
-
-                <p *ngIf="dataSource.length === 0">No records found</p>
-            </mat-card>
-
+        <div class="content-card  mt-12">
+            <mat-table #table class="example-container " *ngIf="dataSource.length > 0"
+                [dataSource]="dataSource" multiTemplateDataRows matSort (matSortChange)="sortData($event)"
+                [@animateStagger]="{value:'50'}" fusePerfectScrollbar>
+                <!-- ID Column -->
+                <ng-container matColumnDef="id">
+                    <mat-header-cell mat-sort-header *matHeaderCellDef></mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+                        {{element.id}}
+                    </mat-cell>
+                </ng-container>
+                
+    
+                <mat-header-row *matHeaderRowDef="displayedColumns sticky: true"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;" [class.expanded]="expandedElement == row"
+                    (contextmenu)="menu.open($event, {data: row} )"></mat-row>
+    
+            </mat-table>
         </div>
+
+
+        <mat-paginator #paginator *ngIf="dataSource.length > 0" [length]="totalRecords" [pageIndex]="0" [pageSize]="5"
+            [pageSizeOptions]="[5, 10, 15, 20]">
+        </mat-paginator>
+
+        <p *ngIf="dataSource.length === 0">No records found</p>
 
     </div>
 

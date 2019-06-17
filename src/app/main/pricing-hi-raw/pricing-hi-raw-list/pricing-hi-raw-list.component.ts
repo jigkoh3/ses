@@ -45,7 +45,10 @@ export class PricingHiRawListComponent implements OnInit {
     buyers: any = [];
     groupfactorys: any = [];
     dataSource: any = [];
-
+    displayedColumns = [
+        'id'
+      ];
+    
     // Private
 
     /**

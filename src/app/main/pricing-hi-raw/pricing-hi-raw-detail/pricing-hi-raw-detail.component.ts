@@ -36,6 +36,8 @@ export class PricingHiRawDetailComponent implements OnInit {
   id: any;
   mode: any;
   odata: ODataService<any>;
+  currentUser: any;
+  user: any;
   /**
      * Constructor
      *
@@ -60,7 +62,8 @@ export class PricingHiRawDetailComponent implements OnInit {
         this.mode = params.mode;
         console.log(this.mode); // popular
       });
-
+    this.currentUser = JSON.parse(localStorage.getItem('SEScurrentUser'));
+    this.user = this.currentUser.user;
     this.odata = this.odataFactory.CreateService<pricing>('ses_pricings');
 
   }
@@ -88,24 +91,7 @@ export class PricingHiRawDetailComponent implements OnInit {
     data.buyer = null;
     data.buyer_id = "2";
     data.created_date = moment().toDate();
-    console.log(data);
-    // data.created_date = moment().toDate();
-    // data.created_by_id = this.user.employee_username;
-    // data.contract_ver = data.contract_ver + 1;
-    // data.total_qty = this.calQty();
-    // data.total_shipment = this.calShipment();
-    // data.contract_items = _.cloneDeep(this.allContract_items);
-
-    // for (let item of data.contract_items) {
-    //   item.id = UUID.UUID();
-    //   item.contract_id = data.id;
-    //   item.product = null;
-    //   item.pu_code = null;
-    //   item.unit_name_eng = null;
-    //   item.pu_sub_code = null;
-    //   item.price_type = null;
-    // }
-    // data.handle = FuseUtils.handleize(data.name);
+    data.created_by_id = this.user.employee_username;
     this.odata.Post(
       data
     ).Exec()
