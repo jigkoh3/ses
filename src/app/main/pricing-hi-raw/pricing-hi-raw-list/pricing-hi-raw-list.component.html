@@ -30,7 +30,7 @@
         <!-- / HEADER -->
 
 
-        <div class="content pb-24" fusePerfectScrollbar>
+        <div class="content pb-24">
             <form class="mat-card p-12" fxLayout="column" name="form" [formGroup]="form" #formData='ngForm'
                 (ngSubmit)="onSearch(formData)" [@animate]="{value:'*',params:{delay:'100ms',y:'25px'}}">
                 <div class="h2 mb-12">Search Criteria</div>
@@ -113,9 +113,9 @@
                 </div>
             </form>
 
-            <mat-card class="mt-24 mb-24" [@animate]="{value:'*',params:{delay:'100ms',y:'25px'}}">
+            <mat-card class="mt-12 mb-12" [@animate]="{value:'*',params:{delay:'100ms',y:'25px'}}">
                 <!-- <ngx-data-table [data]="data"></ngx-data-table> -->
-                <div class="h2 mb-24">Search Results</div>
+                <div class="h2 mb-12">Search Results</div>
 
                 <mat-table #table1 *ngIf="dataSource.length > 0" [dataSource]="dataSource" multiTemplateDataRows matSort
                     aria-label="Elements">
