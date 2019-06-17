@@ -6,6 +6,9 @@ import { ODataConfiguration, ODataExecReturnType, ODataPagedResult, ODataQuery, 
 
 import { ODataConfigurationFactory } from '../../../ODataConfigurationFactory';
 import { Router, ActivatedRoute } from '@angular/router';
+import { pricing } from 'app/shared/models/pricing';
+import { UUID } from 'angular2-uuid';
+import * as moment from 'moment';
 
 
 
@@ -32,6 +35,7 @@ export class PricingHiRawDetailComponent implements OnInit {
   sub: any;
   id: any;
   mode: any;
+  odata: ODataService<any>;
   /**
      * Constructor
      *
@@ -56,6 +60,9 @@ export class PricingHiRawDetailComponent implements OnInit {
         this.mode = params.mode;
         console.log(this.mode); // popular
       });
+
+    this.odata = this.odataFactory.CreateService<pricing>('ses_pricings');
+
   }
 
   ngOnInit() {
@@ -69,6 +76,64 @@ export class PricingHiRawDetailComponent implements OnInit {
 
   goBack(): void {
     this.location.back();
+  }
+
+  addPricing() {
+    const data = new pricing();
+    data.id = UUID.UUID();
+    data.type_of_sugar = null;
+    data.type_of_sugar_id = "sugartype-hiraw";
+    // data.future_market = null;
+    // data.future_market_id = "No.11";
+    data.buyer = null;
+    data.buyer_id = "2";
+    data.created_date = moment().toDate();
+    console.log(data);
+    // data.created_date = moment().toDate();
+    // data.created_by_id = this.user.employee_username;
+    // data.contract_ver = data.contract_ver + 1;
+    // data.total_qty = this.calQty();
+    // data.total_shipment = this.calShipment();
+    // data.contract_items = _.cloneDeep(this.allContract_items);
+
+    // for (let item of data.contract_items) {
+    //   item.id = UUID.UUID();
+    //   item.contract_id = data.id;
+    //   item.product = null;
+    //   item.pu_code = null;
+    //   item.unit_name_eng = null;
+    //   item.pu_sub_code = null;
+    //   item.price_type = null;
+    // }
+    // data.handle = FuseUtils.handleize(data.name);
+    this.odata.Post(
+      data
+    ).Exec()
+      .subscribe(
+        resolve => {
+
+          // Change the location with new one
+          this.router.navigate(['/pricing-hi-raw']);
+        }, (error) => {
+          if (error.status == 401) {
+            this.router.navigate(['/login'], { queryParams: { error: 'Session Expire!' } });
+            console.log('Session Expire!');
+          } else if (error.status != 401 && error.status != 0) {
+            let detail = "";
+            detail = error.error.message;
+            if (error.error.InnerException) {
+              detail += '\n' + error.error.InnerException.ExceptionMessage;
+            }
+
+            //this.msgs = { severity: 'error', summary: 'Error', detail: detail };
+          } else if (error.status == 0) {
+
+            //this.msgs = { severity: 'error', summary: 'Error', detail: 'Cannot connect to server. Please contact administrator.' };
+          }
+
+          console.log('ODataExecReturnType.PagedResult ERROR ' + JSON.stringify(error));
+        });
+
   }
 
 }
