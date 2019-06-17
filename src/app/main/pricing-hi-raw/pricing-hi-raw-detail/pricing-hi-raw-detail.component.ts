@@ -3,12 +3,15 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Location } from '@angular/common';
 import { fuseAnimations } from '@fuse/animations';
 import { ODataConfiguration, ODataExecReturnType, ODataPagedResult, ODataQuery, ODataService, ODataServiceFactory } from 'angular-odata-es5'
-
 import { ODataConfigurationFactory } from '../../../ODataConfigurationFactory';
+import { combineLatest } from 'rxjs';
+import * as _ from 'lodash';
 import { Router, ActivatedRoute } from '@angular/router';
 import { pricing } from 'app/shared/models/pricing';
 import { UUID } from 'angular2-uuid';
 import * as moment from 'moment';
+import { lov_data } from 'app/shared/models/lov_data';
+import { party } from 'app/shared/models/party';
 
 
 
@@ -36,8 +39,14 @@ export class PricingHiRawDetailComponent implements OnInit {
   id: any;
   mode: any;
   odata: ODataService<any>;
+  odataLov: ODataService<lov_data>;
+  odataParty: ODataService<party>;
   currentUser: any;
   user: any;
+  allLOVs: any;
+  allPartys: any;
+  groupfactorys: string[];
+  buyers: any[];
   /**
      * Constructor
      *
@@ -65,15 +74,64 @@ export class PricingHiRawDetailComponent implements OnInit {
     this.currentUser = JSON.parse(localStorage.getItem('SEScurrentUser'));
     this.user = this.currentUser.user;
     this.odata = this.odataFactory.CreateService<pricing>('ses_pricings');
-
+    this.odataLov = this.odataFactory.CreateService<lov_data>('ses_lov_datas');
+    this.odataParty = this.odataFactory.CreateService<party>('ses_parties');
   }
 
   ngOnInit() {
     this.form = this._formBuilder.group({
-      buyer: [''],
-      groupfactory: [''],
-      buyercontractno: [''],
-      contarctno: ['']
+      // type_of_sugar_id: [''],
+      // future_market_id: [''],
+      buyer_id: [''],
+      qty: [0],
+      group_factory_id: [''],
+      shipment_from: [''],
+      shipment_to: ['']
+    });
+
+    combineLatest(
+      this.odataLov
+        .Query()
+        //.Expand('Processes($expand=ApproveFlow($expand=AFApproveFlowDetails($expand=AFDPosition)),Role)')
+        //.Filter("record_status eq true")
+        .Exec(),
+      this.odataParty
+        .Query()
+        //.Expand('Processes($expand=ApproveFlow($expand=AFApproveFlowDetails($expand=AFDPosition)),Role)')
+        .Filter("record_status eq true")
+        .Exec()
+    ).subscribe(T => {
+      this.allLOVs = T[0];
+      this.allPartys = T[1];
+
+      //[lov_code,lov1]+[SYSTEM,Group Factory]+[lov2 is not null]
+      this.groupfactorys = _.orderBy(_.filter(this.allLOVs, function (o) {
+        return o.lov_group == 'SYSTEM' && o.lov_type == 'Group Factory' && o.lov2
+      }), 'lov1');
+      console.log(this.groupfactorys)
+      //p.record_status = 1 and p.party_type like ‘%buyer%’ order by 2
+      this.buyers = _.orderBy(_.filter(this.allPartys, function (o) {
+        return o.record_status == true && o.party_type.indexOf('buyer') > -1
+      }), 'party_name');
+
+      // this.getPagedData();
+
+    }, (error) => {
+      if (error.status == 401) {
+        this.router.navigate(['/login'], { queryParams: { error: 'Session Expire!' } });
+        console.log('Session Expire!');
+      } else if (error.status != 401 && error.status != 0) {
+        let detail = "";
+        detail = error.error.message;
+        if (error.error.InnerException) {
+          detail += '\n' + error.error.InnerException.ExceptionMessage;
+        }
+        //this.msgs = { severity: 'error', summary: 'Error', detail: detail };
+      } else if (error.status == 0) {
+        //this.msgs = { severity: 'error', summary: 'Error', detail: 'Cannot connect to server. Please contact administrator.' };
+      }
+
+      console.log('ODataExecReturnType.PagedResult ERROR ' + JSON.stringify(error));
     });
   }
 
@@ -82,14 +140,18 @@ export class PricingHiRawDetailComponent implements OnInit {
   }
 
   addPricing() {
-    const data = new pricing();
+    // const data = new pricing();
+
+    const data: pricing = this.form.getRawValue();
+    // console.log(data);
+
     data.id = UUID.UUID();
     data.type_of_sugar = null;
-    data.type_of_sugar_id = "sugartype-hiraw";
-    // data.future_market = null;
+    // data.type_of_sugar_id = "sugartype-hiraw";
+    data.future_market = null;
     // data.future_market_id = "No.11";
     data.buyer = null;
-    data.buyer_id = "2";
+    // data.buyer_id = "2";
     data.created_date = moment().toDate();
     data.created_by_id = this.user.employee_username;
     this.odata.Post(

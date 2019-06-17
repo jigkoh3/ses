@@ -36,52 +36,26 @@
 
                 <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pl-4">
                     <mat-label>Buyer</mat-label>
-                    <mat-select formControlName="buyer">
-                        <mat-option [value]="'United States of America'">
-                            United States of America
+                    <mat-select formControlName="buyer_id">
+                        <mat-option [value]="">
+                            --All--
                         </mat-option>
-                        <mat-option [value]="'United Kingdom'">
-                            United Kingdom
-                        </mat-option>
-                        <mat-option [value]="'Russia'">
-                            Russia
-                        </mat-option>
-                        <mat-option [value]="'China'">
-                            China
-                        </mat-option>
-                        <mat-option [value]="'Japan'">
-                            Japan
-                        </mat-option>
-                        <mat-option [value]="'Turkey'">
-                            Turkey
+                        <mat-option *ngFor="let buyer of buyers" [value]="buyer.id">
+                            {{buyer.party_name}}
                         </mat-option>
                     </mat-select>
-                    <!-- <mat-icon matSuffix class="secondary-text">outlined_flag</mat-icon> -->
                 </mat-form-field>
 
                 <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pl-4">
                     <mat-label>Group Factory</mat-label>
                     <mat-select formControlName="groupfactory">
-                        <mat-option [value]="'United States of America'">
-                            United States of America
+                        <mat-option [value]="">
+                            --All--
                         </mat-option>
-                        <mat-option [value]="'United Kingdom'">
-                            United Kingdom
-                        </mat-option>
-                        <mat-option [value]="'Russia'">
-                            Russia
-                        </mat-option>
-                        <mat-option [value]="'China'">
-                            China
-                        </mat-option>
-                        <mat-option [value]="'Japan'">
-                            Japan
-                        </mat-option>
-                        <mat-option [value]="'Turkey'">
-                            Turkey
+                        <mat-option *ngFor="let groupfactory of groupfactorys" [value]="groupfactory.id">
+                            {{groupfactory.lov1}}
                         </mat-option>
                     </mat-select>
-                    <!-- <mat-icon matSuffix class="secondary-text">outlined_flag</mat-icon> -->
                 </mat-form-field>
 
             </div>
@@ -118,7 +92,7 @@
                 <ng-container matColumnDef="id">
                     <mat-header-cell mat-sort-header *matHeaderCellDef></mat-header-cell>
                     <mat-cell *matCellDef="let element">
-                        {{element.id}}
+                        <!-- {{element.id}} -->
                     </mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="buyer.party_name">
@@ -129,9 +103,9 @@
                     <mat-header-cell mat-sort-header *matHeaderCellDef>Group Factory</mat-header-cell>
                     <mat-cell *matCellDef="let element">{{element.group_factory?.lov1}}</mat-cell>
                 </ng-container>
-                <ng-container matColumnDef="type_of_sugar_id">
+                <ng-container matColumnDef="type_of_sugar.lov1">
                     <mat-header-cell mat-sort-header *matHeaderCellDef>Suger Type</mat-header-cell>
-                    <mat-cell *matCellDef="let element">{{element.type_of_sugar_id}}</mat-cell>
+                    <mat-cell *matCellDef="let element">{{element.type_of_sugar?.lov1}}</mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="qty">
                     <mat-header-cell mat-sort-header *matHeaderCellDef>Quantity(MT)</mat-header-cell>

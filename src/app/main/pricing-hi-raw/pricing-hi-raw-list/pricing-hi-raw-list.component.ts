@@ -49,7 +49,7 @@ export class PricingHiRawListComponent implements OnInit {
         'id',
         'buyer.party_name',
         'group_factory.lov1',
-        'type_of_sugar_id',
+        'type_of_sugar.lov1',
         'qty',
         'shipment_from',
         'shipment_to',
@@ -90,7 +90,7 @@ export class PricingHiRawListComponent implements OnInit {
     ngOnInit(): void {
         // Reactive Form
         this.form = this._formBuilder.group({
-            buyer: [''],
+            buyer_id: [''],
             groupfactory: [''],
             buyercontractno: [''],
             contarctno: ['']
@@ -114,7 +114,7 @@ export class PricingHiRawListComponent implements OnInit {
             this.groupfactorys = _.orderBy(_.filter(this.allLOVs, function (o) {
                 return o.lov_group == 'SYSTEM' && o.lov_type == 'Group Factory' && o.lov2
             }), 'lov1');
-
+            console.log(this.groupfactorys)
             //p.record_status = 1 and p.party_type like ‘%buyer%’ order by 2
             this.buyers = _.orderBy(_.filter(this.allPartys, function (o) {
                 return o.record_status == true && o.party_type.indexOf('buyer') > -1
@@ -167,12 +167,12 @@ export class PricingHiRawListComponent implements OnInit {
         this.query = this.odata
             .Query()
             //.Filter("CreatedBy/Id eq '" + this.user.Id + "'" + this.qType)
-            .Expand('buyer')
-            // .Select(['id',
-            //     'buyer/party_name',
-            //     'group_factory/lov1',
-            //     'future_market/lov1',
-            // ]);
+            .Expand('buyer, group_factory, type_of_sugar')
+        // .Select(['id',
+        //     'buyer/party_name',
+        //     'group_factory/lov1',
+        //     'future_market/lov1',
+        // ]);
         if (this.filter) {
             if (this.filter.rows) {
                 this.query = this.query.Top(this.filter.rows);

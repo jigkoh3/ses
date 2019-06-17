@@ -41,24 +41,24 @@
           (ngSubmit)="onSearch(formData)">
 
           <div class="h2 mb-24"></div>
-          <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
+          <!-- <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
 
             <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pl-4">
               <mat-label>Type of Sugar</mat-label>
-              <input matInput formControlName="buyer">
+              <input matInput formControlName="type_of_sugar_id">
             </mat-form-field>
 
             <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pl-4">
               <mat-label>Future Market</mat-label>
-              <input matInput formControlName="buyer">
+              <input matInput formControlName="future_market_id">
             </mat-form-field>
 
-          </div>
+          </div> -->
           <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
 
             <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pl-4">
               <mat-label>Buyer</mat-label>
-              <mat-select formControlName="buyer">
+              <mat-select formControlName="buyer_id">
                 <mat-option [value]="">
                   --All--
                 </mat-option>
@@ -70,7 +70,7 @@
 
             <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pl-4">
               <mat-label>Qty(MT)</mat-label>
-              <input matInput formControlName="buyercontractno">
+              <input matInput formControlName="qty">
             </mat-form-field>
 
           </div>
@@ -80,7 +80,7 @@
 
             <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pl-4">
               <mat-label>Group Factory</mat-label>
-              <mat-select formControlName="groupfactory">
+              <mat-select formControlName="group_factory_id">
                 <mat-option [value]="">
                   --All--
                 </mat-option>
@@ -91,21 +91,21 @@
             </mat-form-field>
 
             <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="25" class="pl-4">
-              <mat-label>Qty(MT)</mat-label>
-              <input matInput [matDatepicker]="pickerStart" placeholder="Choose a date">
+              <mat-label>Shipment From</mat-label>
+              <input matInput [matDatepicker]="pickerStart" placeholder="Choose a date" formControlName="shipment_from">
               <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
               <mat-datepicker #pickerStart></mat-datepicker>
             </mat-form-field>
             <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="25" class="pl-4">
-              <mat-label>Qty(MT)</mat-label>
-              <input matInput [matDatepicker]="pickerEnd" placeholder="Choose a date">
+              <mat-label>Shipment To</mat-label>
+              <input matInput [matDatepicker]="pickerEnd" placeholder="Choose a date" formControlName="shipment_to">
               <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
               <mat-datepicker #pickerEnd></mat-datepicker>
             </mat-form-field>
 
           </div>
 
-          <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
+          <!-- <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
 
             <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pr-4">
               <mat-label>Buyer Contrace No.</mat-label>
@@ -167,7 +167,7 @@
           </div>
           <div class="h2 mb-24">
 
-          </div>
+          </div> -->
 
           <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
