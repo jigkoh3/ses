@@ -115,7 +115,7 @@ export class PricingHiRawDetailComponent implements OnInit {
         return o.record_status == true && o.party_type.indexOf('buyer') > -1
       }), 'party_name');
 
-      this.sugar_types = _.sortBy(_.filter(this.allLOVs, x => x.lov_group.toUpperCase() == 'SYSTEM' && x.lov_type.toUpperCase() == 'SUGAR TYPE' && x.record_status), "lov_order");
+      this.sugar_types = _.sortBy(_.filter(this.allLOVs, x => x.lov_group.toUpperCase() == 'SYSTEM' && x.lov_type.toUpperCase() == 'SUGAR TYPE' && x.record_status && x.lov3 == 'raw'), "lov_order");
       // this.getPagedData();
 
     }, (error) => {
