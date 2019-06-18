@@ -89,7 +89,7 @@ export class PricingHiRawDetailComponent implements OnInit {
       shipment_from: ['', Validators.required],
       shipment_to: ['', Validators.required],
       buyer_contract_no: ['', Validators.required],
-      contract_id: [''],
+      contract_id: [null],
       contract_date: ['', Validators.required],
       premium_cent: [0, Validators.required]
     });
