@@ -153,11 +153,11 @@ export class PricingHiRawDetailComponent implements OnInit {
 
     data.id = UUID.UUID();
     data.type_of_sugar = null;
-    // data.type_of_sugar_id = "sugartype-hiraw";
+    data.qty = Number(data.qty );
+    data.premium_cent = Number(data.premium_cent )
     data.future_market = null;
     data.future_market_id = "fmkt-no11";
     data.buyer = null;
-    // data.buyer_id = "2";
     data.created_date = moment().toDate();
     data.created_by_id = this.user.employee_username;
     this.odata.Post(
