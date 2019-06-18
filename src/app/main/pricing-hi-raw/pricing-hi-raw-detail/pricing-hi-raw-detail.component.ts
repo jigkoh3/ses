@@ -50,7 +50,11 @@ export class PricingHiRawDetailComponent implements OnInit {
   sugar_types: string[];
   contract_months: any;
   contract_years: any[];
+  crop_years: any[];
   curr_year: number;
+  curr_crop_year: string;
+  contract_made_ons: any[];
+  portions: any[];
   /**
      * Constructor
      *
@@ -64,6 +68,7 @@ export class PricingHiRawDetailComponent implements OnInit {
     private odataFactory: ODataServiceFactory
   ) {
     this.curr_year = (new Date()).getFullYear();
+    this.curr_crop_year = this.curr_year + '/' + (this.curr_year + 1).toString().substring(2, 4);
     // Set the private defaults
     this.sub = this.route.params.subscribe(params => {
       this.id = params['id'];
@@ -98,6 +103,10 @@ export class PricingHiRawDetailComponent implements OnInit {
       premium_cent: [0, Validators.required],
       contract_month_id: ['', Validators.required],
       contract_year: [this.curr_year, Validators.required],
+      crop_year: [this.curr_crop_year, Validators.required],
+      contract_made_on_id: ['', Validators.required],
+      portion_id: ['', Validators.required],
+      remark: ['']
     });
 
     combineLatest(
@@ -129,10 +138,22 @@ export class PricingHiRawDetailComponent implements OnInit {
       // this.getPagedData();
 
       this.contract_months = _.sortBy(_.filter(this.allLOVs, x => x.lov_group.toUpperCase() == 'SYSTEM' && x.lov_type.toUpperCase() == 'FUTURE MARKET MONTH' && x.record_status && x.lov_code == 'No.11'), "lov_order");
+
+      this.contract_made_ons = _.sortBy(_.filter(this.allLOVs, x => x.lov_group.toUpperCase() == 'SYSTEM' && x.lov_type.toUpperCase() == 'CONTRACT MADE ON' && x.record_status && x.lov3 == 'Y'), "lov_order");
+
+      this.portions = _.sortBy(_.filter(this.allLOVs, x => x.lov_group.toUpperCase() == 'SYSTEM' && x.lov_type.toUpperCase() == 'PRICING PORTION' && x.record_status), "lov_order");
+
       this.contract_years = [];
-      
+      this.crop_years = [];
+
       for (let i = -2; i < 3; i++) {
         this.contract_years.push(this.curr_year + i);
+        var year_crop = this.curr_year + i + '/' + (this.curr_year + i + 1).toString().substring(2, 4);
+        var member = {
+          id : this.curr_year + i + 1,
+          lov1: year_crop
+        }
+        this.crop_years.push(member);
       }
 
       console.log(this.contract_months);
@@ -172,7 +193,11 @@ export class PricingHiRawDetailComponent implements OnInit {
     data.future_market = null;
     data.future_market_id = "fmkt-no11";
     data.buyer = null;
-    data.contract_month = null
+    data.contract_month = null;
+    data.contract_made_on = null;
+    data.portion = null;
+    data.pricing_template_id = 'prtemp-raw';
+    data.pricing_template = null;
     data.created_date = moment().toDate();
     data.created_by_id = this.user.employee_username;
     this.odata.Post(

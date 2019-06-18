@@ -149,6 +149,7 @@
             </mat-form-field>
 
           </div>
+
           <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
 
             <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pl-4">
@@ -176,8 +177,59 @@
             </mat-form-field>
 
           </div>
-          <div class="h2 mb-24">
 
+          <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
+
+            <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="33" class="pl-4">
+              <mat-label>Crop Year</mat-label>
+              <mat-select formControlName="crop_year">
+                <mat-option [value]="">
+                  --All--
+                </mat-option>
+                <mat-option *ngFor="let crop_year of crop_years" [value]="crop_year.id">
+                  {{crop_year.lov1}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+
+            <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="33" class="pl-4">
+              <mat-label>Contract made by</mat-label>
+              <mat-select formControlName="contract_made_on_id">
+                <mat-option [value]="">
+                  --All--
+                </mat-option>
+                <mat-option *ngFor="let contract_made_on of contract_made_ons" [value]="contract_made_on.id">
+                  {{contract_made_on.lov1}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="33" class="pl-4">
+              <mat-label>Portion</mat-label>
+              <mat-select formControlName="portion_id">
+                <mat-option [value]="">
+                  --All--
+                </mat-option>
+                <mat-option *ngFor="let portion of portions" [value]="portion.id">
+                  {{portion.lov1}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+
+          </div>
+
+          <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
+            <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="100" class="pr-4">
+              <mat-label>Remark</mat-label>
+              <textarea matInput formControlName="remark">
+                </textarea>
+            </mat-form-field>
+          </div>
+
+          <div class="h2 mb-24">
+            New York No.11
           </div>
 
           <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
@@ -245,8 +297,10 @@
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
           </table>
 
-          <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto" class="mt-36">
+          
 
+          <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto" class="mt-36">
+            
             <table mat-table fxFlex="100" fxFlex.gt-sm="50" [dataSource]="dataSource" class="mat-elevation-z8">
 
               <!--- Note that these columns can be defined in any order.
