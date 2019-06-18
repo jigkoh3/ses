@@ -87,7 +87,11 @@ export class PricingHiRawDetailComponent implements OnInit {
       qty: [0, Validators.required],
       group_factory_id: ['', Validators.required],
       shipment_from: ['', Validators.required],
-      shipment_to: ['', Validators.required]
+      shipment_to: ['', Validators.required],
+      buyer_contract_no: ['', Validators.required],
+      contract_id: [''],
+      contract_date: ['', Validators.required],
+      premium_cent: [0, Validators.required]
     });
 
     combineLatest(
