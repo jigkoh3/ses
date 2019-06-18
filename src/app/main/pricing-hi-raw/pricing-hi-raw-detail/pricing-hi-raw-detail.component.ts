@@ -96,7 +96,7 @@ export class PricingHiRawDetailComponent implements OnInit {
       contract_id: [null],
       contract_date: ['', Validators.required],
       premium_cent: [0, Validators.required],
-      contract_month: ['', Validators.required],
+      contract_month_id: ['', Validators.required],
       contract_year: [this.curr_year, Validators.required],
     });
 
@@ -172,6 +172,7 @@ export class PricingHiRawDetailComponent implements OnInit {
     data.future_market = null;
     data.future_market_id = "fmkt-no11";
     data.buyer = null;
+    data.contract_month = null
     data.created_date = moment().toDate();
     data.created_by_id = this.user.employee_username;
     this.odata.Post(
