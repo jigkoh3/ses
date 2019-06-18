@@ -1,29 +1,65 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormBuilder, Validators, FormGroup, FormControl } from '@angular/forms';
+import { FormBuilder, Validators, FormGroup, FormControl, FormGroupDirective, NgForm } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ODataConfiguration, ODataExecReturnType, ODataPagedResult, ODataQuery, ODataService, ODataServiceFactory } from 'angular-odata-es5'
 import { contract, lov_data, party, shipment_to, payment_term, currency, term_cond, packing_unit, unit_code, pu_sub_code, product, shipment_term, contract_item, MasterService } from 'app/shared';
-import { combineLatest } from 'rxjs';
+
+import { combineLatest, from } from 'rxjs';
 import * as _ from 'lodash';
-import * as moment from 'moment';
+//import * as moment from 'moment';
 import { ODataConfigurationFactory } from 'app/ODataConfigurationFactory';
 import { expand } from 'rxjs/operators';
 import { ContractItemComponent } from './contract-item.component';
-import { MatDialog, MatDialogRef, MatSnackBar } from '@angular/material';
+import { MatDialog, MatDialogRef, MatSnackBar, DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS, ErrorStateMatcher } from '@angular/material';
 import 'rxjs/add/operator/filter';
 import { fuseAnimations } from '@fuse/animations';
 import { FuseUtils } from '@fuse/utils';
 import { UUID } from 'angular2-uuid';
+
+import * as _moment from 'moment';
+import { MomentDateAdapter } from '@angular/material-moment-adapter';
+// tslint:disable-next-line:no-duplicate-imports
+// import {default as _rollupMoment} from 'moment';
+
+// const moment = _rollupMoment || _moment;
+const moment = _moment;
+
+// See the Moment.js docs for the meaning of these formats:
+// https://momentjs.com/docs/#/displaying/format/
+export const MY_FORMATS = {
+  parse: {
+    dateInput: 'LL',
+  },
+  display: {
+    dateInput: 'DD MMM YYYY',
+    monthYearLabel: 'YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY',
+  },
+};
+
+class CrossFieldErrorMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    //console.log(control);
+    return control.dirty && (form.errors ? true : false);
+  }
+}
+
 @Component({
   selector: 'app-contract-detail',
   templateUrl: './contract-detail.component.html',
   styleUrls: ['./contract-detail.component.scss'],
   animations: fuseAnimations,
-  providers: [MasterService, { provide: ODataConfiguration, useFactory: ODataConfigurationFactory }, ODataServiceFactory],
+  providers: [
+    MasterService,
+    { provide: ODataConfiguration, useFactory: ODataConfigurationFactory },
+    ODataServiceFactory,
+    { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+    { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },],
 })
 export class ContractDetailComponent implements OnInit {
   contractItemDialogRef: MatDialogRef<ContractItemComponent>;
-
+  errorMatcher = new CrossFieldErrorMatcher();
 
   mode: string;
   user;
@@ -33,17 +69,17 @@ export class ContractDetailComponent implements OnInit {
   id: string;
   sub: any;
 
-  selectedCurrency;
+  // selectedCurrency;
   //selectedUnit;
-  selectedShipmentBy;
-  selectedContractMadeOn;
-  selectedShipmentOption;
-  selectedShipmentPeriodFrom;
-  selectedShipmentPeriodTo;
+  // selectedShipmentBy;
+  // selectedContractMadeOn;
+  // selectedShipmentOption;
+  // selectedShipmentPeriodFrom;
+  // selectedShipmentPeriodTo;
 
   contract: contract;
-  allContract_items: contract_item[];
-  contract_items: contract_item[];
+  allContract_items: contract_item[] = [];
+  contract_items: contract_item[] = [];
 
   odata: ODataService<contract>;
   odataLov: ODataService<lov_data>;
@@ -145,14 +181,9 @@ export class ContractDetailComponent implements OnInit {
     this.odataUnitCode = this.odataFactory.CreateService<unit_code>('ses_unit_codes');
     this.odataPUSubCode = this.odataFactory.CreateService<pu_sub_code>('ses_pu_sub_codes');
     this.odataProduct = this.odataFactory.CreateService<product>('ses_products');
-  }
-  ngOnDestroy() {
-    this.sub.unsubscribe();
-  }
 
-  ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
-      this.id = params['id'];
+      this.id = params['id'] ? params['id'].toString() : null;
     });
 
     this.route.queryParams
@@ -162,13 +193,6 @@ export class ContractDetailComponent implements OnInit {
         this.mode = params.mode;
         console.log(this.mode); // popular
       });
-
-    for (let i = moment().year() - 2; i <= moment().year() + 2; i++) {
-      this.crop_years.push(this.genCropYear(i));
-    }
-
-    //mock id
-    this.id = "1";
 
     let disabledControl: Boolean;
     if (this.mode == "View") {
@@ -181,7 +205,7 @@ export class ContractDetailComponent implements OnInit {
 
     this.form = this._formBuilder.group({
       id: null,
-      contract_no: [{ value: '', disabled: true }, Validators.required],
+      contract_no: [{ value: '', disabled: true }],
       contract_date: [{ value: '', disabled: disabledControl }, Validators.required],
       contract_type: 'CONTRACT',
       contract_ver: 0,
@@ -189,7 +213,7 @@ export class ContractDetailComponent implements OnInit {
       addendum_type: null,
       addendum_no: null,
       addendum_date: null,
-      contract_status: [{ value: '', disabled: true }, Validators.required],
+      contract_status: [{ value: '', disabled: true }],
       contract_made_on_id: [{ value: '', disabled: disabledControl }, Validators.required],
       crop_year: [{ value: '', disabled: disabledControl }, Validators.required],
       seller_id: [{ value: '', disabled: true }, Validators.required],
@@ -210,7 +234,7 @@ export class ContractDetailComponent implements OnInit {
       shipment_term_remark: [{ value: '', disabled: disabledControl }, Validators.required],
       product_remark: [{ value: '', disabled: disabledControl }, Validators.required],
       gen_term_condition_id: [{ value: '', disabled: disabledControl }, Validators.required],
-      //gen_term_condition_desc: [{ value: '', disabled: true }, Validators.required],
+      gen_term_condition_desc: [{ value: '', disabled: true }],
       ad_buyer_contract_no: null,
       ad_buyer: null,
       ad_shipment_term: null,
@@ -230,9 +254,48 @@ export class ContractDetailComponent implements OnInit {
       updated_by_id: null,
       updated_date: null,
       //contract_items: this._formBuilder.array([]),
-    });
+    }, { validator: this.checkDates });
+
+  }
+
+  public findInvalidControls() {
+    const invalid = [];
+    const controls = this.form.controls;
+    for (const name in controls) {
+      if (controls[name].invalid) {
+        console.log(name);
+      }
+    }
+    return invalid;
+  }
+
+  ngOnDestroy() {
+    this.sub.unsubscribe();
+  }
+
+  ngOnInit() {
+
+    for (let i = moment().year() - 2; i <= moment().year() + 2; i++) {
+      this.crop_years.push(this.genCropYear(i));
+    }
+
+    //mock id
+    //this.id = "1";
 
 
+
+
+    this.form.get('partial_shipment_option_id')
+      .valueChanges
+      .subscribe((res) => {
+        this.changePartialShipmentOption(res)
+      });
+
+    this.form.get('gen_term_condition_id')
+      .valueChanges
+      .subscribe((res) => {
+        this.changeGenTermCondition(res)
+      });
 
     combineLatest(
       this.odataLov
@@ -310,7 +373,7 @@ export class ContractDetailComponent implements OnInit {
 
       if (this.id) {
         this.odata.Get(this.id)
-          .Expand('contract_items($expand=product,pu_code,unit_name_eng,price_type),partial_shipment_option')
+          .Expand('contract_items($expand=product,pu_code,unit_name_eng,pu_sub_code,price_type),partial_shipment_option')
           .Exec()
           .subscribe(contract => {
             this.contract = contract;
@@ -352,13 +415,13 @@ export class ContractDetailComponent implements OnInit {
               gen_term_condition_desc: (gen_term_condition ? gen_term_condition.tc_in_contract : ""),
             });
 
-            this.selectedCurrency = _.find(this.currencies, x => x.id == this.contract.currency_id);
+            //this.selectedCurrency = _.find(this.currencies, x => x.id == this.contract.currency_id);
             //this.selectedUnit = _.filter(this.currencies,x=>x.id ==this.contract.currency_id);
-            this.selectedShipmentBy = this.contract.shipment_by;
-            this.selectedContractMadeOn = _.find(this.contract_made_ons, x => x.id == this.contract.contract_made_on_id);
-            this.selectedShipmentOption = this.contract.shipment_option;
-            this.selectedShipmentPeriodFrom = this.contract.shipment_period_from;
-            this.selectedShipmentPeriodTo = this.contract.shipment_period_to;
+            // this.selectedShipmentBy = this.contract.shipment_by;
+            // this.selectedContractMadeOn = _.find(this.contract_made_ons, x => x.id == this.contract.contract_made_on_id);
+            // this.selectedShipmentOption = this.contract.shipment_option;
+            // this.selectedShipmentPeriodFrom = this.contract.shipment_period_from;
+            // this.selectedShipmentPeriodTo = this.contract.shipment_period_to;
           }, (error) => {
             if (error.status == 401) {
               this.router.navigate(['/login'], { queryParams: { error: 'Session Expire!' } });
@@ -377,9 +440,6 @@ export class ContractDetailComponent implements OnInit {
             console.log('ODataExecReturnType.PagedResult ERROR ' + JSON.stringify(error));
           });
       } else {
-
-        // this.form['contract_status'].setValue("DRAFT");
-
         this.form.patchValue({
           contract_status: 'DRAFT',
           seller_id: defaultSeller.lov1,
@@ -412,36 +472,76 @@ export class ContractDetailComponent implements OnInit {
     });
   }
 
-  changePartialShipmentOption() {
-    //where tc.partial_shipment_option like 
+  checkDates(group: FormGroup) {
+    if (group.controls.shipment_period_from.value && group.controls.shipment_period_to.value) {
+      if (group.controls.shipment_period_from.value.toDate() > group.controls.shipment_period_to.value.toDate()) {
+        return { notValid: true }
+      }
+    }
+
+    return null;
+  }
+
+  changePartialShipmentOption(val) {
+    //console.log(event);
+    let partial_shipment_option = _.find(this.partial_shipment_options, x => x.id == val);
+
+    if (partial_shipment_option) {
+      this.term_conds = _.filter(this.AllTerm_conds, x => x.partial_shipment_option.toUpperCase() == partial_shipment_option.lov_code.toUpperCase());
+
+      this.form.patchValue({
+        gen_term_condition_id: null,
+        gen_term_condition_desc: ""
+      })
+    }
+  }
+
+  changeGenTermCondition(val) {
+    let term_conds = _.find(this.AllTerm_conds, x => x.id == val);
+    if (term_conds) {
+      this.form.patchValue({
+        gen_term_condition_desc: term_conds.tc_in_contract
+      });
+    } else {
+      this.form.patchValue({
+        gen_term_condition_desc: ""
+      });
+    }
   }
 
   genCropYear(year: number) {
     return { value: year.toString(), text: year - 1 + '/' + year.toString().substr(2, 2) };
   }
 
-  openContractItemDialog(id: string) {
-    let mode;
-    if (this.mode == 'View') {
-      mode = this.mode;
-    } else {
-      mode = id ? "Edit" : "Add"
-    }
+  openContractItemDialog(contract_item: contract_item, mode: string) {
+    let selectedCurrency = _.find(this.currencies, x => x.id == this.form.controls['currency_id'].value);
+    let selectedShipmentBy = this.form.controls['shipment_by'].value
+    let selectedContractMadeOn = _.find(this.contract_made_ons, x => x.id == this.form.controls['contract_made_on_id'].value);
+    let selectedShipmentOption = this.form.controls['shipment_option'].value
+    let selectedShipmentPeriodFrom = this.form.controls['shipment_period_from'].value
+    let selectedShipmentPeriodTo = this.form.controls['shipment_period_from'].value
+    let selectedSugerType = _.find(this.sugar_types, x => x.id == this.form.controls['sugar_type_id'].value);
+    let selectedShipmentTerm = _.find(this.shipment_terms, x => x.id == this.form.controls['shipment_term_id'].value);
     this.contractItemDialogRef = this.dialog.open(ContractItemComponent, {
       height: '80%',
       width: '60%',
       data: {
-        id: id,
+        id: contract_item ? contract_item.id : null,
+        contract_item: contract_item,
         mode: mode,
-        shipment_by: this.selectedShipmentBy,
-        contract_made_on: this.selectedContractMadeOn,
-        shipment_option: this.selectedShipmentOption,
-        shipment_period_from: this.selectedShipmentPeriodFrom,
-        shipment_period_to: this.selectedShipmentPeriodTo,
-        //unit: this.selectedUnit,
-        currency: this.selectedCurrency
+        shipment_by: selectedShipmentBy,
+        contract_made_on: selectedContractMadeOn,
+        shipment_option: selectedShipmentOption,
+        shipment_period_from: selectedShipmentPeriodFrom,
+        shipment_period_to: selectedShipmentPeriodTo,
+        //unit: selectedUnit,
+        currency: selectedCurrency,
+        suger_type: selectedSugerType,
+        shipment_term: selectedShipmentTerm
       }
     });
+
+
 
     this.contractItemDialogRef.afterClosed().pipe(
     ).subscribe((ret: contract_item) => {
@@ -449,17 +549,18 @@ export class ContractDetailComponent implements OnInit {
         if (ret.id) {
           let contract_item = _.find(this.allContract_items, x => x.id == ret.id);
           contract_item = ret;
+          this._matSnackBar.open('Contract item saved', 'OK', {
+            verticalPosition: 'top',
+            duration: 10000
+          });
+        } else {
+          this.allContract_items.push(ret);
+          this._matSnackBar.open('Contract item added', 'OK', {
+            verticalPosition: 'top',
+            duration: 10000
+          });
+
         }
-        this._matSnackBar.open('Contract item saved', 'OK', {
-          verticalPosition: 'top',
-          duration: 10000
-        });
-      } else {
-        this.allContract_items.push(ret);
-        this._matSnackBar.open('Contract item added', 'OK', {
-          verticalPosition: 'top',
-          duration: 10000
-        });
       }
       // this.files.push({ name, content: ''});
     })

@@ -42,6 +42,10 @@ const routes = [
   {
     path: 'contract-detail',
     component: ContractDetailComponent
+  },
+  {
+    path: 'contract-detail/:id',
+    component: ContractDetailComponent
   }
 ];
 

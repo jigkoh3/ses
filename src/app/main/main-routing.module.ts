@@ -13,7 +13,9 @@ const routes: Routes = [
             { path: 'pricing-white-detail',loadChildren: './pricing-white/pricing-white.module#PricingWhiteModule' },
             { path: 'contract',loadChildren: './contract/contract.module#ContractModule'},
             { path: 'contract-detail',loadChildren: './contract/contract.module#ContractModule'},
+            { path: 'contract-detail/:id',loadChildren: './contract/contract.module#ContractModule'},
             { path: 'addendum-detail',loadChildren: './addendum/addendum.module#AddendumModule'},
+            { path: 'addendum-detail/:id',loadChildren: './addendum/addendum.module#AddendumModule'},
           
         ]
     }

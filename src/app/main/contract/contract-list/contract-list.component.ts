@@ -17,6 +17,7 @@ import {
   animate,
 
 } from '@angular/animations';
+import { MatSnackBar } from '@angular/material';
 // import { ContextMenuComponent } from '../context-menu.component';
 @Component({
   selector: 'app-contract-list',
@@ -55,8 +56,8 @@ export class ContractListComponent implements OnInit {
   public filter: filter = {
     first: 0,
     rows: 5,
-    sortField: 'contract_no',
-    sortOrder: 1,
+    sortField: 'contract_date',
+    sortOrder: -1,
   };
 
   public query: ODataQuery<any>;
@@ -123,7 +124,8 @@ export class ContractListComponent implements OnInit {
 
   constructor(
     public route: Router,
-    private odataFactory: ODataServiceFactory
+    private odataFactory: ODataServiceFactory,
+    private _matSnackBar: MatSnackBar
   ) {
     this.currentUser = JSON.parse(localStorage.getItem('SEScurrentUser'));
     //this.user = this.currentUser.user;
@@ -181,7 +183,15 @@ export class ContractListComponent implements OnInit {
           detail += '\n' + error.error.InnerException.ExceptionMessage;
         }
         //this.msgs = { severity: 'error', summary: 'Error', detail: detail };
+        this._matSnackBar.open(detail, 'ERROR', {
+          verticalPosition: 'top',
+          duration: 10000
+        });
       } else if (error.status == 0) {
+        this._matSnackBar.open('Cannot connect to server. Please contact administrator.', 'ERROR', {
+          verticalPosition: 'top',
+          duration: 10000
+        });
         //this.msgs = { severity: 'error', summary: 'Error', detail: 'Cannot connect to server. Please contact administrator.' };
       }
 
@@ -236,9 +246,16 @@ export class ContractListComponent implements OnInit {
   }
 
   private getPagedData() {
+    let filter = "";
+    if (this.filterText) {
+      filter = this.filterText + "and record_status eq true and latest_flag eq true"
+    } else {
+      filter = "record_status eq true and latest_flag eq true";
+    }
+
     this.query = this.odata
       .Query()
-      .Filter(this.filterText)
+      .Filter(filter)
       .Expand('buyer, sugar_type, contract_made_on, group_factory, shipment_term,  payment_term, currency')//, contract_items
       .Select(['id',
         'contract_type',
@@ -363,18 +380,18 @@ export class ContractListComponent implements OnInit {
   //   this.screenwidth = event.target.innerWidth
   // }
   onAdd() {
-    this.route.navigate(['/contract-detail'], { queryParams: { mode: 'Add' } })
+    this.route.navigate(['contract-detail'], { queryParams: { mode: 'Add' } })
   }
 
-  onView(id) {
-    this.route.navigate(['/contract-detail/' + id], { queryParams: { mode: 'View' } })
+  onView(data) {
+    this.route.navigate(['contract-detail', data.id], { queryParams: { mode: 'View' } })
   }
 
-  onEdit(id) {
-    this.route.navigate(['/contract-detail/' + id], { queryParams: { mode: 'Edit' } })
+  onEdit(data) {
+    this.route.navigate(['contract-detail', data.id], { queryParams: { mode: 'Edit' } })
   }
 
-  onDelete() {
+  onDelete(data) {
     confirm("Do you want to delete?");
   }
 

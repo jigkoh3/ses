@@ -1,5 +1,3 @@
-<!-- <mat-dialog-content class="content p-12 spacer"> -->
-<!-- CONTENT -->
 <div class="fixActionRow">
     <div id="contract" class="page-layout carded fullwidth inner-scroll">
 
@@ -152,7 +150,7 @@
                                         <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50"
                                             class="pl-4">
                                             <mat-label>Packing Unit Code</mat-label>
-                                            <mat-select formControlName="pu_code_id">
+                                            <mat-select formControlName="pu_code_id" >
                                                 <mat-option [value]="">
                                                     --All--
                                                 </mat-option>
@@ -166,7 +164,7 @@
                                             class="pl-4">
                                             <mat-label>Packing QTY</mat-label>
                                             <input matInput formControlName="packing_qty" mask="comma_separator.2">
-                                            <span matSuffix>&nbsp;{{currencyText}}</span>
+                                            <span matSuffix>&nbsp;{{unitText}}</span>
                                         </mat-form-field>
                                     </div>
                                     <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="100"
@@ -252,7 +250,6 @@
                                                 mask="comma_separator.4">
                                             <span matSuffix>&nbsp;{{currencyText}}</span>
                                         </mat-form-field>
-                                        <span fxFlex="100" fxFlex.gt-sm="5" fxLayoutAlign="center center"></span>
                                         <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50"
                                             class="pl-4">
                                             <mat-label>Packing Cost</mat-label>
@@ -266,7 +263,7 @@
                                         <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50"
                                             class="pl-4">
                                             <mat-label>Unit Price</mat-label>
-                                            <input matInput formControlName="min_pola" mask="comma_separator.4">
+                                            <input matInput formControlName="unt_price" mask="comma_separator.4">
                                             <span matSuffix>&nbsp;{{currencyText}}</span>
                                         </mat-form-field>
                                     </div>
@@ -323,8 +320,3 @@
 
     </div>
 </div>
-<!-- </mat-dialog-content> -->
-<!-- <div class="spacer"></div> -->
-<!-- <mat-dialog-actions>
-       
-    </mat-dialog-actions> -->

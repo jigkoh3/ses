@@ -262,11 +262,25 @@
 
 <app-context-menu [matMenuTriggerFor]="main" #menu>
   <mat-menu #main="matMenu">
-    <ng-template matMenuContent let-name="data">
-      <button mat-menu-item (click)="onView(data)">View {{data.contract_type}}</button>
-      <!-- <button mat-menu-item (click)="onEdit(data)" *ngIf="data.contract_type=='CONTRACT' && data.contract_status=='DRAFT'">Edit</button>
-      <button mat-menu-item (click)="onDelete(data)" *ngIf="data.contract_type=='CONTRACT' && data.contract_status=='DRAFT'">Delete</button>
-      <button mat-menu-item (click)="onAddAddendem(data)">Add Addendem</button> -->
+    <ng-template matMenuContent let-data="data">
+      <button mat-menu-item (click)="onView(data)">
+        <mat-icon>pageview</mat-icon>
+        View Contract
+      </button>
+      <button mat-menu-item (click)="onEdit(data)"
+        *ngIf="data?.contract_type.toUpperCase()=='CONTRACT' && data?.contract_status.toUpperCase()=='DRAFT'">
+        <mat-icon>create </mat-icon>
+        Edit Contract
+      </button>
+      <button mat-menu-item (click)="onDelete(data)"
+        *ngIf="data?.contract_type.toUpperCase()=='CONTRACT' && data?.contract_status.toUpperCase()=='DRAFT'">
+        <mat-icon>delete</mat-icon>
+        Delete Contract
+      </button>
+      <button mat-menu-item (click)="onAddAddendem(data)">
+        <mat-icon>add</mat-icon>
+        Add Addendem
+      </button>
     </ng-template>
   </mat-menu>
 </app-context-menu>
