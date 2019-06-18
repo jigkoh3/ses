@@ -47,6 +47,7 @@ export class PricingHiRawDetailComponent implements OnInit {
   allPartys: any;
   groupfactorys: string[];
   buyers: any[];
+  sugar_types: string[];
   /**
      * Constructor
      *
@@ -80,8 +81,8 @@ export class PricingHiRawDetailComponent implements OnInit {
 
   ngOnInit() {
     this.form = this._formBuilder.group({
-      type_of_sugar_id: ['sugartype-hiraw', Validators.required],
-      future_market_id: ['fmkt-no11', Validators.required],
+      type_of_sugar_id: [{ value: 'sugartype-hiraw', disabled: false }, Validators.required],
+      future_market_id: [{ value: 'No.11', disabled: true }, Validators.required],
       buyer_id: ['', Validators.required],
       qty: [0, Validators.required],
       group_factory_id: ['', Validators.required],
@@ -114,6 +115,7 @@ export class PricingHiRawDetailComponent implements OnInit {
         return o.record_status == true && o.party_type.indexOf('buyer') > -1
       }), 'party_name');
 
+      this.sugar_types = _.sortBy(_.filter(this.allLOVs, x => x.lov_group.toUpperCase() == 'SYSTEM' && x.lov_type.toUpperCase() == 'SUGAR TYPE' && x.record_status), "lov_order");
       // this.getPagedData();
 
     }, (error) => {
@@ -149,7 +151,7 @@ export class PricingHiRawDetailComponent implements OnInit {
     data.type_of_sugar = null;
     // data.type_of_sugar_id = "sugartype-hiraw";
     data.future_market = null;
-    // data.future_market_id = "No.11";
+    data.future_market_id = "fmkt-no11";
     data.buyer = null;
     // data.buyer_id = "2";
     data.created_date = moment().toDate();

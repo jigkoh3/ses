@@ -45,7 +45,14 @@
 
             <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pl-4">
               <mat-label>Type of Sugar</mat-label>
-              <input matInput formControlName="type_of_sugar_id">
+              <mat-select formControlName="type_of_sugar_id">
+                <mat-option [value]="">
+                  --All--
+                </mat-option>
+                <mat-option *ngFor="let sugar_type of sugar_types" [value]="sugar_type.id">
+                  {{sugar_type.lov1}}
+                </mat-option>
+              </mat-select>
             </mat-form-field>
 
             <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pl-4">
