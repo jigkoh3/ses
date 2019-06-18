@@ -48,6 +48,9 @@ export class PricingHiRawDetailComponent implements OnInit {
   groupfactorys: string[];
   buyers: any[];
   sugar_types: string[];
+  contract_months: any;
+  contract_years: any[];
+  curr_year: number;
   /**
      * Constructor
      *
@@ -60,6 +63,7 @@ export class PricingHiRawDetailComponent implements OnInit {
     private location: Location,
     private odataFactory: ODataServiceFactory
   ) {
+    this.curr_year = (new Date()).getFullYear();
     // Set the private defaults
     this.sub = this.route.params.subscribe(params => {
       this.id = params['id'];
@@ -91,7 +95,9 @@ export class PricingHiRawDetailComponent implements OnInit {
       buyer_contract_no: ['', Validators.required],
       contract_id: [null],
       contract_date: ['', Validators.required],
-      premium_cent: [0, Validators.required]
+      premium_cent: [0, Validators.required],
+      contract_month: ['', Validators.required],
+      contract_year: [this.curr_year, Validators.required],
     });
 
     combineLatest(
@@ -122,6 +128,14 @@ export class PricingHiRawDetailComponent implements OnInit {
       this.sugar_types = _.sortBy(_.filter(this.allLOVs, x => x.lov_group.toUpperCase() == 'SYSTEM' && x.lov_type.toUpperCase() == 'SUGAR TYPE' && x.record_status && x.lov3 == 'raw'), "lov_order");
       // this.getPagedData();
 
+      this.contract_months = _.sortBy(_.filter(this.allLOVs, x => x.lov_group.toUpperCase() == 'SYSTEM' && x.lov_type.toUpperCase() == 'FUTURE MARKET MONTH' && x.record_status && x.lov_code == 'No.11'), "lov_order");
+      this.contract_years = [];
+      
+      for (let i = -2; i < 3; i++) {
+        this.contract_years.push(this.curr_year + i);
+      }
+
+      console.log(this.contract_months);
     }, (error) => {
       if (error.status == 401) {
         this.router.navigate(['/login'], { queryParams: { error: 'Session Expire!' } });
@@ -153,8 +167,8 @@ export class PricingHiRawDetailComponent implements OnInit {
 
     data.id = UUID.UUID();
     data.type_of_sugar = null;
-    data.qty = Number(data.qty );
-    data.premium_cent = Number(data.premium_cent )
+    data.qty = Number(data.qty);
+    data.premium_cent = Number(data.premium_cent)
     data.future_market = null;
     data.future_market_id = "fmkt-no11";
     data.buyer = null;

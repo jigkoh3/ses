@@ -16,7 +16,7 @@
         <span class="logo-text h1" [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
           PRICING RAW
         </span>
-        
+
       </div>
       <!-- / APP TITLE -->
 
@@ -135,7 +135,8 @@
 
             <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pr-4">
               <mat-label>Contract Date</mat-label>
-              <input matInput [matDatepicker]="pickerContract" placeholder="Choose a date" formControlName="contract_date">
+              <input matInput [matDatepicker]="pickerContract" placeholder="Choose a date"
+                formControlName="contract_date">
               <mat-datepicker-toggle matSuffix [for]="pickerContract"></mat-datepicker-toggle>
               <mat-datepicker #pickerContract></mat-datepicker>
 
@@ -148,28 +149,28 @@
             </mat-form-field>
 
           </div>
-          <!-- <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
+          <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
 
             <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pl-4">
               <mat-label>Contract Month</mat-label>
-              <mat-select formControlName="buyer">
+              <mat-select formControlName="contract_month">
                 <mat-option [value]="">
                   --All--
                 </mat-option>
-                <mat-option *ngFor="let buyer of buyers" [value]="buyer.id">
-                  {{buyer.party_name}}
+                <mat-option *ngFor="let contract_month of contract_months" [value]="contract_month.id">
+                  {{contract_month.lov1}}
                 </mat-option>
               </mat-select>
             </mat-form-field>
 
             <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pl-4">
               <mat-label>Contract Year</mat-label>
-              <mat-select formControlName="buyer">
+              <mat-select formControlName="contract_year">
                 <mat-option [value]="">
                   --All--
                 </mat-option>
-                <mat-option *ngFor="let buyer of buyers" [value]="buyer.id">
-                  {{buyer.party_name}}
+                <mat-option *ngFor="let contract_year of contract_years" [value]="contract_year">
+                  {{contract_year}}
                 </mat-option>
               </mat-select>
             </mat-form-field>
@@ -177,7 +178,7 @@
           </div>
           <div class="h2 mb-24">
 
-          </div> -->
+          </div>
 
           <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
