@@ -28,10 +28,11 @@
             New Contract
           </div>
           <div class="subtitle secondary-text">
-            <span>Contract Detail</span> - form invalid : {{form.invalid}} - length {{contract_items?.length}}
+            <span>Contract Detail</span>
+            <!-- - form invalid : {{form.invalid}} - length {{contract_items?.length}}
             <button mat-raised-button class="save-contract-button" (click)="findInvalidControls()">
               <span>CHECK FORM</span>
-            </button>
+            </button> -->
           </div>
         </div>
       </div>
@@ -44,7 +45,7 @@
       </button>
 
       <button mat-raised-button class="save-contract-button" [disabled]="form.invalid || contract_items?.length==0"
-        *ngIf="mode ==='Edit'" (click)="saveProduct()">
+        *ngIf="mode ==='Edit'" (click)="saveContract()">
         <mat-icon>save</mat-icon>
         <span>SAVE CONTRACT</span>
       </button>
@@ -62,21 +63,21 @@
           <!-- <div class="h2 mb-24">{{mode}} - Contract</div> -->
           <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
             <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pl-4">
-              <mat-label>Contract No.</mat-label>
+              <mat-label>Contract No. *</mat-label>
               <input matInput formControlName="contract_no">
             </mat-form-field>
             <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pl-4">
-              <mat-label>Contract Status</mat-label>
+              <mat-label>Contract Status *</mat-label>
               <input matInput formControlName="contract_status">
             </mat-form-field>
           </div>
 
           <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
             <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pl-4">
-              <mat-label>Contract Made By</mat-label>
+              <mat-label>Contract Made By *</mat-label>
               <mat-select formControlName="contract_made_on_id">
                 <mat-option [value]="">
-                  --All--
+                  --Select--
                 </mat-option>
                 <mat-option *ngFor="let contract_made_on of contract_made_ons" [value]="contract_made_on.id">
                   {{contract_made_on.lov1}}
@@ -84,10 +85,10 @@
               </mat-select>
             </mat-form-field>
             <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pl-4">
-              <mat-label>Contrat Crop Year</mat-label>
+              <mat-label>Contrat Crop Year *</mat-label>
               <mat-select formControlName="crop_year">
                 <mat-option [value]="">
-                  --All--
+                  --Select--
                 </mat-option>
                 <mat-option *ngFor="let crop_year of crop_years" [value]="crop_year.value">
                   {{crop_year.text}}
@@ -98,17 +99,17 @@
 
           <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
             <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pl-4">
-              <mat-label>Contract Date</mat-label>
+              <mat-label>Contract Date *</mat-label>
               <input matInput [matDatepicker]="dp_contract_date" placeholder="Choose a date"
                 formControlName="contract_date">
               <mat-datepicker-toggle matSuffix [for]="dp_contract_date"></mat-datepicker-toggle>
               <mat-datepicker #dp_contract_date></mat-datepicker>
             </mat-form-field>
             <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pl-4">
-              <mat-label>Seller</mat-label>
+              <mat-label>Seller *</mat-label>
               <mat-select formControlName="seller_id">
                 <!-- <mat-option [value]="">
-                    --All--
+                    --Select--
                   </mat-option> -->
                 <mat-option *ngFor="let seller of sellers" [value]="seller.id">
                   {{seller.party_abbv}}
@@ -118,10 +119,10 @@
           </div>
           <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
             <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pr-4">
-              <mat-label>Group Factory</mat-label>
+              <mat-label>Group Factory *</mat-label>
               <mat-select formControlName="group_factory_id">
                 <mat-option [value]="">
-                  --All--
+                  --Select--
                 </mat-option>
                 <mat-option *ngFor="let group_factory of group_factories" [value]="group_factory.id">
                   {{group_factory.lov1}}
@@ -129,10 +130,10 @@
               </mat-select>
             </mat-form-field>
             <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pl-4">
-              <mat-label>Sugar Type</mat-label>
+              <mat-label>Sugar Type *</mat-label>
               <mat-select formControlName="sugar_type_id">
                 <mat-option [value]="">
-                  --All--
+                  --Select--
                 </mat-option>
                 <mat-option *ngFor="let sugar_type of sugar_types" [value]="sugar_type.id">
                   {{sugar_type.lov1}}
@@ -144,14 +145,14 @@
           <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
 
             <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pr-4">
-              <mat-label>Buyer Contract No</mat-label>
+              <mat-label>Buyer Contract No *</mat-label>
               <input matInput formControlName="buyer_contract_no">
             </mat-form-field>
             <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pl-4">
-              <mat-label>Buyer</mat-label>
+              <mat-label>Buyer *</mat-label>
               <mat-select formControlName="buyer_id">
                 <mat-option [value]="">
-                  --All--
+                  --Select--
                 </mat-option>
                 <mat-option *ngFor="let buyer of buyers" [value]="buyer.id">
                   {{buyer.party_abbv}}
@@ -162,10 +163,10 @@
 
           <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
             <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pl-4">
-              <mat-label>Shipment Term</mat-label>
+              <mat-label>Shipment Term *</mat-label>
               <mat-select formControlName="shipment_term_id">
                 <mat-option [value]="">
-                  --All--
+                  --Select--
                 </mat-option>
                 <mat-option *ngFor="let shipment_term of shipment_terms" [value]="shipment_term.id">
                   {{shipment_term.shipterm_name}}
@@ -173,7 +174,7 @@
               </mat-select>
             </mat-form-field>
             <div fxFlex="100" fxFlex.gt-sm="50" class="pl-4">
-              <mat-label class="pl-8">Shipment By</mat-label>
+              <mat-label class="pl-8">Shipment By *</mat-label>
               <mat-radio-group formControlName="shipment_by" aria-label="Select an option">
                 <mat-radio-button value="C" class="pl-8">Contract</mat-radio-button>
                 <mat-radio-button value="P" class="pl-8">Product</mat-radio-button>
@@ -183,44 +184,44 @@
 
           <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
             <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="25" class="pr-4">
-              <mat-label>Shipment Period From</mat-label>
+              <mat-label>Shipment Period From *</mat-label>
               <input matInput [matDatepicker]="dp_shipment_period_from" placeholder="Choose a date"
                 formControlName="shipment_period_from">
               <mat-datepicker-toggle matSuffix [for]="dp_shipment_period_from"></mat-datepicker-toggle>
               <mat-datepicker #dp_shipment_period_from></mat-datepicker>
             </mat-form-field>
             <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="25" class="pr-4">
-              <mat-label>Shipment Period To</mat-label>
+              <mat-label>Shipment Period To *</mat-label>
               <input matInput [matDatepicker]="dp_shipment_period_to" placeholder="Choose a date"
                 formControlName="shipment_period_to" [errorStateMatcher]="errorMatcher">
               <mat-datepicker-toggle matSuffix [for]="dp_shipment_period_to"></mat-datepicker-toggle>
               <mat-datepicker #dp_shipment_period_to></mat-datepicker>
-              
+
               <mat-error *ngIf="form.hasError('notValid') &&  !form.hasError('required')">
-                Shipment Period To must grater than hipment Period From 
+                Shipment Period To must grater than shipment Period From
               </mat-error>
             </mat-form-field>
-            {{!form.hasError('notValid')}}
-            <!-- error:{{}} -->
+            <!-- {{!form.hasError('notValid')}} -->
+
             <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pl-4">
-              <mat-label>Shipment Option</mat-label>
+              <mat-label>Shipment Option *</mat-label>
               <mat-select formControlName="shipment_option">
                 <mat-option [value]="">
-                  --All--
+                  --Select--
                 </mat-option>
                 <mat-option *ngFor="let shipment_option of shipment_options" [value]="shipment_option.value">
                   {{shipment_option.text}}
-              </mat-option>
+                </mat-option>
               </mat-select>
             </mat-form-field>
           </div>
 
           <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
             <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pr-4">
-              <mat-label>Partial Shipment Option</mat-label>
+              <mat-label>Partial Shipment Option *</mat-label>
               <mat-select #partial_shipment_option_id formControlName="partial_shipment_option_id">
                 <mat-option [value]="">
-                  --All--
+                  --Select--
                 </mat-option>
                 <mat-option *ngFor="let partial_shipment_option of partial_shipment_options"
                   [value]="partial_shipment_option.id">
@@ -229,10 +230,10 @@
               </mat-select>
             </mat-form-field>
             <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pl-4">
-              <mat-label>Shipment To</mat-label>
+              <mat-label>Shipment To *</mat-label>
               <mat-select formControlName="shipment_to_id">
                 <mat-option [value]="">
-                  --All--
+                  --Select--
                 </mat-option>
                 <mat-option *ngFor="let shipment_to of shipment_tos" [value]="shipment_to.id">
                   {{shipment_to.name_en}}
@@ -243,10 +244,10 @@
 
           <div fxLayout="row wrap" fxLayoutAlign="end center" fxFlex="1 0 auto">
             <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pl-4">
-              <mat-label>Payment Term</mat-label>
+              <mat-label>Payment Term *</mat-label>
               <mat-select formControlName="payment_term_id">
                 <mat-option [value]="">
-                  --All--
+                  --Select--
                 </mat-option>
                 <mat-option *ngFor="let payment_term of payment_terms" [value]="payment_term.id">
                   {{payment_term.pmt_abbv}}
@@ -257,10 +258,10 @@
 
           <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
             <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pr-4">
-              <mat-label>Currency</mat-label>
+              <mat-label>Currency *</mat-label>
               <mat-select formControlName="currency_id">
                 <mat-option [value]="">
-                  --All--
+                  --Select--
                 </mat-option>
                 <mat-option *ngFor="let currency of currencies" [value]="currency.id">
                   {{currency.name_en}}
@@ -268,14 +269,14 @@
               </mat-select>
             </mat-form-field>
             <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pl-4">
-              <mat-label>Exchange Rate (Base USD : Currency)</mat-label>
-              <input matInput formControlName="exchange_rate" mask="comma_separator.2">
+              <mat-label>Exchange Rate (Base USD : Currency) *</mat-label>
+              <input matInput formControlName="exchange_rate" mask="comma_separator.6">
             </mat-form-field>
           </div>
 
           <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
             <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="100" class="pr-4">
-              <mat-label>Shipment Term Remark</mat-label>
+              <mat-label>Shipment Term Remark *</mat-label>
               <textarea matInput formControlName="shipment_term_remark">
                 </textarea>
             </mat-form-field>
@@ -283,7 +284,7 @@
 
           <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
             <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="100" class="pr-4">
-              <mat-label>Product Remark</mat-label>
+              <mat-label>Product Remark *</mat-label>
               <textarea matInput formControlName="product_remark">
             </textarea>
             </mat-form-field>
@@ -291,10 +292,10 @@
 
           <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
             <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pr-4">
-              <mat-label>General Term and Condition Type</mat-label>
+              <mat-label>General Term and Condition Type *</mat-label>
               <mat-select #gen_term_condition_id formControlName="gen_term_condition_id">
                 <mat-option [value]="">
-                  --All--
+                  --Select--
                 </mat-option>
                 <mat-option *ngFor="let term_cond of term_conds" [value]="term_cond.id">
                   {{term_cond.tc_code}}
@@ -305,7 +306,7 @@
 
           <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
             <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="100" class="pr-4">
-              <mat-label>General Term and Condition</mat-label>
+              <mat-label>General Term and Condition *</mat-label>
               <textarea matInput formControlName="gen_term_condition_desc">
             </textarea>
             </mat-form-field>
@@ -324,77 +325,83 @@
             <!--- Note that these columns can be defined in any order.
                       The actual rendered columns are set as a property on the row definition" -->
             <ng-container matColumnDef="no">
-              <th mat-header-cell *matHeaderCellDef> No. </th>
-              <td mat-cell *matCellDef="let element; let i = index;"> {{i+1}} </td>
+              <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm> No. </th>
+              <td mat-cell *matCellDef="let element; let i = index;" fxHide fxShow.gt-sm> {{i+1}} </td>
             </ng-container>
 
             <!-- Order Date Column -->
             <ng-container matColumnDef="product.name_en">
-              <th mat-header-cell *matHeaderCellDef> Product Name </th>
-              <td mat-cell *matCellDef="let element"> {{element.product.name_en}} </td>
+              <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm> Product Name </th>
+              <td mat-cell *matCellDef="let element" fxHide fxShow.gt-sm> {{element.product.name_en}} </td>
             </ng-container>
 
             <!-- Sale Price Column -->
             <ng-container matColumnDef="qty">
-              <th mat-header-cell *matHeaderCellDef> Quantity(MT) </th>
-              <td mat-cell *matCellDef="let element"> {{element.qty}} </td>
+              <th mat-header-cell *matHeaderCellDef  fxHide fxShow.gt-sm> Quantity(MT) </th>
+              <td mat-cell *matCellDef="let element" fxHide fxShow.gt-sm> {{element.qty | number : '1.0-6'}} </td>
             </ng-container>
 
             <!-- Buy Price Column -->
             <ng-container matColumnDef="pu_code.name_en">
-              <th mat-header-cell *matHeaderCellDef> Packing Unit </th>
-              <td mat-cell *matCellDef="let element"> {{element.pu_code.name_en}} </td>
+              <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm> Packing Unit </th>
+              <td mat-cell *matCellDef="let element" fxHide fxShow.gt-sm> {{element.pu_code.name_en}} </td>
             </ng-container>
 
             <ng-container matColumnDef="packing_qty">
               <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm> Packing Qty </th>
-              <td mat-cell *matCellDef="let element" fxHide fxShow.gt-sm> {{element.packing_qty}} </td>
+              <td mat-cell *matCellDef="let element" fxHide fxShow.gt-sm> {{element.packing_qty | number : '1.0-6'}}
+              </td>
             </ng-container>
 
             <ng-container matColumnDef="unit_name_eng.name_en">
               <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm> Unit </th>
-              <td mat-cell *matCellDef="let element" fxHide fxShow.gt-sm> {{element.unit_name_eng.name_en}} </td>
+              <td mat-cell *matCellDef="let element" fxHide fxShow.gt-sm> {{element.unit_name_eng?.name_en}} </td>
             </ng-container>
 
             <ng-container matColumnDef="shipment_period_from">
               <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm> Shipment Period (from) </th>
-              <td mat-cell *matCellDef="let element" fxHide fxShow.gt-sm> {{element.shipment_period_from}} </td>
+              <td mat-cell *matCellDef="let element" fxHide fxShow.gt-sm>
+                {{element.shipment_period_from | date:'dd MMM yyyy' }} </td>
             </ng-container>
 
             <ng-container matColumnDef="shipment_period_to">
-              <th mat-header-cell *matHeaderCellDef> Shipment Period (to) </th>
-              <td mat-cell *matCellDef="let element"> {{element.shipment_period_to}} </td>
+              <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm> Shipment Period (to) </th>
+              <td mat-cell *matCellDef="let element" fxHide fxShow.gt-sm> {{element.shipment_period_to | date:'dd MMM yyyy'}} </td>
             </ng-container>
 
 
             <ng-container matColumnDef="price_type.lov1">
               <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm> Price Type </th>
-              <td mat-cell *matCellDef="let element" fxHide fxShow.gt-sm> {{element.price_type.lov1}} </td>
+              <td mat-cell *matCellDef="let element" fxHide fxShow.gt-sm> {{element.price_type?.lov1}} </td>
             </ng-container>
 
             <ng-container matColumnDef="sugar_cost">
               <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm> Sugar Cost </th>
-              <td mat-cell *matCellDef="let element" fxHide fxShow.gt-sm> {{element.sugar_cost}} </td>
+              <td mat-cell *matCellDef="let element" fxHide fxShow.gt-sm> {{element.sugar_cost | number : '1.0-6'}}
+              </td>
             </ng-container>
 
             <ng-container matColumnDef="packing_cost">
               <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm> Packing Cost </th>
-              <td mat-cell *matCellDef="let element" fxHide fxShow.gt-sm> {{element.packing_cost}} </td>
+              <td mat-cell *matCellDef="let element" fxHide fxShow.gt-sm> {{element.packing_cost | number : '1.0-6'}}
+              </td>
             </ng-container>
 
             <ng-container matColumnDef="insurance_cost">
               <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm> Insurance </th>
-              <td mat-cell *matCellDef="let element" fxHide fxShow.gt-sm> {{element.insurance_cost}} </td>
+              <td mat-cell *matCellDef="let element" fxHide fxShow.gt-sm> {{element.insurance_cost | number : '1.0-6'}}
+              </td>
             </ng-container>
 
             <ng-container matColumnDef="freight_cost">
               <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm> Freight </th>
-              <td mat-cell *matCellDef="let element" fxHide fxShow.gt-sm> {{element.freight_cost}} </td>
+              <td mat-cell *matCellDef="let element" fxHide fxShow.gt-sm> {{element.freight_cost | number : '1.0-6'}}
+              </td>
             </ng-container>
 
             <ng-container matColumnDef="net_price">
               <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm> Net Price </th>
-              <td mat-cell *matCellDef="let element" fxHide fxShow.gt-sm> {{element.net_price}} </td>
+              <td mat-cell *matCellDef="let element" fxHide fxShow.gt-sm> {{element.net_price | number : '1.0-6'}} </td>
             </ng-container>
 
             <ng-container matColumnDef="star" stickyEnd>
@@ -434,11 +441,11 @@
         <mat-icon>pageview</mat-icon>
         View Contract Item
       </button>
-      <button mat-menu-item (click)="openContractItemDialog(data,'Edit')" *ngIf="data!='View'">
+      <button mat-menu-item (click)="openContractItemDialog(data,'Edit')" *ngIf="mode!='View'">
         <mat-icon>create </mat-icon>
         Edit Contract Item
       </button>
-      <button mat-menu-item (click)="deleteContractItem(data.id)" *ngIf="data!='View'">
+      <button mat-menu-item (click)="deleteContractItem(data.id)" *ngIf="mode!='View'">
         <mat-icon>delete</mat-icon>
         Delete Contract Item
       </button>

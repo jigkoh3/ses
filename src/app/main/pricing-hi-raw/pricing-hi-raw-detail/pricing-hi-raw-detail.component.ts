@@ -163,7 +163,7 @@ export class PricingHiRawDetailComponent implements OnInit {
         console.log('Session Expire!');
       } else if (error.status != 401 && error.status != 0) {
         let detail = "";
-        detail = error.error.message;
+        detail = error.error.error.message;
         if (error.error.InnerException) {
           detail += '\n' + error.error.InnerException.ExceptionMessage;
         }
@@ -210,9 +210,12 @@ export class PricingHiRawDetailComponent implements OnInit {
             console.log('Session Expire!');
           } else if (error.status != 401 && error.status != 0) {
             let detail = "";
-            detail = error.error.message;
+            detail = error.error.error.message;
             if (error.error.InnerException) {
               detail += '\n' + error.error.InnerException.ExceptionMessage;
+            }
+            if (error.error.error.innererror) {
+              detail += '\n' + error.error.innererrpr.message;
             }
 
             //this.msgs = { severity: 'error', summary: 'Error', detail: detail };

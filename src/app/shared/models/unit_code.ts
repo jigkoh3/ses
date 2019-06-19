@@ -1,4 +1,5 @@
 export class unit_code {
+    id: string;
     unit_code: string;
     name_en: string;
     name_th: string;

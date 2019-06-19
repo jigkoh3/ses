@@ -49,8 +49,8 @@ export class contract_item {
     ad_shipment: boolean;
     ad_price: boolean;
     record_status: boolean;
-    created_by_id:string;
-    created_date:Date;
-    updated_by_id:string;
-    updated_date:Date;
+    created_by_id: string;
+    created_date: Date;
+    updated_by_id: string;
+    updated_date: Date;
 }

@@ -5,7 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ContractListComponent } from './contract-list/contract-list.component';
 import { ContractDetailComponent } from './contract-detail/contract-detail.component';
 import { ContractItemComponent } from './contract-detail/contract-item.component';
-
+import { AddendumDetailComponent } from './addendum-detail/addendum-detail.component';
 import { ContextMenuComponent } from './context-menu.component';
 import { RouterModule } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
@@ -28,11 +28,13 @@ import {
   MatDialogModule,
   MatTabsModule,
   MatSnackBarModule,
+  MatProgressBarModule
 } from '@angular/material';
 import { TranslateModule } from '@ngx-translate/core';
 import { FuseSharedModule } from '@fuse/shared.module';
 import { NgxDataTableModule } from 'ngx-nested-data-table';
 import { NgxMaskModule } from 'ngx-mask';
+import { FuseConfirmDialogComponent } from '@fuse/components/confirm-dialog/confirm-dialog.component';
 
 const routes = [
   {
@@ -47,6 +49,15 @@ const routes = [
     path: 'contract-detail/:id',
     component: ContractDetailComponent
   }
+  ,
+  {
+    path: 'addendum-detail',
+    component: AddendumDetailComponent
+  },
+  {
+    path: 'addendum-detail/:id',
+    component: AddendumDetailComponent
+  }
 ];
 
 @NgModule({
@@ -54,7 +65,9 @@ const routes = [
     ContractListComponent,
     ContractDetailComponent,
     ContractItemComponent,
-    ContextMenuComponent],
+    ContextMenuComponent,
+    FuseConfirmDialogComponent,
+    AddendumDetailComponent],
   imports: [
     RouterModule.forChild(routes),
     CommonModule,
@@ -84,13 +97,16 @@ const routes = [
     MatDialogModule,
     MatSnackBarModule,
     MatTabsModule,
+    MatProgressBarModule,
     NgxMaskModule.forRoot()
   ],
   exports: [
     ContractListComponent,
     ContractDetailComponent,
-    ContractItemComponent
+    ContractItemComponent,
+    AddendumDetailComponent,
+    FuseConfirmDialogComponent
   ],
-  entryComponents: [ContractItemComponent]
+  entryComponents: [ContractItemComponent,FuseConfirmDialogComponent]
 })
 export class ContractModule { }

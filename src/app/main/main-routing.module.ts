@@ -5,6 +5,8 @@ const routes: Routes = [
     {
         path: '',
         children: [
+            { path: '', loadChildren: './login/login.module#LoginModule' },
+            { path: 'pricingraw',loadChildren: './pricing-raw/pricing-raw.module#PricingRawModule' },
             { path: 'pricingraw',loadChildren: './pricing-raw/pricing-raw.module#PricingRawModule' },
             { path: 'pricing-detail',loadChildren: './pricing-raw/pricing-raw.module#PricingRawModule' },
             { path: 'pricing-hi-raw',loadChildren: './pricing-hi-raw/pricing-hi-raw.module#PricingHiRawModule' },
@@ -14,8 +16,8 @@ const routes: Routes = [
             { path: 'contract',loadChildren: './contract/contract.module#ContractModule'},
             { path: 'contract-detail',loadChildren: './contract/contract.module#ContractModule'},
             { path: 'contract-detail/:id',loadChildren: './contract/contract.module#ContractModule'},
-            { path: 'addendum-detail',loadChildren: './addendum/addendum.module#AddendumModule'},
-            { path: 'addendum-detail/:id',loadChildren: './addendum/addendum.module#AddendumModule'},
+            { path: 'addendum-detail',loadChildren: './contract/contract.module#ContractModule'},
+            { path: 'addendum-detail/:id',loadChildren: './contract/contract.module#ContractModule'},
           
         ]
     }

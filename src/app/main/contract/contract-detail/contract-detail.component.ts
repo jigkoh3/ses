@@ -230,7 +230,7 @@ export class ContractDetailComponent implements OnInit {
       shipment_to_id: [{ value: '', disabled: disabledControl }, Validators.required],
       payment_term_id: [{ value: '', disabled: disabledControl }, Validators.required],
       currency_id: [{ value: '', disabled: disabledControl }, Validators.required],
-      exchange_rate: [{ value: '', disabled: disabledControl }, Validators.required],
+      exchange_rate: [{ value: null, disabled: disabledControl }, Validators.required],
       shipment_term_remark: [{ value: '', disabled: disabledControl }, Validators.required],
       product_remark: [{ value: '', disabled: disabledControl }, Validators.required],
       gen_term_condition_id: [{ value: '', disabled: disabledControl }, Validators.required],
@@ -253,6 +253,9 @@ export class ContractDetailComponent implements OnInit {
       created_date: null,
       updated_by_id: null,
       updated_date: null,
+      ref_contract_id: null,
+      ref_contract: null,
+      pricing_method: 3,
       //contract_items: this._formBuilder.array([]),
     }, { validator: this.checkDates });
 
@@ -266,7 +269,7 @@ export class ContractDetailComponent implements OnInit {
         console.log(name);
       }
     }
-    return invalid;
+    //return invalid;
   }
 
   ngOnDestroy() {
@@ -382,13 +385,14 @@ export class ContractDetailComponent implements OnInit {
             this.crop_years = _.sortBy(_.uniq(this.crop_years), "value");
 
             this.allContract_items = this.contract.contract_items
-            this.contract_items = this.contract.contract_items
+            this.contract_items = _.filter(this.allContract_items, x => x.record_status == true);
             let gen_term_condition: term_cond;
             if (this.contract.gen_term_condition_id) {
               gen_term_condition = _.find(this.AllTerm_conds, x => x.id == this.contract.gen_term_condition_id)
             }
 
             this.form.patchValue({
+              id: this.contract.id,
               contract_no: this.contract.contract_no,
               contract_status: this.contract.contract_status,
               contract_made_on_id: this.contract.contract_made_on_id,
@@ -413,27 +417,41 @@ export class ContractDetailComponent implements OnInit {
               product_remark: this.contract.product_remark,
               gen_term_condition_id: this.contract.gen_term_condition_id,
               gen_term_condition_desc: (gen_term_condition ? gen_term_condition.tc_in_contract : ""),
-            });
+              total_qty: this.contract.total_qty,
+              total_shipment: this.contract.total_shipment,
+              record_status: this.contract.record_status,
+              created_by_id: this.contract.created_by_id,
+              created_date: this.contract.created_date,
+              updated_by_id: this.contract.updated_by_id,
+              updated_date: this.contract.updated_date,
+              ref_contract_id: this.contract.ref_contract_id,
+              ref_contract: this.contract.ref_contract,
+              pricing_method: this.contract.pricing_method,
+            }, { emitEvent: false });
 
-            //this.selectedCurrency = _.find(this.currencies, x => x.id == this.contract.currency_id);
-            //this.selectedUnit = _.filter(this.currencies,x=>x.id ==this.contract.currency_id);
-            // this.selectedShipmentBy = this.contract.shipment_by;
-            // this.selectedContractMadeOn = _.find(this.contract_made_ons, x => x.id == this.contract.contract_made_on_id);
-            // this.selectedShipmentOption = this.contract.shipment_option;
-            // this.selectedShipmentPeriodFrom = this.contract.shipment_period_from;
-            // this.selectedShipmentPeriodTo = this.contract.shipment_period_to;
+            const controls = this.form.controls;
+            for (const name in controls) {
+              controls[name].disable({ emitEvent: false });
+            }
           }, (error) => {
             if (error.status == 401) {
               this.router.navigate(['/login'], { queryParams: { error: 'Session Expire!' } });
               console.log('Session Expire!');
             } else if (error.status != 401 && error.status != 0) {
               let detail = "";
-              detail = error.error.message;
-              if (error.error.InnerException) {
-                detail += '\n' + error.error.InnerException.ExceptionMessage;
+              detail = error.error.error.message;
+              if (error.error.error.InnerException) {
+                detail += '\n' + error.error.error.InnerException.ExceptionMessage;
+              }
+              if (error.error.error.innererror) {
+                detail += '\n' + error.error.error.innererror.message;
               }
               //this.msgs = { severity: 'error', summary: 'Error', detail: detail };
             } else if (error.status == 0) {
+              this._matSnackBar.open('Cannot connect to server. Please contact administrator.', 'ERROR', {
+                verticalPosition: 'top',
+                duration: 10000
+              });
               //this.msgs = { severity: 'error', summary: 'Error', detail: 'Cannot connect to server. Please contact administrator.' };
             }
 
@@ -451,9 +469,12 @@ export class ContractDetailComponent implements OnInit {
         console.log('Session Expire!');
       } else if (error.status != 401 && error.status != 0) {
         let detail = "";
-        detail = error.error.message;
-        if (error.error.InnerException) {
-          detail += '\n' + error.error.InnerException.ExceptionMessage;
+        detail = error.error.error.message;
+        if (error.error.error.InnerException) {
+          detail += '\n' + error.error.error.InnerException.ExceptionMessage;
+        }
+        if (error.error.error.innererror) {
+          detail += '\n' + error.error.error.innererror.message;
         }
         this._matSnackBar.open(detail, 'ERROR', {
           verticalPosition: 'top',
@@ -474,7 +495,7 @@ export class ContractDetailComponent implements OnInit {
 
   checkDates(group: FormGroup) {
     if (group.controls.shipment_period_from.value && group.controls.shipment_period_to.value) {
-      if (group.controls.shipment_period_from.value.toDate() > group.controls.shipment_period_to.value.toDate()) {
+      if (moment(group.controls.shipment_period_from.value).toDate() > moment(group.controls.shipment_period_to.value).toDate()) {
         return { notValid: true }
       }
     }
@@ -510,7 +531,7 @@ export class ContractDetailComponent implements OnInit {
   }
 
   genCropYear(year: number) {
-    return { value: year.toString(), text: year - 1 + '/' + year.toString().substr(2, 2) };
+    return { value: year - 1 + '/' + year.toString().substr(2, 2), text: year - 1 + '/' + year.toString().substr(2, 2) };
   }
 
   openContractItemDialog(contract_item: contract_item, mode: string) {
@@ -547,13 +568,18 @@ export class ContractDetailComponent implements OnInit {
     ).subscribe((ret: contract_item) => {
       if (ret) {
         if (ret.id) {
-          let contract_item = _.find(this.allContract_items, x => x.id == ret.id);
-          contract_item = ret;
+
+          var index = this.allContract_items.findIndex(item => item.id === ret.id)
+
+          // Replace the item by index.
+          this.allContract_items.splice(index, 1, ret)
+
           this._matSnackBar.open('Contract item saved', 'OK', {
             verticalPosition: 'top',
             duration: 10000
           });
         } else {
+          ret.id = UUID.UUID();
           this.allContract_items.push(ret);
           this._matSnackBar.open('Contract item added', 'OK', {
             verticalPosition: 'top',
@@ -561,9 +587,60 @@ export class ContractDetailComponent implements OnInit {
           });
 
         }
+        this.contract_items = _.filter(this.allContract_items, x => x.record_status == true);
+        const controls = this.form.controls;
+        for (const name in controls) {
+          controls[name].disable({ emitEvent: false });
+        }
+
+        this.form.get('total_qty').setValue(this.calQty());
+        this.form.get('total_shipment').setValue(this.calShipment());
       }
-      // this.files.push({ name, content: ''});
     })
+  }
+
+  deleteContractItem(id) {
+    let contract_item = _.find(this.allContract_items, x => x.id == id);
+    if (contract_item) {
+      if (contract_item.shipment_qty > 0) {
+        this._matSnackBar.open('Contract item cannot delete : Shipment Qty > 0', 'Error', {
+          verticalPosition: 'top',
+          duration: 10000
+        });
+      } else {
+        contract_item.record_status = false;
+        contract_item.updated_by_id = this.user.employee_username;
+        contract_item.updated_date = moment().toDate();
+        this.contract_items = _.filter(this.allContract_items, x => x.record_status == true);
+        this.form.get('total_qty').setValue(this.calQty());
+        this.form.get('total_shipment').setValue(this.calShipment());
+        if (this.contract_items.length == 0) {
+          this.form.get('contract_made_on_id').enable();
+          this.form.get('crop_year').enable();
+          this.form.get('group_factory_id').enable();
+          this.form.get('sugar_type_id').enable();
+          this.form.get('buyer_contract_no').enable();
+          this.form.get('buyer_id').enable();
+          this.form.get('shipment_term_id').enable();
+          this.form.get('shipment_by').enable();
+          this.form.get('shipment_period_from').enable();
+          this.form.get('shipment_period_to').enable();
+          this.form.get('shipment_option').enable();
+          this.form.get('shipment_option').enable();
+          this.form.get('shipment_to_id').enable();
+          this.form.get('payment_term_id').enable();
+          this.form.get('currency_id').enable();
+          this.form.get('exchange_rate').enable();
+          this.form.get('shipment_term_remark').enable();
+          this.form.get('product_remark').enable();
+          this.form.get('gen_term_condition_id').enable();
+        }
+        this._matSnackBar.open('Contract item deleted', 'OK', {
+          verticalPosition: 'top',
+          duration: 10000
+        });
+      }
+    }
   }
 
   genBReq(): Promise<string> {
@@ -598,15 +675,24 @@ export class ContractDetailComponent implements OnInit {
 
   addContract() {
     const data: contract = this.form.getRawValue();
+    delete data.gen_term_condition_desc
     data.id = UUID.UUID();
     data.created_date = moment().toDate();
     data.created_by_id = this.user.employee_username;
     data.contract_ver = data.contract_ver + 1;
-    data.total_qty = this.calQty();
-    data.total_shipment = this.calShipment();
+    data.exchange_rate = Number(data.exchange_rate)
     data.contract_items = _.cloneDeep(this.allContract_items);
 
+    data.contract_date = data.contract_date ? moment(data.contract_date).toDate() : null;
+    data.shipment_period_from = data.shipment_period_from ? moment(data.shipment_period_from).toDate() : null;
+    data.shipment_period_to = data.shipment_period_to ? moment(data.shipment_period_to).toDate() : null;
+
     for (let item of data.contract_items) {
+      item.id = UUID.UUID();
+      delete data.gen_term_condition_desc;
+      item.created_date = moment().toDate();
+      item.created_by_id = this.user.employee_username;
+
       item.id = UUID.UUID();
       item.contract_id = data.id;
       item.product = null;
@@ -614,6 +700,26 @@ export class ContractDetailComponent implements OnInit {
       item.unit_name_eng = null;
       item.pu_sub_code = null;
       item.price_type = null;
+
+      item.crop_year_input = Number(item.crop_year_input);
+      item.min_pola = Number(item.min_pola);
+      item.max_moisture = Number(item.max_moisture);
+      item.min_colour = Number(item.min_colour);
+      item.max_colour = Number(item.max_colour);
+      item.qty = Number(item.qty);
+      item.qty_tcsc_us = Number(item.qty_tcsc_us);
+
+      item.shipment_qty = Number(item.shipment_qty);
+      item.packing_qty = Number(item.packing_qty);
+      item.sugar_cost = Number(item.sugar_cost);
+      item.packing_cost = Number(item.packing_cost);
+      item.unt_price = Number(item.unt_price);
+      item.insurance_cost = Number(item.insurance_cost);
+      item.freight_cost = Number(item.freight_cost);
+      item.net_price = Number(item.net_price);
+
+      item.shipment_period_from = item.shipment_period_from ? moment(item.shipment_period_from).toDate() : null;
+      item.shipment_period_to = item.shipment_period_to ? moment(item.shipment_period_to).toDate() : null;
     }
     // data.handle = FuseUtils.handleize(data.name);
     this.genBReq().then(running => {
@@ -635,9 +741,12 @@ export class ContractDetailComponent implements OnInit {
               console.log('Session Expire!');
             } else if (error.status != 401 && error.status != 0) {
               let detail = "";
-              detail = error.error.message;
-              if (error.error.InnerException) {
-                detail += '\n' + error.error.InnerException.ExceptionMessage;
+              detail = error.error.error.message;
+              if (error.error.error.InnerException) {
+                detail += '\n' + error.error.error.InnerException.ExceptionMessage;
+              }
+              if (error.error.error.innererror) {
+                detail += '\n' + error.error.error.innererror.message;
               }
               this._matSnackBar.open(detail, 'ERROR', {
                 verticalPosition: 'top',
@@ -666,74 +775,144 @@ export class ContractDetailComponent implements OnInit {
 
   saveContract() {
     const data: contract = this.form.getRawValue();
-    data.id = UUID.UUID();
-    data.updated_date = moment().toDate();
-    data.updated_by_id = this.user.employee_username;
-    data.contract_ver = data.contract_ver + 1;
-    data.total_qty = this.calQty();
-    data.total_shipment = this.calShipment();
+    this.odata.Get(this.id)
+      .Select('updated_by_id, updated_date')
+      .Exec()
+      .subscribe((old: contract) => {
+        if (!old.updated_date || moment(old.updated_date).toDate().getTime() == moment(data.updated_date).toDate().getTime()) {
+          delete data.gen_term_condition_desc;
 
-    data.contract_items = _.cloneDeep(this.allContract_items);
+          //data.id = UUID.UUID();
+          data.updated_date = moment().toDate();
+          data.updated_by_id = this.user.employee_username;
+          data.contract_ver = data.contract_ver + 1;
+          data.total_qty = this.calQty();
+          data.total_shipment = this.calShipment();
+          data.exchange_rate = Number(data.exchange_rate)
+          data.contract_items = _.cloneDeep(this.allContract_items);
 
-    for (let item of data.contract_items) {
-      if (!item.id) {
-        item.id = UUID.UUID();
-        data.created_date = moment().toDate();
-        data.created_by_id = this.user.employee_username;
-      } else {
-        data.updated_date = moment().toDate();
-        data.updated_by_id = this.user.employee_username;
-      }
+          data.contract_date = data.contract_date ? moment(data.contract_date).toDate() : null;
+          data.created_date = data.created_date ? moment(data.created_date).toDate() : null;
+          data.shipment_period_from = data.shipment_period_from ? moment(data.shipment_period_from).toDate() : null;
+          data.shipment_period_to = data.shipment_period_to ? moment(data.shipment_period_to).toDate() : null;
 
-      item.contract_id = data.id;
-      item.product = null;
-      item.pu_code = null;
-      item.unit_name_eng = null;
-      item.pu_sub_code = null;
-      item.price_type = null;
+          for (let item of data.contract_items) {
+            if (!item.created_date) {
+              item.id = UUID.UUID();
+              item.created_date = moment().toDate();
+              item.created_by_id = this.user.employee_username;
+            } else {
+              item.created_date = item.created_date ? moment(item.created_date).toDate() : null;
+              item.updated_date = moment().toDate();
+              item.updated_by_id = this.user.employee_username;
+            }
+
+            item.contract_id = data.id;
+            item.product = null;
+            item.pu_code = null;
+            item.unit_name_eng = null;
+            item.pu_sub_code = null;
+            item.price_type = null;
+
+            item.crop_year_input = item.crop_year_input?Number(item.crop_year_input):item.crop_year_input;
+            item.min_pola = Number(item.min_pola);
+            item.max_moisture = Number(item.max_moisture);
+            item.min_colour = Number(item.min_colour);
+            item.max_colour = Number(item.max_colour);
+            item.qty = Number(item.qty);
+            item.qty_tcsc_us = Number(item.qty_tcsc_us);
+
+            item.shipment_qty = Number(item.shipment_qty);
+            item.packing_qty = Number(item.packing_qty);
+            item.sugar_cost = Number(item.sugar_cost);
+            item.packing_cost = Number(item.packing_cost);
+            item.unt_price = Number(item.unt_price);
+            item.insurance_cost = Number(item.insurance_cost);
+            item.freight_cost = Number(item.freight_cost);
+            item.net_price = Number(item.net_price);
+
+            item.shipment_period_from = item.shipment_period_from ? moment(item.shipment_period_from).toDate() : null;
+            item.shipment_period_to = item.shipment_period_to ? moment(item.shipment_period_to).toDate() : null;
+          }
+          // data.handle = FuseUtils.handleize(data.name);
 
 
-    }
-    // data.handle = FuseUtils.handleize(data.name);
+          this.odata.Put(
+            data,
+            this.id
+          ).Exec()
+            .subscribe(
+              resolve => {
+                this._matSnackBar.open('Contract no.' + data.contract_no + ' saved', 'OK', {
+                  verticalPosition: 'top',
+                  duration: 10000
+                });
+                // Change the location with new one
+                this.router.navigate(['/contract']);
+              }, (error) => {
+                if (error.status == 401) {
+                  this.router.navigate(['/login'], { queryParams: { error: 'Session Expire!' } });
+                  console.log('Session Expire!');
+                } else if (error.status != 401 && error.status != 0) {
+                  let detail = "";
+                  detail = error.error.error.message;
+                  if (error.error.error.InnerException) {
+                    detail += '\n' + error.error.error.InnerException.ExceptionMessage;
+                  }
+                  if (error.error.error.innererror) {
+                    detail += '\n' + error.error.error.innererror.message;
+                  }
+                  this._matSnackBar.open(detail, 'ERROR', {
+                    verticalPosition: 'top',
+                    duration: 10000
+                  });
+                  //this.msgs = { severity: 'error', summary: 'Error', detail: detail };
+                } else if (error.status == 0) {
+                  this._matSnackBar.open('Cannot connect to server. Please contact administrator.', 'ERROR', {
+                    verticalPosition: 'top',
+                    duration: 10000
+                  });
+                  //this.msgs = { severity: 'error', summary: 'Error', detail: 'Cannot connect to server. Please contact administrator.' };
+                }
 
-
-    this.odata.Put(
-      data,
-      this.id
-    ).Exec()
-      .subscribe(
-        resolve => {
-          this._matSnackBar.open('Contract no.' + data.contract_no + ' saved', 'OK', {
+                console.log('ODataExecReturnType.PagedResult ERROR ' + JSON.stringify(error));
+              });
+        } else {
+          this._matSnackBar.open("Cannot save.Contract has been edit by " + old.updated_by_id, 'ERROR', {
             verticalPosition: 'top',
             duration: 10000
           });
-          // Change the location with new one
-          this.router.navigate(['/contract']);
-        }, (error) => {
-          if (error.status == 401) {
-            this.router.navigate(['/login'], { queryParams: { error: 'Session Expire!' } });
-            console.log('Session Expire!');
-          } else if (error.status != 401 && error.status != 0) {
-            let detail = "";
-            detail = error.error.message;
-            if (error.error.InnerException) {
-              detail += '\n' + error.error.InnerException.ExceptionMessage;
-            }
-            this._matSnackBar.open(detail, 'ERROR', {
-              verticalPosition: 'top',
-              duration: 10000
-            });
-            //this.msgs = { severity: 'error', summary: 'Error', detail: detail };
-          } else if (error.status == 0) {
-            this._matSnackBar.open('Cannot connect to server. Please contact administrator.', 'ERROR', {
-              verticalPosition: 'top',
-              duration: 10000
-            });
-            //this.msgs = { severity: 'error', summary: 'Error', detail: 'Cannot connect to server. Please contact administrator.' };
+        }
+      }, (error) => {
+        if (error.status == 401) {
+          this.router.navigate(['/login'], { queryParams: { error: 'Session Expire!' } });
+          console.log('Session Expire!');
+        } else if (error.status != 401 && error.status != 0) {
+          let detail = "";
+          detail = error.error.error.message;
+          if (error.error.error.InnerException) {
+            detail += '\n' + error.error.error.InnerException.ExceptionMessage;
           }
+          if (error.error.error.innererror) {
+            detail += '\n' + error.error.error.innererror.message;
+          }
+          this._matSnackBar.open(detail, 'ERROR', {
+            verticalPosition: 'top',
+            duration: 10000
+          });
+          //this.msgs = { severity: 'error', summary: 'Error', detail: detail };
+        } else if (error.status == 0) {
+          this._matSnackBar.open('Cannot connect to server. Please contact administrator.', 'ERROR', {
+            verticalPosition: 'top',
+            duration: 10000
+          });
+          //this.msgs = { severity: 'error', summary: 'Error', detail: 'Cannot connect to server. Please contact administrator.' };
+        }
 
-          console.log('ODataExecReturnType.PagedResult ERROR ' + JSON.stringify(error));
-        });
+        console.log('ODataExecReturnType.PagedResult ERROR ' + JSON.stringify(error));
+      })
+
+
 
   }
 
