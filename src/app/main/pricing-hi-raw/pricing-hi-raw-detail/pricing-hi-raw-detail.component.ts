@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewEncapsulation, ViewChild, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Location } from '@angular/common';
 import { fuseAnimations } from '@fuse/animations';
@@ -12,14 +12,16 @@ import { UUID } from 'angular2-uuid';
 import * as moment from 'moment';
 import { lov_data } from 'app/shared/models/lov_data';
 import { party } from 'app/shared/models/party';
+import { MatDialog } from '@angular/material';
+import { PricingTransFormComponent } from '../pricing-trans-form/pricing-trans-form.component';
 
 
 
 const ELEMENT_DATA: Array<any> = [
-  { orderdate: '17/05/2018', sell: 45, buy: '', against: 'No.11', 'mon': 'Mar', year: '2018', price: '11.93', unit: 'cents/pound', executed: '17/05/2018' },
-  { orderdate: '18/05/2018', sell: '', buy: 45, against: 'No.11', mon: 'Mar', year: '2018', price: '12.00', unit: 'cents/pound', executed: '18/05/2018' },
-  { orderdate: '21/05/2018', sell: 30, buy: '', against: 'No.11', mon: 'Mar', year: '2018', price: '12.13', unit: 'cents/pound', executed: '21/05/2018' },
-  { orderdate: '23/05/2018', sell: '', buy: 28, against: 'No.11', mon: 'Mar', year: '2018', price: '12.73', unit: 'cents/pound', executed: '23/05/2018' },
+  // { orderdate: '17/05/2018', sell: 45, buy: '', against: 'No.11', 'mon': 'Mar', year: '2018', price: '11.93', unit: 'cents/pound', executed: '17/05/2018' },
+  // { orderdate: '18/05/2018', sell: '', buy: 45, against: 'No.11', mon: 'Mar', year: '2018', price: '12.00', unit: 'cents/pound', executed: '18/05/2018' },
+  // { orderdate: '21/05/2018', sell: 30, buy: '', against: 'No.11', mon: 'Mar', year: '2018', price: '12.13', unit: 'cents/pound', executed: '21/05/2018' },
+  // { orderdate: '23/05/2018', sell: '', buy: 28, against: 'No.11', mon: 'Mar', year: '2018', price: '12.73', unit: 'cents/pound', executed: '23/05/2018' },
 ]
 
 @Component({
@@ -31,6 +33,8 @@ const ELEMENT_DATA: Array<any> = [
   providers: [{ provide: ODataConfiguration, useFactory: ODataConfigurationFactory }, ODataServiceFactory],
 })
 export class PricingHiRawDetailComponent implements OnInit {
+  @ViewChild('dialogContent')
+  dialogContent: TemplateRef<any>;
   form: FormGroup;
 
   displayedColumns: string[] = ['orderdate', 'sell', 'buy', 'against', 'mon', 'year', 'price', 'executed', 'star'];
@@ -50,7 +54,12 @@ export class PricingHiRawDetailComponent implements OnInit {
   sugar_types: string[];
   contract_months: any;
   contract_years: any[];
+  crop_years: any[];
   curr_year: number;
+  curr_crop_year: string;
+  contract_made_ons: any[];
+  portions: any[];
+  dialogRef: any;
   /**
      * Constructor
      *
@@ -61,9 +70,11 @@ export class PricingHiRawDetailComponent implements OnInit {
     public router: Router,
     private route: ActivatedRoute,
     private location: Location,
-    private odataFactory: ODataServiceFactory
+    private odataFactory: ODataServiceFactory,
+    public _matDialog: MatDialog
   ) {
     this.curr_year = (new Date()).getFullYear();
+    this.curr_crop_year = this.curr_year + '/' + (this.curr_year + 1).toString().substring(2, 4);
     // Set the private defaults
     this.sub = this.route.params.subscribe(params => {
       this.id = params['id'];
@@ -84,6 +95,7 @@ export class PricingHiRawDetailComponent implements OnInit {
   }
 
   ngOnInit() {
+
     this.form = this._formBuilder.group({
       type_of_sugar_id: [{ value: 'sugartype-hiraw', disabled: false }, Validators.required],
       future_market_id: [{ value: 'No.11', disabled: true }, Validators.required],
@@ -96,46 +108,56 @@ export class PricingHiRawDetailComponent implements OnInit {
       contract_id: [null],
       contract_date: ['', Validators.required],
       premium_cent: [0, Validators.required],
-      contract_month: ['', Validators.required],
+      contract_month_id: ['', Validators.required],
       contract_year: [this.curr_year, Validators.required],
+      crop_year: [this.curr_crop_year, Validators.required],
+      contract_made_on_id: ['', Validators.required],
+      portion_id: ['', Validators.required],
+      remark: ['']
     });
 
     combineLatest(
       this.odataLov
         .Query()
-        //.Expand('Processes($expand=ApproveFlow($expand=AFApproveFlowDetails($expand=AFDPosition)),Role)')
-        //.Filter("record_status eq true")
         .Exec(),
       this.odataParty
         .Query()
-        //.Expand('Processes($expand=ApproveFlow($expand=AFApproveFlowDetails($expand=AFDPosition)),Role)')
         .Filter("record_status eq true")
         .Exec()
     ).subscribe(T => {
       this.allLOVs = T[0];
       this.allPartys = T[1];
 
-      //[lov_code,lov1]+[SYSTEM,Group Factory]+[lov2 is not null]
       this.groupfactorys = _.orderBy(_.filter(this.allLOVs, function (o) {
         return o.lov_group == 'SYSTEM' && o.lov_type == 'Group Factory' && o.lov2
       }), 'lov1');
-      console.log(this.groupfactorys)
-      //p.record_status = 1 and p.party_type like ‘%buyer%’ order by 2
+
       this.buyers = _.orderBy(_.filter(this.allPartys, function (o) {
         return o.record_status == true && o.party_type.indexOf('buyer') > -1
       }), 'party_name');
 
       this.sugar_types = _.sortBy(_.filter(this.allLOVs, x => x.lov_group.toUpperCase() == 'SYSTEM' && x.lov_type.toUpperCase() == 'SUGAR TYPE' && x.record_status && x.lov3 == 'raw'), "lov_order");
-      // this.getPagedData();
 
       this.contract_months = _.sortBy(_.filter(this.allLOVs, x => x.lov_group.toUpperCase() == 'SYSTEM' && x.lov_type.toUpperCase() == 'FUTURE MARKET MONTH' && x.record_status && x.lov_code == 'No.11'), "lov_order");
+
+      this.contract_made_ons = _.sortBy(_.filter(this.allLOVs, x => x.lov_group.toUpperCase() == 'SYSTEM' && x.lov_type.toUpperCase() == 'CONTRACT MADE ON' && x.record_status && x.lov3 == 'Y'), "lov_order");
+
+      this.portions = _.sortBy(_.filter(this.allLOVs, x => x.lov_group.toUpperCase() == 'SYSTEM' && x.lov_type.toUpperCase() == 'PRICING PORTION' && x.record_status), "lov_order");
+
       this.contract_years = [];
-      
+      this.crop_years = [];
+
       for (let i = -2; i < 3; i++) {
         this.contract_years.push(this.curr_year + i);
+        var year_crop = this.curr_year + i + '/' + (this.curr_year + i + 1).toString().substring(2, 4);
+        var member = {
+          id: this.curr_year + i + 1,
+          lov1: year_crop
+        }
+        this.crop_years.push(member);
       }
 
-      console.log(this.contract_months);
+
     }, (error) => {
       if (error.status == 401) {
         this.router.navigate(['/login'], { queryParams: { error: 'Session Expire!' } });
@@ -160,11 +182,7 @@ export class PricingHiRawDetailComponent implements OnInit {
   }
 
   addPricing() {
-    // const data = new pricing();
-
     const data: pricing = this.form.getRawValue();
-    // console.log(data);
-
     data.id = UUID.UUID();
     data.type_of_sugar = null;
     data.qty = Number(data.qty);
@@ -172,6 +190,11 @@ export class PricingHiRawDetailComponent implements OnInit {
     data.future_market = null;
     data.future_market_id = "fmkt-no11";
     data.buyer = null;
+    data.contract_month = null;
+    data.contract_made_on = null;
+    data.portion = null;
+    data.pricing_template_id = 'prtemp-raw';
+    data.pricing_template = null;
     data.created_date = moment().toDate();
     data.created_by_id = this.user.employee_username;
     this.odata.Post(
@@ -205,6 +228,16 @@ export class PricingHiRawDetailComponent implements OnInit {
           console.log('ODataExecReturnType.PagedResult ERROR ' + JSON.stringify(error));
         });
 
+  }
+
+  newPrice(): void {
+    this.dialogRef = this._matDialog.open(PricingTransFormComponent, {
+      panelClass: 'pricing-trans-form-dialog',
+      data: {
+        contact: 'contact',
+        action: 'edit'
+      }
+    });
   }
 
 }
