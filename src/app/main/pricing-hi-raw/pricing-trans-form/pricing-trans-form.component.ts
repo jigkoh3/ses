@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewEncapsulation, Inject } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { pricing_tran } from 'app/shared';
 
 @Component({
   selector: 'app-pricing-trans-form',
@@ -11,9 +12,11 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 export class PricingTransFormComponent implements OnInit {
 
   action: string;
-  // contact: Contact;
-  contactForm: FormGroup;
+  trans: pricing_tran;
+  transForm: FormGroup;
   dialogTitle: string;
+  contract_years: any;
+  contract_months: any;
 
   /**
    * Constructor
@@ -29,6 +32,8 @@ export class PricingTransFormComponent implements OnInit {
   ) {
     // Set the defaults
     this.action = _data.action;
+    this.contract_years = _data.contract_years;
+    this.contract_months = _data.contract_months;
 
     if (this.action === 'edit') {
       this.dialogTitle = 'Edit Contact';
@@ -36,10 +41,10 @@ export class PricingTransFormComponent implements OnInit {
     }
     else {
       this.dialogTitle = 'New Contact';
-      // this.contact = new Contact({});
+      this.trans = new pricing_tran();
     }
 
-    this.contactForm = this.createContactForm();
+    this.transForm = this.createForm();
   }
 
   // -----------------------------------------------------------------------------------------------------
@@ -51,20 +56,16 @@ export class PricingTransFormComponent implements OnInit {
    *
    * @returns {FormGroup}
    */
-  createContactForm(): FormGroup {
+  createForm(): FormGroup {
     return this._formBuilder.group({
-      // id: [this.contact.id],
-      // name: [this.contact.name],
-      // lastName: [this.contact.lastName],
-      // avatar: [this.contact.avatar],
-      // nickname: [this.contact.nickname],
-      // company: [this.contact.company],
-      // jobTitle: [this.contact.jobTitle],
-      // email: [this.contact.email],
-      // phone: [this.contact.phone],
-      // address: [this.contact.address],
-      // birthday: [this.contact.birthday],
-      // notes: [this.contact.notes]
+      order_date: [this.trans.order_date, Validators.required],
+      sell_lots: [this.trans.sell_lots, Validators.required],
+      buy_lots: [this.trans.buy_lots, Validators.required],
+      ag_month_id: [this.trans.ag_month,Validators.required],
+      ag_year: [this.trans.ag_year,Validators.required],
+      priced: [this.trans.priced],
+      execute_on: [this.trans.execute_on]
+      
     });
   }
 

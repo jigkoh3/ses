@@ -1,11 +1,72 @@
 <div class="dialog-content-wrapper">
 
-  
+
   <div mat-dialog-content class="p-24 pb-0 m-0" fusePerfectScrollbar>
 
-    <form [formGroup]="contactForm">
+    <form [formGroup]="transForm">
+      <div fxLayout="row wrap" fxLayoutAlign="start start">
+        <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pl-4">
+          <mat-label>Order Date</mat-label>
+          <input matInput required [matDatepicker]="order_date_picker" placeholder="Choose a date"
+            formControlName="order_date">
+          <mat-datepicker-toggle matSuffix [for]="order_date_picker"></mat-datepicker-toggle>
+          <mat-datepicker #order_date_picker></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div fxLayout="row wrap" fxLayoutAlign="start start">
+        <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pl-4">
+          <mat-label>Sell</mat-label>
+          <input name="sell_lots" formControlName="sell_lots" matInput required>
+        </mat-form-field>
+        <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pl-4">
+          <mat-label>Buy</mat-label>
+          <input name="buy_lots" formControlName="buy_lots" matInput required>
+        </mat-form-field>
+      </div>
 
-      
+
+
+      <div fxLayout="row wrap" fxLayoutAlign="start start">
+        
+        <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pl-4">
+          <mat-label>Against Month</mat-label>
+          <mat-select formControlName="ag_month_id">
+            <mat-option [value]="">
+              --All--
+            </mat-option>
+            <mat-option *ngFor="let contract_month of contract_months" [value]="contract_month.id">
+              {{contract_month.lov1}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pl-4">
+          <mat-label>Against Year</mat-label>
+          <mat-select formControlName="ag_year">
+            <mat-option [value]="">
+              --All--
+            </mat-option>
+            <mat-option *ngFor="let contract_year of contract_years" [value]="contract_year">
+              {{contract_year}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div fxLayout="row wrap" fxLayoutAlign="start start">
+        <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pl-4">
+          <mat-label>Price</mat-label>
+          <input name="priced" formControlName="priced" matInput required>
+        </mat-form-field>
+        <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pl-4">
+          <mat-label>Executed On</mat-label>
+          <input matInput required [matDatepicker]="execute_on_picker" placeholder="Choose a date"
+            formControlName="execute_on">
+          <mat-datepicker-toggle matSuffix [for]="execute_on_picker"></mat-datepicker-toggle>
+          <mat-datepicker #execute_on_picker></mat-datepicker>
+        </mat-form-field>
+      </div>
+
 
     </form>
 
@@ -18,13 +79,13 @@
       DELETE
     </button>
 
-    <button *ngIf="action !== 'edit'" mat-button class="save-button" (click)="matDialogRef.close(contactForm)"
-      [disabled]="contactForm.invalid" aria-label="SAVE">
+    <button *ngIf="action !== 'edit'" mat-button class="save-button" (click)="matDialogRef.close(transForm)"
+      [disabled]="transForm.invalid" aria-label="SAVE">
       ADD
     </button>
 
-    <button *ngIf="action === 'edit'" mat-button class="save-button" (click)="matDialogRef.close(['save',contactForm])"
-      [disabled]="contactForm.invalid" aria-label="SAVE">
+    <button *ngIf="action === 'edit'" mat-button class="save-button" (click)="matDialogRef.close(['save',transForm])"
+      [disabled]="transForm.invalid" aria-label="SAVE">
       SAVE
     </button>
 
