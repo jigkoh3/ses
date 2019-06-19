@@ -39,8 +39,8 @@
     <!-- / HEADER -->
 
     <!-- CONTENT CARD -->
-    <div class="content-card">
-      <div class="p-12" fxLayout="column">
+    <div class="content">
+      <div class="search-card p-12" id="" fxLayout="column">
         <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
           <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="25" class="pr-8">
             <mat-label>Contrace No.</mat-label>
@@ -109,7 +109,7 @@
             </mat-select>
           </mat-form-field>
         </div>
-        <div fxLayout="row wrap" fxLayoutAlign="end center" fxFlex="1 0 auto">
+        <div fxLayout="row wrap" class="p-8" fxLayoutAlign="end center" fxFlex="1 0 auto">
           <button type="button" (click)="onSearch()" mat-raised-button color="accent" class="submit-button"
             aria-label="SEARCH">
             <mat-icon>search</mat-icon>
@@ -117,9 +117,10 @@
           </button>
         </div>
       </div>
-      <mat-table #table class="contracts-table" *ngIf="dataSource.length > 0" [dataSource]="dataSource"
-        multiTemplateDataRows matSort (matSortChange)="sortData($event)" [@animateStagger]="{value:'50'}"
-        fusePerfectScrollbar>
+    </div>
+    <div class="content-card mt-12">
+      <mat-table #table class="contracts-table" [dataSource]="dataSource" multiTemplateDataRows matSort
+        (matSortChange)="sortData($event)" [@animateStagger]="{value:'50'}" fusePerfectScrollbar>
         <!-- ID Column -->
         <ng-container matColumnDef="id">
           <mat-header-cell mat-sort-header *matHeaderCellDef></mat-header-cell>
@@ -177,19 +178,26 @@
         </ng-container>
         <ng-container matColumnDef="total_qty">
           <mat-header-cell mat-sort-header *matHeaderCellDef>Quantity(MT)</mat-header-cell>
-          <mat-cell *matCellDef="let element">{{element.total_qty | number: '0.2-2'}}</mat-cell>
+          <mat-cell *matCellDef="let element">{{element.total_qty | number: '0.0-6'}}</mat-cell>
         </ng-container>
         <ng-container matColumnDef="payment_term.pmt_abbv">
           <mat-header-cell mat-sort-header *matHeaderCellDef>Payment Term</mat-header-cell>
           <mat-cell *matCellDef="let element">{{element.payment_term?.pmt_abbv}}</mat-cell>
         </ng-container>
         <ng-container matColumnDef="total_shipment">
-          <mat-header-cell mat-sort-header *matHeaderCellDef>Shipment</mat-header-cell>
-          <mat-cell *matCellDef="let element">{{element.total_shipment | number: '0.2-2'}}</mat-cell>
+          <mat-header-cell *matHeaderCellDef>Shipment</mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <!-- {{element.total_shipment | number: '0.0-6'}} -->
+            <div class="p-4">
+              <mat-progress-bar class="progress-bar-margin" color="warn" mode="determinate"
+                [value]="element.total_shipment/element.total_qty*100">
+              </mat-progress-bar>
+            </div>
+          </mat-cell>
         </ng-container>
-        <ng-container matColumnDef="currency.name_en">
+        <ng-container matColumnDef="currency.cur_code">
           <mat-header-cell mat-sort-header *matHeaderCellDef>Currency</mat-header-cell>
-          <mat-cell *matCellDef="let element">{{element.currency?.name_en}}</mat-cell>
+          <mat-cell *matCellDef="let element">{{element.currency?.cur_code}}</mat-cell>
         </ng-container>
         <ng-container matColumnDef="contract_status">
           <mat-header-cell mat-sort-header *matHeaderCellDef>Status</mat-header-cell>
@@ -253,7 +261,6 @@
       <div fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="1 1 auto">
         <p *ngIf="dataSource?.length === 0" style="color: red"><b>No records found</b></p>
       </div>
-
     </div>
     <!-- / CONTENT CARD -->
   </div>

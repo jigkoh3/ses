@@ -7,7 +7,7 @@ export class packing_unit {
     name_th: string;
     name_in_contract: string;
     bulk_pack: string;
-    unit_code_id: string;
+    unit_id: string;
     unit_code: unit_code;
     gross_weight: number;
     net_weight: number;

@@ -1,9 +1,10 @@
 import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
+import { MatDialogRef, MatDialog } from '@angular/material'
 import { fuseAnimations } from '@fuse/animations';
 import { Router } from '@angular/router';
 import { ODataConfiguration, ODataExecReturnType, ODataPagedResult, ODataQuery, ODataService, ODataServiceFactory } from 'angular-odata-es5'
 
-import { filter, FilterMetadata, lov_data, party, contract } from '../../../shared';
+import { filter, FilterMetadata, lov_data, party, contract, user_data } from '../../../shared';
 import { ODataConfigurationFactory } from '../../../ODataConfigurationFactory';
 import { combineLatest } from 'rxjs';
 import * as _ from 'lodash';
@@ -18,7 +19,30 @@ import {
 
 } from '@angular/animations';
 import { MatSnackBar } from '@angular/material';
-// import { ContextMenuComponent } from '../context-menu.component';
+import * as _moment from 'moment';
+import { MomentDateAdapter } from '@angular/material-moment-adapter';
+import { FuseConfirmDialogComponent } from '@fuse/components/confirm-dialog/confirm-dialog.component';
+import { FlexAlignStyleBuilder } from '@angular/flex-layout';
+// tslint:disable-next-line:no-duplicate-imports
+// import {default as _rollupMoment} from 'moment';
+
+// const moment = _rollupMoment || _moment;
+const moment = _moment;
+
+// See the Moment.js docs for the meaning of these formats:
+// https://momentjs.com/docs/#/displaying/format/
+export const MY_FORMATS = {
+  parse: {
+    dateInput: 'LL',
+  },
+  display: {
+    dateInput: 'DD MMM YYYY',
+    monthYearLabel: 'YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY',
+  },
+};
+
 @Component({
   selector: 'app-contract-list',
   templateUrl: './contract-list.component.html',
@@ -40,6 +64,7 @@ import { MatSnackBar } from '@angular/material';
 export class ContractListComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   expandedElement: Array<string>;
+  confirmDialogRef: MatDialogRef<FuseConfirmDialogComponent>;
   isExpansionDetailRow = (i: number, row: Object) =>
     row.hasOwnProperty('detailRow');
 
@@ -70,7 +95,7 @@ export class ContractListComponent implements OnInit {
   allPartys: party[];
 
   currentUser;
-
+  user: user_data;
   contract_no = "";
   buyer_contract_no = "";
 
@@ -104,7 +129,7 @@ export class ContractListComponent implements OnInit {
     'total_qty',
     'payment_term.pmt_abbv',
     'total_shipment',
-    'currency.name_en',
+    'currency.cur_code',
     'contract_status'
   ];
 
@@ -125,10 +150,12 @@ export class ContractListComponent implements OnInit {
   constructor(
     public route: Router,
     private odataFactory: ODataServiceFactory,
-    private _matSnackBar: MatSnackBar
+    private _matSnackBar: MatSnackBar,
+    private _matDialog: MatDialog,
+    private router : Router,
   ) {
     this.currentUser = JSON.parse(localStorage.getItem('SEScurrentUser'));
-    //this.user = this.currentUser.user;
+    this.user = this.currentUser.user;
     this.odata = this.odataFactory.CreateService<contract>('ses_contracts');
 
     this.odataLov = this.odataFactory.CreateService<lov_data>('ses_lov_datas');
@@ -178,9 +205,12 @@ export class ContractListComponent implements OnInit {
         console.log('Session Expire!');
       } else if (error.status != 401 && error.status != 0) {
         let detail = "";
-        detail = error.error.message;
-        if (error.error.InnerException) {
-          detail += '\n' + error.error.InnerException.ExceptionMessage;
+        detail = error.error.error.message;
+        if (error.error.error.InnerException) {
+          detail += '\n' + error.error.error.InnerException.ExceptionMessage;
+        }
+        if (error.error.error.innererror) {
+          detail += '\n' + error.error.error.innererror.message;
         }
         //this.msgs = { severity: 'error', summary: 'Error', detail: detail };
         this._matSnackBar.open(detail, 'ERROR', {
@@ -273,7 +303,7 @@ export class ContractListComponent implements OnInit {
         'total_qty',
         'payment_term/pmt_abbv',
         'total_shipment',
-        'currency/name_en',
+        'currency/cur_code',
         'contract_status'
       ]);
     if (this.filter) {
@@ -342,7 +372,6 @@ export class ContractListComponent implements OnInit {
       }
     }
 
-
     this.query
       .Exec(ODataExecReturnType.PagedResult)
       .subscribe((pagedResult: ODataPagedResult<contract>) => {
@@ -357,28 +386,30 @@ export class ContractListComponent implements OnInit {
           console.log('Session Expire!');
         } else if (error.status != 401 && error.status != 0) {
           let detail = "";
-          detail = error.error.message;
-          if (error.error.InnerException) {
-            detail += '\n' + error.error.InnerException.ExceptionMessage;
+          detail = error.error.error.message;
+          if (error.error.error.InnerException) {
+            detail += '\n' + error.error.error.InnerException.ExceptionMessage;
           }
-          //this.msgs = { severity: 'error', summary: 'Error', detail: detail };
+          if (error.error.error.innererror) {
+            detail += '\n' + error.error.error.innererror.message;
+          }
+          this._matSnackBar.open(detail, 'ERROR', {
+            verticalPosition: 'top',
+            duration: 10000
+          });
         } else if (error.status == 0) {
-          //this.msgs = { severity: 'error', summary: 'Error', detail: 'Cannot connect to server. Please contact administrator.' };
+          this._matSnackBar.open('Cannot connect to server. Please contact administrator.', 'ERROR', {
+            verticalPosition: 'top',
+            duration: 10000
+          });
+          
         }
 
         console.log('ODataExecReturnType.PagedResult ERROR ' + JSON.stringify(error));
       });
 
-
   }
 
-
-  // onResize(event) {
-  //   this.colSpTopic = (event.target.innerWidth <= 400) ? 6 : 2;
-  //   this.colSpSelect = (event.target.innerWidth <= 400) ? 6 : 2;
-  //   this.colSpBtn = (event.target.innerWidth <= 400) ? 6 : 1;
-  //   this.screenwidth = event.target.innerWidth
-  // }
   onAdd() {
     this.route.navigate(['contract-detail'], { queryParams: { mode: 'Add' } })
   }
@@ -391,8 +422,104 @@ export class ContractListComponent implements OnInit {
     this.route.navigate(['contract-detail', data.id], { queryParams: { mode: 'Edit' } })
   }
 
-  onDelete(data) {
-    confirm("Do you want to delete?");
+  onDelete(data: contract) {
+    this.confirmDialogRef = this._matDialog.open(FuseConfirmDialogComponent, {
+      disableClose: false
+    });
+
+    this.confirmDialogRef.componentInstance.confirmMessage = 'Are you sure you want to delete?';
+
+    this.confirmDialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.odata.Get(data.id)
+          .Select('updated_by_id, updated_date')
+          .Exec()
+          .subscribe((old: contract) => {
+            if (!old.updated_date || moment(old.updated_date).toDate().getTime() == moment(data.updated_date).toDate().getTime()) {
+
+              this.odata.Patch({
+                updated_by_id: this.user.employee_username,
+                updated_date: moment().toDate(),
+                record_status: false,
+                latest_flag: false
+              }, data.id)
+                .Exec()
+                .subscribe(res => {
+                  this._matSnackBar.open('Contract Deleted.', 'OK', {
+                    verticalPosition: 'top',
+                    duration: 10000
+                  });
+                  this.getPagedData();
+                }, (error) => {
+                  if (error.status == 401) {
+                    this.router.navigate(['/login'], { queryParams: { error: 'Session Expire!' } });
+                    
+                    console.log('Session Expire!');
+                  } else if (error.status != 401 && error.status != 0) {
+                    let detail = "";
+                    detail = error.error.error.message;
+                    if (error.error.error.InnerException) {
+                      detail += '\n' + error.error.error.InnerException.ExceptionMessage;
+                    }
+                    if (error.error.error.innererror) {
+                      detail += '\n' + error.error.error.innererror.message;
+                    }
+                    this._matSnackBar.open(detail, 'ERROR', {
+                      verticalPosition: 'top',
+                      duration: 10000
+                    });
+
+                  } else if (error.status == 0) {
+                    this._matSnackBar.open('Cannot connect to server. Please contact administrator.', 'ERROR', {
+                      verticalPosition: 'top',
+                      duration: 10000
+                    });
+                  
+                  }
+            
+                  console.log('ODataExecReturnType.PagedResult ERROR ' + JSON.stringify(error));
+                })
+            }else{
+              this._matSnackBar.open("Cannot save.Contract has been edit by " + old.updated_by_id, 'ERROR', {
+                verticalPosition: 'top',
+                duration: 10000
+              });
+            }
+          }, (error) => {
+            if (error.status == 401) {
+              this.router.navigate(['/login'], { queryParams: { error: 'Session Expire!' } });
+            
+              console.log('Session Expire!');
+            } else if (error.status != 401 && error.status != 0) {
+              let detail = "";
+              detail = error.error.error.message;
+              if (error.error.error.InnerException) {
+                detail += '\n' + error.error.error.InnerException.ExceptionMessage;
+              }
+              if (error.error.error.innererror) {
+                detail += '\n' + error.error.error.innererror.message;
+              }
+              this._matSnackBar.open(detail, 'ERROR', {
+                verticalPosition: 'top',
+                duration: 10000
+              });
+            } else if (error.status == 0) {
+              this._matSnackBar.open('Cannot connect to server. Please contact administrator.', 'ERROR', {
+                verticalPosition: 'top',
+                duration: 10000
+              });
+            }
+      
+            console.log('ODataExecReturnType.PagedResult ERROR ' + JSON.stringify(error));
+          });
+      }
+      this.confirmDialogRef = null;
+    });
+  }
+
+  onAddAddendem(data){
+    
+    this.route.navigate(['addendum-detail'], { queryParams: {ref : data.id,  mode: 'Edit' } })
   }
 
   toggleRow(row) {

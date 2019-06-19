@@ -55,6 +55,14 @@ app-contract-list {
         }
     }
 
+    .search-card{
+        background: white;
+        border-radius: 8px 8px 8px 8px;
+    }
+    .mat-progress-bar{
+       width: 50px;
+    }
+
     .contracts-table {
         width:100%;
         border-bottom: 1px solid rgba(0, 0, 0, .12);
@@ -72,6 +80,8 @@ app-contract-list {
         }
 
         .mat-cell {
+            font-size: 12px !important;
+            font-weight: 400 !important;
             min-width: 0;
             display: flex;
             align-items: center;
@@ -135,10 +145,10 @@ app-contract-list {
         }
 
         .mat-column-total_shipment {
-            flex: 0 1 100px;
+            flex: 0 1 80px;
         }
 
-        .mat-column-currency-name_en {
+        .mat-column-currency-cur_code {
             flex: 0 1 100px;
         }
 

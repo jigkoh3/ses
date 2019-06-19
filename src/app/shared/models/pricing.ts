@@ -53,7 +53,7 @@ import { pricing_tran } from './pricing_tran';
 //                 console.log('Session Expire!');
 //               } else if (error.status != 401 && error.status != 0) {
 //                 let detail = "";
-//                 detail = error.error.error.message;
+//                 detail = error.error.error.error.message;
 //                 if (error.error.error.InnerException) {
 //                   detail += '\n' + error.error.error.InnerException.ExceptionMessage;
 //                 }else if (error.error.error.innererror) {
@@ -86,7 +86,7 @@ import { pricing_tran } from './pricing_tran';
 //                 console.log('Session Expire!');
 //               } else if (error.status != 401 && error.status != 0) {
 //                 let detail = "";
-//                 detail = error.error.error.message;
+//                 detail = error.error.error.error.message;
 //                 if (error.error.error.InnerException) {
 //                   detail += '\n' + error.error.error.InnerException.ExceptionMessage;
 //                 }else if (error.error.error.innererror) {

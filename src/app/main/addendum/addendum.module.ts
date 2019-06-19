@@ -6,29 +6,30 @@ import { MatMenuModule, MatExpansionModule,MatDatepickerModule,MatCheckboxModule
 import { FormsModule } from '@angular/forms';
 import { FuseSharedModule } from '@fuse/shared.module';
 import { TranslateModule } from '@ngx-translate/core';
-import { AddendumDetailComponent } from './addendum-detail/addendum-detail.component';
 import { NgxDataTableModule } from 'ngx-nested-data-table';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AddendumProductComponent } from './addendum-product/addendum-product.component';
 
-const routes = [
-  {
-    path: 'Addendum',
-    component: AddendumListComponent
-  },{
-    path: 'Addendum-detail',
-    component: AddendumDetailComponent
-  },{
-    path: 'Addendum-product',
-    component: AddendumProductComponent
-  }
-];
+// const routes = [
+//   {
+//     path: 'addendum',
+//     component: AddendumListComponent
+//   },{
+//     path: 'addendum-detail',
+//     component: AddendumDetailComponent
+//   },{
+//     path: 'addendum-product',
+//     component: AddendumProductComponent
+//   }
+// ];
+
+
 
 @NgModule({
-  declarations: [AddendumListComponent, AddendumDetailComponent, AddendumProductComponent],
+  declarations: [AddendumListComponent, AddendumProductComponent],
   imports: [
     CommonModule,
-    RouterModule.forChild(routes),
+    // RouterModule.forChild(routes),
     MatFormFieldModule,
     TranslateModule,
     MatSelectModule,
