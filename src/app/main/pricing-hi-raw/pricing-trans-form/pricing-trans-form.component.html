@@ -1,0 +1,32 @@
+<div class="dialog-content-wrapper">
+
+  
+  <div mat-dialog-content class="p-24 pb-0 m-0" fusePerfectScrollbar>
+
+    <form [formGroup]="contactForm">
+
+      
+
+    </form>
+
+  </div>
+
+  <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+
+    <button *ngIf="action === 'edit'" mat-button class="mr-8" (click)="matDialogRef.close(['delete',contactForm])"
+      aria-label="Delete" matTooltip="Delete">
+      DELETE
+    </button>
+
+    <button *ngIf="action !== 'edit'" mat-button class="save-button" (click)="matDialogRef.close(contactForm)"
+      [disabled]="contactForm.invalid" aria-label="SAVE">
+      ADD
+    </button>
+
+    <button *ngIf="action === 'edit'" mat-button class="save-button" (click)="matDialogRef.close(['save',contactForm])"
+      [disabled]="contactForm.invalid" aria-label="SAVE">
+      SAVE
+    </button>
+
+  </div>
+</div>

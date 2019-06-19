@@ -1,22 +1,26 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { MatButtonModule, 
-  MatFormFieldModule, 
-  MatIconModule, 
-  MatInputModule, 
-  MatSelectModule, 
+import {
+  MatButtonModule,
+  MatFormFieldModule,
+  MatIconModule,
+  MatInputModule,
+  MatSelectModule,
   MatStepperModule,
-  MatTableModule, 
-  MatPaginatorModule, 
+  MatTableModule,
+  MatPaginatorModule,
   MatSortModule,
   MatCardModule,
-  MatDatepickerModule
- } from '@angular/material';
+  MatDatepickerModule,
+  MatDialogModule,
+  MatToolbarModule,
+} from '@angular/material';
 
 import { FuseSharedModule } from '@fuse/shared.module';
 
 import { PricingHiRawListComponent } from './pricing-hi-raw-list/pricing-hi-raw-list.component';
 import { PricingHiRawDetailComponent } from './pricing-hi-raw-detail/pricing-hi-raw-detail.component';
+import { PricingTransFormComponent } from './pricing-trans-form/pricing-trans-form.component';
 
 const routes = [
   {
@@ -29,7 +33,7 @@ const routes = [
   }
 ];
 @NgModule({
-  declarations: [PricingHiRawListComponent, PricingHiRawDetailComponent],
+  declarations: [PricingHiRawListComponent, PricingHiRawDetailComponent, PricingTransFormComponent],
   imports: [
     RouterModule.forChild(routes),
     MatButtonModule,
@@ -38,13 +42,18 @@ const routes = [
     MatInputModule,
     MatSelectModule,
     MatStepperModule,
-    MatTableModule, 
-    MatPaginatorModule, 
+    MatTableModule,
+    MatPaginatorModule,
     MatSortModule,
     MatCardModule,
     MatDatepickerModule,
+    MatDialogModule,
+    MatToolbarModule,
 
     FuseSharedModule,
+  ],
+  entryComponents: [
+    PricingTransFormComponent
   ]
 })
 export class PricingHiRawModule { }
