@@ -28,9 +28,11 @@
                         </div>
                         <div class="subtitle secondary-text">
                             <span>Contract Item</span>
+                            <!-- - form invalid : {{form.invalid}} - length
+                            {{contract_items?.length}}
                             <button mat-raised-button class="save-contract-button" (click)="findInvalidControls()">
-                                <!-- <span>CHECK FORM</span> -->
-                            </button>
+                                <span>CHECK FORM</span>
+                            </button> -->
                         </div>
                     </div>
                 </div>
@@ -65,8 +67,16 @@
 
                     <form name="form" [formGroup]="form" #formData='ngForm'>
 
-                        <mat-tab-group fxLayout="column">
-                            <mat-tab label="Quality">
+                        <mat-tab-group fxLayout="column" class="check-item">
+                            <mat-tab>
+                                <ng-template mat-tab-label>
+                                    <span *ngIf="mode!='Add'">
+                                        <mat-checkbox matPrefix formControlName="ad_quality">
+
+                                        </mat-checkbox>&nbsp;Quality
+                                    </span>
+                                    <span *ngIf="mode=='Add'">Quality</span>
+                                </ng-template>
                                 <mat-card fxFlex="100" fxFlex.gt-sm="100" fxLayout="column">
                                     <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="100"
                                         fxFlex.gt-sm="100">
@@ -134,7 +144,16 @@
                                     </div>
                                 </mat-card>
                             </mat-tab>
-                            <mat-tab label="Quantity">
+                            <mat-tab>
+                                <ng-template mat-tab-label>
+                                    <span *ngIf="mode!='Add'">
+                                        <mat-checkbox matPrefix formControlName="ad_quantity">
+
+                                        </mat-checkbox>
+                                        Quantity
+                                    </span>
+                                    <span *ngIf="mode=='Add'">Quantity</span>
+                                </ng-template>
                                 <mat-card fxFlex="100" fxFlex.gt-sm="100" fxLayout="column">
                                     <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="100"
                                         fxFlex.gt-sm="100" fxFlex="1 0 auto">
@@ -159,7 +178,15 @@
                                     </div>
                                 </mat-card>
                             </mat-tab>
-                            <mat-tab label="Packing">
+                            <mat-tab>
+                                <ng-template mat-tab-label>
+                                    <span *ngIf="mode!='Add'">
+                                        <mat-checkbox matPrefix *ngIf="mode!='Add'" formControlName="ad_packing">
+
+                                        </mat-checkbox>Packing
+                                    </span>
+                                    <span *ngIf="mode=='Add'">Packing</span>
+                                </ng-template>
                                 <mat-card fxFlex="100" fxFlex.gt-sm="100" fxLayout="column">
                                     <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="100"
                                         fxFlex.gt-sm="100">
@@ -202,6 +229,14 @@
                                 </mat-card>
                             </mat-tab>
                             <mat-tab label="Shipment">
+                                <ng-template mat-tab-label>
+                                    <span *ngIf="mode!='Add'">
+                                        <mat-checkbox matPrefix *ngIf="mode!='Add'" formControlName="ad_shipment">
+
+                                        </mat-checkbox>Shipment
+                                    </span>
+                                    <span *ngIf="mode=='Add'">Shipment</span>
+                                </ng-template>
                                 <mat-card fxFlex="100" fxFlex.gt-sm="100" fxLayout="column">
                                     <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="100"
                                         fxFlex.gt-sm="100">
@@ -220,7 +255,7 @@
                                             <mat-label>Shipment Period To *</mat-label>
                                             <input matInput [matDatepicker]="dp_shipment_period_to"
                                                 placeholder="Choose a date" formControlName="shipment_period_to"
-                                                [min]="form.controls.shipment_period_from.value">
+                                                [min]="form.controls.shipment_period_to.value">
                                             <mat-datepicker-toggle matSuffix [for]="dp_shipment_period_to">
                                             </mat-datepicker-toggle>
                                             <mat-datepicker #dp_shipment_period_to></mat-datepicker>
@@ -241,7 +276,15 @@
                                     </div>
                                 </mat-card>
                             </mat-tab>
-                            <mat-tab label="Price">
+                            <mat-tab>
+                                <ng-template mat-tab-label>
+                                    <span *ngIf="mode!='Add'">
+                                        <mat-checkbox matPrefix *ngIf="mode!='Add'" formControlName="ad_price">
+
+                                        </mat-checkbox>Price
+                                    </span>
+                                    <span *ngIf="mode=='Add'">Price</span>
+                                </ng-template>
                                 <mat-card fxFlex="100" fxFlex.gt-sm="100" fxLayout="column">
                                     <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="100"
                                         fxFlex.gt-sm="100">

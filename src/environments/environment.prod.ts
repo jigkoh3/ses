@@ -1,5 +1,5 @@
 export const environment = {
     production: true,
     hmr       : false,
-    serviceUrl : "https://ssecservice.azurewebsites.net",
+    serviceUrl : "http://10.100.77.240/ssec_ses_service",
 };

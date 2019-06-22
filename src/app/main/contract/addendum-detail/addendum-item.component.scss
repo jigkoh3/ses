@@ -1,0 +1,28 @@
+.fixActionRow {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.spacer {
+  flex-grow: 1;
+}
+
+
+.check-item {
+  mat-checkbox {
+      position: relative;
+      margin: 0 12px 0 3px;
+
+      .mat-label {
+          font-size: 14px;
+      }
+
+      &.mat-checked {
+
+          .mat-label {
+              text-decoration: line-through;
+          }
+      }
+  }
+}

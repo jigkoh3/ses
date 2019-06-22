@@ -5,7 +5,7 @@ const routes: Routes = [
     {
         path: '',
         children: [
-            { path: '', loadChildren: './login/login.module#LoginModule' },
+            // { path: '', loadChildren: '../../../login/login.module#LoginModule' },
             { path: 'pricingraw',loadChildren: './pricing-raw/pricing-raw.module#PricingRawModule' },
             { path: 'pricingraw',loadChildren: './pricing-raw/pricing-raw.module#PricingRawModule' },
             { path: 'pricing-detail',loadChildren: './pricing-raw/pricing-raw.module#PricingRawModule' },

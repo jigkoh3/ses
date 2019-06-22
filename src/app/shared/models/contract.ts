@@ -14,7 +14,8 @@ export class contract {
     contract_type: string;
     contract_ver: number;
     latest_flag: boolean;
-    addendum_type: string;
+    addendum_type_id: string;
+    addendum_type: lov_data;
     addendum_no: string;
     addendum_date: Date;
     contract_status: string;
@@ -70,7 +71,7 @@ export class contract {
     updated_by_id: string;
     updated_date: Date;
 
-    ref_contract_id: string;
-    ref_contract: contract;
+    ref_contract_no: string;
+    //ref_contract: contract;
     contract_items: contract_item[];
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject, ViewEncapsulation } from '@angular/core';
-import { MatDialogRef, MatDialog, MatTab, MatSnackBar, MAT_DIALOG_DATA, ErrorStateMatcher, DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from '@angular/material';
+import { MatDialogRef, MatDialog, MatTab, MatSnackBar, MAT_DIALOG_DATA, ErrorStateMatcher, MAT_DATE_LOCALE, DateAdapter, MAT_DATE_FORMATS } from '@angular/material';
 import { FormGroup, FormBuilder, Validators, FormControl, FormGroupDirective, NgForm } from '@angular/forms';
 import { ODataConfiguration, ODataServiceFactory, ODataService } from 'angular-odata-es5';
 import { ODataConfigurationFactory } from 'app/ODataConfigurationFactory';
@@ -14,6 +14,7 @@ import { UUID } from 'angular2-uuid';
 import { debounceTime } from 'rxjs/operators';
 import * as _moment from 'moment';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
+import { validateBasis } from '@angular/flex-layout';
 // tslint:disable-next-line:no-duplicate-imports
 // import {default as _rollupMoment} from 'moment';
 
@@ -42,20 +43,19 @@ class CrossFieldErrorMatcher implements ErrorStateMatcher {
 }
 
 @Component({
-  selector: 'app-contract-item',
-  templateUrl: './contract-item.component.html',
-  styleUrls: ['./contract-item.component.scss'],
+  selector: 'app-addendum-item',
+  templateUrl: './addendum-item.component.html',
+  styleUrls: ['./addendum-item.component.scss'],
   animations: fuseAnimations,
   encapsulation: ViewEncapsulation.None,
-  
   providers: [
     { provide: ODataConfiguration, useFactory: ODataConfigurationFactory },
     { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
     { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
-    ODataServiceFactory],
+     ODataServiceFactory],
 })
 
-export class ContractItemComponent implements OnInit {
+export class AddendumItemComponent implements OnInit {
   currentUser;
   user;
   mode;
@@ -65,6 +65,7 @@ export class ContractItemComponent implements OnInit {
   unitText = "";
   currencyText = "";
   contract_item: contract_item;
+  contract_items: contract_item[];
   shipment_by;
   contract_made_on: lov_data;
   shipment_option;
@@ -72,7 +73,7 @@ export class ContractItemComponent implements OnInit {
   shipment_period_to;
   suger_type: lov_data;
   shipment_term: shipment_term;
-
+  addendum_type: lov_data;
   odata: ODataService<contract_item>;
   odataLov: ODataService<lov_data>;
   odataProduct: ODataService<product>;
@@ -94,7 +95,7 @@ export class ContractItemComponent implements OnInit {
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
-    private dialogRef: MatDialogRef<ContractItemComponent>,
+    private dialogRef: MatDialogRef<AddendumItemComponent>,
     private odataFactory: ODataServiceFactory,
     private _matSnackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: any
@@ -107,6 +108,7 @@ export class ContractItemComponent implements OnInit {
     this.odataProduct = this.odataFactory.CreateService<product>('ses_products');
     this.odataPackingUnit = this.odataFactory.CreateService<packing_unit>('ses_packing_units');
     this.odataPUSubCode = this.odataFactory.CreateService<pu_sub_code>('ses_pu_sub_codes');
+
     //this.odataUnitCode = this.odataFactory.CreateService<unit_code>('ses_unit_codes');
 
     let disabledControl: Boolean;
@@ -120,7 +122,7 @@ export class ContractItemComponent implements OnInit {
       id: null,
       item_no: null,
       product_id: [{ value: '', disabled: disabledControl }, Validators.required],
-      crop_year_type: [{ value: 'CURRENT', disabled: disabledControl }],
+      crop_year_type: [{ value: 'CURRENT', disabled: disabledControl }, Validators.required],
       crop_year_input: [{ value: '', disabled: disabledControl }],
       crop_year: [{ value: null, disabled: disabledControl }, Validators.required],
       min_pola: [{ value: null, disabled: disabledControl }, Validators.required],
@@ -238,7 +240,113 @@ export class ContractItemComponent implements OnInit {
         this.calPrice();
       });
 
+    this.form.get('ad_quantity')
+      .valueChanges
+      .subscribe((res) => {
+        if (res) {
+          this.form.get('product_id').enable();
+          this.form.get('crop_year').enable();
+          this.form.get('min_pola').enable();
+          this.form.get('max_moisture').enable();
+          this.form.get('min_colour').enable();
+          this.form.get('max_colour').enable();
+          if (this.form.get('crop_year').value == "CURRENT") {
+            this.form.get('crop_year_input').disable();
+          } else {
+            this.form.get('crop_year_input').enable();
+          }
+        } else {
+          this.form.get('product_id').disable();
+          this.form.get('crop_year').disable();
+          this.form.get('min_pola').disable();
+          this.form.get('max_moisture').disable();
+          this.form.get('min_colour').disable();
+          this.form.get('max_colour').disable();
+          this.form.get('crop_year_input').disable();
+        }
+      });
 
+    this.form.get('ad_quality')
+      .valueChanges
+      .subscribe((res) => {
+        if (res) {
+          this.form.get('qty').enable();
+          this.form.get('qty_tcsc_us').enable();
+        } else {
+          this.form.get('qty').disable();
+          this.form.get('qty_tcsc_us').disable();
+        }
+      });
+
+    this.form.get('ad_packing')
+      .valueChanges
+      .subscribe((res) => {
+
+        if (res) {
+          this.form.get('pu_code_id').enable();
+          this.form.get('pu_sub_code_id').enable();
+        } else {
+          this.form.get('pu_code_id').disable();
+          this.form.get('pu_sub_code_id').disable();
+        }
+      });
+
+    this.form.get('ad_shipment')
+      .valueChanges
+      .subscribe((res) => {
+        if (res) {
+          if (this.shipment_by == "C") {
+            this.form.get('shipment_period_from').disable();
+            this.form.get('shipment_period_to').disable();
+            this.form.get('shipment_option').disable();
+          } else {
+            this.form.get('shipment_period_from').enable();
+            this.form.get('shipment_period_to').enable();
+            this.form.get('shipment_option').enable();
+          }
+        } else {
+          this.form.get('shipment_period_from').disable();
+          this.form.get('shipment_period_to').disable();
+          this.form.get('shipment_option').disable();
+        }
+      });
+
+    this.form.get('ad_price')
+      .valueChanges
+      .subscribe((res) => {
+        if (res) {
+          if (this.form.get('price_type_id').value == '2') {
+            this.form.get('price_type_id').disable();
+            this.form.get('sugar_cost').disable();
+            this.form.get('packing_cost').disable();
+            this.form.get('insurance_cost').disable();
+            this.form.get('freight_cost').disable();
+          } else {
+            this.form.get('price_type_id').enable();
+            if (this.shipment_term.shipterm_code == 'FOB') {
+              this.form.get('sugar_cost').enable();
+              this.form.get('packing_cost').enable();
+              this.form.get('insurance_cost').disable();
+              this.form.get('freight_cost').disable();
+            } else if (this.shipment_term.shipterm_code == 'CIF') {
+              this.form.get('sugar_cost').enable();
+              this.form.get('packing_cost').enable();
+              this.form.get('insurance_cost').enable();
+              this.form.get('freight_cost').enable();
+            } else if (this.shipment_term.shipterm_code == 'CNF') {
+              this.form.get('sugar_cost').enable();
+              this.form.get('packing_cost').enable();
+              this.form.get('insurance_cost').disable();
+              this.form.get('freight_cost').enable();
+            }
+          }
+        } else {
+          this.form.get('sugar_cost').disable();
+          this.form.get('packing_cost').disable();
+          this.form.get('insurance_cost').disable();
+          this.form.get('freight_cost').disable();
+        }
+      });
 
   }
 
@@ -259,8 +367,8 @@ export class ContractItemComponent implements OnInit {
     this.shipment_period_to = this.data.shipment_period_to;
     this.suger_type = this.data.suger_type;
     this.shipment_term = this.data.shipment_term;
-
-
+    this.addendum_type = this.data.addendum_type;
+    this.contract_items = this.data.contract_items;
 
     if (this.shipment_by == "C") {
       this.form.patchValue({
@@ -279,6 +387,9 @@ export class ContractItemComponent implements OnInit {
     } else {
       this.form.get('qty_tcsc_us').disable();
     }
+
+
+
 
     //product,pu_code,unit_name_eng,pu_sub_code,price_type
     combineLatest(
@@ -346,6 +457,11 @@ export class ContractItemComponent implements OnInit {
           freight_cost: this.contract_item.freight_cost,
           net_price: this.contract_item.net_price,
           price_desc: this.contract_item.price_desc,
+          ad_quality: this.contract_item.ad_quality,
+          ad_quantity: this.contract_item.ad_quantity,
+          ad_packing: this.contract_item.ad_packing,
+          ad_shipment: this.contract_item.ad_shipment,
+          ad_price: this.contract_item.ad_price,
           record_status: this.contract_item.record_status,
           created_by_id: this.contract_item.created_by_id,
           created_date: this.contract_item.created_date,
@@ -353,7 +469,7 @@ export class ContractItemComponent implements OnInit {
           updated_date: this.contract_item.updated_date,
         });
 
-        this.form.get('product_id').disable;
+        this.form.get('product_id').disable();
 
         this.changePriceType(this.contract_item.price_type_id);
         this.changeCropYearType(this.contract_item.crop_year_type);
@@ -372,10 +488,35 @@ export class ContractItemComponent implements OnInit {
           }
         }
 
-        if (this.mode == "View") {
+        if (this.mode == "View" || this.mode == "Add") {
           const controls = this.form.controls;
           for (const name in controls) {
-            controls[name].disable({ emitEvent: false });
+            controls[name].disable();
+            // if (name.substr(0, 3) == 'ad_') {
+            //   controls[name].setValue(true);
+            // }
+          }
+        } else {
+          const controls = this.form.controls;
+          for (const name in controls) {
+            if (name.substr(0, 3) != 'ad_') {
+              controls[name].disable();
+              //controls[name].setValue(true);
+            }
+          }
+
+          if (this.addendum_type.lov_code == "2" || this.addendum_type.lov_code == "3") {
+            this.form.get('ad_quality').disable();
+            this.form.get('ad_quantity').disable();
+            this.form.get('ad_packing').disable();
+            this.form.get('ad_shipment').disable();
+            this.form.get('ad_price').enable();
+          } else if (this.addendum_type.lov_code == "4") {
+            this.form.get('ad_quality').enable();
+            this.form.get('ad_quantity').enable();
+            this.form.get('ad_packing').enable();
+            this.form.get('ad_shipment').enable();
+            this.form.get('ad_price').disable();
           }
         }
       } else {
@@ -661,9 +802,36 @@ export class ContractItemComponent implements OnInit {
     return { value: year.toString(), text: year - 1 + '/' + year.toString().substr(2, 2) };
   }
 
-  saveProduct(form) {
-    const data: contract_item = this.form.getRawValue();
+  validate(data) {
+    if (this.mode == "Add") {
+      let found = _.find(this.contract_items, x => x.product_id == data.product_id && x.pu_code_id == data.pu_code_id &&
+        x.shipment_period_from == data.shipment_period_from && x.shipment_period_to == data.shipment_period_to)
 
+      if (found) {
+        this._matSnackBar.open('Cannot save contract item: contract item duplicate . ', 'ERROR', {
+          verticalPosition: 'top',
+          duration: 10000
+        });
+        return;
+      }
+    }
+    if (this.addendum_type > this.form.get('price_type_id').value) {
+      this._matSnackBar.open('Cannot save contract item: Price type invalid for addendum type ' + this.addendum_type.lov1, 'ERROR', {
+        verticalPosition: 'top',
+        duration: 10000
+      });
+      return false;
+    }
+    return true;
+  }
+
+  saveProduct(form) {
+
+    const data: contract_item = this.form.getRawValue();
+    if (!this.validate(data)) {
+
+      return;
+    }
 
     data.product = _.find(this.products, x => x.id == data.product_id);
     data.pu_code = _.find(this.packing_units, x => x.id == data.pu_code_id);

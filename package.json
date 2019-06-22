@@ -8,7 +8,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "postinstall": "ng build --aot --prod"
+    "postinstall": "ng build --aot --prod",
+    "deploy": "node --max-old-space-size=8192 node_modules/@angular/cli/bin/ng build --prod --base-href \"/ssec_ses/\" --aot"
   },
   "private": true,
   "dependencies": {

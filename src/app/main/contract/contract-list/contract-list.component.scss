@@ -1,4 +1,3 @@
-
 @import "src/@fuse/scss/fuse";
 
 app-contract-list {
@@ -12,9 +11,9 @@ app-contract-list {
             }
         }
 
-        > .center {
+        >.center {
 
-            > .header {
+            >.header {
 
                 .search-wrapper {
                     width: 100%;
@@ -55,127 +54,263 @@ app-contract-list {
         }
     }
 
-    .search-card{
+    .search-card {
         background: white;
         border-radius: 8px 8px 8px 8px;
     }
-    .mat-progress-bar{
-       width: 50px;
+
+    .mat-progress-bar {
+        width: 50px;
     }
 
-    .contracts-table {
-        width:100%;
-        border-bottom: 1px solid rgba(0, 0, 0, .12);
-        overflow: auto;
-        -webkit-overflow-scrolling: touch;
-
-        .mat-header-row {
-            min-height: 64px;
-        }
-
-        .contract {
-            position: relative;
-            cursor: pointer;
-            height: 84px;
-        }
-
-        .mat-cell {
-            font-size: 12px !important;
-            font-weight: 400 !important;
-            min-width: 0;
-            display: flex;
-            align-items: center;
-        }
-
-        .mat-column-id {
-            flex: 0 1 50px;
-        }
-
-        .mat-column-contract_no {
-            flex: 0 1 100px;
-        }
-
-        .mat-column-contract_date {
-            flex: 0 1 100px;
-        }
-
-        .mat-column-buyer_contract_no {
-            flex: 0 1 100px;
-        }
-
-        .mat-column-buyer-party_name {
-            flex: 0 1 200px;
-        }
-
-        
-        .mat-column-sugar_type-lov1 {
-            flex: 0 1 80px;
-        }
-
-        .mat-column-contract_made_on-lov1 {
-            flex: 0 1 80px;
-        }
-
-        .mat-column-crop_year {
-            flex: 0 1 100px;
-        }
-
-        .mat-column-group_factory-lov1 {
-            flex: 0 1 200px;
-        }
-
-        .mat-column-shipment_term-shipterm_name {
-            flex: 0 1 100px;
-        }
-
-        .mat-column-ship_period_from {
-            flex: 0 1 140px;
-        }
-
-        .mat-column-ship_period_to {
-            flex: 0 1 140px;
-        }
-
-        .mat-column-total_qty {
-            flex: 0 1 100px;
-        }
-
-        .mat-column-payment_term-pmt_abbv {
-            flex: 0 1 100px;
-        }
-
-        .mat-column-total_shipment {
-            flex: 0 1 80px;
-        }
-
-        .mat-column-currency-cur_code {
-            flex: 0 1 100px;
-        }
-
-        .mat-column-contract_status {
-            flex: 0 1 120px;
-        }
-
-        // .quantity-indicator {
-        //     display: inline-block;
-        //     vertical-align: middle;
-        //     width: 8px;
-        //     height: 8px;
-        //     border-radius: 4px;
-        //     margin-right: 8px;
-
-        //     & + span {
-        //         display: inline-block;
-        //         vertical-align: middle;
-        //     }
-        // }
-
-        // .active-icon {
-        //     border-radius: 50%;
-        // }
-
-    
+    .mat-column-id {
+        flex: 0 1 50px;
     }
+
+    .mat-column-expandedDetail {
+        flex: 0 1 90%;
+    }
+
+    .addendums-table {
+        width: 90vw !important;
+    }
+
+    // .addendums.contracts-table {
+    //     width: 100vw !important;
+    //     border-bottom: 1px solid rgba(0, 0, 0, .12);
+    //     flex: 0 1 auto;
+    //     overflow: auto;
+    //     -webkit-overflow-scrolling: touch;
+
+    //     .mat-header-row {
+    //         min-height: 64px;
+    //         width: 100vw !important;
+    //     }
+
+    //     .contract {
+    //         position: relative;
+    //         cursor: pointer;
+    //         height: 84px;
+    //     }
+
+    //     .mat-cell {
+    //         font-size: 12px !important;
+    //         font-weight: 400 !important;
+    //         min-width: 0;
+    //         display: flex;
+    //         align-items: center;
+    //     }
+
+    //     .mat-column-id {
+    //         flex: 0 1 50px;
+    //     }
+
+    //     // .mat-column-contract_no {
+    //     //     flex: 0 1 100px;
+    //     // }
+
+    //     // .mat-column-contract_date {
+    //     //     flex: 0 1 100px;
+    //     // }
+
+    //     // .mat-column-buyer_contract_no {
+    //     //     flex: 0 1 100px;
+    //     // }
+
+    //     // .mat-column-buyer-party_name {
+    //     //     flex: 0 1 160px;
+    //     // }
+
+
+    //     // .mat-column-sugar_type-lov1 {
+    //     //     flex: 0 1 80px;
+    //     // }
+
+    //     // .mat-column-contract_made_on-lov1 {
+    //     //     flex: 0 1 80px;
+    //     // }
+
+    //     // .mat-column-crop_year {
+    //     //     flex: 0 1 100px;
+    //     // }
+
+    //     // .mat-column-group_factory-lov1 {
+    //     //     flex: 0 1 160px;
+    //     // }
+
+    //     // .mat-column-shipment_term-shipterm_name {
+    //     //     flex: 0 1 100px;
+    //     // }
+
+    //     // .mat-column-ship_period_from {
+    //     //     flex: 0 1 140px;
+    //     // }
+
+    //     // .mat-column-ship_period_to {
+    //     //     flex: 0 1 140px;
+    //     // }
+
+    //     // .mat-column-total_qty {
+    //     //     flex: 0 1 100px;
+    //     // }
+
+    //     // .mat-column-payment_term-pmt_abbv {
+    //     //     flex: 0 1 100px;
+    //     // }
+
+    //     // .mat-column-total_shipment {
+    //     //     flex: 0 1 80px;
+    //     // }
+
+    //     // .mat-column-currency-cur_code {
+    //     //     flex: 0 1 100px;
+    //     // }
+
+    //     // .mat-column-contract_status {
+    //     //     flex: 0 1 120px;
+    //     // }
+
+    //     .mat-row {
+    //         width: 100vw !important;
+    //     }
+
+    //     // .quantity-indicator {
+    //     //     display: inline-block;
+    //     //     vertical-align: middle;
+    //     //     width: 8px;
+    //     //     height: 8px;
+    //     //     border-radius: 4px;
+    //     //     margin-right: 8px;
+
+    //     //     & + span {
+    //     //         display: inline-block;
+    //     //         vertical-align: middle;
+    //     //     }
+    //     // }
+
+    //     // .active-icon {
+    //     //     border-radius: 50%;
+    //     // }
+    // }
+    // .contracts-table {
+    //     width: 100vw !important;
+    //     border-bottom: 1px solid rgba(0, 0, 0, .12);
+    //     flex: 0 1 auto;
+    //     overflow: auto;
+    //     -webkit-overflow-scrolling: touch;
+
+    //     .mat-header-row {
+    //         min-height: 64px;
+    //         width: 100vw !important;
+    //     }
+
+    //     .contract {
+    //         position: relative;
+    //         cursor: pointer;
+    //         height: 84px;
+    //     }
+
+    //     .mat-cell {
+    //         font-size: 12px !important;
+    //         font-weight: 400 !important;
+    //         min-width: 0;
+    //         display: flex;
+    //         align-items: center;
+    //     }
+
+    //     .mat-column-id {
+    //         flex: 0 1 50px;
+    //     }
+
+    //     // .mat-column-contract_no {
+    //     //     flex: 0 1 100px;
+    //     // }
+
+    //     // .mat-column-contract_date {
+    //     //     flex: 0 1 100px;
+    //     // }
+
+    //     // .mat-column-buyer_contract_no {
+    //     //     flex: 0 1 100px;
+    //     // }
+
+    //     // .mat-column-buyer-party_name {
+    //     //     flex: 0 1 160px;
+    //     // }
+
+
+    //     // .mat-column-sugar_type-lov1 {
+    //     //     flex: 0 1 80px;
+    //     // }
+
+    //     // .mat-column-contract_made_on-lov1 {
+    //     //     flex: 0 1 80px;
+    //     // }
+
+    //     // .mat-column-crop_year {
+    //     //     flex: 0 1 100px;
+    //     // }
+
+    //     // .mat-column-group_factory-lov1 {
+    //     //     flex: 0 1 160px;
+    //     // }
+
+    //     // .mat-column-shipment_term-shipterm_name {
+    //     //     flex: 0 1 100px;
+    //     // }
+
+    //     // .mat-column-ship_period_from {
+    //     //     flex: 0 1 140px;
+    //     // }
+
+    //     // .mat-column-ship_period_to {
+    //     //     flex: 0 1 140px;
+    //     // }
+
+    //     // .mat-column-total_qty {
+    //     //     flex: 0 1 100px;
+    //     // }
+
+    //     // .mat-column-payment_term-pmt_abbv {
+    //     //     flex: 0 1 100px;
+    //     // }
+
+    //     // .mat-column-total_shipment {
+    //     //     flex: 0 1 80px;
+    //     // }
+
+    //     // .mat-column-currency-cur_code {
+    //     //     flex: 0 1 100px;
+    //     // }
+
+    //     // .mat-column-contract_status {
+    //     //     flex: 0 1 120px;
+    //     // }
+
+    //     .mat-row {
+    //         width: 100vw !important;
+    //     }
+
+    //     // .quantity-indicator {
+    //     //     display: inline-block;
+    //     //     vertical-align: middle;
+    //     //     width: 8px;
+    //     //     height: 8px;
+    //     //     border-radius: 4px;
+    //     //     margin-right: 8px;
+
+    //     //     & + span {
+    //     //         display: inline-block;
+    //     //         vertical-align: middle;
+    //     //     }
+    //     // }
+
+    //     // .active-icon {
+    //     //     border-radius: 50%;
+    //     // }
+
+
+    // }
 }
 
 // .detail-table {

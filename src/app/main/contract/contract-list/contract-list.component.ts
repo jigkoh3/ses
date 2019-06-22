@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
-import { MatDialogRef, MatDialog } from '@angular/material'
+import { MatDialogRef, MatDialog, DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from '@angular/material'
 import { fuseAnimations } from '@fuse/animations';
 import { Router } from '@angular/router';
 import { ODataConfiguration, ODataExecReturnType, ODataPagedResult, ODataQuery, ODataService, ODataServiceFactory } from 'angular-odata-es5'
@@ -23,6 +23,7 @@ import * as _moment from 'moment';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { FuseConfirmDialogComponent } from '@fuse/components/confirm-dialog/confirm-dialog.component';
 import { FlexAlignStyleBuilder } from '@angular/flex-layout';
+import { FormGroup, FormBuilder, ValidatorFn } from '@angular/forms';
 // tslint:disable-next-line:no-duplicate-imports
 // import {default as _rollupMoment} from 'moment';
 
@@ -36,12 +37,29 @@ export const MY_FORMATS = {
     dateInput: 'LL',
   },
   display: {
-    dateInput: 'DD MMM YYYY',
+    dateInput: 'DD/MM/YYYY',
     monthYearLabel: 'YYYY',
     dateA11yLabel: 'LL',
     monthYearA11yLabel: 'MMMM YYYY',
   },
 };
+
+export class CustomValidators {
+  /**
+   * Validates that child controls in the form group are equal
+   */
+
+
+  static dateValidate: ValidatorFn = (formGroup: FormGroup) => {
+    if (formGroup.parent)
+      if (formGroup.parent.get('contract_date_from') && formGroup.parent.get('contract_date_to'))
+        if (formGroup.parent.get('contract_date_from').value && formGroup.parent.get('contract_date_to').value)
+          if (moment(formGroup.parent.get('contract_date_from').value).toDate() > moment(formGroup.parent.get('contract_date_to').value).toDate())
+            return { notValid: true }
+
+    return null;
+  }
+}
 
 @Component({
   selector: 'app-contract-list',
@@ -59,7 +77,11 @@ export const MY_FORMATS = {
     ),
   ]), fuseAnimations],
   encapsulation: ViewEncapsulation.None,
-  providers: [{ provide: ODataConfiguration, useFactory: ODataConfigurationFactory }, ODataServiceFactory],
+  providers: [
+    { provide: ODataConfiguration, useFactory: ODataConfigurationFactory },
+    { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+    { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
+     ODataServiceFactory],
 })
 export class ContractListComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -130,29 +152,39 @@ export class ContractListComponent implements OnInit {
     'payment_term.pmt_abbv',
     'total_shipment',
     'currency.cur_code',
-    'contract_status'
+    'contract_status',
+    // 'updated_by_id',
+    // 'updated_date'
   ];
 
   displayedDetailColumns = [
-    'addendum_no.',
+    'addendum_no',
     'addendum_date',
-    'addendum_type',
-    'contract_status',
+    'addendum_type.lov1',
     'sugar_type.lov1',
     'buyer_contract_no',
     'buyer.party_name',
-    'total_qty'
+    'total_qty',
+    // 'contract_status',
+    // 'latest_flag'
   ];
   dataSource: any = [
 
   ];
+  details: any = [
+
+  ];
+
+  form: FormGroup;
 
   constructor(
+    private _formBuilder: FormBuilder,
     public route: Router,
     private odataFactory: ODataServiceFactory,
+    private formBuilder: FormBuilder,
     private _matSnackBar: MatSnackBar,
     private _matDialog: MatDialog,
-    private router : Router,
+    private router: Router,
   ) {
     this.currentUser = JSON.parse(localStorage.getItem('SEScurrentUser'));
     this.user = this.currentUser.user;
@@ -160,6 +192,17 @@ export class ContractListComponent implements OnInit {
 
     this.odataLov = this.odataFactory.CreateService<lov_data>('ses_lov_datas');
     this.odataParty = this.odataFactory.CreateService<party>('ses_parties');
+
+    this.form = this._formBuilder.group({
+      contract_no : null,
+      contract_date_from : null,
+      contract_date_to : [{ value: null },  CustomValidators.dateValidate],
+      contract_status : null,
+      buyer_contract_no : null,
+      buyer_id: null,
+      sugar_type_id: null,
+      group_factory_id: null,
+    });
   }
 
   ngOnInit() {
@@ -167,6 +210,7 @@ export class ContractListComponent implements OnInit {
     // this.colSpSelect = (window.innerWidth <= 400) ? 6 : 2;
     // this.colSpBtn = (window.innerWidth <= 400) ? 6 : 1;
     // this.screenwidth = window.innerWidth
+
     combineLatest(
       this.odataLov
         .Query()
@@ -230,45 +274,45 @@ export class ContractListComponent implements OnInit {
     // this.calTotal();
   }
 
-  checkDate(event) {
-    console.log(event);
-  }
+  // checkDate(event) {
+  //   console.log(event);
+  // }
 
   onSearch() {
 
     this.filterText = "";
 
     let stringArry: string[] = [];
-    if (this.contract_no) {
-      stringArry.push("contains(contract_no, '" + this.contract_no + "')")
+    if (this.form.get('contract_no').value) {
+      stringArry.push("contains(contract_no, '" + this.form.get('contract_no').value + "')")
     }
 
-    if (this.buyer_contract_no) {
-      stringArry.push("contains(buyer_contract_no, '" + this.buyer_contract_no + "')")
+    if (this.form.get('buyer_contract_no').value) {
+      stringArry.push("contains(buyer_contract_no, '" + this.form.get('buyer_contract_no').value + "')")
     }
 
-    if (this.contract_date_from) {
-      stringArry.push("contract_date_from gt '" + this.contract_date_from + "'")
+    if (this.form.get('contract_date_from').value) {
+      stringArry.push("contract_date gt " + moment(this.form.get('contract_date_from').value).toJSON() + "")
     }
 
-    if (this.contract_date_to) {
-      stringArry.push("contract_date_to lt '" + this.contract_date_to + "'")
+    if (this.form.get('contract_date_to').value) {
+      stringArry.push("contract_date lt " + moment(this.form.get('contract_date_to').value).toJSON() + "")
     }
 
-    if (this.selectedContractStatus) {
-      stringArry.push("contract_status eq '" + this.selectedContractStatus + "'")
+    if (this.form.get('contract_status').value) {
+      stringArry.push("contract_status eq '" + this.form.get('contract_status').value + "'")
     }
 
-    if (this.selectedBuyer) {
-      stringArry.push("buyer_id eq '" + this.selectedBuyer + "'")
+    if (this.form.get('buyer_id').value) { 
+      stringArry.push("buyer_id eq '" + this.form.get('buyer_id').value + "'")
     }
 
-    if (this.selectedSugarType) {
-      stringArry.push("sugar_type_id eq '" + this.selectedSugarType + "'")
+    if (this.form.get('sugar_type_id').value) {
+      stringArry.push("sugar_type_id eq '" + this.form.get('sugar_type_id').value  + "'")
     }
 
-    if (this.selectedContractStatus) {
-      stringArry.push("group_factory_id eq '" + this.selectedGroupFactory + "'")
+    if (this.form.get('group_factory_id').value) { 
+      stringArry.push("group_factory_id eq '" + this.form.get('group_factory_id').value  + "'")
     }
 
     this.filterText = stringArry.join(' and ');
@@ -278,7 +322,7 @@ export class ContractListComponent implements OnInit {
   private getPagedData() {
     let filter = "";
     if (this.filterText) {
-      filter = this.filterText + "and record_status eq true and latest_flag eq true"
+      filter = this.filterText + " and record_status eq true and latest_flag eq true"
     } else {
       filter = "record_status eq true and latest_flag eq true";
     }
@@ -304,7 +348,9 @@ export class ContractListComponent implements OnInit {
         'payment_term/pmt_abbv',
         'total_shipment',
         'currency/cur_code',
-        'contract_status'
+        'contract_status',
+        'updated_by_id',
+        'updated_date'
       ]);
     if (this.filter) {
       if (this.filter.rows) {
@@ -402,7 +448,7 @@ export class ContractListComponent implements OnInit {
             verticalPosition: 'top',
             duration: 10000
           });
-          
+
         }
 
         console.log('ODataExecReturnType.PagedResult ERROR ' + JSON.stringify(error));
@@ -424,7 +470,7 @@ export class ContractListComponent implements OnInit {
 
   onDelete(data: contract) {
     this.confirmDialogRef = this._matDialog.open(FuseConfirmDialogComponent, {
-      disableClose: false
+      disableClose: false,
     });
 
     this.confirmDialogRef.componentInstance.confirmMessage = 'Are you sure you want to delete?';
@@ -453,7 +499,7 @@ export class ContractListComponent implements OnInit {
                 }, (error) => {
                   if (error.status == 401) {
                     this.router.navigate(['/login'], { queryParams: { error: 'Session Expire!' } });
-                    
+
                     console.log('Session Expire!');
                   } else if (error.status != 401 && error.status != 0) {
                     let detail = "";
@@ -474,12 +520,12 @@ export class ContractListComponent implements OnInit {
                       verticalPosition: 'top',
                       duration: 10000
                     });
-                  
+
                   }
-            
+
                   console.log('ODataExecReturnType.PagedResult ERROR ' + JSON.stringify(error));
                 })
-            }else{
+            } else {
               this._matSnackBar.open("Cannot save.Contract has been edit by " + old.updated_by_id, 'ERROR', {
                 verticalPosition: 'top',
                 duration: 10000
@@ -488,7 +534,7 @@ export class ContractListComponent implements OnInit {
           }, (error) => {
             if (error.status == 401) {
               this.router.navigate(['/login'], { queryParams: { error: 'Session Expire!' } });
-            
+
               console.log('Session Expire!');
             } else if (error.status != 401 && error.status != 0) {
               let detail = "";
@@ -509,7 +555,7 @@ export class ContractListComponent implements OnInit {
                 duration: 10000
               });
             }
-      
+
             console.log('ODataExecReturnType.PagedResult ERROR ' + JSON.stringify(error));
           });
       }
@@ -517,9 +563,112 @@ export class ContractListComponent implements OnInit {
     });
   }
 
-  onAddAddendem(data){
-    
-    this.route.navigate(['addendum-detail'], { queryParams: {ref : data.id,  mode: 'Edit' } })
+  onAddAddendem(data) {
+
+    this.route.navigate(['addendum-detail'], { queryParams: { ref: data.id, mode: 'Add' } })
+  }
+
+  onAddendumView(data) {
+    this.route.navigate(['addendum-detail', data.id], { queryParams: { mode: 'View' } })
+  }
+
+  onAddendumEdit(data) {
+    this.route.navigate(['addendum-detail', data.id], { queryParams: { mode: 'Edit' } })
+  }
+
+  onAddendumDelete(data: contract) {
+    this.confirmDialogRef = this._matDialog.open(FuseConfirmDialogComponent, {
+      disableClose: false,
+    });
+
+    this.confirmDialogRef.componentInstance.confirmMessage = 'Are you sure you want to delete?';
+
+    this.confirmDialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.odata.Get(data.id)
+          .Select('updated_by_id, updated_date')
+          .Exec()
+          .subscribe((old: contract) => {
+            if (!old.updated_date || moment(old.updated_date).toDate().getTime() == moment(data.updated_date).toDate().getTime()) {
+
+              this.odata.Patch({
+                updated_by_id: this.user.employee_username,
+                updated_date: moment().toDate(),
+                record_status: false,
+                latest_flag: false
+              }, data.id)
+                .Exec()
+                .subscribe(res => {
+                  this._matSnackBar.open('Addendum Deleted.', 'OK', {
+                    verticalPosition: 'top',
+                    duration: 10000
+                  });
+                  this.getPagedData();
+                }, (error) => {
+                  if (error.status == 401) {
+                    this.router.navigate(['/login'], { queryParams: { error: 'Session Expire!' } });
+
+                    console.log('Session Expire!');
+                  } else if (error.status != 401 && error.status != 0) {
+                    let detail = "";
+                    detail = error.error.error.message;
+                    if (error.error.error.InnerException) {
+                      detail += '\n' + error.error.error.InnerException.ExceptionMessage;
+                    }
+                    if (error.error.error.innererror) {
+                      detail += '\n' + error.error.error.innererror.message;
+                    }
+                    this._matSnackBar.open(detail, 'ERROR', {
+                      verticalPosition: 'top',
+                      duration: 10000
+                    });
+
+                  } else if (error.status == 0) {
+                    this._matSnackBar.open('Cannot connect to server. Please contact administrator.', 'ERROR', {
+                      verticalPosition: 'top',
+                      duration: 10000
+                    });
+
+                  }
+
+                  console.log('ODataExecReturnType.PagedResult ERROR ' + JSON.stringify(error));
+                })
+            } else {
+              this._matSnackBar.open("Cannot save.Contract has been edit by " + old.updated_by_id, 'ERROR', {
+                verticalPosition: 'top',
+                duration: 10000
+              });
+            }
+          }, (error) => {
+            if (error.status == 401) {
+              this.router.navigate(['/login'], { queryParams: { error: 'Session Expire!' } });
+
+              console.log('Session Expire!');
+            } else if (error.status != 401 && error.status != 0) {
+              let detail = "";
+              detail = error.error.error.message;
+              if (error.error.error.InnerException) {
+                detail += '\n' + error.error.error.InnerException.ExceptionMessage;
+              }
+              if (error.error.error.innererror) {
+                detail += '\n' + error.error.error.innererror.message;
+              }
+              this._matSnackBar.open(detail, 'ERROR', {
+                verticalPosition: 'top',
+                duration: 10000
+              });
+            } else if (error.status == 0) {
+              this._matSnackBar.open('Cannot connect to server. Please contact administrator.', 'ERROR', {
+                verticalPosition: 'top',
+                duration: 10000
+              });
+            }
+
+            console.log('ODataExecReturnType.PagedResult ERROR ' + JSON.stringify(error));
+          });
+      }
+      this.confirmDialogRef = null;
+    });
   }
 
   toggleRow(row) {
@@ -527,6 +676,23 @@ export class ContractListComponent implements OnInit {
       this.expandedElement = null;
     } else {
       this.expandedElement = row;
+
+      this.odata
+        .Query()
+        .Filter("ref_contract_no eq '" + row.contract_no + "' and contract_type eq 'ADDENDUM' and record_status eq true")
+        .Expand('addendum_type, buyer, sugar_type, contract_made_on, group_factory, shipment_term,  payment_term, currency')
+        .OrderBy('addendum_no')
+        .Exec()
+        .subscribe(addendum => {
+          let row = _.find(this.dataSource, x => x.id == this.expandedElement['id'])
+          row.details = addendum;
+          var index = this.dataSource.findIndex(item => item.id === this.expandedElement['id'])
+
+          // Replace the item by index.
+          this.dataSource.splice(index, 1, row)
+
+        })
+
     }
   }
 

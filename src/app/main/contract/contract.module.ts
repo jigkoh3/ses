@@ -34,7 +34,8 @@ import { TranslateModule } from '@ngx-translate/core';
 import { FuseSharedModule } from '@fuse/shared.module';
 import { NgxDataTableModule } from 'ngx-nested-data-table';
 import { NgxMaskModule } from 'ngx-mask';
-import { FuseConfirmDialogComponent } from '@fuse/components/confirm-dialog/confirm-dialog.component';
+import { FuseConfirmDialogModule } from '@fuse/components';
+import { AddendumItemComponent } from './addendum-detail/addendum-item.component';
 
 const routes = [
   {
@@ -66,8 +67,8 @@ const routes = [
     ContractDetailComponent,
     ContractItemComponent,
     ContextMenuComponent,
-    FuseConfirmDialogComponent,
-    AddendumDetailComponent],
+    AddendumDetailComponent,
+    AddendumItemComponent],
   imports: [
     RouterModule.forChild(routes),
     CommonModule,
@@ -98,6 +99,7 @@ const routes = [
     MatSnackBarModule,
     MatTabsModule,
     MatProgressBarModule,
+    FuseConfirmDialogModule,
     NgxMaskModule.forRoot()
   ],
   exports: [
@@ -105,8 +107,8 @@ const routes = [
     ContractDetailComponent,
     ContractItemComponent,
     AddendumDetailComponent,
-    FuseConfirmDialogComponent
+    AddendumItemComponent
   ],
-  entryComponents: [ContractItemComponent,FuseConfirmDialogComponent]
+  entryComponents: [ContractItemComponent,AddendumItemComponent]
 })
 export class ContractModule { }

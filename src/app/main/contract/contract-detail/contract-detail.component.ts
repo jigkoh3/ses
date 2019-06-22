@@ -1,5 +1,5 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormBuilder, Validators, FormGroup, FormControl, FormGroupDirective, NgForm } from '@angular/forms';
+import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
+import { FormBuilder, Validators, FormGroup, FormControl, FormGroupDirective, NgForm, ValidatorFn } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ODataConfiguration, ODataExecReturnType, ODataPagedResult, ODataQuery, ODataService, ODataServiceFactory } from 'angular-odata-es5'
 import { contract, lov_data, party, shipment_to, payment_term, currency, term_cond, packing_unit, unit_code, pu_sub_code, product, shipment_term, contract_item, MasterService } from 'app/shared';
@@ -31,25 +31,66 @@ export const MY_FORMATS = {
     dateInput: 'LL',
   },
   display: {
-    dateInput: 'DD MMM YYYY',
+    dateInput: 'DD/MM/YYYY',
     monthYearLabel: 'YYYY',
     dateA11yLabel: 'LL',
     monthYearA11yLabel: 'MMMM YYYY',
   },
 };
 
-class CrossFieldErrorMatcher implements ErrorStateMatcher {
-  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-    //console.log(control);
-    return control.dirty && (form.errors ? true : false);
+// class CrossFieldErrorMatcher implements ErrorStateMatcher {
+//   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+//     //console.log(control);
+//     return control.dirty && (form.errors ? true : false);
+//   }
+// }
+
+
+export class CustomValidators {
+  /**
+   * Validates that child controls in the form group are equal
+   */
+  static shipmentToRequire: ValidatorFn = (formGroup: FormGroup) => {
+    if (formGroup.parent) {
+      if (formGroup.parent.get('partial_shipment_option_id') && formGroup.parent.get('shipment_to_id')) {
+        let isValid = formGroup.parent.get('partial_shipment_option_id').value == "parshipopt-epz" && formGroup.parent.get('shipment_to_id').value;   
+        if (!isValid){
+          formGroup.parent.get('shipment_to_id').markAsTouched();
+        }
+        return isValid ? null : { childrenNotEqual: true };
+      }
+    }
+
+  }
+
+  static dateValidate: ValidatorFn = (formGroup: FormGroup) => {
+    if (formGroup.parent)
+      if (formGroup.parent.get('shipment_period_from') && formGroup.parent.get('shipment_period_to'))
+        if (formGroup.parent.get('shipment_period_from').value && formGroup.parent.get('shipment_period_to').value)
+          if (moment(formGroup.parent.get('shipment_period_from').value).toDate() > moment(formGroup.parent.get('shipment_period_to').value).toDate())
+            return { notValid: true }
+
+    return null;
   }
 }
+
+/**
+* Custom ErrorStateMatcher which returns true (error exists) when the parent form group is invalid and the control has been touched
+*/
+// export class ConfirmValidParentMatcher implements ErrorStateMatcher {
+//   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+//     return form.invalid && control.touched;
+//   }
+// }
+
+
 
 @Component({
   selector: 'app-contract-detail',
   templateUrl: './contract-detail.component.html',
   styleUrls: ['./contract-detail.component.scss'],
   animations: fuseAnimations,
+  encapsulation: ViewEncapsulation.None,
   providers: [
     MasterService,
     { provide: ODataConfiguration, useFactory: ODataConfigurationFactory },
@@ -59,8 +100,8 @@ class CrossFieldErrorMatcher implements ErrorStateMatcher {
 })
 export class ContractDetailComponent implements OnInit {
   contractItemDialogRef: MatDialogRef<ContractItemComponent>;
-  errorMatcher = new CrossFieldErrorMatcher();
-
+  // errorMatcher = new CrossFieldErrorMatcher();
+  // confirmValidParentMatcher = new ConfirmValidParentMatcher();
   mode: string;
   user;
   currentUser;
@@ -210,30 +251,30 @@ export class ContractDetailComponent implements OnInit {
       contract_type: 'CONTRACT',
       contract_ver: 0,
       latest_flag: true,
-      addendum_type: null,
+      addendum_type_id: null,
       addendum_no: null,
       addendum_date: null,
       contract_status: [{ value: '', disabled: true }],
-      contract_made_on_id: [{ value: '', disabled: disabledControl }, Validators.required],
+      contract_made_on_id: [{ value: null, disabled: disabledControl }, Validators.required],
       crop_year: [{ value: '', disabled: disabledControl }, Validators.required],
-      seller_id: [{ value: '', disabled: true }, Validators.required],
-      group_factory_id: [{ value: '', disabled: disabledControl }, Validators.required],
-      sugar_type_id: [{ value: '', disabled: disabledControl }, Validators.required],
+      seller_id: [{ value: null, disabled: true }, Validators.required],
+      group_factory_id: [{ value: null, disabled: disabledControl }, Validators.required],
+      sugar_type_id: [{ value: null, disabled: disabledControl }, Validators.required],
       buyer_contract_no: [{ value: '', disabled: disabledControl }, Validators.required],
-      buyer_id: [{ value: '', disabled: disabledControl }, Validators.required],
-      shipment_term_id: [{ value: '', disabled: disabledControl }, Validators.required],
+      buyer_id: [{ value: null, disabled: disabledControl }, Validators.required],
+      shipment_term_id: [{ value: null, disabled: disabledControl }, Validators.required],
       shipment_by: [{ value: '', disabled: disabledControl }, Validators.required],
       shipment_period_from: [{ value: '', disabled: disabledControl }, Validators.required],
-      shipment_period_to: [{ value: '', disabled: disabledControl }, Validators.required],
+      shipment_period_to: [{ value: null, disabled: disabledControl }, [Validators.required, CustomValidators.dateValidate]],
       shipment_option: [{ value: '', disabled: disabledControl }, Validators.required],
-      partial_shipment_option_id: [{ value: '', disabled: disabledControl }, Validators.required],
-      shipment_to_id: [{ value: '', disabled: disabledControl }, Validators.required],
-      payment_term_id: [{ value: '', disabled: disabledControl }, Validators.required],
-      currency_id: [{ value: '', disabled: disabledControl }, Validators.required],
+      partial_shipment_option_id: [{ value: null, disabled: disabledControl }, Validators.required],
+      shipment_to_id: [{ value: null, disabled: true }, [CustomValidators.shipmentToRequire]],
+      payment_term_id: [{ value: null, disabled: disabledControl }, Validators.required],
+      currency_id: [{ value: null, disabled: disabledControl }, Validators.required],
       exchange_rate: [{ value: null, disabled: disabledControl }, Validators.required],
       shipment_term_remark: [{ value: '', disabled: disabledControl }, Validators.required],
       product_remark: [{ value: '', disabled: disabledControl }, Validators.required],
-      gen_term_condition_id: [{ value: '', disabled: disabledControl }, Validators.required],
+      gen_term_condition_id: [{ value: null, disabled: disabledControl }, Validators.required],
       gen_term_condition_desc: [{ value: '', disabled: true }],
       ad_buyer_contract_no: null,
       ad_buyer: null,
@@ -253,11 +294,12 @@ export class ContractDetailComponent implements OnInit {
       created_date: null,
       updated_by_id: null,
       updated_date: null,
-      ref_contract_id: null,
-      ref_contract: null,
+      ref_contract_no: null,
+      // ref_contract_id: null,
+      // ref_contract: null,
       pricing_method: 3,
       //contract_items: this._formBuilder.array([]),
-    }, { validator: this.checkDates });
+    });
 
   }
 
@@ -424,14 +466,19 @@ export class ContractDetailComponent implements OnInit {
               created_date: this.contract.created_date,
               updated_by_id: this.contract.updated_by_id,
               updated_date: this.contract.updated_date,
-              ref_contract_id: this.contract.ref_contract_id,
-              ref_contract: this.contract.ref_contract,
+              ref_contract_no: this.contract.ref_contract_no,
+              // ref_contract_id: this.contract.ref_contract_id,
+              // ref_contract: this.contract.ref_contract,
               pricing_method: this.contract.pricing_method,
             }, { emitEvent: false });
 
             const controls = this.form.controls;
             for (const name in controls) {
               controls[name].disable({ emitEvent: false });
+            }
+
+            if (this.mode == 'View' && this.contract.contract_type == 'ADDENDEM'){
+              this.form.get('contract_status').value('SUBMIT')
             }
           }, (error) => {
             if (error.status == 401) {
@@ -493,15 +540,23 @@ export class ContractDetailComponent implements OnInit {
     });
   }
 
-  checkDates(group: FormGroup) {
-    if (group.controls.shipment_period_from.value && group.controls.shipment_period_to.value) {
-      if (moment(group.controls.shipment_period_from.value).toDate() > moment(group.controls.shipment_period_to.value).toDate()) {
-        return { notValid: true }
-      }
-    }
+  // customValidate(group: FormGroup) {
+  //   if (group.controls.shipment_period_from.value && group.controls.shipment_period_to.value) {
+  //     if (moment(group.controls.shipment_period_from.value).toDate() > moment(group.controls.shipment_period_to.value).toDate()) {
+  //       return { notValid: true }
+  //     }
+  //   }
 
-    return null;
-  }
+  //   if (group.controls.partial_shipment_option_id.value) {
+  //     if (group.controls.partial_shipment_option_id.value == "parshipopt-epz") {
+  //       if (!group.controls.shipment_to_id.value) {
+  //         return { shipmentToRequired: true }
+  //       }
+  //     }
+  //   }
+
+  //   return null;
+  // }
 
   changePartialShipmentOption(val) {
     //console.log(event);
@@ -514,6 +569,14 @@ export class ContractDetailComponent implements OnInit {
         gen_term_condition_id: null,
         gen_term_condition_desc: ""
       })
+
+      if (partial_shipment_option.lov_code.toUpperCase() == 'EPZ') {
+        this.form.get('shipment_to_id').enable();
+        this.form.get('shipment_to_id').setValue(null);
+      } else {
+        this.form.get('shipment_to_id').disable();
+        this.form.get('shipment_to_id').setValue(null);
+      }
     }
   }
 
@@ -540,7 +603,7 @@ export class ContractDetailComponent implements OnInit {
     let selectedContractMadeOn = _.find(this.contract_made_ons, x => x.id == this.form.controls['contract_made_on_id'].value);
     let selectedShipmentOption = this.form.controls['shipment_option'].value
     let selectedShipmentPeriodFrom = this.form.controls['shipment_period_from'].value
-    let selectedShipmentPeriodTo = this.form.controls['shipment_period_from'].value
+    let selectedShipmentPeriodTo = this.form.controls['shipment_period_to'].value
     let selectedSugerType = _.find(this.sugar_types, x => x.id == this.form.controls['sugar_type_id'].value);
     let selectedShipmentTerm = _.find(this.shipment_terms, x => x.id == this.form.controls['shipment_term_id'].value);
     this.contractItemDialogRef = this.dialog.open(ContractItemComponent, {
@@ -814,7 +877,7 @@ export class ContractDetailComponent implements OnInit {
             item.pu_sub_code = null;
             item.price_type = null;
 
-            item.crop_year_input = item.crop_year_input?Number(item.crop_year_input):item.crop_year_input;
+            item.crop_year_input = item.crop_year_input ? Number(item.crop_year_input) : item.crop_year_input;
             item.min_pola = Number(item.min_pola);
             item.max_moisture = Number(item.max_moisture);
             item.min_colour = Number(item.min_colour);
