@@ -1,337 +1,158 @@
-<div class="page-layout carded fullwidth p-24" fusePerfectScrollbar>
-  <mat-card>
-      <mat-grid-list [cols]="6" rowHeight="31px">
-          <mat-grid-tile [colspan]="6">
-              <div class="left">
-                  <h2 class="m-0">Pricing White</h2>
-              </div>
-          </mat-grid-tile>
-      </mat-grid-list>
+<div id="pricing-white-list" class="page-layout carded fullwidth inner-scroll">
 
-      <mat-grid-list [cols]="6" rowHeight="60px" (window:resize)="onResize($event)">
-          <mat-grid-tile [colspan]="colSpSelect">
-              <mat-form-field style="width: 90%;">
-                  <mat-label>Select Buyer</mat-label>
-                  <mat-select>
-                      <mat-option *ngFor="let buyer of buyer" [value]="buyer.value">
-                          {{buyer.viewValue}}
-                      </mat-option>
-                  </mat-select>
-              </mat-form-field>
-          </mat-grid-tile>
-          <mat-grid-tile [colspan]="colSpSelect">
-              <mat-form-field style="width: 90%;">
-                  <mat-label>Select Group Factory</mat-label>
-                  <mat-select>
-                      <mat-option *ngFor="let groupfactory of groupfactory" [value]="groupfactory.value">
-                          {{groupfactory.viewValue}}
-                      </mat-option>
-                  </mat-select>
-              </mat-form-field>
-          </mat-grid-tile>
-      </mat-grid-list>
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg accent"></div>
+    <!-- / TOP BACKGROUND -->
 
-      <mat-grid-list [cols]="6" rowHeight="60px" (window:resize)="onResize($event)">
-          <mat-grid-tile [colspan]="colSpSelect">
-              <mat-form-field style="width: 90%;">
-                  <mat-label>Select Buyer Contrace No.</mat-label>
-                  <mat-select>
-                      <mat-option *ngFor="let buyercontacno of buyercontacno" [value]="buyercontacno.value">
-                          {{buyercontacno.viewValue}}
-                      </mat-option>
-                  </mat-select>
-              </mat-form-field>
-          </mat-grid-tile>
-          <mat-grid-tile [colspan]="colSpSelect">
-              <mat-form-field style="width: 90%;">
-                  <mat-label>Select Contract No.</mat-label>
-                  <mat-select>
-                      <mat-option *ngFor="let contactno of contactno" [value]="contactno.value">
-                          {{contactno.viewValue}}
-                      </mat-option>
-                  </mat-select>
-              </mat-form-field>
-          </mat-grid-tile>
-          <mat-grid-tile [colspan]="colSpBtn">
-              <button mat-flat-button class="accent" style="width: 90%">Search</button>
-          </mat-grid-tile>
-      </mat-grid-list>
+    <div class="center">
+        <!-- HEADER -->
+        <div class="header accent" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-sm="row"
+            fxLayoutAlign.gt-sm="space-between center">
 
-      <mat-grid-list [cols]="6" rowHeight="31px" (window:resize)="onResize($event)" style="margin-top: 6px">
-          <mat-grid-tile [colspan]="colSpBtn">
-              <button mat-flat-button class="accent" (click)="onDetail()" style="width: 90%">Add</button>
-          </mat-grid-tile>
-      </mat-grid-list>
-  </mat-card>
+            <!-- APP TITLE -->
+            <div class="logo mb-24 mb-md-0" fxLayout="row" fxLayoutAlign="start center">
+                <span class="logo-text h1" [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+                    Pricing White
+                </span>
+            </div>
+            <!-- / APP TITLE -->
 
 
-  <!-- <mat-grid-list [cols]="6" rowHeight="350px">
-      <mat-grid-tile [colspan]="6">
-          <div class="example-container mat-elevation-z8">
-              <table mat-table [dataSource]="transactions" style="width: 100%">
 
-                  <ng-container matColumnDef="Buyer">
-                      <th mat-header-cell *matHeaderCellDef> Buyer </th>
-                      <td mat-cell *matCellDef="let transaction"> {{transaction.item}} </td>
-                      <td mat-footer-cell *matFooterCellDef> Total </td>
-                  </ng-container>
+            <!-- ADD BUTTON -->
+            <button mat-raised-button (click)="onAdd()" class="add-contract-button fuse-white mt-24 mt-md-0">
+                <mat-icon>add</mat-icon>
+                <span>ADD NEW PRICING WHITE</span>
+            </button>
+            <!-- / ADD BUTTON -->
 
-                  <ng-container matColumnDef="Group-Factory">
-                      <th mat-header-cell *matHeaderCellDef> Group Factory </th>
-                      <td mat-cell *matCellDef="let transaction"> 1 </td>
-                      <td mat-footer-cell *matFooterCellDef> $ </td>
-                  </ng-container>
+        </div>
+        <!-- / HEADER -->
 
-                  <ng-container matColumnDef="Contract-No">
-                      <th mat-header-cell *matHeaderCellDef> *Contract No. </th>
-                      <td mat-cell *matCellDef="let transaction"> 1 </td>
-                      <td mat-footer-cell *matFooterCellDef> $ </td>
-                  </ng-container>
 
-                  <ng-container matColumnDef="Buyer-Contract-No">
-                      <th mat-header-cell *matHeaderCellDef> Buyer Contract No. </th>
-                      <td mat-cell *matCellDef="let transaction"> 1 </td>
-                      <td mat-footer-cell *matFooterCellDef> $ </td>
-                  </ng-container>
+        <form class="search-card  p-12" fxLayout="column" name="form" [formGroup]="form" #formData='ngForm'
+            (ngSubmit)="onSearch(formData)" [@animate]="{value:'*',params:{delay:'100ms',y:'25px'}}">
+            <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
 
-                  <ng-container matColumnDef="Contract-Date">
-                      <th mat-header-cell *matHeaderCellDef> Contract Date </th>
-                      <td mat-cell *matCellDef="let transaction"> 1 </td>
-                      <td mat-footer-cell *matFooterCellDef> $ </td>
-                  </ng-container>
+                <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pl-4">
+                    <mat-label>Buyer</mat-label>
+                    <mat-select formControlName="buyer_id">
+                        <mat-option [value]="">
+                            --All--
+                        </mat-option>
+                        <mat-option *ngFor="let buyer of buyers" [value]="buyer.id">
+                            {{buyer.party_name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
 
-                  <ng-container matColumnDef="Contract-Date2">
-                          <th mat-header-cell *matHeaderCellDef> Contract Date(USA/UK Date) </th>
-                          <td mat-cell *matCellDef="let transaction"> 1 </td>
-                          <td mat-footer-cell *matFooterCellDef> $ </td>
-                      </ng-container>
+                <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pl-4">
+                    <mat-label>Group Factory</mat-label>
+                    <mat-select formControlName="groupfactory">
+                        <mat-option [value]="">
+                            --All--
+                        </mat-option>
+                        <mat-option *ngFor="let groupfactory of groupfactorys" [value]="groupfactory.id">
+                            {{groupfactory.lov1}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
 
-                  <ng-container matColumnDef="Quantity">
-                      <th mat-header-cell *matHeaderCellDef> Quantity </th>
-                      <td mat-cell *matCellDef="let transaction"> 1 </td>
-                      <td mat-footer-cell *matFooterCellDef> $ </td>
-                  </ng-container>
+            </div>
 
-                  <ng-container matColumnDef="Shipment-Period">
-                      <th mat-header-cell *matHeaderCellDef> Shipment Period </th>
-                      <td mat-cell *matCellDef="let transaction"> 1 </td>
-                      <td mat-footer-cell *matFooterCellDef> $ </td>
-                  </ng-container>
+            <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
 
-                  <ng-container matColumnDef="Total-Price">
-                      <th mat-header-cell *matHeaderCellDef> Total Price </th>
-                      <td mat-cell *matCellDef="let transaction"> 1 </td>
-                      <td mat-footer-cell *matFooterCellDef> $ </td>
-                  </ng-container>
+                <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pr-4">
+                    <mat-label>Buyer Contrace No.</mat-label>
+                    <input matInput formControlName="buyercontractno">
+                    <!-- <mat-icon matSuffix class="secondary-text">account_circle</mat-icon> -->
+                </mat-form-field>
 
-                  <ng-container matColumnDef="Priced">
-                      <th mat-header-cell *matHeaderCellDef> Priced </th>
-                      <td mat-cell *matCellDef="let transaction"> 1 </td>
-                      <td mat-footer-cell *matFooterCellDef> $ </td>
-                  </ng-container>
+                <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pl-4">
+                    <mat-label>Contract No.</mat-label>
+                    <input matInput formControlName="contarctno">
+                    <!-- <mat-icon matSuffix class="secondary-text">account_circle</mat-icon> -->
+                </mat-form-field>
 
-                  <ng-container matColumnDef="Unpriced">
-                      <th mat-header-cell *matHeaderCellDef> Unpriced </th>
-                      <td mat-cell *matCellDef="let transaction"> 1 </td>
-                      <td mat-footer-cell *matFooterCellDef> $ </td>
-                  </ng-container>
+            </div>
 
-                  <ng-container matColumnDef="Final-Price">
-                      <th mat-header-cell *matHeaderCellDef> Final Price(USD/MT) </th>
-                      <td mat-cell *matCellDef="let transaction"> 1 </td>
-                      <td mat-footer-cell *matFooterCellDef> $ </td>
-                  </ng-container>
+            <div fxLayout="row wrap" fxLayoutAlign="end center" fxFlex="1 0 auto">
+                <button type="submit" mat-raised-button color="accent" class="submit-button" aria-label="SEARCH">
+                    <mat-icon>search</mat-icon>
+                    <span>SEARCH PRICING WHITE</span>
+                </button>
+            </div>
+        </form>
 
-                  <ng-container matColumnDef="Final-Price2">
-                          <th mat-header-cell *matHeaderCellDef> Final Price(C/LB) </th>
-                          <td mat-cell *matCellDef="let transaction"> 1 </td>
-                          <td mat-footer-cell *matFooterCellDef> $ </td>
-                      </ng-container>
+        <div class="content-card  mt-12">
+            <mat-table #table class="example-container " *ngIf="dataSource.length > 0" [dataSource]="dataSource"
+                multiTemplateDataRows matSort (matSortChange)="sortData($event)" [@animateStagger]="{value:'50'}"
+                fusePerfectScrollbar>
+                <!-- ID Column -->
+                <ng-container matColumnDef="id">
+                    <mat-header-cell mat-sort-header *matHeaderCellDef></mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+                        <!-- {{element.id}} -->
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="buyer.party_name">
+                    <mat-header-cell mat-sort-header *matHeaderCellDef>Buyer</mat-header-cell>
+                    <mat-cell *matCellDef="let element">{{element.buyer?.party_name}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="group_factory.lov1">
+                    <mat-header-cell mat-sort-header *matHeaderCellDef>Group Factory</mat-header-cell>
+                    <mat-cell *matCellDef="let element">{{element.group_factory?.lov1}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="type_of_sugar.lov1">
+                    <mat-header-cell mat-sort-header *matHeaderCellDef>Suger Type</mat-header-cell>
+                    <mat-cell *matCellDef="let element">{{element.type_of_sugar?.lov1}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="qty">
+                    <mat-header-cell mat-sort-header *matHeaderCellDef>Quantity(MT)</mat-header-cell>
+                    <mat-cell *matCellDef="let element">{{element.qty | number: '0.2-2'}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="shipment_from">
+                    <mat-header-cell mat-sort-header *matHeaderCellDef>Shipment Period From</mat-header-cell>
+                    <mat-cell *matCellDef="let element">{{element.shipment_from | date: 'dd MMMM yyyy'}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="shipment_to">
+                    <mat-header-cell mat-sort-header *matHeaderCellDef>Shipment Period To</mat-header-cell>
+                    <mat-cell *matCellDef="let element">{{element.shipment_to | date: 'dd MMMM yyyy'}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="total_pricing">
+                    <mat-header-cell mat-sort-header *matHeaderCellDef>Total Price</mat-header-cell>
+                    <mat-cell *matCellDef="let element">{{element.total_pricing | number: '0.2-2'}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="priced">
+                    <mat-header-cell mat-sort-header *matHeaderCellDef>Priced</mat-header-cell>
+                    <mat-cell *matCellDef="let element">{{element.priced | number: '0.2-2'}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="unpriced">
+                    <mat-header-cell mat-sort-header *matHeaderCellDef>Unpriced</mat-header-cell>
+                    <mat-cell *matCellDef="let element">{{element.unpriced | number: '0.2-2'}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="confirm_price_usd">
+                    <mat-header-cell mat-sort-header *matHeaderCellDef>Final Price (USD/MT)</mat-header-cell>
+                    <mat-cell *matCellDef="let element">{{element.confirm_price_usd | number: '0.2-2'}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="confirm_price_cent">
+                    <mat-header-cell mat-sort-header *matHeaderCellDef>Final Price (C/LB)</mat-header-cell>
+                    <mat-cell *matCellDef="let element">{{element.confirm_price_usd | number: '0.2-2'}}</mat-cell>
+                </ng-container>
+                <mat-header-row *matHeaderRowDef="displayedColumns sticky: true"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;" [class.expanded]="expandedElement == row"
+                    (contextmenu)="menu.open($event, {data: row} )"></mat-row>
 
-                  <ng-container matColumnDef="Last-Pricing-Date">
-                      <th mat-header-cell *matHeaderCellDef> Last Pricing Date </th>
-                      <td mat-cell *matCellDef="let transaction"> 1 </td>
-                      <td mat-footer-cell *matFooterCellDef> $ </td>
-                  </ng-container>
+            </mat-table>
+        </div>
 
-                  <ng-container matColumnDef="Against">
-                      <th mat-header-cell *matHeaderCellDef> Against </th>
-                      <td mat-cell *matCellDef="let transaction"> 1 </td>
-                      <td mat-footer-cell *matFooterCellDef> $ </td>
-                  </ng-container>
 
-                  <ng-container matColumnDef="Manage">
-                      <th mat-header-cell *matHeaderCellDef> Manage </th>
-                      <td mat-cell *matCellDef="let transaction"> 1 </td>
-                      <td mat-footer-cell *matFooterCellDef> $ </td>
-                  </ng-container>
+        <mat-paginator #paginator *ngIf="dataSource.length > 0" [length]="totalRecords" [pageIndex]="0" [pageSize]="5"
+            [pageSizeOptions]="[5, 10, 15, 20]">
+        </mat-paginator>
 
-                  <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky: true"></tr>
-                  <tr mat-row *matRowDef=" let row; columns: displayedColumns;"></tr>
-                  <tr mat-footer-row *matFooterRowDef="displayedColumns; sticky: true"></tr>
-              </table>
-          </div>
-      </mat-grid-tile>
-  </mat-grid-list> -->
+        <p *ngIf="dataSource.length === 0">No records found</p>
 
-  <mat-grid-list [cols]="6" rowHeight="240px">
-      <mat-grid-tile [colspan]="6">
-          <mat-card class="example-container" style="padding: 0px">
-              <!-- <div class="example-container mat-elevation-z8"> -->
-              <table mat-table class="mat-elevation-z8" [dataSource]="transactions">
-                  <ng-container matColumnDef="Buyer">
-                      <th mat-header-cell *matHeaderCellDef class="text-center fl-row-style"> Buyer </th>
-                      <td mat-cell *matCellDef="let transaction" class="text-center fl-row-style">
-                          {{transaction.buyer}}
-                      </td>
-                      <!-- <td mat-footer-cell *matFooterCellDef> Total </td> -->
-                  </ng-container>
-
-                  <ng-container matColumnDef="Group-Factory">
-                      <th mat-header-cell *matHeaderCellDef class="text-center"> Group Factory </th>
-                      <td mat-cell *matCellDef="let transaction" class="text-center">
-                          {{transaction.groupfactory}}
-                      </td>
-                  </ng-container>
-
-                  <ng-container matColumnDef="Contract-No">
-                      <th mat-header-cell *matHeaderCellDef class="text-center"> *Contract No. </th>
-                      <td mat-cell *matCellDef="let transaction" class="text-center">
-                          {{transaction.contactno}}
-                      </td>
-                  </ng-container>
-
-                  <ng-container matColumnDef="Buyer-Contract-No">
-                      <th mat-header-cell *matHeaderCellDef class="text-center"> Buyer Contract No. </th>
-                      <td mat-cell *matCellDef="let transaction" class="text-center">
-                          {{transaction.buyercontacno}}
-                      </td>
-                  </ng-container>
-
-                  <ng-container matColumnDef="Contract-Date">
-                      <th mat-header-cell *matHeaderCellDef class="text-center"> Contract Date </th>
-                      <td mat-cell *matCellDef="let transaction" class="text-center">
-                          {{transaction.contactdata}}
-                      </td>
-                  </ng-container>
-
-                  <ng-container matColumnDef="Contract-Date2">
-                      <th mat-header-cell *matHeaderCellDef class="text-center"> Contract Date(USA/UK Date) </th>
-                      <td mat-cell *matCellDef="let transaction" class="text-center">
-                          {{transaction.typeofsugar}}
-                      </td>
-                  </ng-container>
-
-                  <ng-container matColumnDef="Quantity">
-                      <th mat-header-cell *matHeaderCellDef class="text-center"> Quantity </th>
-                      <td mat-cell *matCellDef="let transaction" class="text-center">
-                          {{transaction.quanitity}}
-                      </td>
-                  </ng-container>
-
-                  <ng-container matColumnDef="Shipment-Period">
-                      <th mat-header-cell *matHeaderCellDef class="text-center"> Shipment Period </th>
-                      <td mat-cell *matCellDef="let transaction" class="text-center">
-                          {{transaction.shipmentperiod}}
-                      </td>
-                  </ng-container>
-
-                  <ng-container matColumnDef="Total-Price">
-                      <th mat-header-cell *matHeaderCellDef class="text-center"> Total Price </th>
-                      <td mat-cell *matCellDef="let transaction" class="text-center">
-                          {{transaction.quanitity  / 50 | number:'1.0-0'}}
-                      </td>
-                  </ng-container>
-
-                  <ng-container matColumnDef="Priced">
-                      <th mat-header-cell *matHeaderCellDef class="text-center"> Priced </th>
-                      <td mat-cell *matCellDef="let transaction" class="text-center">
-                          {{transaction.priced}}
-                      </td>
-                  </ng-container>
-
-                  <ng-container matColumnDef="Unpriced">
-                      <th mat-header-cell *matHeaderCellDef class="text-center"> Unpriced </th>
-                      <td mat-cell *matCellDef="let transaction" class="text-center">
-                          {{transaction.unpriced}}
-                      </td>
-                  </ng-container>
-
-                  <ng-container matColumnDef="Final-Price">
-                      <th mat-header-cell *matHeaderCellDef class="text-center"> Final Price(USD/MT) </th>
-                      <td mat-cell *matCellDef="let transaction" class="text-center">
-                          {{transaction.finalpriceusdmt}}
-                      </td>
-                  </ng-container>
-
-                  <ng-container matColumnDef="Final-Price2">
-                      <th mat-header-cell *matHeaderCellDef class="text-center"> Final Price(C/LB) </th>
-                      <td mat-cell *matCellDef="let transaction" class="text-center">
-                          {{transaction.finalpriceclb}}
-                      </td>
-                  </ng-container>
-
-                  <ng-container matColumnDef="Last-Pricing-Date">
-                      <th mat-header-cell *matHeaderCellDef class="text-center"> Last Pricing Date </th>
-                      <td mat-cell *matCellDef="let transaction" class="text-center">
-                          {{transaction.lastpriceingdata}}
-                      </td>
-                  </ng-container>
-
-                  <ng-container matColumnDef="Against">
-                      <th mat-header-cell *matHeaderCellDef class="text-center"> Against </th>
-                      <td mat-cell *matCellDef="let transaction" class="text-center">
-                          {{transaction.againstmonth}}
-                      </td>
-                  </ng-container>
-
-                  <ng-container matColumnDef="Manage">
-                      <th mat-header-cell *matHeaderCellDef class="text-center fl-row-style"> Manage </th>
-                      <td mat-cell *matCellDef="let transaction" class="text-center fl-row-style">
-                          <button mat-icon-button [matMenuTriggerFor]="menu">
-                              <mat-icon>more_horiz</mat-icon>
-                          </button>
-                          <mat-menu #menu="matMenu">
-                              <button mat-menu-item (click)="onDetail()">View</button>
-                              <button mat-menu-item (click)="onDetail()">Edit</button>
-                              <button mat-menu-item (click)="onDelete()">Delete</button>
-                          </mat-menu>
-                      </td>
-                  </ng-container>
-
-                  <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky: true"></tr>
-                  <tr mat-row *matRowDef=" let row; columns: displayedColumns;"></tr>
-                  <!-- <tr mat-footer-row *matFooterRowDef="displayedColumns; sticky: true"></tr> -->
-              </table>
-              <!-- </div> -->
-          </mat-card>
-      </mat-grid-tile>
-  </mat-grid-list>
-
-  <mat-card style="padding-top: 0px;padding-bottom: 0px">
-      <mat-grid-list [cols]="6" rowHeight="90px">
-          <mat-grid-tile [colspan]="3">
-              <div class="right">
-                  <form>
-                      <mat-form-field>
-                          <span matPrefix>Total &nbsp;</span>
-                          <input matInput class="text-center" name="total" [(ngModel)]="total" disabled>
-                      </mat-form-field>
-                  </form>
-              </div>
-          </mat-grid-tile>
-          <mat-grid-tile [colspan]="3">
-              <div class="left">
-                  <form>
-                      <mat-form-field>
-                          <span matPrefix>Lots &nbsp;</span>
-                          <input matInput class="text-center" name="lots" [(ngModel)]="lots" disabled>
-                      </mat-form-field>
-                  </form>
-              </div>
-          </mat-grid-tile>
-      </mat-grid-list>
-  </mat-card>
-
+    </div>
 
 </div>

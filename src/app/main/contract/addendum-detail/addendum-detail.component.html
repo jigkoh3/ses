@@ -66,11 +66,11 @@
                 <form class="mat-card p-24" fxLayout="column" name="form" [formGroup]="form" #formData='ngForm'>
                     <!-- <div class="h2 mb-24">{{mode}} - Addendum</div> -->
                     <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
-                        <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pl-4">
+                        <mat-form-field fxFlex="100" fxFlex.gt-sm="50" class="pl-4">
                             <mat-label>Addendum No. *</mat-label>
                             <input matInput formControlName="addendum_no">
                         </mat-form-field>
-                        <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pl-4">
+                        <mat-form-field fxFlex="100" fxFlex.gt-sm="50" class="pl-4">
                             <mat-label>Addendum Type *</mat-label>
                             <mat-select formControlName="addendum_type_id">
                                 <mat-option [value]="">
@@ -84,18 +84,18 @@
                     </div>
 
                     <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
-                        <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pl-4">
+                        <mat-form-field fxFlex="100" fxFlex.gt-sm="50" class="pl-4">
                             <mat-label>Contract No. *</mat-label>
                             <input matInput formControlName="contract_no">
                         </mat-form-field>
-                        <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pl-4">
+                        <mat-form-field fxFlex="100" fxFlex.gt-sm="50" class="pl-4">
                             <mat-label>Addendum Status *</mat-label>
                             <input matInput formControlName="contract_status">
                         </mat-form-field>
                     </div>
 
                     <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
-                        <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pl-4">
+                        <mat-form-field fxFlex="100" fxFlex.gt-sm="50" class="pl-4">
                             <mat-label>Contract Made By *</mat-label>
                             <mat-select formControlName="contract_made_on_id">
                                 <mat-option [value]="">
@@ -107,7 +107,7 @@
                                 </mat-option>
                             </mat-select>
                         </mat-form-field>
-                        <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pl-4">
+                        <mat-form-field fxFlex="100" fxFlex.gt-sm="50" class="pl-4">
                             <mat-label>Contrat Crop Year *</mat-label>
                             <mat-select formControlName="crop_year">
                                 <mat-option [value]="">
@@ -121,14 +121,14 @@
                     </div>
 
                     <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
-                        <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pl-4">
+                        <mat-form-field fxFlex="100" fxFlex.gt-sm="50" class="pl-4">
                             <mat-label>Addendum Date *</mat-label>
                             <input matInput [matDatepicker]="dp_addendum_date" placeholder="Choose a date"
                                 formControlName="addendum_date">
                             <mat-datepicker-toggle matSuffix [for]="dp_addendum_date"></mat-datepicker-toggle>
                             <mat-datepicker #dp_addendum_date></mat-datepicker>
                         </mat-form-field>
-                        <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pl-4">
+                        <mat-form-field fxFlex="100" fxFlex.gt-sm="50" class="pl-4">
                             <mat-label>Seller *</mat-label>
                             <mat-select formControlName="seller_id">
                                 <!-- <mat-option [value]="">
@@ -141,7 +141,7 @@
                         </mat-form-field>
                     </div>
                     <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
-                        <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pr-4">
+                        <mat-form-field fxFlex="100" fxFlex.gt-sm="50" class="pr-4">
                             <mat-label>Group Factory *</mat-label>
                             <mat-select formControlName="group_factory_id">
                                 <mat-option [value]="">
@@ -152,7 +152,7 @@
                                 </mat-option>
                             </mat-select>
                         </mat-form-field>
-                        <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pl-4">
+                        <mat-form-field fxFlex="100" fxFlex.gt-sm="50" class="pl-4">
                             <mat-label>Sugar Type *</mat-label>
                             <mat-select formControlName="sugar_type_id">
                                 <mat-option [value]="">
@@ -169,7 +169,7 @@
 
                         <div fxFlex fxLayout="row" class="check-items" fxFlex="100" fxFlex.gt-sm="50"
                             fxLayoutAlign="space-between center">
-                            <mat-form-field appearance="outline" class="check-item" fxFlex>
+                            <mat-form-field class="check-item" fxFlex>
                                 <mat-label>Buyer Contract No *</mat-label>
                                 <input matInput formControlName="buyer_contract_no">
                                 <mat-checkbox matPrefix formControlName="ad_buyer_contract_no">
@@ -178,7 +178,7 @@
                         </div>
                         <div fxFlex fxLayout="row" class="check-items" fxFlex="100" fxFlex.gt-sm="50"
                             fxLayoutAlign="space-between center">
-                            <mat-form-field appearance="outline" class="check-item" fxFlex>
+                            <mat-form-field class="check-item" fxFlex>
                                 <mat-label>Buyer *</mat-label>
                                 <mat-select formControlName="buyer_id">
                                     <mat-option [value]="">
@@ -197,7 +197,7 @@
                     <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
                         <div fxFlex fxLayout="row" class="check-items" fxFlex="100" fxFlex.gt-sm="50"
                             fxLayoutAlign="space-between center">
-                            <mat-form-field appearance="outline" class="check-item" fxFlex>
+                            <mat-form-field class="check-item" fxFlex>
                                 <mat-label>Shipment Term *</mat-label>
                                 <mat-select formControlName="shipment_term_id">
                                     <mat-option [value]="">
@@ -222,14 +222,14 @@
                     </div>
 
                     <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
-                        <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="25" class="pr-4">
+                        <mat-form-field fxFlex="100" fxFlex.gt-sm="25" class="pr-4">
                             <mat-label>Shipment Period From *</mat-label>
                             <input matInput [matDatepicker]="dp_shipment_period_from" placeholder="Choose a date"
                                 formControlName="shipment_period_from" [max]="form.controls.shipment_period_to.value">
                             <mat-datepicker-toggle matSuffix [for]="dp_shipment_period_from"></mat-datepicker-toggle>
                             <mat-datepicker #dp_shipment_period_from></mat-datepicker>
                         </mat-form-field>
-                        <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="25" class="pr-4">
+                        <mat-form-field fxFlex="100" fxFlex.gt-sm="25" class="pr-4">
                             <mat-label>Shipment Period To *</mat-label>
                             <input matInput [matDatepicker]="dp_shipment_period_to" placeholder="Choose a date"
                                 formControlName="shipment_period_to" [errorStateMatcher]="errorMatcher"
@@ -245,7 +245,7 @@
 
                         <div fxFlex fxLayout="row" class="check-items" fxFlex="100" fxFlex.gt-sm="50"
                             fxLayoutAlign="space-between center">
-                            <mat-form-field appearance="outline" class="check-item" fxFlex>
+                            <mat-form-field class="check-item" fxFlex>
                                 <mat-label>Shipment Option *</mat-label>
                                 <mat-select formControlName="shipment_option">
                                     <mat-option [value]="">
@@ -266,7 +266,7 @@
                     <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
                         <div fxFlex fxLayout="row" class="check-items" fxFlex="100" fxFlex.gt-sm="50"
                             fxLayoutAlign="space-between center">
-                            <mat-form-field appearance="outline" class="check-item" fxFlex>
+                            <mat-form-field class="check-item" fxFlex>
                                 <mat-label>Partial Shipment Option *</mat-label>
                                 <mat-select #partial_shipment_option_id formControlName="partial_shipment_option_id">
                                     <mat-option [value]="">
@@ -284,7 +284,7 @@
                         </div>
                         <div fxFlex fxLayout="row" class="check-items" fxFlex="100" fxFlex.gt-sm="50"
                             fxLayoutAlign="space-between center">
-                            <mat-form-field appearance="outline" class="check-item" fxFlex>
+                            <mat-form-field class="check-item" fxFlex>
                                 <mat-label>Shipment To *</mat-label>
                                 <mat-select formControlName="shipment_to_id" [errorStateMatcher]="errorMatcher">
                                     <mat-option [value]="">
@@ -306,7 +306,7 @@
                     <div fxLayout="row wrap" fxLayoutAlign="end center" fxFlex="1 0 auto">
                         <div fxFlex fxLayout="row" class="check-items" fxFlex="100" fxFlex.gt-sm="50"
                             fxLayoutAlign="space-between center">
-                            <mat-form-field appearance="outline" class="check-item" fxFlex>
+                            <mat-form-field class="check-item" fxFlex>
                                 <mat-label>Payment Term *</mat-label>
                                 <mat-select formControlName="payment_term_id">
                                     <mat-option [value]="">
@@ -324,7 +324,7 @@
                     </div>
 
                     <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
-                        <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50" class="pr-4">
+                        <mat-form-field fxFlex="100" fxFlex.gt-sm="50" class="pr-4">
                             <mat-label>Currency *</mat-label>
                             <mat-select formControlName="currency_id">
                                 <mat-option [value]="">
@@ -337,7 +337,7 @@
                         </mat-form-field>
                         <div fxFlex fxLayout="row" class="check-items" fxFlex="100" fxFlex.gt-sm="50"
                             fxLayoutAlign="space-between center">
-                            <mat-form-field appearance="outline" class="check-item" fxFlex>
+                            <mat-form-field class="check-item" fxFlex>
                                 <mat-label>Exchange Rate (Base USD : Currency) *</mat-label>
                                 <input matInput formControlName="exchange_rate" mask="comma_separator.6">
                                 <mat-checkbox matPrefix formControlName="ad_exchange_rate">
@@ -349,7 +349,7 @@
                     <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
                         <div fxFlex fxLayout="row" class="check-items" fxFlex="100" fxFlex.gt-sm="50"
                             fxLayoutAlign="space-between center">
-                            <mat-form-field appearance="outline" class="check-item-text-area" fxFlex>
+                            <mat-form-field class="check-item-text-area" fxFlex>
                                 <mat-label>Shipment Term Remark *</mat-label>
                                 <textarea matInput formControlName="shipment_term_remark"></textarea>
                                 <mat-checkbox matPrefix formControlName="ad_shipment_term_remark">
@@ -361,7 +361,7 @@
                     <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
                         <div fxFlex fxLayout="row" class="check-items" fxFlex="100" fxFlex.gt-sm="50"
                             fxLayoutAlign="space-between start">
-                            <mat-form-field appearance="outline" class="check-item-text-area" fxFlex>
+                            <mat-form-field class="check-item-text-area" fxFlex>
 
                                 <mat-label>Product Remark *</mat-label>
                                 <textarea matInput formControlName="product_remark">
@@ -375,7 +375,7 @@
                     <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
                         <div fxFlex fxLayout="row" class="check-items" fxFlex="100" fxFlex.gt-sm="50"
                             fxLayoutAlign="space-between center">
-                            <mat-form-field appearance="outline" class="check-item" fxFlex>
+                            <mat-form-field class="check-item" fxFlex>
                                 <mat-label>General Term and Condition Type *</mat-label>
                                 <mat-select #gen_term_condition_id formControlName="gen_term_condition_id">
                                     <mat-option [value]="">
@@ -393,7 +393,7 @@
                     </div>
 
                     <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
-                        <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="100" class="pr-4">
+                        <mat-form-field fxFlex="100" fxFlex.gt-sm="100" class="pr-4">
                             <mat-label>General Term and Condition *</mat-label>
                             <textarea matInput formControlName="gen_term_condition_desc">
                   </textarea>

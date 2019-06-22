@@ -1,69 +1,20 @@
-.left{
-    position: absolute;
-    left: 5px;
-}
-
-.right{
+#add-contact-button {
   position: absolute;
-  right: 5px;
-}
+  bottom: 24px;
+  right: 24px;
+  padding: 0;
+  z-index: 99;
 
+}
+.search-card{
+  background: white;
+  border-radius: 8px 8px 8px 8px;
+}
 .example-container {
-    max-height: 220px;
-    width: 100%;
-    overflow-x: scroll;
-    overflow-y: scroll;
-  }
-
-  table {
-    width: 100%;
-  }
-
-  th{
-    border-right-color: rgba(0, 0, 0, 0.12);
-    border-right-width: 1px;
-    border-right-style: solid;
-  }
-
-  .fl-row-style{
-    padding-left: 0px !important;
-    padding-right: 0px !important;
-  }
- 
-  td{
-    min-width: 150px !important;
-    border-right-color: rgba(0, 0, 0, 0.12);
-    border-right-width: 1px;
-    border-right-style: solid;
-  }
-
-  .padding-td {
-    padding-left: 12px;
-  }
-
-  .text-center{
-    text-align: center;
-  }
-
-  ::ng-deep .mat-form-field-infix {
-    display: block;
-    position: relative;
-    flex: auto;
-    min-width: 0;
-    width: 25%;
+  height: 270px;
+  overflow: auto;
 }
 
-.text-overflow {
-  white-space: nowrap!important; 
-  overflow: hidden!important;
-  text-overflow: ellipsis!important;
+mat-table {
+  width: 100%;
 }
-
-.text-center{
-  text-align: center !important;
-}
-
-.text-left{
-  text-align: left !important;
-}
-

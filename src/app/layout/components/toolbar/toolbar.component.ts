@@ -92,7 +92,7 @@ export class ToolbarComponent implements OnInit, OnDestroy {
             }
         ];
 
-        this.navigation = navigation;
+        //this.navigation = navigation;
 
 
 
@@ -127,6 +127,7 @@ export class ToolbarComponent implements OnInit, OnDestroy {
             if (this.currentUser.role) {
                 this.navigation = this.getNavigation(this.currentUser.role);
 
+                this._fuseNavigationService.unregister('main');
                 // Register the navigation to the service
                 this._fuseNavigationService.register('main', this.navigation);
 

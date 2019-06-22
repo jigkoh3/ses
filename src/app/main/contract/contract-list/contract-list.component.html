@@ -42,17 +42,17 @@
     <div class="content">
       <form class="search-card p-12" id="" fxLayout="column" name="form" [formGroup]="form" #formData='ngForm'>
         <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
-          <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="25" class="pr-8">
+          <mat-form-field fxFlex="100" fxFlex.gt-sm="25" class="pr-8">
             <mat-label>Contrace No.</mat-label>
             <input matInput placeholder="Contrace No." formControlName="contract_no">
           </mat-form-field>
-          <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="25" class="pr-8">
+          <mat-form-field fxFlex="100" fxFlex.gt-sm="25" class="pr-8">
             <mat-label>Contract Date From</mat-label>
             <input matInput [matDatepicker]="dp_contract_date_from" [max]="form.controls.contract_date_to.value"  formControlName="contract_date_from" placeholder="Choose Contract Date From">
             <mat-datepicker-toggle matSuffix [for]="dp_contract_date_from"></mat-datepicker-toggle>
             <mat-datepicker #dp_contract_date_from disabled="false"></mat-datepicker>
           </mat-form-field>
-          <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="25" class="pr-8">
+          <mat-form-field fxFlex="100" fxFlex.gt-sm="25" class="pr-8">
             <mat-label>Contract Date To</mat-label>
             <input matInput [matDatepicker]="dp_contract_date_to" [min]="form.controls.contract_date_from.value" formControlName="contract_date_to" placeholder="Choose Contract Date To">
             <mat-datepicker-toggle matSuffix [for]="dp_contract_date_to"></mat-datepicker-toggle>
@@ -62,7 +62,7 @@
                 Contract Date To must greater or equal than Contract Date From
               </mat-error>
           </mat-form-field>
-          <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="25" class="pr-8">
+          <mat-form-field fxFlex="100" fxFlex.gt-sm="25" class="pr-8">
             <mat-label>Select Contract Status</mat-label>
             <mat-select formControlName="contract_status">
               <mat-option [value]="">
@@ -75,11 +75,11 @@
           </mat-form-field>
         </div>
         <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
-          <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="25" class="pr-8">
+          <mat-form-field fxFlex="100" fxFlex.gt-sm="25" class="pr-8">
             <mat-label>Buyer Contract No.</mat-label>
             <input matInput placeholder="Buyer Contract No." formControlName="buyer_contract_no">
           </mat-form-field>
-          <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="25" class="pr-8">
+          <mat-form-field fxFlex="100" fxFlex.gt-sm="25" class="pr-8">
             <mat-label>Select Buyer</mat-label>
             <mat-select formControlName="buyer_id">
               <mat-option [value]="">
@@ -90,7 +90,7 @@
               </mat-option>
             </mat-select>
           </mat-form-field>
-          <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="25" class="pr-8">
+          <mat-form-field fxFlex="100" fxFlex.gt-sm="25" class="pr-8">
             <mat-label>Select Sugar Type</mat-label>
             <mat-select formControlName="sugar_type_id">
               <mat-option [value]="">
@@ -101,7 +101,7 @@
               </mat-option>
             </mat-select>
           </mat-form-field>
-          <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="25" class="pr-8">
+          <mat-form-field fxFlex="100" fxFlex.gt-sm="25" class="pr-8">
             <mat-label>Select Group Factory</mat-label>
             <mat-select  formControlName="group_factory_id">
               <mat-option [value]="">
